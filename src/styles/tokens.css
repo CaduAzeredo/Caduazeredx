@@ -1,0 +1,31 @@
+:root {
+  /* Color Palette - Dark Mode Default */
+  --background: #0b0d14;
+  --surface: #121522;
+  --surface-elevated: #181b29;
+  --foreground: #f4f3f7;
+  --muted-foreground: #a8a6b2;
+  --primary: #f67280;
+  --primary-muted: #c06c84;
+  --secondary: #6c5b7b;
+  --accent-blue: #355c7d;
+  --border: #282b3b;
+
+  /* Font Families */
+  --font-family-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-family-mono:
+    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+}
+
+/* Prepared Light Mode Tokens */
+.light {
+  --background: #f7f5f8;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --foreground: #172033;
+  --muted-foreground: #5e6370;
+  --primary: #c06c84;
+  --secondary: #355c7d;
+  --border: #d9d5de;
+}
