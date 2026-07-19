@@ -18,7 +18,7 @@ O site é projetado sob o conceito **"Space Terminal / Digital Workshop"**, cria
 - **Animações**: `motion` (Framer Motion v12)
 - **Roteamento**: React Router (v7)
 - **Ícones**: Lucide React
-- **Hospedagem**: Cloudflare Pages
+- **Hospedagem**: Vercel
 
 ## Estrutura do Código
 

@@ -18,7 +18,7 @@ O projeto `caduazeredo.com` está estruturado para evoluir em fases incrementais
   - React + TS + Tailwind CSS v4.
   - Animações leves de carregamento e transição via `motion`.
   - Configuração de SEO e Open Graph estática.
-  - Deploy pronto para Cloudflare Pages.
+  - Deploy pronto para Vercel.
 
 ---
 
