@@ -142,7 +142,13 @@ export const BrainStructure: React.FC<{ className?: string }> = ({
           >
             {lado > 0 &&
               camadasBrain.map((c, i) => {
-                const z = (camadasBrain.length - 1 - i) * separacao;
+                // A distribuicao e CENTRADA em zero, nao a partir da base.
+                // Com `(n - 1 - i) * sep` a camada de baixo ficava parada e as
+                // outras cinco subiam, entao o centro da pilha migrava para
+                // cima ao explodir — a peca saia do proprio eixo em vez de se
+                // abrir no lugar. Com o centro em zero, metade sobe e metade
+                // desce, e o eixo fica onde estava.
+                const z = ((camadasBrain.length - 1) / 2 - i) * separacao;
                 const ativo = emFoco === i;
                 return (
                   <div
