@@ -106,10 +106,16 @@ export const HomePage: React.FC = () => {
               </p>
 
               <div className="flex flex-wrap gap-3 pt-1">
-                <Link to="/produtos" className={buttonVariants("primary", "lg")}>
+                <Link
+                  to="/produtos"
+                  className={buttonVariants("primary", "lg")}
+                >
                   Ver a consultoria
                 </Link>
-                <Link to="/projetos" className={buttonVariants("outline", "lg")}>
+                <Link
+                  to="/projetos"
+                  className={buttonVariants("outline", "lg")}
+                >
                   O que eu construo
                 </Link>
               </div>
@@ -180,7 +186,10 @@ export const HomePage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-3 pt-3">
-                  <Link to="/produtos/brain" className={buttonVariants("primary", "md")}>
+                  <Link
+                    to="/produtos/brain"
+                    className={buttonVariants("primary", "md")}
+                  >
                     Aplicar no meu projeto
                   </Link>
                   {repoBrain?.url && (
@@ -313,7 +322,6 @@ export const HomePage: React.FC = () => {
             ))}
           </div>
         </section>
-
 
         {/* SEÇÃO B: MANIFESTO */}
         <section className="text-left max-w-3xl space-y-6">

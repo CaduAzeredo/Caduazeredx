@@ -37,9 +37,9 @@ export const TermsPage: React.FC = () => {
             Termos de Uso
           </h1>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Este site é uma vitrine com um formulário de contato. Não vende
-            nada online, não tem conta de usuário e não entrega software por
-            aqui. Estes termos cobrem exatamente esse cenário.
+            Este site é uma vitrine com um formulário de contato. Não vende nada
+            online, não tem conta de usuário e não entrega software por aqui.
+            Estes termos cobrem exatamente esse cenário.
           </p>
           <p className="font-mono text-xs text-muted-foreground/70">
             Última atualização: {ATUALIZADO_EM}
@@ -116,9 +116,7 @@ export const TermsPage: React.FC = () => {
           <p>
             O material técnico publicado aqui é informação geral, escrita a
             partir de experiência real, mas{" "}
-            <strong className="text-foreground">
-              sem conhecer o seu caso
-            </strong>
+            <strong className="text-foreground">sem conhecer o seu caso</strong>
             .
           </p>
           <p>

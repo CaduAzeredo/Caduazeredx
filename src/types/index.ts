@@ -41,11 +41,7 @@ export interface Product {
 }
 
 export type NovidadeCategoria =
-  | "modelo"
-  | "interface"
-  | "seguranca"
-  | "arquitetura"
-  | "lancamento";
+  "modelo" | "interface" | "seguranca" | "arquitetura" | "lancamento";
 
 export interface NovidadeEntry {
   id: string;
@@ -87,12 +83,7 @@ export interface ServiceStep {
 }
 
 export type IconeTipoDeSite =
-  | "shopping-bag"
-  | "store"
-  | "boxes"
-  | "utensils"
-  | "link"
-  | "calendar-check";
+  "shopping-bag" | "store" | "boxes" | "utensils" | "link" | "calendar-check";
 
 export interface TipoDeSite {
   slug: string;

@@ -34,7 +34,8 @@ export const services: Service[] = [
       "Correção do que for encontrado — isso é trabalho separado, decidido depois de você ver o retrato.",
       "Acesso a produção. A auditoria é somente leitura, e qualquer comando que escreva passa por autorização sua, caso a caso.",
     ],
-    duracaoTipica: "Uma rodada fechada, com data de início e de entrega combinadas antes de começar.",
+    duracaoTipica:
+      "Uma rodada fechada, com data de início e de entrega combinadas antes de começar.",
     status: "disponivel",
   },
   {
@@ -53,7 +54,8 @@ export const services: Service[] = [
     foraDoEscopo: [
       "Escrever o produto por você. A implantação instala o método e conduz uma rodada; o volume seguinte é do seu time ou de outra contratação.",
     ],
-    duracaoTipica: "Algumas semanas, terminando num handoff — não num acesso permanente.",
+    duracaoTipica:
+      "Algumas semanas, terminando num handoff — não num acesso permanente.",
     status: "disponivel",
   },
   {
@@ -73,7 +75,8 @@ export const services: Service[] = [
       "Design de interface e identidade visual, salvo se combinados à parte.",
       "Operação e suporte contínuo depois da entrega.",
     ],
-    duracaoTipica: "Definida junto com o escopo, em rodadas fechadas com entrega verificável em cada uma.",
+    duracaoTipica:
+      "Definida junto com o escopo, em rodadas fechadas com entrega verificável em cada uma.",
     status: "disponivel",
   },
   {

@@ -19,7 +19,9 @@ export const TypewriterText: React.FC<TypewriterTextProps> = ({
   const semMovimento = useReducedMotion();
 
   // Inicialização dinâmica do estado evita chamadas síncronas de setState em useEffect
-  const [displayText, setDisplayText] = useState(() => (semMovimento ? text : ""));
+  const [displayText, setDisplayText] = useState(() =>
+    semMovimento ? text : "",
+  );
   const [isComplete, setIsComplete] = useState(() => semMovimento);
 
   useEffect(() => {

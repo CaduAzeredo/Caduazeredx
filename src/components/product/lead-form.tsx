@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {AlertTriangle, CheckCircle2, Info} from "lucide-react";
+import { AlertTriangle, CheckCircle2, Info } from "lucide-react";
 import Button from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
 import type { ProductSlug } from "@/types";

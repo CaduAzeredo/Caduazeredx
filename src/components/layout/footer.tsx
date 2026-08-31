@@ -17,7 +17,10 @@ export const Footer: React.FC = () => {
 
           {/* Paginas legais — alcancaveis de qualquer rota */}
           <nav className="flex items-center gap-4 font-mono text-[11px] text-muted-foreground">
-            <Link to="/privacidade" className="hover:text-primary transition-colors">
+            <Link
+              to="/privacidade"
+              className="hover:text-primary transition-colors"
+            >
               Privacidade
             </Link>
             <span className="text-muted-foreground/30">|</span>

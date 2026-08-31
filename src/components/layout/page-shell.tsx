@@ -14,7 +14,10 @@ export interface PageShellProps {
  * nada a decidir em tempo de execução.
  */
 export const PageShell: React.FC<PageShellProps> = ({ children }) => (
-  <main id="conteudo" className="anim-page-enter flex-grow flex flex-col w-full">
+  <main
+    id="conteudo"
+    className="anim-page-enter flex-grow flex flex-col w-full"
+  >
     {children}
   </main>
 );
