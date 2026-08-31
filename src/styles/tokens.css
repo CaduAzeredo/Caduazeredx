@@ -58,3 +58,40 @@
    linha de código nenhuma e já nascia incompleto — dois tokens de acento não
    eram redefinidos. Meio-pronto e invisível é pior que ausente: quem for
    implementar tema claro começa daqui, de propósito. */
+
+/* ============================================================================
+   Modo de leitura — Empresa e Dev
+
+   Só troca de token. Zero biblioteca, zero animação contínua, nenhum
+   componente que saiba de que cor ele é: tudo lê --primary e --glow-rgb, então
+   o site inteiro muda de temperatura numa transição de 300ms.
+
+   `:root` é o modo Dev. Isso é deliberado: sem JavaScript, com JavaScript
+   lento, ou com o armazenamento local bloqueado, o site nasce verde e
+   completo em vez de meio pintado.
+
+   Contraste medido sobre --background, mesma régua da paleta base: todo token
+   que pode virar texto pequeno passa AA.
+   ========================================================================= */
+
+[data-mode="empresa"] {
+  --primary: #4f9dbf; /* 6,4:1 — azul-aço, mais institucional */
+  --primary-muted: #4590af; /* 5,4:1 */
+  --primary-deep: #35708a; /* preenchimento e texto grande        */
+  --border-accent: #1e4a5c;
+  --glow-rgb: 79 157 191;
+}
+
+/* A transição vive só nas superfícies que carregam acento. Aplicar em `*`
+   faria a página inteira reanimar a cada troca, e o bloco global de
+   movimento reduzido já a desliga para quem pediu. */
+a,
+button,
+input,
+[data-mode-surface] {
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}

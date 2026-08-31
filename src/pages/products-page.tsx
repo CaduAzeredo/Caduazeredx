@@ -5,6 +5,7 @@ import ProductCard from "@/components/product/product-card";
 import TerminalWindow from "@/components/terminal/terminal-window";
 import { products } from "@/content/products";
 import { services, fluxo } from "@/content/services";
+import ModeCards from "@/components/mode/mode-cards";
 
 export const ProductsPage: React.FC = () => {
   useEffect(() => {
@@ -14,7 +15,7 @@ export const ProductsPage: React.FC = () => {
 
   return (
     <PageShell>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+      <div className="max-w-6xl mx-auto flex flex-col gap-16 px-4 sm:px-6 lg:px-8 py-12">
         {/* Cabeçalho */}
         <header className="space-y-4 text-left border-b border-border/80 pb-8">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
@@ -28,8 +29,15 @@ export const ProductsPage: React.FC = () => {
           </p>
         </header>
 
+        {/* Modo de leitura — muda a ORDEM das duas seções abaixo, e a
+            temperatura do site inteiro. Nada é escondido. */}
+        <ModeCards />
+
         {/* Ferramentas */}
-        <section className="space-y-6">
+        <section
+          data-audience="dev"
+          className="space-y-6 order-2 [html[data-mode=empresa]_&]:order-3"
+        >
           <div className="space-y-2">
             <h2 className="text-xl font-bold tracking-tight font-sans">
               As ferramentas
@@ -48,7 +56,10 @@ export const ProductsPage: React.FC = () => {
         </section>
 
         {/* Consultoria */}
-        <section className="space-y-6">
+        <section
+          data-audience="empresa"
+          className="space-y-6 order-3 [html[data-mode=empresa]_&]:order-2"
+        >
           <div className="space-y-2">
             <h2 className="text-xl font-bold tracking-tight font-sans">
               A consultoria
@@ -133,7 +144,7 @@ export const ProductsPage: React.FC = () => {
         </section>
 
         {/* Fluxo */}
-        <section className="space-y-6">
+        <section className="space-y-6 order-4">
           <div className="space-y-2">
             <h2 className="text-xl font-bold tracking-tight font-sans">
               Como funciona, do começo ao fim

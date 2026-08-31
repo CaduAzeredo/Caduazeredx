@@ -26,6 +26,13 @@
 
     <meta name="theme-color" content="#0A0E10" />
 
+    <!-- Modo de leitura, antes do primeiro desenho. Arquivo externo e não
+         inline porque a política de segurança declara script-src 'self' sem
+         unsafe-inline — e afrouxá-la para acomodar aparência seria trocar
+         segurança por conveniência. Bloqueante de propósito: depois da
+         pintura, a página piscaria no padrão antes de assumir a escolha. -->
+    <script src="/mode-init.js"></script>
+
     <!-- Fontes — sem o eixo itálico: o site inteiro não usa nenhum, e o eixo
          custa dois arquivos por família. Faixa de peso reduzida ao que existe. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
