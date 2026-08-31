@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import SpaceBackground from "@/components/background/space-background";
 import BottomNav from "@/components/layout/bottom-nav";
 import AppRouter from "./router";
+import { ativarMovimento } from "@/lib/motion-enhance";
 
 export const App: React.FC = () => {
+  // Rolagem suave, revelacao por rolagem e titulo por mascara de linha. Entra
+  // em tempo ocioso, DEPOIS da primeira pintura: a pagina inteira funciona sem
+  // isto, e nada aqui pode atrasar o primeiro desenho.
+  useEffect(() => ativarMovimento(), []);
+
   return (
     <div className="min-h-screen flex flex-col relative text-foreground">
       {/* Pular para o conteúdo — invisível até receber foco pelo teclado.

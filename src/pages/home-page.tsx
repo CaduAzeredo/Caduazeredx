@@ -1,11 +1,12 @@
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { useCallback, useEffect, useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import PageShell from "@/components/layout/page-shell";
 import { buttonVariants } from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
 import TypewriterText from "@/components/terminal/typewriter-text";
 import ProjectCard from "@/components/project/project-card";
-import CodeRain from "@/components/background/code-rain";
+import HeroBackdrop, { type EstadoCena } from "@/components/hero/hero-backdrop";
+import BootScreen from "@/components/boot/boot-screen";
 import { tiposDeSite } from "@/content/tambem-construi";
 
 // A Rei é interativa e carrega o próprio roteiro de respostas. Nada nela
@@ -49,6 +50,41 @@ export const HomePage: React.FC = () => {
     document.title = "Cadu Azeredo — Front-end Developer & Product Builder";
   }, []);
 
+  // ── a tela de boot e as etapas que ela cobre ────────────────────────────
+  // Cada etapa e uma promessa que resolve de verdade. Nao ha contador falso:
+  // se nada disso demorar, a tela nem chega a ser desenhada.
+  const [cena, setCena] = useState<EstadoCena>("decidindo");
+  const [fontesOk, setFontesOk] = useState(false);
+
+  useEffect(() => {
+    let vivo = true;
+    const pronto = () => vivo && setFontesOk(true);
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(pronto).catch(pronto);
+    } else {
+      pronto();
+    }
+    return () => {
+      vivo = false;
+    };
+  }, []);
+
+  const aoMudarCena = useCallback((e: EstadoCena) => setCena(e), []);
+
+  const etapasBoot = [
+    { rotulo: "carregando tipografia", feito: fontesOk, valor: "2 famílias" },
+    {
+      rotulo: "verificando suporte a WebGL",
+      feito: cena !== "decidindo",
+      valor: "ok",
+    },
+    {
+      rotulo: "montando campo de partículas",
+      feito: cena === "pronta",
+      valor: "5 200",
+    },
+  ];
+
   // Encontra o DiáriaBr para destacar
   const diariaBrProject = projects.find((p) => p.slug === "diariabr");
 
@@ -56,10 +92,21 @@ export const HomePage: React.FC = () => {
     <PageShell>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24 md:space-y-36">
         {/* ═══ HERO ═══
-            A chuva vive só aqui. Espalhada pela página ela some; concentrada
-            no topo, é a primeira coisa que se vê e desaparece ao rolar. */}
+            O elemento-assinatura da v3, e o unico lugar onde gastamos ousadia.
+            O fundo vive so aqui: espalhado pela pagina ele some; concentrado no
+            topo, e a primeira coisa que se ve e desaparece ao rolar.
+
+            Quem passa pelo portao de capacidade recebe o campo de particulas em
+            WebGL; todo o resto recebe a chuva em CSS, que continua completa
+            sozinha. */}
+        <BootScreen
+          etapas={etapasBoot}
+          concluido={fontesOk && cena === "pronta"}
+          dispensada={cena === "leve"}
+        />
+
         <section className="relative -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 pt-4 pb-8">
-          <CodeRain />
+          <HeroBackdrop onEstado={aoMudarCena} />
 
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             <div className="lg:col-span-7 flex flex-col gap-6">
@@ -125,9 +172,12 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* ═══ O QUE EU CONSTRUO ═══ */}
-        <section className="space-y-6">
+        <section data-reveal className="space-y-6">
           <div className="flex items-baseline justify-between gap-4">
-            <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight">
+            <h2
+              data-split
+              className="font-sans text-2xl sm:text-3xl font-bold tracking-tight"
+            >
               O que eu construo
             </h2>
             <Link
@@ -228,8 +278,11 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* ═══ TAMBÉM CONSTRUÍ ═══ */}
-        <section className="space-y-5">
-          <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight">
+        <section data-reveal className="space-y-5">
+          <h2
+            data-split
+            className="font-sans text-2xl sm:text-3xl font-bold tracking-tight"
+          >
             Também construí
           </h2>
           <p className="max-w-[66ch] text-sm leading-relaxed text-muted-foreground">
@@ -284,9 +337,12 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* ═══ O QUE EU RESOLVO ═══ */}
-        <section className="space-y-6">
+        <section data-reveal className="space-y-6">
           <div className="flex items-baseline justify-between gap-4">
-            <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight">
+            <h2
+              data-split
+              className="font-sans text-2xl sm:text-3xl font-bold tracking-tight"
+            >
               O que eu resolvo
             </h2>
             <Link
@@ -324,8 +380,11 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* SEÇÃO B: MANIFESTO */}
-        <section className="text-left max-w-3xl space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans">
+        <section data-reveal className="text-left max-w-3xl space-y-6">
+          <h2
+            data-split
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground font-sans"
+          >
             Construo interfaces para ideias que precisam sair do papel.
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed font-sans">
@@ -339,10 +398,13 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* SEÇÃO C: TRABALHO EM DESTAQUE */}
-        <section className="space-y-8 text-left">
+        <section data-reveal className="space-y-8 text-left">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-2">
-              <h2 className="text-2xl sm:text-3xl font-bold font-sans">
+              <h2
+                data-split
+                className="text-2xl sm:text-3xl font-bold font-sans"
+              >
                 Em construção e em produção
               </h2>
               <p className="text-sm text-muted-foreground">
@@ -388,9 +450,9 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* SEÇÃO D: TRAJETÓRIA */}
-        <section className="space-y-12 text-left">
+        <section data-reveal className="space-y-12 text-left">
           <div className="space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-bold font-sans">
+            <h2 data-split className="text-2xl sm:text-3xl font-bold font-sans">
               Do WordPress aos produtos digitais
             </h2>
             <p className="text-sm text-muted-foreground max-w-xl">
@@ -468,9 +530,9 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* SEÇÃO E: FORMA DE TRABALHAR */}
-        <section className="space-y-12 text-left">
+        <section data-reveal className="space-y-12 text-left">
           <div className="space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-bold font-sans">
+            <h2 data-split className="text-2xl sm:text-3xl font-bold font-sans">
               Do problema ao produto
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -531,9 +593,9 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* SEÇÃO F: STACK ATUAL */}
-        <section className="space-y-8 text-left">
+        <section data-reveal className="space-y-8 text-left">
           <div className="space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-bold font-sans">
+            <h2 data-split className="text-2xl sm:text-3xl font-bold font-sans">
               Ferramentas do meu workspace
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -569,14 +631,17 @@ export const HomePage: React.FC = () => {
         </section>
 
         {/* SEÇÃO G: CTA FINAL */}
-        <section className="w-full">
+        <section data-reveal className="w-full">
           <TerminalWindow title="cadu@azeredo: ~">
             <div className="space-y-6 py-4 text-center md:text-left md:px-6">
               <div className="space-y-2">
                 <p className="text-primary-muted font-bold font-mono text-sm">
                   $ <span className="text-foreground">next_step --contact</span>
                 </p>
-                <h2 className="text-2xl sm:text-3xl font-bold font-sans text-foreground">
+                <h2
+                  data-split
+                  className="text-2xl sm:text-3xl font-bold font-sans text-foreground"
+                >
                   Tem uma ideia para construir?
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground max-w-xl font-sans">
