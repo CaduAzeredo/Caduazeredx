@@ -31,18 +31,9 @@ const TerminalLoader = () => {
             <span>...</span>
           ) : (
             <span className="inline-flex items-center ml-0.5">
-              <span
-                className="terminal-dot w-1 h-1 rounded-full bg-muted-foreground"
-                style={{ animationDelay: "0ms" }}
-              />
-              <span
-                className="terminal-dot w-1 h-1 rounded-full bg-muted-foreground ml-1"
-                style={{ animationDelay: "200ms" }}
-              />
-              <span
-                className="terminal-dot w-1 h-1 rounded-full bg-muted-foreground ml-1"
-                style={{ animationDelay: "400ms" }}
-              />
+              <span className="terminal-dot w-1 h-1 rounded-full bg-muted-foreground" />
+              <span className="terminal-dot terminal-dot-2 w-1 h-1 rounded-full bg-muted-foreground ml-1" />
+              <span className="terminal-dot terminal-dot-3 w-1 h-1 rounded-full bg-muted-foreground ml-1" />
             </span>
           )}
           <span

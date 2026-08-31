@@ -44,7 +44,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   }
 
   return (
-    <div className="h-full rounded-lg bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 relative group glow-border">
+    <div className="h-full rounded-lg bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary/50 transition-[border-color,box-shadow] duration-300 relative group glow-border">
       <div className="space-y-4">
         {/* Categoria & Status */}
         <div className="flex items-center justify-between">

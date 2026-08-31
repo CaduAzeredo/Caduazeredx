@@ -19,8 +19,8 @@
   --surface: #101618;
   --surface-elevated: #161d20;
   --border: #1e2a2b;
-  --foreground: #edf2ef; /* 16,3:1 — AAA */
-  --muted-foreground: #8a9a92; /*  7,0:1 — AA  */
+  --foreground: #edf2ef; /* 17,1:1 — AAA */
+  --muted-foreground: #8a9a92; /*  6,6:1 — AA  */
 
   /* ---- acento: cobre ~8%, e só onde tem função ---- */
   --primary: #3fa372; /*  6,2:1 — AA. Texto, link, prompt, botão.       */

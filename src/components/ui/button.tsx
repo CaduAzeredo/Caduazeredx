@@ -7,7 +7,7 @@ export const buttonVariants = (
   size: "sm" | "md" | "lg" = "md",
 ) => {
   return cn(
-    "inline-flex items-center justify-center font-sans font-medium rounded transition-all duration-200 outline-none cursor-pointer focus:ring-1 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed",
+    "inline-flex items-center justify-center font-sans font-medium rounded transition-[color,background-color,border-color,box-shadow,transform] duration-200 outline-none cursor-pointer focus:ring-1 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed",
     // Variants
     // Nenhuma cor escrita aqui: a de fundo vem do token, a do texto é o próprio
     // fundo da página, e o brilho sai de .glow-border — que lê --glow-rgb e

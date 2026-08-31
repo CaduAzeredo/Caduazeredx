@@ -121,6 +121,18 @@
   animation: terminal-dot-fade 1.4s ease-in-out infinite;
 }
 
+/* O escalonamento dos tres pontos vive aqui, nao em `style` inline. Em
+   componente ele fica invisivel para qualquer auditoria de movimento e
+   escapa da troca de tema; aqui o bloco global de movimento reduzido o
+   alcanca junto com todo o resto. */
+.terminal-dot-2 {
+  animation-delay: 200ms;
+}
+
+.terminal-dot-3 {
+  animation-delay: 400ms;
+}
+
 /* ---------------------------------------------------------------------------
    Movimento reduzido — a rede de segurança que não existia.
 

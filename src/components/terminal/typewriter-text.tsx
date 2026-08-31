@@ -64,9 +64,8 @@ export const TypewriterText: React.FC<TypewriterTextProps> = ({
         {showCursor && !semMovimento && (
           <span
             className={`inline-block w-1.5 h-4 bg-primary ml-1 align-middle ${
-              isComplete ? "animate-pulse" : ""
+              isComplete ? "terminal-cursor" : ""
             }`}
-            style={{ animationDuration: "1s" }}
           />
         )}
       </span>
