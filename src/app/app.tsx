@@ -5,12 +5,22 @@ import SpaceBackground from "@/components/background/space-background";
 import BottomNav from "@/components/layout/bottom-nav";
 import AppRouter from "./router";
 import { ativarMovimento } from "@/lib/motion-enhance";
+import { marcarBoot, encerrarBoot } from "@/lib/boot-shell";
+import DefenseMode from "@/components/invasao/defense-mode";
 
 export const App: React.FC = () => {
   // Rolagem suave, revelacao por rolagem e titulo por mascara de linha. Entra
   // em tempo ocioso, DEPOIS da primeira pintura: a pagina inteira funciona sem
   // isto, e nada aqui pode atrasar o primeiro desenho.
   useEffect(() => ativarMovimento(), []);
+
+  // A aplicacao montou: e uma etapa real da casca de boot. Fora da home nao ha
+  // cena pesada para cobrir, entao a casca sai assim que a pagina existe — o
+  // dono do fechamento na home e a propria home, que sabe da cena.
+  useEffect(() => {
+    marcarBoot("app");
+    if (window.location.pathname !== "/") encerrarBoot();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col relative text-foreground">
@@ -42,6 +52,10 @@ export const App: React.FC = () => {
       {/* Navegação do celular — fixa na zona do polegar. O respiro inferior
           está no contêiner acima: sem ele esta barra cobre o fim do conteúdo. */}
       <BottomNav />
+
+      {/* O modo de defesa. Nao renderiza nada ate alguem escrever o comando
+          no console da Rei — e, quando renderiza, nao bloqueia a pagina. */}
+      <DefenseMode />
     </div>
   );
 };

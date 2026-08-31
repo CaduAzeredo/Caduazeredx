@@ -26,12 +26,13 @@
 
     <meta name="theme-color" content="#0A0E10" />
 
-    <!-- Modo de leitura, antes do primeiro desenho. Arquivo externo e não
-         inline porque a política de segurança declara script-src 'self' sem
-         unsafe-inline — e afrouxá-la para acomodar aparência seria trocar
-         segurança por conveniência. Bloqueante de propósito: depois da
-         pintura, a página piscaria no padrão antes de assumir a escolha. -->
+    <!-- Modo de leitura e casca de boot, antes do primeiro desenho. Arquivo
+         externo e não script inline porque a política de segurança declara
+         script-src 'self' sem unsafe-inline — e afrouxá-la para acomodar uma
+         funcionalidade de aparência seria trocar segurança por conveniência.
+         Bloqueante de propósito: depois da pintura, a página piscaria. -->
     <script src="/mode-init.js"></script>
+    <script src="/boot.js" defer></script>
 
     <!-- Fontes — sem o eixo itálico: o site inteiro não usa nenhum, e o eixo
          custa dois arquivos por família. Faixa de peso reduzida ao que existe. -->
@@ -41,8 +42,206 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400..700&family=Plus+Jakarta+Sans:wght@300..800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- ══ A CASCA DE BOOT ══
+         Estilo embutido, e não no pacote de CSS, por um motivo que é a razão de
+         a casca existir: ela precisa pintar no PRIMEIRO quadro, antes dos ~106 KB
+         da aplicação. Uma tela de carregamento só melhora o desempenho percebido
+         quando ela É a primeira pintura; carregada junto com a aplicação, é
+         apenas atraso encenado.
+
+         As cinco cores abaixo estão escritas à mão, e isso é uma exceção
+         declarada à regra de que cor vive só em `tokens.css`. Ela se justifica
+         aqui e em nenhum outro lugar: no instante em que esta casca é desenhada,
+         a folha de tokens ainda pode não ter chegado. Se a paleta mudar, estes
+         cinco valores mudam junto — está anotado no AGENTS.md. -->
+    <style>
+      #boot {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        padding: 24px;
+        background: #0a0e10;
+        color: #edf2ef;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        opacity: 1;
+        transition: opacity 400ms ease;
+      }
+      html.boot-off #boot {
+        display: none;
+      }
+      #boot[data-saindo] {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #boot .boot-skip {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        border: 1px solid #1e2a2b;
+        border-radius: 999px;
+        background: transparent;
+        color: #8a9a92;
+        font: inherit;
+        font-size: 11px;
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+      #boot .boot-skip:hover {
+        color: #edf2ef;
+      }
+      #boot .boot-mid {
+        width: 100%;
+        max-width: 460px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      #boot .boot-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+        font-size: 22px;
+      }
+      #boot .boot-prompt {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #3fa372;
+        border-radius: 7px;
+        color: #3fa372;
+        font-weight: 700;
+        font-size: 13px;
+      }
+      #boot .boot-name {
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+      #boot .boot-slash {
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+        font-weight: 300;
+        color: #3fa372;
+      }
+      #boot ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      #boot li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 12.5px;
+        color: #edf2ef;
+      }
+      #boot li i {
+        width: 6px;
+        height: 6px;
+        flex: none;
+        border-radius: 50%;
+        background: #1e2a2b;
+      }
+      #boot li span {
+        flex: 1;
+      }
+      #boot li b {
+        font-weight: 400;
+        font-size: 11px;
+        color: #8a9a92;
+        opacity: 0;
+      }
+      #boot li[data-feito] {
+        color: #8a9a92;
+      }
+      #boot li[data-feito] i {
+        background: #3fa372;
+      }
+      #boot li[data-feito] b {
+        opacity: 1;
+      }
+      #boot .boot-bar {
+        height: 1px;
+        background: #1e2a2b;
+        overflow: hidden;
+      }
+      #boot .boot-bar div {
+        height: 100%;
+        width: 0;
+        background: #3fa372;
+        transition: width 300ms ease;
+      }
+      #boot .boot-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        color: #8a9a92;
+      }
+      #boot .boot-foot {
+        position: absolute;
+        bottom: 24px;
+        margin: 0;
+        font-size: 10px;
+        color: #8a9a92;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #boot,
+        #boot .boot-bar div {
+          transition-duration: 0.01ms;
+        }
+      }
+    </style>
   </head>
   <body>
+    <div id="boot">
+      <button class="boot-skip" id="boot-skip" type="button">pular</button>
+
+      <div class="boot-mid">
+        <div class="boot-brand">
+          <span class="boot-prompt">&gt;_</span>
+          <span class="boot-name">Cadu Azeredo</span>
+          <span class="boot-slash">/</span>
+        </div>
+
+        <ul>
+          <li data-step="css">
+            <i></i><span>folha de estilo</span><b>aplicada</b>
+          </li>
+          <li data-step="fontes">
+            <i></i><span>carregando tipografia</span><b>2 famílias</b>
+          </li>
+          <li data-step="app">
+            <i></i><span>montando a aplicação</span><b>pronta</b>
+          </li>
+          <li data-step="cena">
+            <i></i><span>campo de partículas</span><b>5 200</b>
+          </li>
+        </ul>
+
+        <div>
+          <div class="boot-bar"><div id="boot-fill"></div></div>
+          <div class="boot-meta" style="margin-top: 10px">
+            <span>PROGRESSO REAL — SAI QUANDO ESTIVER PRONTO</span>
+            <span id="boot-pct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="boot-foot">só na primeira visita · nunca atrasa</p>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

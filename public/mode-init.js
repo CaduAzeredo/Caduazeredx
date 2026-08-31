@@ -16,4 +16,22 @@
   } catch (e) {
     /* armazenamento bloqueado: fica o padrão do :root, que é Dev */
   }
+
+  /* A casca de boot: decidida AQUI, antes de qualquer pintura.
+   *
+   * Ela vive no index.html como HTML e CSS puros, e por isso aparece no
+   * primeiro quadro — antes dos 106 KB da aplicação existirem. É o unico
+   * jeito honesto de a tela de carregamento MELHORAR o desempenho percebido
+   * em vez de so atrasar: ela e a primeira pintura, nao um atraso somado a
+   * ela.
+   *
+   * Quem ja visitou nao ve nada: a classe entra antes do body ser desenhado,
+   * entao nao ha piscar. */
+  try {
+    if (localStorage.getItem("cadu.boot") === "1") {
+      document.documentElement.className += " boot-off";
+    }
+  } catch (e) {
+    /* sem armazenamento: mostra a casca, que e o comportamento seguro */
+  }
 })();

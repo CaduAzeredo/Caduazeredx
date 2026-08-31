@@ -119,7 +119,25 @@ function saturacao(hex) {
   return d / (1 - Math.abs(2 * l - 1));
 }
 
-const css = readFileSync(TOKENS, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+/**
+ * O teto de saturacao vale para a PALETA DE MARCA, e nao para o modo de defesa.
+ *
+ * O bloco `[data-invadido]` e o easter egg: o site fingindo ter sido invadido.
+ * Cor de alarme e para alarmar, e desaturar ali seria aplicar a regra sem
+ * entender por que ela existe — o teto nasceu para impedir que a marca caia no
+ * vicio "near-black + acid-green", nao para proibir vermelho de alerta.
+ *
+ * A excecao e pelo nome do seletor, e nao por lista de cores: assim ela nao
+ * pode ser usada para passar contrabando na paleta de verdade. O contraste
+ * daquele bloco continua sendo medido pelo check-contrast, junto com os outros.
+ */
+const cssBruto = readFileSync(TOKENS, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+const iDefesa = cssBruto.indexOf("[data-invadido]");
+const css =
+  iDefesa < 0
+    ? cssBruto
+    : cssBruto.slice(0, iDefesa) +
+      cssBruto.slice(cssBruto.indexOf("}", iDefesa) + 1);
 const acentos = [...css.matchAll(/--(primary(?:-muted|-deep)?)\s*:\s*(#[0-9a-fA-F]{6})/g)];
 
 if (acentos.length === 0) {

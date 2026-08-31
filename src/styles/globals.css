@@ -134,6 +134,52 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Modo de defesa — o easter egg.
+
+   A troca de cor inteira mora em tokens.css, no bloco [data-invadido]. Aqui
+   ficam só as duas coisas que sao efeito e nao cor: a varredura de tubo antigo
+   e a entrada das janelas.
+
+   As duas passam pelo bloco global de movimento reduzido logo abaixo, como
+   qualquer outra animacao do site — o easter egg nao tem passe livre.
+   --------------------------------------------------------------------------- */
+@keyframes invasao-varredura {
+  from {
+    background-position-y: 0;
+  }
+  to {
+    background-position-y: 100vh;
+  }
+}
+
+@keyframes invasao-entrada {
+  from {
+    opacity: 0;
+    transform: translateX(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.invasao-scan {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(var(--glow-rgb) / 0.055) 0px,
+    rgb(var(--glow-rgb) / 0.055) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  animation: invasao-varredura 9s linear infinite;
+}
+
+.invasao-janela {
+  animation: invasao-entrada 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+  box-shadow: 0 14px 40px -14px rgb(var(--glow-rgb) / 0.35);
+}
+
+/* ---------------------------------------------------------------------------
    Movimento reduzido — a rede de segurança que não existia.
 
    Até aqui a proteção era toda imperativa, em quatro pontos de JavaScript, e

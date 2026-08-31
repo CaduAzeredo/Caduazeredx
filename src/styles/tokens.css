@@ -82,6 +82,56 @@
   --glow-rgb: 79 157 191;
 }
 
+/* ============================================================================
+   MODO DE DEFESA — o easter egg
+
+   Alcançado escrevendo `hacker.exe` (e algumas variantes) no console da Rei.
+   A ficção: alguém tentou invadir, e o site respondeu trancando tudo em
+   vermelho de alarme. Estética de internet velha do Cyberpunk 2077, com a
+   cyberpsicose vazando pela interface.
+
+   Duas coisas que valem escrever, porque parecem contradições e não são:
+
+   1. **Aqui o vermelho É atmosfera, de propósito.** A regra "o verde é
+      elemento, nunca atmosfera" governa a marca. Este não é o site: é o site
+      dizendo que foi atacado. Um alarme que aparece só num cantinho não é
+      alarme.
+
+   2. **A saturação estoura o teto do `check-slop`, e isso está certo.** O teto
+      de 65% existe para impedir que a PALETA DE MARCA caia no vício
+      "near-black + acid-green". Cor de alarme é para alarmar; desaturar aqui
+      seria aplicar a regra sem entender por que ela existe. O validador
+      conhece a exceção pelo nome do seletor.
+
+   O que NÃO se afrouxa: todo contraste continua medido, e o `check-contrast`
+   roda esta paleta junto com as outras duas. Um easter egg ilegível é um bug
+   com piada em cima.
+   ========================================================================= */
+
+[data-invadido] {
+  --background: #120809;
+  --surface: #1a0c0d;
+  --surface-elevated: #231012;
+  --border: #3a1a1a;
+  --foreground: #f5eceb; /* 17,0:1 — AAA */
+  --muted-foreground: #b09a98; /*  7,4:1 — AA  */
+
+  --primary: #ff4438; /*  5,8:1 — AA. Alarme.                */
+  --primary-muted: #e8463c; /*  5,1:1 — AA                          */
+  --primary-deep: #bf3025; /*  3,4:1 — só preenchimento e texto grande */
+  --border-accent: #7a2019;
+
+  --secondary: #c98d88;
+  --accent-blue: #b08a92;
+
+  --status-live: #ff4438;
+  --status-security: #ff8a7d;
+  --status-wait: #e8b24a;
+  --status-alert: #ff4438;
+
+  --glow-rgb: 255 68 56;
+}
+
 /* A transição vive só nas superfícies que carregam acento. Aplicar em `*`
    faria a página inteira reanimar a cada troca, e o bloco global de
    movimento reduzido já a desliga para quem pediu. */

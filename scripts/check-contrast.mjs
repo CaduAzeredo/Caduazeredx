@@ -9,8 +9,9 @@
  *
  * Este script lê os tokens de verdade, resolve os `var()`, calcula a razão de
  * contraste WCAG 2.1 de cada par que existe na interface, e **reprova** o que
- * não passa. Roda nos dois modos de leitura: `:root` (Dev) e
- * `[data-mode="empresa"]`.
+ * não passa. Roda nos três modos: `:root` (Dev), `[data-mode="empresa"]` e
+ * `[data-invadido]` (o modo de defesa do easter egg) — um easter egg ilegível
+ * é um bug com piada em cima.
  *
  * A ideia vem do `codeswithroh/tastemaker` (MIT), que valida uma matriz de
  * contraste antes de deixar um agente escolher cor. A implementação é nossa.
@@ -151,9 +152,20 @@ if (!empresaTexto) {
 const empresa = new Map(base);
 for (const [k, v] of tokens(empresaTexto)) empresa.set(k, v);
 
+// O modo de defesa (o easter egg) e medido junto com os outros dois. Um easter
+// egg ilegivel e um bug com piada em cima.
+const invadidoTexto = bloco(css, "[data-invadido]");
+if (!invadidoTexto) {
+  console.error("erro: nao achei o bloco [data-invadido] em src/styles/tokens.css");
+  process.exit(1);
+}
+const invadido = new Map(base);
+for (const [k, v] of tokens(invadidoTexto)) invadido.set(k, v);
+
 const MODOS = [
   ["Dev  (:root)", base],
   ['Empresa ([data-mode="empresa"])', empresa],
+  ["Defesa ([data-invadido])", invadido],
 ];
 
 let falhas = 0;
@@ -197,5 +209,5 @@ if (falhas || naoResolvidos) {
   process.exit(1);
 }
 console.log(
-  `contraste: ${PARES.length * MODOS.length} pares medidos nos dois modos. Resultado: OK`,
+  `contraste: ${PARES.length * MODOS.length} pares medidos em ${MODOS.length} modos. Resultado: OK`,
 );

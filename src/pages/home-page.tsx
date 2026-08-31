@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, lazy, Suspense } from "react";
+import React, { useCallback, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import PageShell from "@/components/layout/page-shell";
 import { buttonVariants } from "@/components/ui/button";
@@ -6,7 +6,7 @@ import TerminalWindow from "@/components/terminal/terminal-window";
 import TypewriterText from "@/components/terminal/typewriter-text";
 import ProjectCard from "@/components/project/project-card";
 import HeroBackdrop, { type EstadoCena } from "@/components/hero/hero-backdrop";
-import BootScreen from "@/components/boot/boot-screen";
+import { marcarBoot, encerrarBoot } from "@/lib/boot-shell";
 import { tiposDeSite } from "@/content/tambem-construi";
 
 // A Rei é interativa e carrega o próprio roteiro de respostas. Nada nela
@@ -50,40 +50,20 @@ export const HomePage: React.FC = () => {
     document.title = "Cadu Azeredo — Front-end Developer & Product Builder";
   }, []);
 
-  // ── a tela de boot e as etapas que ela cobre ────────────────────────────
-  // Cada etapa e uma promessa que resolve de verdade. Nao ha contador falso:
-  // se nada disso demorar, a tela nem chega a ser desenhada.
-  const [cena, setCena] = useState<EstadoCena>("decidindo");
-  const [fontesOk, setFontesOk] = useState(false);
-
-  useEffect(() => {
-    let vivo = true;
-    const pronto = () => vivo && setFontesOk(true);
-    if (document.fonts?.ready) {
-      document.fonts.ready.then(pronto).catch(pronto);
-    } else {
-      pronto();
+  // ── o que a casca de boot esta cobrindo ─────────────────────────────────
+  // A home e a unica pagina com cena pesada, entao e ela quem sabe quando nao
+  // ha mais o que cobrir. As etapas de tipografia e de aplicacao sao marcadas
+  // pela propria casca e pelo App: aqui so entra a cena.
+  const aoMudarCena = useCallback((e: EstadoCena) => {
+    if (e === "pronta") {
+      marcarBoot("cena");
+      encerrarBoot();
+    } else if (e === "leve") {
+      // Sem cena pesada nao ha espera real. Manter a casca aqui seria
+      // exatamente o atraso encenado que ela existe para evitar.
+      encerrarBoot();
     }
-    return () => {
-      vivo = false;
-    };
   }, []);
-
-  const aoMudarCena = useCallback((e: EstadoCena) => setCena(e), []);
-
-  const etapasBoot = [
-    { rotulo: "carregando tipografia", feito: fontesOk, valor: "2 famílias" },
-    {
-      rotulo: "verificando suporte a WebGL",
-      feito: cena !== "decidindo",
-      valor: "ok",
-    },
-    {
-      rotulo: "montando campo de partículas",
-      feito: cena === "pronta",
-      valor: "5 200",
-    },
-  ];
 
   // Encontra o DiáriaBr para destacar
   const diariaBrProject = projects.find((p) => p.slug === "diariabr");
@@ -99,12 +79,6 @@ export const HomePage: React.FC = () => {
             Quem passa pelo portao de capacidade recebe o campo de particulas em
             WebGL; todo o resto recebe a chuva em CSS, que continua completa
             sozinha. */}
-        <BootScreen
-          etapas={etapasBoot}
-          concluido={fontesOk && cena === "pronta"}
-          dispensada={cena === "leve"}
-        />
-
         <section className="relative -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 pt-4 pb-8">
           <HeroBackdrop onEstado={aoMudarCena} />
 

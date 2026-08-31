@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CornerDownLeft } from "lucide-react";
 import { reiTrocas, reiAbertura, reiNaoSei } from "@/content/rei-respostas";
+import { reiAntesDaInvasao } from "@/content/invasao";
+import { definirInvasao, ehComandoDeInvasao } from "@/lib/use-invasao";
 import { contactLinks } from "@/content/contacts";
 import { useSiteMode } from "@/lib/use-site-mode";
 import TypewriterText from "@/components/terminal/typewriter-text";
@@ -160,6 +162,21 @@ export const ReiChat: React.FC = () => {
     const texto = rascunho.trim();
     if (!texto) return;
     setRascunho("");
+
+    // O console da Rei e a porta do easter egg. Ela responde uma linha antes
+    // de o site inteiro ficar vermelho — o atraso existe para a frase dela ser
+    // lida, e nao atropelada pela encenacao.
+    if (ehComandoDeInvasao(texto)) {
+      const n = ++contador.current;
+      setMensagens((m) => [
+        ...m.map((x) => ({ ...x, digitando: false })),
+        { id: `p${n}`, de: "pessoa", texto },
+        { id: `r${n}`, de: "rei", texto: reiAntesDaInvasao, digitando: true },
+      ]);
+      setTimeout(() => definirInvasao(true), 1400);
+      return;
+    }
+
     responder(texto, casar(texto));
   };
 
