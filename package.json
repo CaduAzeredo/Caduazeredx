@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\" \"*.{js,ts,json,html}\"",
     "typecheck": "tsc --noEmit",
+    "check": "node scripts/check-contrast.mjs && node scripts/check-motion.mjs && node scripts/check-slop.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
