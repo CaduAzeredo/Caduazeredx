@@ -1,4 +1,5 @@
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense } from "react";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "@/pages/home-page";
 import { cn } from "@/lib/utils";
@@ -17,12 +18,7 @@ const NotFoundPage = lazy(() => import("@/pages/not-found-page"));
 
 // Loader temático do terminal para transições do Suspense
 const TerminalLoader = () => {
-  // Inicialização dinâmica do estado evita chamadas síncronas de setState em useEffect
-  const [prefersReducedMotion] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <div className="flex-grow flex items-center justify-center min-h-[50vh] font-mono text-xs text-muted-foreground select-none">

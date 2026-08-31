@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { Link } from "react-router-dom";
-import { motion } from "motion/react";
 import PageShell from "@/components/layout/page-shell";
 import { buttonVariants } from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
@@ -18,12 +18,10 @@ import {
 
 export const HomePage: React.FC = () => {
   const [activeLine, setActiveLine] = useState(1);
-  const [brandName, setBrandName] = useState(() => {
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    return prefersReduced ? "Cadu Azeredo" : "Cadu Azeredx /";
-  });
+  const semMovimento = useReducedMotion();
+  const [brandName, setBrandName] = useState(() =>
+    semMovimento ? "Cadu Azeredo" : "Cadu Azeredx /",
+  );
 
   // Atualizar título para SEO
   useEffect(() => {
@@ -32,17 +30,14 @@ export const HomePage: React.FC = () => {
 
   // Animação do nome da marca: Cadu Azeredx / -> Cadu Azeredo
   useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReduced) return;
+    if (semMovimento) return;
 
     const timer = setTimeout(() => {
       setBrandName("Cadu Azeredo");
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [semMovimento]);
 
   // Encontra o DiáriaBr para destacar
   const diariaBrProject = projects.find((p) => p.slug === "diariabr");
@@ -125,13 +120,9 @@ export const HomePage: React.FC = () => {
                     />
                   </p>
                   {activeLine >= 2 && (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-muted-foreground pl-3"
-                    >
+                    <p className="anim-fade-in text-muted-foreground pl-3">
                       Cadu Azeredo (Carlos Eduardo Azeredo Moura)
-                    </motion.p>
+                    </p>
                   )}
                 </div>
 
@@ -149,13 +140,9 @@ export const HomePage: React.FC = () => {
                       />
                     </p>
                     {activeLine >= 3 && (
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-muted-foreground pl-3"
-                      >
+                      <p className="anim-fade-in text-muted-foreground pl-3">
                         React • TypeScript • UX/UI • IA aplicada
-                      </motion.p>
+                      </p>
                     )}
                   </div>
                 )}
@@ -174,14 +161,10 @@ export const HomePage: React.FC = () => {
                       />
                     </p>
                     {activeLine >= 4 && (
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-muted-foreground pl-3 border-l-2 border-primary/40"
-                      >
+                      <p className="anim-fade-in text-muted-foreground pl-3 border-l-2 border-primary/40">
                         Construindo produtos digitais a partir de problemas
                         reais_
-                      </motion.p>
+                      </p>
                     )}
                   </div>
                 )}

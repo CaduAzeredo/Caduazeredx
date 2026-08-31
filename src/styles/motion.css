@@ -1,0 +1,72 @@
+/* ============================================================================
+   Movimento — CSS puro.
+
+   Estas quatro classes substituem `src/lib/motion.ts` com os MESMOS nomes,
+   durações e curvas. A biblioteca de animação saiu do caminho crítico: ela
+   custava ~42 KB comprimidos — quase um terço de tudo que a home baixa antes
+   do primeiro desenho — para fazer um fade de 0,25s e três parágrafos
+   aparecerem. A linguagem de movimento continua idêntica; só o custo mudou.
+
+   Se um dia fizer falta física de mola ou transição de elemento compartilhado,
+   a biblioteca volta atrás de carregamento tardio, numa rota que não seja a
+   home — o caminho crítico nunca paga por ela.
+
+   Nada aqui precisa tratar `prefers-reduced-motion`: o bloco global em
+   globals.css já neutraliza toda animação e transição da página.
+   ========================================================================= */
+
+@keyframes anim-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes anim-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes anim-terminal-line {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anim-fade-in-up {
+  animation: anim-fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* A transição de página é mais curta que o fade genérico: 0,25s, que é o que
+   o componente de layout usava. Trocar isso muda a sensação do site inteiro. */
+.anim-page-enter {
+  animation: anim-fade-in-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-in {
+  animation: anim-fade-in 0.4s ease-out both;
+}
+
+.anim-terminal-line {
+  animation: anim-terminal-line 0.3s ease-out both;
+}
+
+/* Escalonamento: o filho declara a própria posição em --i e o atraso sai daí.
+   Sem JavaScript, sem orquestrador, sem estado. */
+.anim-stagger > * {
+  animation: anim-fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.1s);
+}

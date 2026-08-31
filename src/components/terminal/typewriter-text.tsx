@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 export interface TypewriterTextProps {
   text: string;
@@ -15,20 +16,11 @@ export const TypewriterText: React.FC<TypewriterTextProps> = ({
   onComplete,
   showCursor = false,
 }) => {
-  // Inicialização dinâmica do estado evita chamadas síncronas de setState em useEffect
-  const [displayText, setDisplayText] = useState(() => {
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    return prefersReduced ? text : "";
-  });
+  const semMovimento = useReducedMotion();
 
-  const [isComplete, setIsComplete] = useState(() => {
-    return (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
-  });
+  // Inicialização dinâmica do estado evita chamadas síncronas de setState em useEffect
+  const [displayText, setDisplayText] = useState(() => (semMovimento ? text : ""));
+  const [isComplete, setIsComplete] = useState(() => semMovimento);
 
   useEffect(() => {
     if (isComplete) {
@@ -67,14 +59,12 @@ export const TypewriterText: React.FC<TypewriterTextProps> = ({
       {/* Representação visual da digitação */}
       <span aria-hidden="true">
         {displayText}
-        {showCursor && (
+        {showCursor && !semMovimento && (
           <span
             className={`inline-block w-1.5 h-4 bg-primary ml-1 align-middle ${
               isComplete ? "animate-pulse" : ""
             }`}
-            style={{
-              animationDuration: "1s",
-            }}
+            style={{ animationDuration: "1s" }}
           />
         )}
       </span>

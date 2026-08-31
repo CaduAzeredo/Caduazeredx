@@ -1,29 +1,22 @@
 import React from "react";
-import { motion, useReducedMotion } from "motion/react";
 
 export interface PageShellProps {
   children: React.ReactNode;
 }
 
-export const PageShell: React.FC<PageShellProps> = ({ children }) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  const variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 8 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  return (
-    <motion.main
-      initial="hidden"
-      animate="visible"
-      variants={variants}
-      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className="flex-grow flex flex-col w-full"
-    >
-      {children}
-    </motion.main>
-  );
-};
+/**
+ * Casca de página. A transição de entrada é CSS puro — ver
+ * `.anim-page-enter` em `src/styles/motion.css`.
+ *
+ * Este componente era o único motivo de a biblioteca de animação estar no
+ * caminho crítico da home, por causa de um fade de 0,25s. O bloco global de
+ * `prefers-reduced-motion` cuida de desligar a animação, então não há mais
+ * nada a decidir em tempo de execução.
+ */
+export const PageShell: React.FC<PageShellProps> = ({ children }) => (
+  <main id="conteudo" className="anim-page-enter flex-grow flex flex-col w-full">
+    {children}
+  </main>
+);
 
 export default PageShell;
