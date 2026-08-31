@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import SpaceBackground from "@/components/background/space-background";
+import BottomNav from "@/components/layout/bottom-nav";
 import AppRouter from "./router";
 
 export const App: React.FC = () => {
@@ -25,12 +26,16 @@ export const App: React.FC = () => {
       <Navbar />
 
       {/* Conteúdo das Páginas (Gerenciado pelo Roteador) */}
-      <div className="flex-grow flex flex-col">
+      <div className="flex-grow flex flex-col pb-[calc(60px+env(safe-area-inset-bottom))] md:pb-0">
         <AppRouter />
       </div>
 
       {/* Rodapé da Página */}
       <Footer />
+
+      {/* Navegação do celular — fixa na zona do polegar. O respiro inferior
+          está no contêiner acima: sem ele esta barra cobre o fim do conteúdo. */}
+      <BottomNav />
     </div>
   );
 };

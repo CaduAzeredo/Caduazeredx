@@ -1,101 +1,83 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Menu, X, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import BrandMark from "@/components/layout/brand-mark";
+import { contactLinks } from "@/content/contacts";
 
+const navItems = [
+  { name: "Projetos", path: "/projetos" },
+  { name: "Produtos", path: "/produtos" },
+  { name: "Novidades", path: "/novidades" },
+  { name: "Sobre", path: "/sobre" },
+];
+
+/**
+ * Navegação do topo.
+ *
+ * O menu-sanduíche saiu: no celular a navegação desceu para a barra inferior,
+ * na zona do polegar, e manter os dois seria navegação em duplicata. Isso
+ * também tirou daqui um estado, dois ícones e o painel deslizante inteiro.
+ *
+ * O link do repositório vem de `contacts.ts`, nunca escrito à mão: se o campo
+ * sumir de lá, o link some daqui em vez de virar um endereço morto.
+ */
 export const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const navItems = [
-    { name: "Início", path: "/" },
-    { name: "Projetos", path: "/projetos" },
-    { name: "Produtos", path: "/produtos" },
-    { name: "Novidades", path: "/novidades" },
-    { name: "Sobre", path: "/sobre" },
-    { name: "Contato", path: "/contato" },
-  ];
+  const repoBrain = contactLinks.publicRepos?.find(
+    (r) => r.status === "public" && r.url,
+  );
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border/80 transition-colors">
+    <nav
+      className="sticky top-0 z-50 w-full border-b border-border/80 bg-background/85 backdrop-blur-md"
+      aria-label="Navegação principal"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo / Identidade */}
-          <Link to="/" className="flex items-center space-x-2 font-mono group">
-            <Terminal className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-            <span className="font-bold text-foreground tracking-tight group-hover:text-primary transition-colors">
-              Cadu Azeredo
-            </span>
+          <Link to="/" aria-label="Cadu Azeredo — início">
+            <BrandMark size="sm" />
           </Link>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                className={({ isActive }) =>
-                  cn(
-                    "text-sm font-sans tracking-wide transition-colors relative py-1 hover:text-foreground",
-                    isActive
-                      ? "text-primary font-medium"
-                      : "text-muted-foreground",
-                  )
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <span>{item.name}</span>
-                    {isActive && (
-                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-full" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            ))}
-          </div>
+          <div className="flex items-center gap-5 sm:gap-7">
+            {/* Os destinos ficam na barra inferior no celular. */}
+            <div className="hidden md:flex items-center gap-7">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    cn(
+                      "py-2 text-sm font-medium transition-colors",
+                      isActive
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
+                    )
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              ))}
+            </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded text-muted-foreground hover:text-foreground hover:bg-surface focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1 focus:ring-offset-background"
-              aria-label="Alternar menu de navegação"
-              aria-expanded={isOpen}
+            {repoBrain?.url && (
+              <a
+                href={repoBrain.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+              >
+                GitHub&nbsp;↗
+              </a>
+            )}
+
+            <Link
+              to="/contato"
+              className="rounded bg-foreground px-4 py-2 text-[13px] font-bold text-background transition-opacity hover:opacity-90"
             >
-              {isOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
+              Contatar
+            </Link>
           </div>
         </div>
       </div>
-
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="md:hidden border-b border-border bg-background/95 backdrop-blur-md">
-          <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  cn(
-                    "block px-3 py-2.5 rounded text-base font-medium transition-colors",
-                    isActive
-                      ? "bg-surface-elevated text-primary border-l-2 border-primary"
-                      : "text-muted-foreground hover:bg-surface hover:text-foreground",
-                  )
-                }
-              >
-                {item.name}
-              </NavLink>
-            ))}
-          </div>
-        </div>
-      )}
     </nav>
   );
 };
