@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Terminal } from "lucide-react";
 
 export const Footer: React.FC = () => {
@@ -13,6 +14,17 @@ export const Footer: React.FC = () => {
             <Terminal className="w-3.5 h-3.5 text-primary" />
             <span>Carlos Eduardo “Cadu” Azeredo Moura • {currentYear}</span>
           </div>
+
+          {/* Paginas legais — alcancaveis de qualquer rota */}
+          <nav className="flex items-center gap-4 font-mono text-[11px] text-muted-foreground">
+            <Link to="/privacidade" className="hover:text-primary transition-colors">
+              Privacidade
+            </Link>
+            <span className="text-muted-foreground/30">|</span>
+            <Link to="/termos" className="hover:text-primary transition-colors">
+              Termos
+            </Link>
+          </nav>
 
           {/* Detalhe da Variante Visual "Azeredx /" */}
           <div className="font-mono text-[10px] text-muted-foreground/45 hover:text-primary transition-colors cursor-default">

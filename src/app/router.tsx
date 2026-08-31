@@ -11,6 +11,8 @@ const ProductDetailPage = lazy(() => import("@/pages/product-detail-page"));
 const NovidadesPage = lazy(() => import("@/pages/novidades-page"));
 const AboutPage = lazy(() => import("@/pages/about-page"));
 const ContactPage = lazy(() => import("@/pages/contact-page"));
+const PrivacyPage = lazy(() => import("@/pages/privacy-page"));
+const TermsPage = lazy(() => import("@/pages/terms-page"));
 const NotFoundPage = lazy(() => import("@/pages/not-found-page"));
 
 // Loader temático do terminal para transições do Suspense
@@ -71,6 +73,8 @@ export const AppRouter: React.FC = () => {
         <Route path="/novidades" element={<NovidadesPage />} />
         <Route path="/sobre" element={<AboutPage />} />
         <Route path="/contato" element={<ContactPage />} />
+        <Route path="/privacidade" element={<PrivacyPage />} />
+        <Route path="/termos" element={<TermsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>

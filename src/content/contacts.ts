@@ -23,7 +23,11 @@ export const contactLinks: ContactLinks = {
   whatsapp: "https://wa.me/qr/2F5B3LFEJHYKM1", // Exemplo: "https://wa.me/5563999999999"
   youtube: "https://www.youtube.com/@CaduAzeredo",
   publicRepos: [
-    { name: "Brain Framework", status: "em-breve" },
+    {
+      name: "Brain Framework",
+      url: "https://github.com/CaduAzeredo/brain-framework",
+      status: "public",
+    },
     { name: "Rei", status: "em-breve" },
   ],
 };

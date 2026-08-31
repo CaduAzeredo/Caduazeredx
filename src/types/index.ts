@@ -26,7 +26,7 @@ export interface Project {
 
 export type ProductSlug = "brain" | "rei" | "combo";
 
-export type ProductStatus = "active" | "invite-only";
+export type ProductStatus = "active" | "invite-only" | "em-breve";
 
 export interface Product {
   slug: ProductSlug;
@@ -55,6 +55,25 @@ export interface NovidadeEntry {
 }
 
 export interface ProximoPasso {
+  id: string;
+  titulo: string;
+  descricao: string;
+}
+
+export type ServiceStatus = "disponivel" | "em-breve";
+
+export interface Service {
+  slug: string;
+  nome: string;
+  resumo: string;
+  paraQuem: string[];
+  entregavel: string[];
+  foraDoEscopo: string[];
+  duracaoTipica: string;
+  status: ServiceStatus;
+}
+
+export interface ServiceStep {
   id: string;
   titulo: string;
   descricao: string;

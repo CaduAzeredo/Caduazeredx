@@ -22,6 +22,11 @@ const statusConfig: Record<
     badgeClass: "bg-secondary/20 text-secondary border-secondary/30",
     dotClass: "bg-secondary",
   },
+  "em-breve": {
+    label: "Em breve",
+    badgeClass: "bg-amber-500/10 text-amber-400 border-amber-500/25",
+    dotClass: "bg-amber-400",
+  },
 };
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {

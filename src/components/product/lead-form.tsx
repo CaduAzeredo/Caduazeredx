@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { AlertTriangle, CheckCircle2, Info, Loader2 } from "lucide-react";
 import Button from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
@@ -13,6 +14,10 @@ export interface LeadFormProps {
 
 export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
   const [status, setStatus] = useState<LeadFormStatus>("idle");
+  // O consentimento da LGPD tem de ser afirmativo e informado, e o opt-in nunca
+  // pode vir pre-marcado. Por isso o estado nasce falso e o botao fica desabilitado
+  // ate voce marcar: nao ha caminho para enviar sem consentir.
+  const [consentiu, setConsentiu] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,9 +28,12 @@ export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
       return;
     }
 
+    if (!consentiu) return;
+
     const form = event.currentTarget;
     const formData = new FormData(form);
     formData.append("produto", produto);
+    formData.append("consentimento", "aceito");
 
     setStatus("submitting");
 
@@ -39,6 +47,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
       if (response.ok) {
         setStatus("success");
         form.reset();
+        setConsentiu(false);
       } else {
         setStatus("error");
       }
@@ -158,9 +167,35 @@ export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
         />
       </div>
 
+      <div className="flex items-start space-x-2.5 pt-1">
+        <input
+          id="lead-consent"
+          name="consentimento"
+          type="checkbox"
+          checked={consentiu}
+          onChange={(e) => setConsentiu(e.target.checked)}
+          className="mt-0.5 h-4 w-4 flex-shrink-0 rounded border-border bg-surface-elevated accent-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        />
+        <label
+          htmlFor="lead-consent"
+          className="text-xs text-muted-foreground leading-relaxed cursor-pointer"
+        >
+          Concordo que meu nome, e-mail e mensagem sejam usados para responder
+          este contato, nos termos da{" "}
+          <Link
+            to="/privacidade"
+            className="text-primary hover:underline"
+            target="_blank"
+          >
+            Política de Privacidade
+          </Link>
+          . Posso pedir a exclusão a qualquer momento.
+        </label>
+      </div>
+
       <Button
         type="submit"
-        disabled={status === "submitting"}
+        disabled={status === "submitting" || !consentiu}
         className="w-full sm:w-auto"
       >
         {status === "submitting" ? (
