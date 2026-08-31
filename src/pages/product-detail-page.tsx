@@ -10,6 +10,7 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
+  ExternalLink,
   Target,
   Send,
 } from "lucide-react";
@@ -92,12 +93,33 @@ export const ProductDetailPage: React.FC = () => {
             {product.tagline}
           </p>
 
-          <a href="#captura" className="inline-block">
-            <Button variant="primary" size="lg" className="space-x-2">
-              <span>Entrar na lista de espera</span>
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <a href="#captura" className="inline-block">
+              <Button variant="primary" size="lg" className="space-x-2">
+                <span>Entrar na lista de espera</span>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </a>
+
+            {/* O caminho de volta. Quem chega aqui pelo README do repositorio
+                precisa conseguir voltar para ele, e quem quer adotar o produto
+                sozinho nao deveria ter que pedir. O endereco vem de
+                `contacts.ts` atraves de `products.ts`: sem entrada publica la,
+                este botao simplesmente nao existe. */}
+            {product.externalUrl && (
+              <a
+                href={product.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <Button variant="outline" size="lg" className="space-x-2">
+                  <span>Ver no GitHub</span>
+                  <ExternalLink className="w-4 h-4" />
+                </Button>
+              </a>
+            )}
+          </div>
         </header>
 
         <hr className="border-border/60" />

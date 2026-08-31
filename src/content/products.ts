@@ -1,4 +1,5 @@
 import type { Product } from "../types";
+import { contactLinks } from "./contacts";
 
 /**
  * Catalogo de produtos.
@@ -14,10 +15,22 @@ import type { Product } from "../types";
  * uma unica ferramenta possivel.
  */
 
+/**
+ * O endereco do repositorio publico vem de `contacts.ts`, nunca escrito a mao
+ * aqui — mesma regra que a navbar segue. Se a entrada sumir de la, ou deixar
+ * de estar publica, `externalUrl` fica indefinido e o botao desaparece em vez
+ * de virar um endereco morto.
+ */
+const repoPublico = (nome: string): string | undefined =>
+  contactLinks.publicRepos?.find(
+    (r) => r.name === nome && r.status === "public",
+  )?.url;
+
 export const products: Product[] = [
   {
     slug: "brain",
     name: "Brain Framework",
+    externalUrl: repoPublico("Brain Framework"),
     tagline:
       "Um sistema operacional de governança para agentes de IA — contexto confiável antes de qualquer linha de código.",
     description:
