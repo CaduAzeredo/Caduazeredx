@@ -3,13 +3,7 @@ import PageShell from "@/components/layout/page-shell";
 import { novidades, proximosPassos } from "@/content/novidades";
 import type { NovidadeCategoria } from "@/types";
 import { cn } from "@/lib/utils";
-import {
-  Cpu,
-  LayoutPanelTop,
-  ShieldCheck,
-  Network,
-  Compass,
-} from "lucide-react";
+import { Compass, Cpu, LayoutPanelTop, Network, Rocket, ShieldCheck } from "lucide-react";
 
 const categoriaConfig: Record<
   NovidadeCategoria,
@@ -28,6 +22,12 @@ const categoriaConfig: Record<
     label: "Interface",
     badgeClass: "bg-primary/10 text-primary border-primary/25",
     icon: LayoutPanelTop,
+  },
+  lancamento: {
+    label: "Lançamento",
+    badgeClass:
+      "bg-status-live/10 text-status-live border-status-live/30",
+    icon: Rocket,
   },
   seguranca: {
     label: "Segurança",

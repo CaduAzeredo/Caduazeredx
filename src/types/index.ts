@@ -41,7 +41,11 @@ export interface Product {
 }
 
 export type NovidadeCategoria =
-  "modelo" | "interface" | "seguranca" | "arquitetura";
+  | "modelo"
+  | "interface"
+  | "seguranca"
+  | "arquitetura"
+  | "lancamento";
 
 export interface NovidadeEntry {
   id: string;

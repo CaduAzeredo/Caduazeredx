@@ -7,6 +7,16 @@ import type { NovidadeEntry, ProximoPasso } from "../types";
  */
 export const novidades: NovidadeEntry[] = [
   {
+    id: "brain-v021-publico",
+    data: "2026-08-31",
+    categoria: "lancamento",
+    titulo: "O Brain Framework foi publicado como repositório público",
+    resumo:
+      "O framework saiu do uso interno: repositório aberto sob Apache 2.0, sem dependências externas, com a versão v0.2.1 marcada em 31 de agosto de 2026.",
+    detalhe:
+      "Até hoje o Brain existia como repositório de governança privado, e a única prova de que ele funcionava era o resultado dos projetos que ele guiava — o que exige acreditar na descrição. A publicação torna o contrato verificável por quem não acredita: o validador que confere os metadados dos documentos roda sem instalar nada e reprova a verificação quando um segredo aparece solto no texto. Medido no dia da publicação: 60 arquivos no pacote, 1 commit no histórico público, e os 5 verificadores passando num clone limpo. Duas versões foram marcadas no mesmo dia — v0.2.0 e, em seguida, v0.2.1, que é a vigente; a segunda fechou sete achados de uma auditoria adversarial feita antes de anunciar. O que a publicação NÃO significa: adoção, uso por terceiros, ou qualquer sinal de tração. O repositório nasceu hoje e não há número de uso para relatar.",
+  },
+  {
     id: "painel-minimalista",
     data: "2026-08-30",
     categoria: "interface",
