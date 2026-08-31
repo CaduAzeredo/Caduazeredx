@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { camadasBrain } from "@/content/brain-estrutura";
@@ -30,6 +30,31 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const REPOUSO = { x: 56, z: -42 };
 
+/**
+ * A geometria e DERIVADA do tamanho medido, nunca fixa.
+ *
+ * A primeira versao usava lados em pixels fixos e vazava para fora do palco em
+ * quatro dos seis casos — no celular, ate parada. Duas contas tinham sido
+ * esquecidas, e as duas sao obvias depois de escritas:
+ *
+ * 1. `rotateZ(-42deg)` transforma o quadrado num LOSANGO. A caixa que ele
+ *    ocupa cresce por |cos| + |sin| = 1,41x. Dimensionar como se continuasse
+ *    quadrado erra por 41% de largura.
+ * 2. Explodir empurra as camadas em Z, e isso faz duas coisas ao mesmo tempo:
+ *    sobe na tela por `sen(rotateX)` E amplia, porque a perspectiva aproxima
+ *    o que esta mais perto da camera.
+ *
+ * Os fatores abaixo saem dessas contas. Como o lado agora e calculado a partir
+ * do palco medido, a peca cabe em qualquer largura — inclusive nas que ainda
+ * nao existem.
+ */
+const FATOR_LOSANGO = 1.62; // 1,41 do losango, com a ampliacao da perspectiva
+const FATOR_ALTURA = 1.75; // placa projetada + deslocamento em Z ao explodir
+const FOLGA = 0.94; // margem para arredondamento e borda
+const SEP_FECHADO = 0.09; // separacao em Z, como fracao do lado
+const SEP_ABERTO = 0.2;
+const PERSPECTIVA = 8; // multiplo do lado: quanto maior, menos deformacao
+
 export const BrainStructure: React.FC<{ className?: string }> = ({
   className,
 }) => {
@@ -37,7 +62,23 @@ export const BrainStructure: React.FC<{ className?: string }> = ({
   const [aberto, setAberto] = useState(false);
   const [emFoco, setEmFoco] = useState<number | null>(null);
   const [orbita, setOrbita] = useState(REPOUSO);
+  const [lado, setLado] = useState(0);
   const palco = useRef<HTMLDivElement>(null);
+
+  // O lado sai do palco medido, e nao de um numero escrito a mao.
+  useEffect(() => {
+    const el = palco.current;
+    if (!el) return;
+    const medir = () => {
+      const { width, height } = el.getBoundingClientRect();
+      if (!width || !height) return;
+      setLado(Math.min(width / FATOR_LOSANGO, height / FATOR_ALTURA) * FOLGA);
+    };
+    medir();
+    const obs = new ResizeObserver(medir);
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   const mover = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
@@ -55,7 +96,7 @@ export const BrainStructure: React.FC<{ className?: string }> = ({
 
   const sair = useCallback(() => setOrbita(REPOUSO), []);
 
-  const separacao = aberto ? 74 : 30;
+  const separacao = lado * (aberto ? SEP_ABERTO : SEP_FECHADO);
 
   return (
     <div className={cn("flex flex-col gap-6", className)}>
@@ -86,65 +127,68 @@ export const BrainStructure: React.FC<{ className?: string }> = ({
           onPointerMove={mover}
           onPointerLeave={sair}
           aria-hidden="true"
-          className="relative order-2 h-[340px] select-none sm:h-[420px] lg:order-1 lg:col-span-7 lg:h-[520px]"
-          style={{ perspective: "1400px" }}
+          className="relative order-1 h-[300px] select-none overflow-hidden sm:h-[400px] lg:col-span-7 lg:h-[520px]"
+          style={{ perspective: `${Math.max(lado, 1) * PERSPECTIVA}px` }}
         >
           <div
-            className="absolute left-1/2 top-1/2 h-[260px] w-[260px] sm:h-[320px] sm:w-[320px] lg:h-[360px] lg:w-[360px]"
+            className="absolute left-1/2 top-1/2"
             style={{
+              width: lado,
+              height: lado,
               transformStyle: "preserve-3d",
               transform: `translate(-50%, -50%) rotateX(${orbita.x}deg) rotateZ(${orbita.z}deg)`,
               transition: "transform 620ms cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            {camadasBrain.map((c, i) => {
-              const z = (camadasBrain.length - 1 - i) * separacao;
-              const ativo = emFoco === i;
-              return (
-                <div
-                  key={c.pasta}
-                  className={cn(
-                    "absolute inset-0 rounded-xl border",
-                    ativo
-                      ? "border-primary bg-primary/15"
-                      : i === 0
-                        ? "border-primary/55 bg-primary/10"
-                        : "border-primary/25 bg-surface/80",
-                  )}
-                  style={{
-                    transform: `translateZ(${z + (ativo ? 26 : 0)}px)`,
-                    transition:
-                      "transform 620ms cubic-bezier(0.16, 1, 0.3, 1), background-color 260ms ease, border-color 260ms ease",
-                  }}
-                >
-                  {/* Sugestão dos arquivos dentro da camada. Aparece só quando
-                      a pilha está aberta: fechada, viraria ruído sob as
-                      outras cinco. */}
+            {lado > 0 &&
+              camadasBrain.map((c, i) => {
+                const z = (camadasBrain.length - 1 - i) * separacao;
+                const ativo = emFoco === i;
+                return (
                   <div
-                    className="grid grid-cols-4 gap-2 p-5"
+                    key={c.pasta}
+                    className={cn(
+                      "absolute inset-0 rounded-xl border",
+                      ativo
+                        ? "border-primary bg-primary/15"
+                        : i === 0
+                          ? "border-primary/55 bg-primary/10"
+                          : "border-primary/25 bg-surface/80",
+                    )}
                     style={{
-                      opacity: aberto ? 1 : 0,
-                      transition: "opacity 420ms ease",
+                      transform: `translateZ(${z + (ativo ? lado * 0.07 : 0)}px)`,
+                      transition:
+                        "transform 620ms cubic-bezier(0.16, 1, 0.3, 1), background-color 260ms ease, border-color 260ms ease",
                     }}
                   >
-                    {Array.from({ length: 8 }).map((_, k) => (
-                      <span
-                        key={k}
-                        className={cn(
-                          "h-3 rounded-[3px]",
-                          k % 3 === 0 ? "bg-primary/30" : "bg-primary/15",
-                        )}
-                      />
-                    ))}
+                    {/* Sugestão dos arquivos dentro da camada. Aparece só quando
+                      a pilha está aberta: fechada, viraria ruído sob as
+                      outras cinco. */}
+                    <div
+                      className="grid grid-cols-4 gap-2 p-5"
+                      style={{
+                        opacity: aberto ? 1 : 0,
+                        transition: "opacity 420ms ease",
+                      }}
+                    >
+                      {Array.from({ length: 8 }).map((_, k) => (
+                        <span
+                          key={k}
+                          className={cn(
+                            "h-3 rounded-[3px]",
+                            k % 3 === 0 ? "bg-primary/30" : "bg-primary/15",
+                          )}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
 
         {/* ── os rótulos: texto de verdade, fora do 3D ───────────────────── */}
-        <ul className="order-1 flex flex-col gap-1 lg:order-2 lg:col-span-5">
+        <ul className="order-2 flex flex-col gap-1 lg:col-span-5">
           {camadasBrain.map((c, i) => (
             <li key={c.pasta}>
               <button
