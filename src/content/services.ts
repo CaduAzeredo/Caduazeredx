@@ -1,4 +1,7 @@
 import type { Service, ServiceStep } from "@/types";
+import { servicosResumo } from "@/content/servicos-resumo";
+
+const r = Object.fromEntries(servicosResumo.map((s) => [s.slug, s]));
 
 /**
  * Oferta de consultoria.
@@ -15,10 +18,7 @@ import type { Service, ServiceStep } from "@/types";
 
 export const services: Service[] = [
   {
-    slug: "auditoria",
-    nome: "Auditoria técnica",
-    resumo:
-      "Você herdou uma base de código — ou ela cresceu rápido demais — e precisa saber o que realmente tem antes de decidir qualquer coisa.",
+    ...r["auditoria"],
     paraQuem: [
       "Quem assumiu um sistema que outra pessoa construiu e não confia no que está documentado.",
       "Quem vai lançar e quer saber o que quebra antes que o usuário descubra.",
@@ -38,10 +38,7 @@ export const services: Service[] = [
     status: "disponivel",
   },
   {
-    slug: "implantacao",
-    nome: "Implantação do Brain",
-    resumo:
-      "O framework rodando no seu repositório, com a primeira rodada conduzida junto — para o processo continuar depois que a consultoria sai.",
+    ...r["implantacao"],
     paraQuem: [
       "Times que já usam agentes de codificação e cansaram de cada sessão reinventar o contexto.",
       "Quem quer manter o método funcionando sozinho, sem depender de quem instalou.",
@@ -60,10 +57,7 @@ export const services: Service[] = [
     status: "disponivel",
   },
   {
-    slug: "criacao",
-    nome: "Criação de projeto do zero",
-    resumo:
-      "Um projeto novo nascendo já governado: do primeiro levantamento de contexto ao código entregue, sem a dívida de organização que normalmente se acumula nos primeiros meses.",
+    ...r["criacao"],
     paraQuem: [
       "Quem vai começar um produto e não quer descobrir daqui a um ano por que cada decisão foi tomada.",
       "Quem já tentou tocar um projeto com agente de IA e viu o contexto se perder entre uma sessão e outra.",
@@ -83,10 +77,7 @@ export const services: Service[] = [
     status: "disponivel",
   },
   {
-    slug: "acompanhamento",
-    nome: "Acompanhamento do time",
-    resumo:
-      "Seu time operando o método por conta, com revisão periódica de quem já rodou isso em produção.",
+    ...r["acompanhamento"],
     paraQuem: [
       "Times que já implantaram e querem calibrar a prática antes que ela vire ritual vazio.",
       "Quem quer subir o nível de quem já escreve código, sem parar a entrega para treinar.",

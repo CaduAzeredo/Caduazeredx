@@ -70,3 +70,46 @@
   animation: anim-fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: calc(var(--i, 0) * 0.1s);
 }
+
+/* ---------------------------------------------------------------------------
+   Chuva de código — ver src/components/background/code-rain.tsx para o
+   raciocínio. Só `transform`: a GPU compõe sem repintar.
+   --------------------------------------------------------------------------- */
+@keyframes code-rain-fall {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.code-rain-col {
+  position: absolute;
+  top: -55%;
+  width: 15px;
+  font-family: var(--font-family-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre;
+  color: var(--primary);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  animation: code-rain-fall linear infinite;
+  /* Sem cabeça brilhante: a máscara some nas duas pontas por igual. É essa
+     simetria que troca a pressa do Matrix pelo silêncio. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 26%,
+    #000 58%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 26%,
+    #000 58%,
+    transparent
+  );
+}

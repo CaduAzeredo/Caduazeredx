@@ -1,23 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { Link } from "react-router-dom";
 import PageShell from "@/components/layout/page-shell";
 import { buttonVariants } from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
-import TypewriterText from "@/components/terminal/typewriter-text";
 import ProjectCard from "@/components/project/project-card";
+import CodeRain from "@/components/background/code-rain";
+import { tiposDeSite } from "@/content/tambem-construi";
+
+// A Rei é interativa e carrega o próprio roteiro de respostas. Nada nela
+// precisa existir no primeiro desenho, então ela sai do caminho crítico. O
+// espaço reservado tem a altura do painel, para a página não pular quando
+// ele chega.
+const ReiChat = lazy(() => import("@/components/rei/rei-chat"));
+import { servicosResumo } from "@/content/servicos-resumo";
+import { contactLinks } from "@/content/contacts";
 import { projects } from "@/content/projects";
 import {
   ArrowRight,
   Terminal as TerminalIcon,
-  Sparkles,
   Code2,
   Layers,
   Cpu,
+  ShoppingBag,
+  Store,
+  Boxes,
+  Utensils,
+  Link as LinkIcon,
+  CalendarCheck,
 } from "lucide-react";
 
+const ICONES_TIPO = {
+  "shopping-bag": ShoppingBag,
+  store: Store,
+  boxes: Boxes,
+  utensils: Utensils,
+  link: LinkIcon,
+  "calendar-check": CalendarCheck,
+} as const;
+
 export const HomePage: React.FC = () => {
-  const [activeLine, setActiveLine] = useState(1);
+  const repoBrain = contactLinks.publicRepos?.find(
+    (r) => r.status === "public" && r.url,
+  );
   const semMovimento = useReducedMotion();
   const [brandName, setBrandName] = useState(() =>
     semMovimento ? "Cadu Azeredo" : "Cadu Azeredx /",
@@ -45,133 +70,250 @@ export const HomePage: React.FC = () => {
   return (
     <PageShell>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24 md:space-y-36">
-        {/* SEÇÃO A: HERO & TERMINAL */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[70vh] pt-4 md:pt-10">
-          {/* Apresentação Textual */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            <div className="flex items-center space-x-2 text-xs font-mono text-primary bg-primary/10 px-3 py-1 rounded-full w-fit">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Disponível para novos projetos</span>
-            </div>
+        {/* ═══ HERO ═══
+            A chuva vive só aqui. Espalhada pela página ela some; concentrada
+            no topo, é a primeira coisa que se vê e desaparece ao rolar. */}
+        <section className="relative -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 pt-4 pb-8">
+          <CodeRain />
 
-            <div className="space-y-2">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-sans select-none">
-                <span className="glow-text text-foreground transition-all duration-500">
-                  {brandName}
-                </span>
-              </h1>
-              <p className="text-xl sm:text-2xl font-semibold text-primary font-mono tracking-tight">
-                Front-end Developer & Product Builder
-              </p>
-            </div>
-
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed font-sans">
-              Crio interfaces e produtos digitais focados na experiência do
-              usuário, aliando desenvolvimento front-end moderno (React/TS),
-              design de produto e inteligência artificial aplicada.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Link to="/projetos" className={buttonVariants("primary", "lg")}>
-                <span>Ver projetos</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-              <Link to="/contato" className={buttonVariants("outline", "lg")}>
-                Entrar em contato
-              </Link>
-            </div>
-          </div>
-
-          {/* Slot de Avatar & Terminal Narrativo */}
-          <div className="lg:col-span-5 flex flex-col space-y-6">
-            {/* Slot de Avatar Abstrato */}
-            <div className="flex items-center space-x-4 p-4 rounded-lg bg-surface/50 border border-border/80 w-fit select-none">
-              <div className="relative w-12 h-12 rounded bg-gradient-to-br from-primary/20 via-secondary/10 to-accent-blue/30 border border-border flex items-center justify-center overflow-hidden">
-                <div
-                  className="absolute inset-0 border border-dashed border-primary/30 rounded animate-spin"
-                  style={{ animationDuration: "20s" }}
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1.5">
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-status-live"
+                  aria-hidden="true"
                 />
-                <span className="font-mono text-[10px] text-muted-foreground/60">
-                  Avatar
+                <span className="font-mono text-[11px] text-muted-foreground">
+                  aceitando projetos
                 </span>
-              </div>
-              <div className="space-y-0.5">
-                <span className="block font-mono text-[10px] text-muted-foreground/60">
-                  [sys.avatar_slot]
-                </span>
-                <span className="block text-xs font-sans text-muted-foreground">
-                  Carlos Eduardo Moura
-                </span>
+              </span>
+
+              <h1 className="font-sans text-[42px] sm:text-[56px] lg:text-[64px] font-extrabold leading-[1.03] tracking-[-0.045em] text-foreground">
+                {brandName === "Cadu Azeredo" ? (
+                  <>
+                    Cadu Azeredo
+                    <span className="font-light text-primary">&nbsp;/</span>
+                  </>
+                ) : (
+                  <span className="glow-text">{brandName}</span>
+                )}
+              </h1>
+
+              <p className="max-w-[44ch] text-base sm:text-lg leading-relaxed text-muted-foreground">
+                Construo produtos e ponho ordem em bases que cresceram rápido
+                demais. Publico o método que uso — aberto, sem dependências,
+                verificável por quem não acredita.
+              </p>
+
+              <div className="flex flex-wrap gap-3 pt-1">
+                <Link to="/produtos" className={buttonVariants("primary", "lg")}>
+                  Ver a consultoria
+                </Link>
+                <Link to="/projetos" className={buttonVariants("outline", "lg")}>
+                  O que eu construo
+                </Link>
               </div>
             </div>
 
-            {/* Terminal Narrativo */}
-            <TerminalWindow title="cadu@azeredo: ~">
-              <div className="space-y-4 text-xs sm:text-sm">
-                {/* Linha 1 */}
-                <div className="space-y-1">
-                  <p className="text-primary-muted font-bold">
-                    ${" "}
-                    <TypewriterText
-                      text="whoami"
-                      speed={30}
-                      onComplete={() => setActiveLine(2)}
-                      showCursor={activeLine === 1}
-                    />
-                  </p>
-                  {activeLine >= 2 && (
-                    <p className="anim-fade-in text-muted-foreground pl-3">
-                      Cadu Azeredo (Carlos Eduardo Azeredo Moura)
-                    </p>
-                  )}
-                </div>
-
-                {/* Linha 2 */}
-                {activeLine >= 2 && (
-                  <div className="space-y-1">
-                    <p className="text-primary-muted font-bold">
-                      ${" "}
-                      <TypewriterText
-                        text="stack --current"
-                        delay={200}
-                        speed={30}
-                        onComplete={() => setActiveLine(3)}
-                        showCursor={activeLine === 2}
-                      />
-                    </p>
-                    {activeLine >= 3 && (
-                      <p className="anim-fade-in text-muted-foreground pl-3">
-                        React • TypeScript • UX/UI • IA aplicada
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {/* Linha 3 */}
-                {activeLine >= 3 && (
-                  <div className="space-y-1">
-                    <p className="text-primary-muted font-bold">
-                      ${" "}
-                      <TypewriterText
-                        text="status"
-                        delay={200}
-                        speed={30}
-                        onComplete={() => setActiveLine(4)}
-                        showCursor={activeLine === 3}
-                      />
-                    </p>
-                    {activeLine >= 4 && (
-                      <p className="anim-fade-in text-muted-foreground pl-3 border-l-2 border-primary/40">
-                        Construindo produtos digitais a partir de problemas
-                        reais_
-                      </p>
-                    )}
-                  </div>
-                )}
-              </div>
-            </TerminalWindow>
+            <div className="lg:col-span-5">
+              <Suspense
+                fallback={
+                  <div
+                    className="min-h-[336px] rounded-xl border border-border bg-surface"
+                    aria-hidden="true"
+                  />
+                }
+              >
+                <ReiChat />
+              </Suspense>
+            </div>
           </div>
         </section>
+
+        {/* ═══ O QUE EU CONSTRUO ═══ */}
+        <section className="space-y-6">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight">
+              O que eu construo
+            </h2>
+            <Link
+              to="/projetos"
+              className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              ver todos ↗
+            </Link>
+          </div>
+
+          {/* O Brain, elevado: e o unico com prova publica verificavel hoje. */}
+          <div className="overflow-hidden rounded-xl border border-border-accent bg-surface">
+            <div className="grid grid-cols-1 lg:grid-cols-12">
+              <div className="lg:col-span-7 flex flex-col gap-4 p-7 sm:p-9">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full border border-border-accent bg-primary/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-primary">
+                    no ar · v0.2.1
+                  </span>
+                  <span className="rounded border border-border px-2 py-1 font-mono text-[10px] text-muted-foreground">
+                    Apache 2.0
+                  </span>
+                  <span className="rounded border border-border px-2 py-1 font-mono text-[10px] text-muted-foreground">
+                    zero dependências
+                  </span>
+                </div>
+
+                <h3 className="font-sans text-xl sm:text-2xl font-bold tracking-tight">
+                  Brain Framework
+                </h3>
+
+                <p className="max-w-[52ch] text-sm leading-relaxed text-muted-foreground">
+                  Governança para agentes de IA: contexto confiável, decisões
+                  registradas e validadores que reprovam a própria estrutura
+                  quando ela está errada. Aberto, e verificável sem instalar
+                  nada.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-[11px] text-muted-foreground">
+                  <span>60 arquivos</span>
+                  <span aria-hidden="true">·</span>
+                  <span>5 verificadores verdes</span>
+                  <span aria-hidden="true">·</span>
+                  <span>1 commit público</span>
+                </div>
+
+                <div className="flex flex-wrap gap-3 pt-3">
+                  <Link to="/produtos/brain" className={buttonVariants("primary", "md")}>
+                    Aplicar no meu projeto
+                  </Link>
+                  {repoBrain?.url && (
+                    <a
+                      href={repoBrain.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={buttonVariants("outline", "md")}
+                    >
+                      Clonar de graça ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-border bg-surface-elevated/40 p-6 flex items-center">
+                <TerminalWindow title="doctor" className="w-full">
+                  <div className="space-y-1.5 font-mono text-[11px] leading-relaxed">
+                    {[
+                      "estrutura",
+                      "links",
+                      "refs em prosa",
+                      "estado da governança",
+                      "export (dry-run)",
+                    ].map((v) => (
+                      <p key={v} className="text-muted-foreground">
+                        <span className="text-primary">OK</span>
+                        {"   "}
+                        {v}
+                      </p>
+                    ))}
+                    <p className="pt-2 text-foreground">
+                      os 5 verificadores passaram
+                    </p>
+                  </div>
+                </TerminalWindow>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ TAMBÉM CONSTRUÍ ═══ */}
+        <section className="space-y-5">
+          <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight">
+            Também construí
+          </h2>
+          <p className="max-w-[66ch] text-sm leading-relaxed text-muted-foreground">
+            Trabalho de cliente, quase todo sem autorização para citar nome ou
+            link. O que dá para mostrar é a stack e o tipo de problema — se o
+            seu site é parecido com algum destes, já foi feito antes.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {tiposDeSite.map((t) => {
+              const Icone = ICONES_TIPO[t.icone];
+              return (
+                <article
+                  key={t.slug}
+                  className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-5"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icone
+                      className="h-4 w-4 text-primary"
+                      aria-hidden="true"
+                    />
+                    <h3 className="text-sm font-semibold text-foreground">
+                      {t.titulo}
+                    </h3>
+                  </div>
+                  <p className="text-[12.5px] leading-relaxed text-muted-foreground">
+                    {t.descricao}
+                  </p>
+                  <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+                    {t.stack.map((s) => (
+                      <span
+                        key={s}
+                        className="rounded border border-border px-2 py-0.5 font-mono text-[10px] text-muted-foreground"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <p className="pt-1 font-mono text-[11.5px] leading-relaxed text-muted-foreground">
+            Não achou o seu tipo aqui?{" "}
+            <Link to="/contato" className="text-primary hover:underline">
+              Descreve o caso
+            </Link>{" "}
+            — o trabalho é o mesmo: entender antes, escrever o escopo, entregar
+            com o que você precisa para tocar sozinho depois.
+          </p>
+        </section>
+
+        {/* ═══ O QUE EU RESOLVO ═══ */}
+        <section className="space-y-6">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight">
+              O que eu resolvo
+            </h2>
+            <Link
+              to="/produtos"
+              className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              escopo e fluxo ↗
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {servicosResumo.map((s, i) => (
+              <article
+                key={s.slug}
+                className="flex flex-col gap-2.5 rounded-xl border border-border bg-surface p-5"
+              >
+                <span
+                  className={`font-mono text-lg font-bold ${i === 0 ? "text-primary" : "text-muted-foreground"}`}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="text-sm font-semibold text-foreground">
+                  {s.nome}
+                </h3>
+                <p className="text-[12.5px] leading-relaxed text-muted-foreground">
+                  {s.resumo}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
 
         {/* SEÇÃO B: MANIFESTO */}
         <section className="text-left max-w-3xl space-y-6">

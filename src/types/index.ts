@@ -62,10 +62,13 @@ export interface ProximoPasso {
 
 export type ServiceStatus = "disponivel" | "em-breve";
 
-export interface Service {
+export interface ServicoResumo {
   slug: string;
   nome: string;
   resumo: string;
+}
+
+export interface Service extends ServicoResumo {
   paraQuem: string[];
   entregavel: string[];
   foraDoEscopo: string[];
@@ -77,4 +80,34 @@ export interface ServiceStep {
   id: string;
   titulo: string;
   descricao: string;
+}
+
+export type IconeTipoDeSite =
+  | "shopping-bag"
+  | "store"
+  | "boxes"
+  | "utensils"
+  | "link"
+  | "calendar-check";
+
+export interface TipoDeSite {
+  slug: string;
+  titulo: string;
+  descricao: string;
+  stack: string[];
+  icone: IconeTipoDeSite;
+}
+
+export type ReiDestinoTipo = "repo" | "produtos" | "contato";
+
+export interface ReiDestino {
+  rotulo: string;
+  tipo: ReiDestinoTipo;
+}
+
+export interface ReiTroca {
+  id: string;
+  pergunta: string;
+  resposta: string;
+  destino: ReiDestino;
 }
