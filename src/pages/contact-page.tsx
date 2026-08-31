@@ -102,7 +102,10 @@ export const ContactPage: React.FC = () => {
 
   // Filtra apenas os canais com valor preenchido
   const activeContacts = config.filter((c) => {
-    const val = contactLinks[c.key as keyof typeof contactLinks];
+    const val =
+      contactLinks[
+        c.key as "email" | "linkedin" | "github" | "instagram" | "whatsapp"
+      ];
     return val && val.trim() !== "";
   });
 

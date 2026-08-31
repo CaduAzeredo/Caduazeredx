@@ -67,3 +67,24 @@ Como nenhuma URL foi inventada na implementação inicial, os links sociais da p
 1. Abra o arquivo `src/content/contacts.ts`.
 2. Insira suas URLs e e-mail nos campos correspondentes.
 3. Os botões de atalho correspondentes serão ativados automaticamente na interface.
+
+## 🤖 Setup de Agentes & Infraestrutura de IA
+
+A infraestrutura de IA e agentes do **caduazeredo.com** segue uma sequência fixa de 11 ferramentas integradas, garantindo controle de custos, consistência de design, auditoria visual, SEO, mobile e segurança:
+
+| Ordem | Ferramenta | Função & Motivo | Comando / Uso | Status |
+| :---: | :--- | :--- | :--- | :---: |
+| 1 | **OmniRoute** | Gateway centralizador de LLMs. | `pm2 start omniroute` | [-] Omitido |
+| 2 | **Graphify** | Mapeia o codebase inteiro em grafo de conhecimento local em `docs/graphify-knowledge-graph.md`. | `/graphify` | [x] Concluído |
+| 3 | **Impeccable** | Define e garante regras de design system em `DESIGN.md` e produto em `PRODUCT.md`. | `npx impeccable install` \| `/impeccable init` | [x] Concluído |
+| 4 | **Taste Skill** | Gera componentes novos calibrados em `docs/taste-skill.md`. | `/taste variance 2 motion 2 density 4` | [x] Concluído |
+| 5 | **Mobile Readiness Skill** | Audita telas contra checklist mobile/PWA em `docs/mobile-readiness-skill.md`. | `/mobile [tela]` | [x] Concluído |
+| 6 | **Hallmark** | Audita páginas React contra 65 quality gates visuais em `docs/hallmark-quality-gates.md`. | `/audit [pasta]` | [x] Concluído |
+| 7 | **UI/UX Review Agent** | Analisa atritos cognitivos em fluxos em `docs/ui-ux-review-agent.md`. | `python ui_design_assistant.py` | [x] Concluído |
+| 8 | **Claude SEO** | SEO técnico, local e GEO/AEO em `docs/claude-seo-spec.md`. | `/seo audit` \| `/seo local` \| `/seo geo` | [x] Concluído |
+| 9 | **SEO Audit Skill (SEOmator)** | Auditoria técnica complementar de performance/SEO em `docs/seo-audit-skill.md`. | `seo-audit-skill scan [URL]` | [x] Concluído |
+| 10 | **Council Skill** | Painel deliberativo de decisão crítica V1 → V2 em `docs/council-skill.md`. | Acionar antes de refatorações grandes | [x] Concluído |
+| 11 | **PentestGPT** | Teste de segurança autônomo em staging em `docs/pentestgpt-security-protocol.md`. | `pentestgpt` | [x] Concluído |
+
+> ⚠️ PentestGPT nunca deve rodar contra produção, apenas contra staging.
+

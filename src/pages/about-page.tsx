@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import PageShell from "@/components/layout/page-shell";
 import { buttonVariants } from "@/components/ui/button";
-import { Terminal, BookOpen, Settings } from "lucide-react";
+import { Terminal, BookOpen, Settings, FolderGit2 } from "lucide-react";
+import { contactLinks } from "@/content/contacts";
 
 export const AboutPage: React.FC = () => {
   // Atualizar título para SEO
@@ -28,7 +29,7 @@ export const AboutPage: React.FC = () => {
 
         {/* INTRODUÇÃO */}
         <section className="space-y-4">
-          <h2 className="text-xl font-bold font-sans text-foreground flex items-center space-x-2">
+          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
             <Terminal className="w-5 h-5 text-primary" />
             <span>Perfil Profissional</span>
           </h2>
@@ -50,7 +51,7 @@ export const AboutPage: React.FC = () => {
 
         {/* FILOSOFIA DE PRODUTO */}
         <section className="space-y-4">
-          <h2 className="text-xl font-bold font-sans text-foreground flex items-center space-x-2">
+          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
             <BookOpen className="w-5 h-5 text-secondary" />
             <span>Como Penso Produtos</span>
           </h2>
@@ -90,7 +91,7 @@ export const AboutPage: React.FC = () => {
 
         {/* INTERESSES & HOBBIES (HONESTO) */}
         <section className="space-y-4">
-          <h2 className="text-xl font-bold font-sans text-foreground flex items-center space-x-2">
+          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
             <Settings className="w-5 h-5 text-primary-muted" />
             <span>Interesses do Workspace</span>
           </h2>
@@ -107,6 +108,68 @@ export const AboutPage: React.FC = () => {
               Estudos práticos de IA aplicada ao desenvolvimento de software.
             </li>
           </ul>
+        </section>
+
+        {/* REPOSITÓRIOS & CONTEÚDO */}
+        <section className="space-y-4">
+          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
+            <FolderGit2 className="w-5 h-5 text-secondary" />
+            <span>Repositórios & Conteúdo</span>
+          </h2>
+          <div className="space-y-3">
+            {contactLinks.github && contactLinks.github.trim() !== "" && (
+              <a
+                href={contactLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-primary font-medium hover:text-primary-muted transition-colors inline-flex items-center"
+              >
+                Ver perfil no GitHub
+              </a>
+            )}
+            {contactLinks.publicRepos &&
+              contactLinks.publicRepos.length > 0 && (
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {contactLinks.publicRepos.map((repo) =>
+                    repo.status === "public" && repo.url ? (
+                      <li key={repo.name}>
+                        <a
+                          href={repo.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between p-3 rounded-lg bg-surface/50 border border-border/80 text-sm text-foreground hover:border-primary/50 transition-colors"
+                        >
+                          <span>{repo.name}</span>
+                          <span className="text-[10px] font-mono uppercase text-emerald-400">
+                            Público
+                          </span>
+                        </a>
+                      </li>
+                    ) : (
+                      <li
+                        key={repo.name}
+                        className="flex items-center justify-between p-3 rounded-lg bg-surface/30 border border-border/40 text-sm text-muted-foreground/80"
+                      >
+                        <span>{repo.name}</span>
+                        <span className="text-[10px] font-mono uppercase text-muted-foreground/60 border border-border/60 rounded-full px-2 py-0.5">
+                          Em breve
+                        </span>
+                      </li>
+                    ),
+                  )}
+                </ul>
+              )}
+            {contactLinks.youtube && contactLinks.youtube.trim() !== "" && (
+              <a
+                href={contactLinks.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-primary font-medium hover:text-primary-muted transition-colors inline-flex items-center"
+              >
+                Ver canal no YouTube
+              </a>
+            )}
+          </div>
         </section>
 
         {/* CHAMADA PARA AÇÃO */}

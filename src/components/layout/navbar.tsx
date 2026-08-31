@@ -9,6 +9,8 @@ export const Navbar: React.FC = () => {
   const navItems = [
     { name: "Início", path: "/" },
     { name: "Projetos", path: "/projetos" },
+    { name: "Produtos", path: "/produtos" },
+    { name: "Novidades", path: "/novidades" },
     { name: "Sobre", path: "/sobre" },
     { name: "Contato", path: "/contato" },
   ];

@@ -65,3 +65,33 @@
 .terminal-window {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
 }
+
+/* Terminal Loader (fallback do Suspense) */
+@keyframes terminal-cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes terminal-dot-fade {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.terminal-cursor {
+  animation: terminal-cursor-blink 1s step-end infinite;
+}
+
+.terminal-dot {
+  animation: terminal-dot-fade 1.4s ease-in-out infinite;
+}
