@@ -31,6 +31,7 @@ export const products: Product[] = [
     slug: "brain",
     name: "Brain Framework",
     externalUrl: repoPublico("Brain Framework"),
+    visual: "brain-estrutura",
     tagline:
       "Um sistema operacional de governança para agentes de IA — contexto confiável antes de qualquer linha de código.",
     description:

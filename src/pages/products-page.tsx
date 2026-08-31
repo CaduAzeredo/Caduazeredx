@@ -35,11 +35,15 @@ export const ProductsPage: React.FC = () => {
 
         {/* Ferramentas */}
         <section
+          data-reveal
           data-audience="dev"
           className="space-y-6 order-2 [html[data-mode=empresa]_&]:order-3"
         >
           <div className="space-y-2">
-            <h2 className="text-xl font-bold tracking-tight font-sans">
+            <h2
+              data-split
+              className="text-xl font-bold tracking-tight font-sans"
+            >
               As ferramentas
             </h2>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
@@ -57,11 +61,15 @@ export const ProductsPage: React.FC = () => {
 
         {/* Consultoria */}
         <section
+          data-reveal
           data-audience="empresa"
           className="space-y-6 order-3 [html[data-mode=empresa]_&]:order-2"
         >
           <div className="space-y-2">
-            <h2 className="text-xl font-bold tracking-tight font-sans">
+            <h2
+              data-split
+              className="text-xl font-bold tracking-tight font-sans"
+            >
               A consultoria
             </h2>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
@@ -144,9 +152,12 @@ export const ProductsPage: React.FC = () => {
         </section>
 
         {/* Fluxo */}
-        <section className="space-y-6 order-4">
+        <section data-reveal className="space-y-6 order-4">
           <div className="space-y-2">
-            <h2 className="text-xl font-bold tracking-tight font-sans">
+            <h2
+              data-split
+              className="text-xl font-bold tracking-tight font-sans"
+            >
               Como funciona, do começo ao fim
             </h2>
             <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">

@@ -117,7 +117,10 @@ export const NovidadesPage: React.FC = () => {
                   </span>
                 </div>
 
-                <h2 className="text-lg sm:text-xl font-bold font-sans text-foreground leading-snug">
+                <h2
+                  data-split
+                  className="text-lg sm:text-xl font-bold font-sans text-foreground leading-snug"
+                >
                   {entry.titulo}
                 </h2>
 
@@ -150,9 +153,15 @@ export const NovidadesPage: React.FC = () => {
         </div>
 
         {/* O que vem a seguir */}
-        <section className="space-y-6 pt-4 border-t border-border/80">
+        <section
+          data-reveal
+          className="space-y-6 pt-4 border-t border-border/80"
+        >
           <div className="space-y-2">
-            <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+            <h2
+              data-split
+              className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+            >
               <Compass className="w-5 h-5 text-primary-muted" />
               <span>O que vem a seguir</span>
             </h2>

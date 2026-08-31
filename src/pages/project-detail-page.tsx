@@ -104,8 +104,11 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* CONTEXTO */}
         {project.problem && (
-          <section className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+          <section data-reveal className="space-y-4">
+            <h2
+              data-split
+              className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+            >
               <HelpCircle className="w-5 h-5 text-primary-muted" />
               <span>O Problema & Origem</span>
             </h2>
@@ -117,8 +120,11 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* SOLUÇÃO */}
         {project.solution && (
-          <section className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+          <section data-reveal className="space-y-4">
+            <h2
+              data-split
+              className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+            >
               <Lightbulb className="w-5 h-5 text-primary" />
               <span>A Proposta de Solução</span>
             </h2>
@@ -130,8 +136,11 @@ export const ProjectDetailPage: React.FC = () => {
 
         {/* PROCESS / CONSTRUÇÃO */}
         {project.process && project.process.length > 0 && (
-          <section className="space-y-4">
-            <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+          <section data-reveal className="space-y-4">
+            <h2
+              data-split
+              className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+            >
               <Code2 className="w-5 h-5 text-secondary" />
               <span>Processo de Construção do Front-end</span>
             </h2>
@@ -146,8 +155,11 @@ export const ProjectDetailPage: React.FC = () => {
         )}
 
         {/* GALERIA PLACEHOLDER (NEUTRO, SEM IMAGENS INVENTADAS) */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+          >
             <Image className="w-5 h-5 text-muted-foreground/60" />
             <span>Interface & Design Visual</span>
           </h2>
@@ -160,7 +172,10 @@ export const ProjectDetailPage: React.FC = () => {
         </section>
 
         {/* APRENDIZADOS E PRÓXIMOS PASSOS */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+        <section
+          data-reveal
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4"
+        >
           {/* Aprendizados */}
           {project.learnings && project.learnings.length > 0 && (
             <div className="space-y-4">

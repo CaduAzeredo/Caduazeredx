@@ -38,6 +38,12 @@ export interface Product {
   status: ProductStatus;
   waitlistCopy: string;
   externalUrl?: string;
+  /**
+   * Peca visual propria deste produto, montada sob demanda na pagina de
+   * detalhe. So existe onde ha o que mostrar: a pagina continua desenhando
+   * todo produto igual, e esta e a excecao declarada.
+   */
+  visual?: "brain-estrutura";
 }
 
 export type NovidadeCategoria =
@@ -105,4 +111,9 @@ export interface ReiTroca {
   pergunta: string;
   resposta: string;
   destino: ReiDestino;
+  /**
+   * Termos que fazem esta troca casar com o que a pessoa digitou. Sem acento e
+   * em minusculas — a normalizacao acontece dos dois lados antes de comparar.
+   */
+  palavras: string[];
 }

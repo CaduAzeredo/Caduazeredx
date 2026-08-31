@@ -95,7 +95,15 @@ async function ligar(): Promise<void> {
     document.querySelectorAll<HTMLElement>("[data-reveal]"),
   );
 
+  // Elemento que JA esta na tela nao e escondido. Esta camada entra em tempo
+  // ocioso, ~200 ms depois da pintura: esconder o que a pessoa ja esta lendo
+  // para reanimar produz um piscar, e um piscar e pior que nao ter animacao.
+  // So anima o que ainda vai chegar.
+  const alturaJanela = window.innerHeight;
+
   for (const el of revelaveis) {
+    if (el.getBoundingClientRect().top < alturaJanela * 0.92) continue;
+
     const filhos = el.hasAttribute("data-reveal-stagger")
       ? Array.from(el.children)
       : [el];
@@ -125,6 +133,8 @@ async function ligar(): Promise<void> {
     );
 
     for (const t of titulos) {
+      if (t.getBoundingClientRect().top < alturaJanela * 0.9) continue;
+
       const partes = new SplitText(t, {
         type: "lines",
         linesClass: "linha-revelada",

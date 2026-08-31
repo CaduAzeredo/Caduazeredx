@@ -4,6 +4,7 @@ import PageShell from "@/components/layout/page-shell";
 import Button from "@/components/ui/button";
 import LeadForm from "@/components/product/lead-form";
 import { products } from "@/content/products";
+import BrainStructure from "@/components/brain/brain-structure";
 import type { ProductStatus } from "@/types";
 import { cn } from "@/lib/utils";
 import {
@@ -122,11 +123,26 @@ export const ProductDetailPage: React.FC = () => {
           </div>
         </header>
 
+        {/* A peca visual do produto, quando ha uma. Vive entre o cabecalho e
+            o texto de propósito: quem chegou pelo README ja sabe o nome, e o
+            que falta e ver o formato da coisa antes de ler sobre ela. */}
+        {product.visual === "brain-estrutura" && (
+          <div
+            data-reveal
+            className="rounded-xl border border-border bg-surface/40 p-5 sm:p-7"
+          >
+            <BrainStructure />
+          </div>
+        )}
+
         <hr className="border-border/60" />
 
         {/* O QUE É */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans text-foreground"
+          >
             O que é
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
@@ -135,8 +151,11 @@ export const ProductDetailPage: React.FC = () => {
         </section>
 
         {/* FEATURES */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+          >
             <CheckCircle2 className="w-5 h-5 text-primary" />
             <span>O que faz</span>
           </h2>
@@ -154,8 +173,11 @@ export const ProductDetailPage: React.FC = () => {
         </section>
 
         {/* IDEAL PARA */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+          >
             <Target className="w-5 h-5 text-secondary" />
             <span>Ideal para</span>
           </h2>
@@ -175,8 +197,11 @@ export const ProductDetailPage: React.FC = () => {
         <hr className="border-border/60" />
 
         {/* CAPTURA DE LEAD */}
-        <section id="captura" className="space-y-6 scroll-mt-20">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground">
+        <section data-reveal id="captura" className="space-y-6 scroll-mt-20">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
+          >
             <Send className="w-5 h-5 text-primary" />
             <span>Lista de espera</span>
           </h2>

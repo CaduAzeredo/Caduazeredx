@@ -28,8 +28,11 @@ export const AboutPage: React.FC = () => {
         <hr className="border-border/60" />
 
         {/* INTRODUÇÃO */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
+          >
             <Terminal className="w-5 h-5 text-primary" />
             <span>Perfil Profissional</span>
           </h2>
@@ -50,8 +53,11 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* FILOSOFIA DE PRODUTO */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
+          >
             <BookOpen className="w-5 h-5 text-secondary" />
             <span>Como Penso Produtos</span>
           </h2>
@@ -90,8 +96,11 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* INTERESSES & HOBBIES (HONESTO) */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
+          >
             <Settings className="w-5 h-5 text-primary-muted" />
             <span>Interesses do Workspace</span>
           </h2>
@@ -111,8 +120,11 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* REPOSITÓRIOS & CONTEÚDO */}
-        <section className="space-y-4">
-          <h2 className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2">
+        <section data-reveal className="space-y-4">
+          <h2
+            data-split
+            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
+          >
             <FolderGit2 className="w-5 h-5 text-secondary" />
             <span>Repositórios & Conteúdo</span>
           </h2>
@@ -173,7 +185,10 @@ export const AboutPage: React.FC = () => {
         </section>
 
         {/* CHAMADA PARA AÇÃO */}
-        <section className="pt-6 border-t border-border/60 flex flex-wrap gap-4 items-center justify-between">
+        <section
+          data-reveal
+          className="pt-6 border-t border-border/60 flex flex-wrap gap-4 items-center justify-between"
+        >
           <div className="space-y-1">
             <span className="block text-xs font-mono text-muted-foreground">
               [sys.next_step]
