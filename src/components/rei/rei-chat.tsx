@@ -58,7 +58,7 @@ export const ReiChat: React.FC = () => {
   return (
     <section
       aria-label="Rei — perguntas sobre o trabalho"
-      className="overflow-hidden rounded-xl border border-border bg-surface shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)]"
+      className="overflow-hidden rounded-xl border border-border bg-surface panel-shadow"
     >
       <header className="flex items-center gap-3 border-b border-border bg-surface-elevated px-4 py-3">
         <img

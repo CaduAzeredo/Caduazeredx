@@ -84,6 +84,13 @@
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
 }
 
+/* Profundidade de painel. Preto neutro, não acento — mas vive aqui mesmo
+   assim, para que a regra "nenhuma cor em .tsx" não tenha exceção que
+   precise ser julgada caso a caso. */
+.panel-shadow {
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.9);
+}
+
 /* Terminal Loader (fallback do Suspense) */
 @keyframes terminal-cursor-blink {
   0%,

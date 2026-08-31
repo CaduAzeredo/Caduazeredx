@@ -7,7 +7,7 @@ Relatório de auditoria técnica de desempenho, acessibilidade e otimização de
 ## 1. Métrica de Desempenho & Bundle
 
 - **Index Asset Compression**: Gzip ativado na distribuição de produção (`dist/assets/`).
-- **Code Splitting**: Módulos divididos por rota (`React.lazy`), garantindo que o bundle inicial da HomePage permaneça em `~255 kB` (apenas `~80 kB` gzipped).
+- **Code Splitting: módulos divididos por rota (`React.lazy`). **Orçamento medido em 2026-08-31, com gzip nível 9 sobre o `dist/`: 90,3 KB no caminho crítico** (era 127,1 KB antes da remodelação). O número anterior deste documento — `~255 kB` / `~80 kB gzipped` — estava errado: a medição real na época era 127,1 KB comprimidos, e um orçamento mentiroso é pior que nenhum.
 - **Google Fonts Preconnect**: Links `preconnect` para `fonts.googleapis.com` e `fonts.gstatic.com` em `index.html` para redução de latência de renderização de fontes.
 
 ---

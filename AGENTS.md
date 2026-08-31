@@ -10,7 +10,11 @@ Este arquivo estabelece as regras de desenvolvimento, design e qualidade para qu
 
 ## Regras de Design e Acessibilidade
 
-1. **Estética "Space Terminal"**: Mantenha o tema dark mode com fundo `#0B0D14`, grid sutil de `28px` e glows nebulosos via gradients em CSS puro. Não adicione WebGL, Three.js ou Canvas 3D pesados sem aprovação e fallback.
+1. **Estética "Wired Terminal" (v2.0)**: dark mode com fundo `#0A0E10`, grid sutil de `28px` e glows em CSS puro. Não adicione WebGL, Three.js ou Canvas 3D pesados sem aprovação e fallback. **A regra que governa a cor: o verde é elemento, nunca atmosfera** — ver `DESIGN.md` §1.
+1a. **Proibido acento hard-coded**: nenhum hex ou `rgba()` de cor em `.tsx`. Verificação: `grep -rEn "rgba?\(|#[0-9a-fA-F]{6}" src/components src/pages` deve voltar vazio. Foi assim que o rosa fixo sobreviveu em cinco lugares que a troca de token não alcançava.
+1b. **Orçamento de peso**: o caminho crítico da home fica em **≤ 92 KB comprimidos**, medido no `dist/` depois do build. Hoje: 90,3 KB.
+1c. **Biblioteca de animação exige aprovação**, ao lado de WebGL e Canvas — ela já esteve no caminho crítico custando 42 KB para fazer um fade.
+1d. **Nunca `addEventListener("keydown")` em `document` ou `window`**: rouba teclas de quem navega por teclado.
 2. **Acessibilidade do Typewriter**: Todo texto de efeito terminal ou digitação animada precisa estar completo e visível no HTML (DOM) para leitores de tela (usando classes de acessibilidade como `sr-only`). O cursor piscante e o atraso de digitação devem ser desativados caso `prefers-reduced-motion` seja verdadeiro.
 3. **Tipografia Consistente**: Use **Plus Jakarta Sans** para títulos e textos de leitura gerais, e **JetBrains Mono** para elementos de terminal, metadados e tags técnicas. Mantenha os tokens de fonte centralizados.
 

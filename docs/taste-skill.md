@@ -11,9 +11,9 @@ Este documento define os 3 eixos de calibração (*dials*) para a geração de n
 ```
 
 ### Dial 1: Variance (Variação Estética) — Nível 2 / 5 (Baixa a Moderada)
-- **Regra**: Fidelidade estrita ao tema **Space Terminal / Digital Workshop**.
-- **Fundo**: Base em `#0B0D14`, superfícies em `#121522` e bordas finas `#282B3B`.
-- **Acentos**: Uso controlado do Rosa (`#F67280`), Rosa Queimado (`#C06C84`) e Azul (`#355C7D`).
+- **Regra**: Fidelidade estrita ao tema **Wired Terminal** (v2.0). Ver `DESIGN.md` §1.
+- **Fundo**: Base em `#0A0E10`, superfícies em `#101618` e bordas neutras `#1E2A2B`.
+- **Acentos**: verde `#3FA372` no modo Dev, azul-aço `#4F9DBF` no modo Empresa. **Uso controlado é regra dura**: o acento cobre ~8% da tela e nunca vira fundo, grade ou borda padrão.
 - **Proibido**: Cores neon saturadas, gradientes arco-íris, estilos skeuomórficos ou temas genéricos de SaaS.
 
 ### Dial 2: Motion (Dinamismo & Animação) — Nível 2 / 5 (Sutil & Funcional)
@@ -30,7 +30,9 @@ Este documento define os 3 eixos de calibração (*dials*) para a geração de n
 ## 2. Checklist para Novos Componentes (Taste Gate)
 
 Ao criar ou atualizar qualquer componente da interface:
-- [ ] O componente respeita o dark mode `#0B0D14` e paleta HSL oficial?
+- [ ] O componente respeita o dark mode `#0A0E10` e lê **só tokens** — nenhuma cor escrita nele?
+- [ ] A animação sobrevive ao bloco global de `prefers-reduced-motion` sem virar indicador travado?
+- [ ] O glow vem de classe utilitária, não de `rgba()` literal?
 - [ ] O componente usa a fonte **Plus Jakarta Sans** para leitura e **JetBrains Mono** para elementos técnicos?
 - [ ] Animações usam `motion/react` com fallback para `prefers-reduced-motion`?
 - [ ] O componente tem tipagem TypeScript estrita (sem `any`)?
