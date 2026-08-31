@@ -1,9 +1,9 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
-import { useReducedMotion } from "@/lib/use-reduced-motion";
+import React, { useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import PageShell from "@/components/layout/page-shell";
 import { buttonVariants } from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
+import TypewriterText from "@/components/terminal/typewriter-text";
 import ProjectCard from "@/components/project/project-card";
 import CodeRain from "@/components/background/code-rain";
 import { tiposDeSite } from "@/content/tambem-construi";
@@ -28,6 +28,7 @@ import {
   Utensils,
   Link as LinkIcon,
   CalendarCheck,
+  ArrowUpRight,
 } from "lucide-react";
 
 const ICONES_TIPO = {
@@ -43,26 +44,10 @@ export const HomePage: React.FC = () => {
   const repoBrain = contactLinks.publicRepos?.find(
     (r) => r.status === "public" && r.url,
   );
-  const semMovimento = useReducedMotion();
-  const [brandName, setBrandName] = useState(() =>
-    semMovimento ? "Cadu Azeredo" : "Cadu Azeredx /",
-  );
-
   // Atualizar título para SEO
   useEffect(() => {
     document.title = "Cadu Azeredo — Front-end Developer & Product Builder";
   }, []);
-
-  // Animação do nome da marca: Cadu Azeredx / -> Cadu Azeredo
-  useEffect(() => {
-    if (semMovimento) return;
-
-    const timer = setTimeout(() => {
-      setBrandName("Cadu Azeredo");
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [semMovimento]);
 
   // Encontra o DiáriaBr para destacar
   const diariaBrProject = projects.find((p) => p.slug === "diariabr");
@@ -88,15 +73,18 @@ export const HomePage: React.FC = () => {
                 </span>
               </span>
 
+              {/* A unica coisa que se digita e a linha de prompt. O <h1> e o
+                  maior texto da tela — ele e o LCP da pagina, e atrasa-lo por
+                  efeito seria trocar metrica real por sensacao. Ele entra
+                  inteiro, de primeira. */}
+              <div className="font-mono text-[13px] text-primary-muted">
+                <span className="text-primary">&gt;</span>{" "}
+                <TypewriterText text="whoami" speed={70} showCursor />
+              </div>
+
               <h1 className="font-sans text-[42px] sm:text-[56px] lg:text-[64px] font-extrabold leading-[1.03] tracking-[-0.045em] text-foreground">
-                {brandName === "Cadu Azeredo" ? (
-                  <>
-                    Cadu Azeredo
-                    <span className="font-light text-primary">&nbsp;/</span>
-                  </>
-                ) : (
-                  <span className="glow-text">{brandName}</span>
-                )}
+                Cadu Azeredo
+                <span className="font-light text-primary">&nbsp;/</span>
               </h1>
 
               <p className="max-w-[44ch] text-base sm:text-lg leading-relaxed text-muted-foreground">
@@ -146,7 +134,11 @@ export const HomePage: React.FC = () => {
               to="/projetos"
               className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
             >
-              ver todos ↗
+              ver todos
+              <ArrowUpRight
+                className="ml-1 inline h-3 w-3"
+                aria-hidden="true"
+              />
             </Link>
           </div>
 
@@ -199,7 +191,11 @@ export const HomePage: React.FC = () => {
                       rel="noopener noreferrer"
                       className={buttonVariants("outline", "md")}
                     >
-                      Clonar de graça ↗
+                      Clonar de graça
+                      <ArrowUpRight
+                        className="ml-1 inline h-3 w-3"
+                        aria-hidden="true"
+                      />
                     </a>
                   )}
                 </div>
@@ -297,7 +293,11 @@ export const HomePage: React.FC = () => {
               to="/produtos"
               className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
             >
-              escopo e fluxo ↗
+              escopo e fluxo
+              <ArrowUpRight
+                className="ml-1 inline h-3 w-3"
+                aria-hidden="true"
+              />
             </Link>
           </div>
 

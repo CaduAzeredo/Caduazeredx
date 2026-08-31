@@ -2,7 +2,9 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import BrandMark from "@/components/layout/brand-mark";
+import ModeToggle from "@/components/mode/mode-toggle";
 import { contactLinks } from "@/content/contacts";
+import { ArrowUpRight } from "lucide-react";
 
 const navItems = [
   { name: "Projetos", path: "/projetos" },
@@ -58,6 +60,12 @@ export const Navbar: React.FC = () => {
               ))}
             </div>
 
+            {/* O modo de leitura vivia so em /produtos, o que na pratica
+                significava que quem abria a home nunca soube que ele existe.
+                No celular ele fica fora da barra: la o espaco e do nome e a
+                navegacao mora na barra inferior. */}
+            <ModeToggle className="hidden lg:flex" />
+
             {repoBrain?.url && (
               <a
                 href={repoBrain.url}
@@ -65,7 +73,11 @@ export const Navbar: React.FC = () => {
                 rel="noopener noreferrer"
                 className="hidden sm:inline font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
               >
-                GitHub&nbsp;↗
+                GitHub
+                <ArrowUpRight
+                  className="ml-0.5 inline h-3 w-3"
+                  aria-hidden="true"
+                />
               </a>
             )}
 
