@@ -31,7 +31,7 @@ const categoriaConfig: Record<
   },
   seguranca: {
     label: "Segurança",
-    badgeClass: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25",
+    badgeClass: "bg-status-security/10 text-status-security border-status-security/30",
     icon: ShieldCheck,
   },
   arquitetura: {

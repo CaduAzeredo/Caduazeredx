@@ -12,24 +12,30 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-primary: var(--primary);
   --color-primary-muted: var(--primary-muted);
+  --color-primary-deep: var(--primary-deep);
+  --color-border: var(--border);
+  --color-border-accent: var(--border-accent);
   --color-secondary: var(--secondary);
   --color-accent-blue: var(--accent-blue);
-  --color-border: var(--border);
+
+  /* estado semântico — usar estes no lugar de literais do Tailwind
+     (emerald-400, amber-400, red-400), que não acompanham a troca de tema */
+  --color-status-live: var(--status-live);
+  --color-status-security: var(--status-security);
+  --color-status-wait: var(--status-wait);
+  --color-status-alert: var(--status-alert);
+  --color-status-idle: var(--status-idle);
 }
 
-/* Base Styles */
+/* Base */
 @layer base {
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-family-sans);
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
     overflow-x: hidden;
   }
 
-  /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -42,26 +48,37 @@
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-muted);
+    background: var(--primary-deep);
   }
 }
 
-/* Custom Text Selection */
 ::selection {
-  background-color: var(--primary-muted);
+  background-color: var(--primary-deep);
   color: var(--foreground);
 }
 
-/* Utilities */
-.text-glow {
-  text-shadow: 0 0 12px rgba(246, 114, 128, 0.4);
+/* ---------------------------------------------------------------------------
+   Glow — utilitários, não valores arbitrários.
+
+   Antes o rosa vivia escrito à mão em cinco lugares, dois deles dentro de
+   .tsx, e trocar o token deixava o site com a cor nova e o halo antigo. Agora
+   a cor sai de --glow-rgb, então o glow acompanha o tema e o modo de graça, e
+   nenhum componente precisa saber que cor ele é.
+   --------------------------------------------------------------------------- */
+.glow-text {
+  text-shadow: 0 0 12px rgb(var(--glow-rgb) / 0.35);
 }
 
-.border-glow {
-  box-shadow: 0 0 15px rgba(246, 114, 128, 0.15);
+.glow-border {
+  box-shadow: 0 0 15px rgb(var(--glow-rgb) / 0.12);
+  transition: box-shadow 0.2s ease;
 }
 
-/* Custom styles for terminal and layout */
+.glow-border:hover,
+.glow-strong {
+  box-shadow: 0 0 22px rgb(var(--glow-rgb) / 0.28);
+}
+
 .terminal-window {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
 }
@@ -94,4 +111,25 @@
 
 .terminal-dot {
   animation: terminal-dot-fade 1.4s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------------------
+   Movimento reduzido — a rede de segurança que não existia.
+
+   Até aqui a proteção era toda imperativa, em quatro pontos de JavaScript, e
+   qualquer animação nova nascia descoberta. Este bloco cobre tudo de uma vez,
+   inclusive o que alguém esquecer de tratar amanhã.
+
+   Cuidado ao mexer: isto também neutraliza spinners de progresso. Indicador de
+   carregamento deve ser texto, não giro — ver o formulário de contato.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

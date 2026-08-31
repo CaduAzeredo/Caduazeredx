@@ -16,10 +16,10 @@ export const NotFoundPage: React.FC = () => {
       <div className="max-w-2xl mx-auto px-4 py-20 flex flex-col justify-center items-center">
         <TerminalWindow
           title="error-logger --status-code-404"
-          className="border-red-500/20 shadow-red-500/5"
+          className="border-status-alert/25"
         >
           <div className="space-y-6 font-mono text-xs sm:text-sm">
-            <div className="flex items-start space-x-3 text-red-400">
+            <div className="flex items-start space-x-3 text-status-alert">
               <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <p className="font-bold">SYSTEM ERROR: ROTA NÃO ENCONTRADA</p>

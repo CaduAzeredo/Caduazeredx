@@ -140,7 +140,7 @@ export const ContactPage: React.FC = () => {
                 >
                   <Button
                     variant="outline"
-                    className="w-full justify-start space-x-3 py-4 border-glow"
+                    className="w-full justify-start space-x-3 py-4 glow-border"
                   >
                     <Icon className="w-4 h-4 text-primary" />
                     <span>{contact.label}</span>

@@ -14,8 +14,8 @@ const statusConfig: Record<
 > = {
   active: {
     label: "Disponível",
-    badgeClass: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25",
-    dotClass: "bg-emerald-400",
+    badgeClass: "bg-status-live/10 text-status-live border-status-live/30",
+    dotClass: "bg-status-live",
   },
   "invite-only": {
     label: "Somente convite",
@@ -24,8 +24,8 @@ const statusConfig: Record<
   },
   "em-breve": {
     label: "Em breve",
-    badgeClass: "bg-amber-500/10 text-amber-400 border-amber-500/25",
-    dotClass: "bg-amber-400",
+    badgeClass: "bg-status-wait/10 text-status-wait border-status-wait/30",
+    dotClass: "bg-status-wait",
   },
 };
 
@@ -33,7 +33,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const status = statusConfig[product.status];
 
   return (
-    <div className="h-full rounded-lg bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 relative group border-glow hover:shadow-[0_0_22px_rgba(246,114,128,0.08)]">
+    <div className="h-full rounded-lg bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-300 relative group glow-border">
       <div className="space-y-4">
         {/* Categoria & Status */}
         <div className="flex items-center justify-between">

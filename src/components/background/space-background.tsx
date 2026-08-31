@@ -3,27 +3,31 @@ import React from "react";
 export const SpaceBackground: React.FC = () => {
   return (
     <div className="fixed inset-0 -z-50 overflow-hidden bg-background pointer-events-none select-none">
-      {/* Ambient Glow 1 - Top Left Pink */}
+      {/* Halo ambiente — deliberadamente fraco.
+          Com o acento verde, um glow forte aqui viraria banho de cor de página
+          inteira, que é exatamente o que a regra da paleta proíbe: o verde é
+          elemento, nunca atmosfera. Ele fica só como profundidade, sob o limiar
+          em que se lê como "cor de fundo". */}
       <div
-        className="absolute top-[-20%] left-[-15%] w-[80vw] h-[80vw] md:w-[60vw] md:h-[60vw] rounded-full opacity-[0.08] mix-blend-screen blur-[100px] md:blur-[140px]"
+        className="absolute top-[-20%] left-[-15%] w-[80vw] h-[80vw] md:w-[60vw] md:h-[60vw] rounded-full opacity-[0.05] mix-blend-screen blur-[100px] md:blur-[140px]"
         style={{
           background:
-            "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+            "radial-gradient(circle, var(--primary-deep) 0%, transparent 70%)",
         }}
       />
 
-      {/* Ambient Glow 2 - Bottom Right Blue/Purple */}
+      {/* Segundo halo — teal frio, para o fundo nao ficar monocromatico verde */}
       <div
-        className="absolute bottom-[-20%] right-[-15%] w-[80vw] h-[80vw] md:w-[60vw] md:h-[60vw] rounded-full opacity-[0.07] mix-blend-screen blur-[100px] md:blur-[140px]"
+        className="absolute bottom-[-20%] right-[-15%] w-[80vw] h-[80vw] md:w-[60vw] md:h-[60vw] rounded-full opacity-[0.06] mix-blend-screen blur-[100px] md:blur-[140px]"
         style={{
           background:
             "radial-gradient(circle, var(--accent-blue) 0%, transparent 70%)",
         }}
       />
 
-      {/* Grid Overlay */}
+      {/* Grade — em --border, que e neutro. Nunca em cor de acento. */}
       <div
-        className="absolute inset-0 opacity-[0.18]"
+        className="absolute inset-0 opacity-[0.14]"
         style={{
           backgroundImage: `
             linear-gradient(to right, var(--border) 1px, transparent 1px),

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, CheckCircle2, Info, Loader2 } from "lucide-react";
+import {AlertTriangle, CheckCircle2, Info} from "lucide-react";
 import Button from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
 import type { ProductSlug } from "@/types";
@@ -59,7 +59,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
   if (status === "success") {
     return (
       <TerminalWindow title="lead-capture --status">
-        <div className="flex items-start space-x-3 text-emerald-400">
+        <div className="flex items-start space-x-3 text-status-live">
           <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
           <div className="space-y-1">
             <p className="font-bold">[Status: Recebido]</p>
@@ -198,11 +198,11 @@ export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
         disabled={status === "submitting" || !consentiu}
         className="w-full sm:w-auto"
       >
+        {/* Texto, não spinner: o bloco global de `prefers-reduced-motion`
+            congela toda animação, e um spinner parado comunica travado em vez
+            de carregando. `aria-live` conta o mesmo para quem não vê a tela. */}
         {status === "submitting" ? (
-          <span className="inline-flex items-center space-x-2">
-            <Loader2 className="w-4 h-4 animate-spin" />
-            <span>Enviando...</span>
-          </span>
+          <span aria-live="polite">Enviando…</span>
         ) : (
           "Entrar na lista de espera"
         )}

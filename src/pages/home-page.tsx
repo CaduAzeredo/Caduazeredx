@@ -61,7 +61,7 @@ export const HomePage: React.FC = () => {
 
             <div className="space-y-2">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight font-sans select-none">
-                <span className="text-glow text-foreground transition-all duration-500">
+                <span className="glow-text text-foreground transition-all duration-500">
                   {brandName}
                 </span>
               </h1>

@@ -19,8 +19,8 @@ export const ProjectStatus: React.FC<ProjectStatusProps> = ({
     },
     live: {
       label: "Em produção",
-      class: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25",
-      dotClass: "bg-emerald-400",
+      class: "bg-status-live/10 text-status-live border-status-live/30",
+      dotClass: "bg-status-live",
     },
     archived: {
       label: "Arquivado",

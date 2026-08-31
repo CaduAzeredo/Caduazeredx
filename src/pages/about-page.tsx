@@ -140,7 +140,7 @@ export const AboutPage: React.FC = () => {
                           className="flex items-center justify-between p-3 rounded-lg bg-surface/50 border border-border/80 text-sm text-foreground hover:border-primary/50 transition-colors"
                         >
                           <span>{repo.name}</span>
-                          <span className="text-[10px] font-mono uppercase text-emerald-400">
+                          <span className="text-[10px] font-mono uppercase text-status-live">
                             Público
                           </span>
                         </a>

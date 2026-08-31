@@ -1,31 +1,60 @@
-:root {
-  /* Color Palette - Dark Mode Default */
-  --background: #0b0d14;
-  --surface: #121522;
-  --surface-elevated: #181b29;
-  --foreground: #f4f3f7;
-  --muted-foreground: #a8a6b2;
-  --primary: #f67280;
-  --primary-muted: #c06c84;
-  --secondary: #6c5b7b;
-  --accent-blue: #355c7d;
-  --border: #282b3b;
+/* ============================================================================
+   Tokens — "Wired Terminal", v2.0
+   Fonte única dos valores brutos. Nenhum acento pode ser escrito em .tsx.
 
-  /* Font Families */
+   A REGRA que governa esta paleta: o verde é ELEMENTO, nunca ATMOSFERA.
+   O fundo é quase-preto. O verde aparece só onde tem função — a barra da
+   logo, o prompt, o estado ativo, o botão principal, a chuva no topo do hero
+   e a borda do Brain. Nunca como banho de cor, nunca na grade, nunca no
+   fundo. É assim que o verde aparece na referência: dentro de um monitor,
+   num canto do quadro.
+
+   CONTRASTE — medido sobre --background. Todo token que pode virar texto
+   pequeno passa AA (>= 4.5:1). O único que não passa está marcado.
+   ========================================================================= */
+
+:root {
+  /* ---- base: cobre ~92% da tela ---- */
+  --background: #0a0e10;
+  --surface: #101618;
+  --surface-elevated: #161d20;
+  --border: #1e2a2b;
+  --foreground: #edf2ef; /* 16,3:1 — AAA */
+  --muted-foreground: #8a9a92; /*  7,0:1 — AA  */
+
+  /* ---- acento: cobre ~8%, e só onde tem função ---- */
+  --primary: #3fa372; /*  6,2:1 — AA. Texto, link, prompt, botão.       */
+  --primary-muted: #2e8c67; /*  4,6:1 — AA. Hover e acento secundário.        */
+  --primary-deep: #2a835f; /*  4,1:1 — REPROVA para texto pequeno.           */
+  /*                Só preenchimento, borda e texto grande.        */
+  --border-accent: #12544f; /* borda de destaque — só no estado ativo         */
+
+  /* ---- acentos de apoio ---- */
+  --secondary: #7e9c90;
+  --accent-blue: #6e9cae;
+
+  /* ---- estado semântico ----
+     "Segurança" saiu do verde: com o verde virando cor de marca, dois verdes
+     no mesmo card brigam. Azul-gelo de-colide e combina melhor com o resto. */
+  --status-live: var(--primary); /* no ar, disponível, sucesso  */
+  --status-security: #74c0e8; /*  9,7:1 — segurança          */
+  --status-wait: #e8b24a; /* 10,1:1 — em breve, intenção */
+  --status-alert: #e8776e; /*  6,8:1 — erro, 404          */
+  --status-idle: var(--muted-foreground);
+
+  /* ---- glow: componente RGB para compor alpha em CSS ----
+     Existe para que nenhum .tsx precise escrever uma cor. Acompanha
+     --primary, e o modo Empresa/Dev o redefine junto com o resto. */
+  --glow-rgb: 63 163 114;
+
+  /* ---- tipografia ---- */
   --font-family-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono:
     "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     monospace;
 }
 
-/* Prepared Light Mode Tokens */
-.light {
-  --background: #f7f5f8;
-  --surface: #ffffff;
-  --surface-elevated: #ffffff;
-  --foreground: #172033;
-  --muted-foreground: #5e6370;
-  --primary: #c06c84;
-  --secondary: #355c7d;
-  --border: #d9d5de;
-}
+/* Não existe modo claro. O bloco `.light` que vivia aqui nunca foi ativado por
+   linha de código nenhuma e já nascia incompleto — dois tokens de acento não
+   eram redefinidos. Meio-pronto e invisível é pior que ausente: quem for
+   implementar tema claro começa daqui, de propósito. */
