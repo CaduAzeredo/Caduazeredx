@@ -1,23 +1,50 @@
 import React, { useState } from "react";
-import { AlertTriangle, CheckCircle2, Loader2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Info, Loader2 } from "lucide-react";
 import Button from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
 import type { ProductSlug } from "@/types";
 
-export type LeadFormStatus = "idle" | "submitting" | "success" | "error";
+export type LeadFormStatus =
+  "idle" | "submitting" | "success" | "error" | "config-pending";
 
 export interface LeadFormProps {
   produto: ProductSlug;
 }
 
-// TODO(Task 3): ligar submissão real da captura de lead (rota/API ainda não
-// definida). Por ora este componente só demonstra o layout e os estados
-// visuais idle/enviando/sucesso/erro, sem disparar nenhuma chamada de rede.
 export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
-  const [status] = useState<LeadFormStatus>("idle");
+  const [status, setStatus] = useState<LeadFormStatus>("idle");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const endpoint = import.meta.env.VITE_LEAD_FORM_ENDPOINT;
+    if (!endpoint) {
+      setStatus("config-pending");
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append("produto", produto);
+
+    setStatus("submitting");
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (status === "success") {
@@ -47,6 +74,25 @@ export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
             <p className="text-muted-foreground leading-relaxed">
               Não foi possível registrar sua entrada agora. Tente novamente em
               instantes.
+            </p>
+          </div>
+        </div>
+      </TerminalWindow>
+    );
+  }
+
+  if (status === "config-pending") {
+    return (
+      <TerminalWindow title="lead-capture --status">
+        <div className="flex items-start space-x-3 text-primary-muted">
+          <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
+          <div className="space-y-1">
+            <p className="font-bold">
+              [Status: Captura de lead em configuração]
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              O envio deste formulário ainda não foi configurado nesta
+              instalação. Defina a variável VITE_LEAD_FORM_ENDPOINT para ativar.
             </p>
           </div>
         </div>
@@ -126,11 +172,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({ produto }) => {
           "Entrar na lista de espera"
         )}
       </Button>
-
-      <p className="text-[10px] font-mono text-muted-foreground/50">
-        // Captura de lead ainda não está ligada a um envio real — chega na
-        próxima etapa.
-      </p>
     </form>
   );
 };
