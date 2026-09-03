@@ -90,7 +90,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="pt-4 border-t border-border/80">
           <Link
             to={`/projetos/${project.slug}`}
-            className="inline-flex items-center space-x-2 text-sm text-primary font-medium hover:text-primary-muted transition-colors"
+            className="inline-flex items-center space-x-2 py-1.5 -my-1.5 text-sm text-primary font-medium hover:text-primary-muted transition-colors"
           >
             <span>Ver estudo de caso</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

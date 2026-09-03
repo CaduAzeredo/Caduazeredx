@@ -86,7 +86,7 @@ function casar(entrada: string): ReiTroca | null {
 
 const DestinoLink: React.FC<{ destino: ReiDestino }> = ({ destino }) => {
   const classe =
-    "inline-flex items-center gap-1.5 rounded-full border border-border-accent px-3 py-1.5 font-mono text-[11px] text-primary transition-colors hover:bg-primary/10";
+    "inline-flex min-h-9 items-center gap-1.5 rounded-full border border-border-accent px-3.5 py-2 font-mono text-[11px] text-primary transition-colors hover:bg-primary/10";
 
   if (destino.tipo === "repo") {
     const repo = contactLinks.publicRepos?.find(
@@ -107,7 +107,8 @@ const DestinoLink: React.FC<{ destino: ReiDestino }> = ({ destino }) => {
 
   return (
     <Link
-      to={destino.tipo === "produtos" ? "/produtos" : "/contato"}
+      // "produtos" e o nome historico do tipo; a vitrine agora e o /shizune.
+      to={destino.tipo === "produtos" ? "/shizune" : "/contato"}
       className={classe}
     >
       {destino.rotulo} <ArrowRight className="h-3 w-3" aria-hidden="true" />
@@ -257,7 +258,7 @@ export const ReiChat: React.FC = () => {
               key={t.id}
               type="button"
               onClick={() => responder(t.pergunta, t)}
-              className="rounded-full border border-border px-3 py-1.5 text-left font-mono text-[10.5px] text-muted-foreground transition-colors hover:border-border-accent hover:text-foreground"
+              className="min-h-9 rounded-full border border-border px-3.5 py-2 text-left font-mono text-[10.5px] text-muted-foreground transition-colors hover:border-border-accent hover:text-foreground"
             >
               {t.pergunta}
             </button>
@@ -282,7 +283,7 @@ export const ReiChat: React.FC = () => {
         <button
           type="submit"
           aria-label="Enviar pergunta"
-          className="rounded border border-border px-2 py-1 text-muted-foreground transition-colors hover:border-border-accent hover:text-foreground"
+          className="flex min-h-8 min-w-8 items-center justify-center rounded border border-border px-2.5 text-muted-foreground transition-colors hover:border-border-accent hover:text-foreground"
         >
           <CornerDownLeft className="h-3 w-3" aria-hidden="true" />
         </button>

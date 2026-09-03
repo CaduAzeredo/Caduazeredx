@@ -33,6 +33,22 @@
   --secondary: #7e9c90;
   --accent-blue: #6e9cae;
 
+  /* Âmbar do Shizune. Vive aqui, e não dentro do bloco da rota, porque é um
+     acento de apoio como os dois acima — não uma troca de tema. Ele NÃO
+     substitui `--primary`: a rota /shizune usa a cor do modo que o visitante
+     escolheu, e o âmbar aparece em cinco lugares contados (o símbolo, o card
+     da tese, o placar do diagnóstico, o selo "a venda" e as bordas quentes).
+
+     A terceira vez que o operador empurrou uma cor de marca para menos espaço
+     — depois de "tem verde demais" e "tem muito amarelo". A regra é sempre a
+     mesma: elemento, nunca atmosfera.
+
+     Saturação 50% e 51%, dentro do teto de 65% do `check-slop`, que passou a
+     medir estes dois tokens junto com os `--primary*`. */
+  --accent-amber: #dec39c; /* 11,4:1 — AA. Acento da rota /shizune.      */
+  --accent-amber-deep: #cfa86e; /*  8,8:1 — AA. Borda quente e fio.           */
+  --accent-amber-rgb: 222 195 156; /* componente para compor alpha no brilho     */
+
   /* ---- estado semântico ----
      "Segurança" saiu do verde: com o verde virando cor de marca, dois verdes
      no mesmo card brigam. Azul-gelo de-colide e combina melhor com o resto. */
@@ -48,7 +64,11 @@
   --glow-rgb: 63 163 114;
 
   /* ---- tipografia ---- */
-  --font-family-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  /* DM Sans na frente por decisao do operador (2026-09-03) — e livre, sob
+     a Open Font License, no Google Fonts. A Jakarta fica de recuo com
+     metrica proxima: reverter e apagar um nome desta pilha. */
+  --font-family-sans:
+    "DM Sans", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-family-mono:
     "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     monospace;
@@ -130,6 +150,41 @@
   --status-alert: #ff4438;
 
   --glow-rgb: 255 68 56;
+}
+
+/* ============================================================================
+   ROTA /shizune — o âmbar
+
+   Não é um quarto modo de leitura: é um escopo de rota. O atributo
+   `data-rota="shizune"` entra no `<html>` enquanto a página do produto está
+   montada e sai quando ela desmonta. A escolha é deliberada — `SiteMode`
+   continua sendo `dev | empresa`, o seletor de modo continua com duas opções,
+   e nenhum componente precisa saber que esta rota existe: todos já leem
+   `--primary`.
+
+   ESTE BLOCO NÃO TROCA COR NENHUMA, e isso é a correção da rodada 3.
+
+   A primeira versão substituía `--primary` pelo âmbar, e com isso a rota
+   virava uma ilha: quem escolheu o modo Empresa perdia o azul-aço ao navegar
+   para cá, e o seletor de modo ficava sem efeito. Agora a página herda a cor
+   do modo escolhido — verde-terminal no Dev, azul-aço no Empresa — e o âmbar
+   entra pelo `--accent-amber` do `:root`, em cinco lugares contados.
+
+   O bloco continua existindo por duas razões, e as duas são de verdade: ele
+   carrega a serifada editorial, e ele segue na lista de MODOS do
+   `check-contrast`. Se alguém um dia voltar a sobrescrever cor aqui, o
+   validador mede no mesmo instante — um escopo que o validador não vê é um
+   escopo onde o contraste vira opinião.
+
+   A serifada é carregada pela própria página, na montagem, e não pelo
+   `index.html`: o site inteiro não usa serifada nem eixo itálico, e essa é a
+   razão de o `<link>` global tê-los deixado de fora. Carregar dois arquivos a
+   mais em toda rota para servir uma só seria pagar o custo no lugar errado. A
+   pilha de recuo é Georgia, que existe em toda máquina e tem métrica próxima.
+   ========================================================================= */
+
+[data-rota="shizune"] {
+  --font-family-serif: "Newsreader", Georgia, "Times New Roman", serif;
 }
 
 /* A transição vive só nas superfícies que carregam acento. Aplicar em `*`

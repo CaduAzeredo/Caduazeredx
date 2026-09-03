@@ -75,6 +75,478 @@
    Chuva de código — ver src/components/background/code-rain.tsx para o
    raciocínio. Só `transform`: a GPU compõe sem repintar.
    --------------------------------------------------------------------------- */
+/* ── Rota /shizune ───────────────────────────────────────────────────────────
+   Três peças, e nenhuma delas é enfeite.
+
+   O símbolo é a tese em movimento: muitas ondas — a decisão em superposição —
+   colapsam numa linha reta quando alguém assina. O brilho respirando marca o
+   único card da página que faz uma afirmação ainda em aberto. O fio de luz
+   percorre a borda desse card uma vez a cada volta.
+
+   Todas param no estado final correto quando `prefers-reduced-motion` está
+   ligado, porque o bloco global corta a duração para 0,01ms com uma iteração:
+   a onda termina colapsada, a linha termina desenhada, o fio termina fora de
+   quadro. Nenhuma delas depende do meio da animação para fazer sentido.
+   ------------------------------------------------------------------------- */
+
+@keyframes sz-collapse {
+  0%,
+  52% {
+    transform: scaleY(1);
+    opacity: 0.9;
+  }
+  76%,
+  100% {
+    transform: scaleY(0.02);
+    opacity: 0.18;
+  }
+}
+
+@keyframes sz-line {
+  0%,
+  58% {
+    opacity: 0;
+    transform: scaleX(0.15);
+  }
+  80%,
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes sz-node {
+  0%,
+  62% {
+    opacity: 0;
+  }
+  84%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes sz-breathe {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px var(--accent-amber-deep),
+      0 0 38px -6px rgb(var(--accent-amber-rgb) / 0.16);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px var(--accent-amber),
+      0 0 74px -4px rgb(var(--accent-amber-rgb) / 0.3);
+  }
+}
+
+@keyframes sz-sweep {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(320%);
+  }
+}
+
+.sz-wave {
+  transform-origin: 180px 130px;
+  animation: sz-collapse 7.5s cubic-bezier(0.65, 0, 0.2, 1) infinite;
+}
+
+.sz-line {
+  transform-origin: 180px 130px;
+  animation: sz-line 7.5s cubic-bezier(0.65, 0, 0.2, 1) infinite;
+}
+
+.sz-node {
+  animation: sz-node 7.5s cubic-bezier(0.65, 0, 0.2, 1) infinite;
+}
+
+/* O card da tese: o único da página que respira. */
+.sz-glow {
+  box-shadow:
+    0 0 0 1px var(--accent-amber-deep),
+    0 0 38px -6px rgb(var(--accent-amber-rgb) / 0.16);
+  animation: sz-breathe 5.5s ease-in-out infinite;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sz-glow:hover {
+  transform: translateY(-4px);
+}
+
+.sz-sweep {
+  animation: sz-sweep 6.5s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-amber),
+    transparent
+  );
+}
+
+/* Os cards 01 e 02 do mesmo trilho.
+   Eles são secundários, e por um tempo isso virou "desligados": cinza chapado,
+   sem profundidade, sem reação. Secundário não é morto. Ganham a mesma
+   gramática do card da tese com a intensidade baixada — sombra de profundidade
+   sem cor no repouso, e no toque a borda esquenta em vez de acender. A
+   hierarquia continua vindo do tamanho, da serifada e do âmbar, que só o 03
+   tem. */
+.sz-card {
+  box-shadow:
+    0 0 0 1px var(--border),
+    0 14px 34px -22px rgb(0 0 0 / 0.9);
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease;
+}
+
+.sz-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 1px var(--accent-amber-deep),
+    0 20px 44px -22px rgb(0 0 0 / 0.95);
+}
+
+/* ── Destaque das frases de seção ────────────────────────────────────────────
+   Brilho no texto, não caixa em volta do texto. `text-shadow` com a cor do
+   acento e alpha baixo: a letra ganha halo, o fundo continua quase-preto, e a
+   regra "elemento, nunca atmosfera" continua de pé. Acompanha o modo, porque
+   lê `--glow-rgb`. */
+.sz-glow-text {
+  text-shadow:
+    0 0 24px rgb(var(--glow-rgb) / 0.22),
+    0 0 60px rgb(var(--glow-rgb) / 0.1);
+}
+
+/* O mesmo halo, em âmbar: só para o que é do produto. */
+.sz-glow-text-amber {
+  text-shadow:
+    0 0 24px rgb(var(--accent-amber-rgb) / 0.26),
+    0 0 60px rgb(var(--accent-amber-rgb) / 0.12);
+}
+
+/* ── Linha retrátil ──────────────────────────────────────────────────────────
+   `<details>` nativo: sem estado em React, sem JavaScript próprio, e o teclado
+   já funciona porque `<summary>` é focável e ativável por natureza. O que o CSS
+   faz aqui é só tirar o triângulo padrão do navegador e girar a seta. */
+.sz-linha > summary::-webkit-details-marker,
+.sz-linha > summary::marker {
+  display: none;
+  content: "";
+}
+
+.sz-chevron {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sz-linha[open] .sz-chevron {
+  transform: rotate(90deg);
+}
+
+/* Foco visível: quem chega de teclado precisa ver onde está. */
+.sz-linha > summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ── Vidro ───────────────────────────────────────────────────────────────────
+   `backdrop-filter` borra o que está ATRÁS, e atrás de uma faixa chapada não
+   há nada para borrar — o efeito sairia como véu liso. Por isso o vidro só
+   funciona em par com `.sz-veil`, a camada difusa que dá ao filtro o que
+   fazer. Um sem o outro é decoração vazia. */
+.sz-glass {
+  background: linear-gradient(
+    160deg,
+    rgb(var(--glow-rgb) / 0.05),
+    transparent 60%
+  );
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 25px 50px -30px rgb(0 0 0 / 0.9);
+}
+
+.sz-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      42rem 22rem at 18% 0%,
+      rgb(var(--glow-rgb) / 0.07),
+      transparent 70%
+    ),
+    radial-gradient(
+      36rem 20rem at 88% 100%,
+      rgb(var(--accent-amber-rgb) / 0.06),
+      transparent 70%
+    );
+}
+
+/* Varrido especular no botão do repositório.
+   O mesmo gesto do card da tese, mas disparado pelo ponteiro em vez de rodar
+   sozinho: um botão que pisca sem ninguém olhar é ruído. A barra usa
+   `--foreground` com opacidade em vez de branco literal, então acompanha o
+   tema em vez de brigar com ele. */
+.sz-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.sz-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: 0;
+  height: 200%;
+  width: 2rem;
+  background: var(--foreground);
+  opacity: 0.12;
+  transform: translateX(3rem) rotate(12deg);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.sz-shine:hover::after {
+  transform: translateX(-14rem) rotate(12deg);
+}
+
+/* Trilho que desliza com encaixe. Existe como classe, e não como utilitário
+   solto no componente, porque `scroll-snap` sem a barra estilizada vira um
+   trilho que ninguém percebe que desliza. */
+.sz-rail {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.sz-rail > * {
+  scroll-snap-align: start;
+}
+
+/* ── Toggle Dev/Empresa com faísca ───────────────────────────────────────────
+   Do uiverse (MuhammadHasann), reescrito por três motivos: o original usa
+   container query de estilo (não roda no Firefox), tem 50px de altura (a
+   navbar tem 64) e cor própria. Aqui: :checked + irmão, 32px, e o miolo lê
+   --primary — "o azul já está", como o operador disse: no modo Empresa os
+   tokens já são o aço.
+
+   O input NÃO é display:none — ele fica invisível mas focável, para o
+   teclado operar o switch e o foco aparecer no anel. */
+.mt-cont {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mt-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mt-label {
+  --mt-w: 26px;
+  --mt-gap: 3px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: content-box;
+  width: calc(var(--mt-w) * 2 + var(--mt-gap));
+  height: var(--mt-w);
+  padding: var(--mt-gap);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 50% -60%,
+      rgb(var(--glow-rgb) / 0.5) 0%,
+      transparent 70%
+    ),
+    var(--surface-elevated);
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+.mt-label:hover {
+  border-color: var(--border-accent);
+}
+
+.mt-input:focus-visible ~ .mt-label {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.mt-knob {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  width: var(--mt-w);
+  height: var(--mt-w);
+  border: 1px solid var(--border-accent);
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 50% 0%,
+    var(--primary) 0%,
+    var(--primary-deep) 100%
+  );
+  color: var(--background);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* a faísca: um ponto que atravessa o miolo, como no original */
+.mt-knob::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--foreground);
+  opacity: 0.9;
+  animation: mt-sparkle 2.6s linear infinite;
+}
+
+@keyframes mt-sparkle {
+  from {
+    transform: translate(0, -50%);
+    opacity: 0.9;
+  }
+  to {
+    transform: translate(600%, -50%);
+    opacity: 0;
+  }
+}
+
+.mt-input:checked ~ .mt-label .mt-knob {
+  transform: translateX(calc(var(--mt-w) + var(--mt-gap))) rotate(-225deg);
+}
+
+.mt-rotulo {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--muted-foreground);
+  transition: color 0.3s ease-in-out;
+}
+
+.mt-rotulo[data-ativo="true"] {
+  color: var(--primary);
+}
+
+/* ── O aviso brutalista do modo de defesa ────────────────────────────────────
+   Do uiverse (0xnihilism). Vive SÓ dentro de [data-invadido], que é a zona
+   onde o alarme É atmosfera por decisão escrita — preto e branco literais
+   fazem parte da encenação de pop-up de sistema invadido, e o vermelho vem
+   dos próprios tokens do modo de defesa. Fora da invasão, nada disto existe. */
+[data-invadido] .brut-card {
+  border: 4px solid #000;
+  background: #fff;
+  color: #000;
+  box-shadow: 10px 10px 0 #000;
+}
+
+[data-invadido] .brut-card-cabeca {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 2px solid #000;
+  padding: 0.6rem 0.75rem;
+}
+
+[data-invadido] .brut-card-icone {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  padding: 0.35rem;
+  color: #fff;
+}
+
+[data-invadido] .brut-card-titulo {
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #000;
+}
+
+[data-invadido] .brut-card-corpo {
+  border-bottom: 2px solid #000;
+  padding: 0.6rem 0.75rem;
+  font-weight: 600;
+  color: #000;
+}
+
+[data-invadido] .brut-btn {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  border: 3px solid #000;
+  background: #fff;
+  padding: 0.45rem;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+  box-shadow: 5px 5px 0 #000;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+[data-invadido] .brut-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgb(255 255 255 / 0.3),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+[data-invadido] .brut-btn:hover::before {
+  left: 100%;
+}
+
+[data-invadido] .brut-btn:hover {
+  transform: translate(-2px, -2px);
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 7px 7px 0 var(--primary-deep);
+}
+
+[data-invadido] .brut-btn:active {
+  transform: translate(5px, 5px);
+  box-shadow: none;
+}
+
 @keyframes code-rain-fall {
   from {
     transform: translateY(-50%);

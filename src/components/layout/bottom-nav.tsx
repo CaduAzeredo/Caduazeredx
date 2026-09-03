@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const abas = [
   { name: "início", path: "/", Icone: Home, exact: true },
   { name: "projetos", path: "/projetos", Icone: FolderGit2 },
-  { name: "produtos", path: "/produtos", Icone: Package },
+  { name: "shizune", path: "/shizune", Icone: Package },
   { name: "novidades", path: "/novidades", Icone: Radio },
   { name: "contato", path: "/contato", Icone: Mail },
 ];

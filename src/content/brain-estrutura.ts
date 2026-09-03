@@ -1,8 +1,10 @@
 /**
- * A estrutura real do repositório público do Brain Framework.
+ * A estrutura real do repositório público do Shizune (antes Brain Framework —
+ * o repositório foi renomeado para `github.com/CaduAzeredo/shizune` no rebrand
+ * de 2026-09-03; os nomes de pasta não mudaram).
  *
- * Os nomes são os verdadeiros, conferidos contra
- * `github.com/CaduAzeredo/brain-framework`. Isto importa: a peça existe para
+ * Os nomes são os verdadeiros, conferidos contra o repositório público. Isto
+ * importa: a peça existe para
  * mostrar como o framework é organizado, e inventar uma pasta bonita que não
  * existe transformaria a ilustração em propaganda.
  *

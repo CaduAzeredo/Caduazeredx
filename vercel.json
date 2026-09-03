@@ -1,5 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/produtos", "destination": "/shizune", "permanent": true },
+    {
+      "source": "/produtos/:slug",
+      "destination": "/shizune",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!assets/|favicon|icons|robots|sitemap).*)",

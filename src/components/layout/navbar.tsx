@@ -1,16 +1,20 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import BrandMark from "@/components/layout/brand-mark";
 import ModeToggle from "@/components/mode/mode-toggle";
 import { contactLinks } from "@/content/contacts";
+import { marcasDeRota } from "@/content/rodape-de-rota";
 import { ArrowUpRight } from "lucide-react";
 
 const navItems = [
   { name: "Projetos", path: "/projetos" },
-  { name: "Produtos", path: "/produtos" },
+  { name: "Shizune", path: "/shizune" },
   { name: "Novidades", path: "/novidades" },
   { name: "Sobre", path: "/sobre" },
+  // Contato deixou de ser botao de destaque por pedido do operador: vira aba
+  // comum, do lado das outras — no celular a barra inferior ja o carrega.
+  { name: "Contato", path: "/contato" },
 ];
 
 /**
@@ -28,6 +32,12 @@ export const Navbar: React.FC = () => {
     (r) => r.status === "public" && r.url,
   );
 
+  // O segmento da rota, quando ela é uma página de produto. A barra do lockup
+  // passa a separar alguma coisa — no topo e no rodapé, com a mesma fonte de
+  // verdade, para os dois nunca discordarem.
+  const { pathname } = useLocation();
+  const segmento = marcasDeRota[pathname]?.segmento;
+
   return (
     <nav
       className="sticky top-0 z-50 w-full border-b border-border/80 bg-background/85 backdrop-blur-md"
@@ -36,10 +46,10 @@ export const Navbar: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" aria-label="Cadu Azeredo — início">
-            <BrandMark size="sm" />
+            <BrandMark size="sm" segmento={segmento} />
           </Link>
 
-          <div className="flex items-center gap-5 sm:gap-7">
+          <div className="flex items-center gap-3 sm:gap-7">
             {/* Os destinos ficam na barra inferior no celular. */}
             <div className="hidden md:flex items-center gap-7">
               {navItems.map((item) => (
@@ -71,7 +81,7 @@ export const Navbar: React.FC = () => {
                 href={repoBrain.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+                className="sz-shine sz-card hidden sm:inline-flex items-center rounded-lg border border-border px-3 py-2 font-mono text-xs text-muted-foreground transition-colors hover:border-border-accent hover:text-primary"
               >
                 GitHub
                 <ArrowUpRight
@@ -80,13 +90,6 @@ export const Navbar: React.FC = () => {
                 />
               </a>
             )}
-
-            <Link
-              to="/contato"
-              className="rounded bg-foreground px-4 py-2 text-[13px] font-bold text-background transition-opacity hover:opacity-90"
-            >
-              Contatar
-            </Link>
           </div>
         </div>
       </div>

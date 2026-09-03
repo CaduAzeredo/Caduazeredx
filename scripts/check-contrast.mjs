@@ -75,6 +75,18 @@ const PARES = [
   { fg: "status-alert", bg: "background", min: 4.5, uso: "estado" },
   { fg: "secondary", bg: "background", min: 4.5, uso: "acento de apoio" },
   { fg: "accent-blue", bg: "background", min: 4.5, uso: "acento de apoio" },
+  {
+    fg: "accent-amber",
+    bg: "background",
+    min: 4.5,
+    uso: "acento da rota /shizune",
+  },
+  {
+    fg: "accent-amber",
+    bg: "surface",
+    min: 4.5,
+    uso: "acento da rota /shizune dentro de card",
+  },
 ];
 
 // ── leitura dos tokens ──────────────────────────────────────────────────────
@@ -162,10 +174,24 @@ if (!invadidoTexto) {
 const invadido = new Map(base);
 for (const [k, v] of tokens(invadidoTexto)) invadido.set(k, v);
 
+// A rota /shizune nao e um modo de leitura, mas troca os mesmos tokens de
+// acento — entao passa pela mesma regua. Um escopo que so o validador nao ve
+// e um escopo onde o contraste volta a ser opiniao.
+const shizuneTexto = bloco(css, '[data-rota="shizune"]');
+if (!shizuneTexto) {
+  console.error(
+    'erro: nao achei o bloco [data-rota="shizune"] em src/styles/tokens.css',
+  );
+  process.exit(1);
+}
+const shizune = new Map(base);
+for (const [k, v] of tokens(shizuneTexto)) shizune.set(k, v);
+
 const MODOS = [
   ["Dev  (:root)", base],
   ['Empresa ([data-mode="empresa"])', empresa],
   ["Defesa ([data-invadido])", invadido],
+  ['Shizune ([data-rota="shizune"])', shizune],
 ];
 
 let falhas = 0;

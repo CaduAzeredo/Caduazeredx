@@ -1,15 +1,16 @@
 import React, { lazy, Suspense } from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "@/pages/home-page";
 import { cn } from "@/lib/utils";
 
 // Lazy Loading das páginas menos críticas
 const ProjectsPage = lazy(() => import("@/pages/projects-page"));
 const ProjectDetailPage = lazy(() => import("@/pages/project-detail-page"));
-const ProductsPage = lazy(() => import("@/pages/products-page"));
-const ProductDetailPage = lazy(() => import("@/pages/product-detail-page"));
 const NovidadesPage = lazy(() => import("@/pages/novidades-page"));
+// Rota própria, fora de /produtos: /produtos/brain fala com empresa, esta
+// fala com quem lê código antes de ler texto. Duas portas, sem conflito.
+const ShizunePage = lazy(() => import("@/pages/shizune-page"));
 const AboutPage = lazy(() => import("@/pages/about-page"));
 const ContactPage = lazy(() => import("@/pages/contact-page"));
 const PrivacyPage = lazy(() => import("@/pages/privacy-page"));
@@ -55,8 +56,16 @@ export const AppRouter: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/projetos" element={<ProjectsPage />} />
         <Route path="/projetos/:slug" element={<ProjectDetailPage />} />
-        <Route path="/produtos" element={<ProductsPage />} />
-        <Route path="/produtos/:slug" element={<ProductDetailPage />} />
+        {/* /produtos saiu de cena: o Shizune assumiu a vitrine (decisão do
+            operador, 2026-09-03). O 301 de verdade vive no vercel.json; este
+            Navigate cobre a navegação interna e o dev server. A Rei saiu da
+            vitrine por ora — volta quando tiver página própria. */}
+        <Route path="/produtos" element={<Navigate to="/shizune" replace />} />
+        <Route
+          path="/produtos/:slug"
+          element={<Navigate to="/shizune" replace />}
+        />
+        <Route path="/shizune" element={<ShizunePage />} />
         <Route path="/novidades" element={<NovidadesPage />} />
         <Route path="/sobre" element={<AboutPage />} />
         <Route path="/contato" element={<ContactPage />} />

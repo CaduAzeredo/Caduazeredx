@@ -12,8 +12,12 @@ export const buttonVariants = (
     // Nenhuma cor escrita aqui: a de fundo vem do token, a do texto é o próprio
     // fundo da página, e o brilho sai de .glow-border — que lê --glow-rgb e
     // portanto acompanha o tema sem este arquivo saber de que cor ele é.
+    // O varrido especular (`sz-shine`) e o mesmo gesto do botao do repositorio
+    // na pagina do produto: dispara no ponteiro, nunca sozinho. Entrou aqui no
+    // sistema para todo primario do site varrer igual — caso a caso viraria
+    // tres versoes do mesmo efeito.
     variant === "primary" &&
-      "bg-primary text-background hover:bg-primary-muted glow-border active:scale-[0.98]",
+      "sz-shine bg-primary text-background hover:bg-primary-muted glow-border active:scale-[0.98]",
     variant === "secondary" &&
       "bg-secondary text-foreground hover:bg-secondary/80 active:scale-[0.98]",
     variant === "outline" &&

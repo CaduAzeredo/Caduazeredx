@@ -138,7 +138,14 @@ const css =
     ? cssBruto
     : cssBruto.slice(0, iDefesa) +
       cssBruto.slice(cssBruto.indexOf("}", iDefesa) + 1);
-const acentos = [...css.matchAll(/--(primary(?:-muted|-deep)?)\s*:\s*(#[0-9a-fA-F]{6})/g)];
+// `accent-amber` entra na mesma regua que os `--primary*`. Um acento com nome
+// proprio que o teto nao alcancasse seria exatamente o contrabando que a
+// excecao por seletor, acima, existe para impedir.
+const acentos = [
+  ...css.matchAll(
+    /--(primary(?:-muted|-deep)?|accent-amber(?:-deep)?)\s*:\s*(#[0-9a-fA-F]{6})/g,
+  ),
+];
 
 if (acentos.length === 0) {
   console.error("erro: nenhum token --primary encontrado em tokens.css");

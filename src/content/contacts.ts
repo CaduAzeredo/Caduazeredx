@@ -23,9 +23,11 @@ export const contactLinks: ContactLinks = {
   whatsapp: "https://wa.me/qr/2F5B3LFEJHYKM1", // Exemplo: "https://wa.me/5563999999999"
   youtube: "https://www.youtube.com/@CaduAzeredo",
   publicRepos: [
+    // O rebrand público aposentou "Brain Framework" e o repositório foi
+    // renomeado junto — o link antigo (brain-framework) morreu com ele.
     {
-      name: "Brain Framework",
-      url: "https://github.com/CaduAzeredo/brain-framework",
+      name: "Shizune",
+      url: "https://github.com/CaduAzeredo/shizune",
       status: "public",
     },
     { name: "Rei", status: "em-breve" },

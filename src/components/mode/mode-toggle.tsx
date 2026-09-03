@@ -1,59 +1,61 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { useSiteMode, type SiteMode } from "@/lib/use-site-mode";
-
-const MODOS: { id: SiteMode; rotulo: string }[] = [
-  { id: "dev", rotulo: "Dev" },
-  { id: "empresa", rotulo: "Empresa" },
-];
+import { useSiteMode } from "@/lib/use-site-mode";
 
 /**
  * Troca de modo, versão compacta — a que mora na navbar.
  *
- * Os cards em `/produtos` explicam o que cada modo faz e continuam sendo a
- * porta de entrada do conceito. Este controle é para quem já sabe: mudar de
- * ideia em qualquer página, sem voltar até lá.
+ * v4: virou um interruptor físico com o miolo que desliza, gira e solta uma
+ * faísca (adaptado do uiverse/MuhammadHasann — ver o bloco `.mt-*` em
+ * motion.css para o que mudou e por quê). O que NÃO mudou é o contrato de
+ * acessibilidade: os dois rótulos continuam visíveis dos dois lados, o
+ * controle é um `switch` de verdade (`role`, `aria-checked`), e o input
+ * escondido continua focável — Espaço e Enter operam, e o anel de foco
+ * aparece ao redor do trilho.
  *
- * O motivo de existir é um furo real: até aqui o seletor vivia **só** em
- * `/produtos`. Quem abrisse a home — a maioria — nunca via que o site tem dois
- * modos de leitura, e o recurso simplesmente não existia para essa pessoa.
- *
- * `radiogroup` e não dois botões soltos: são opções mutuamente exclusivas de um
- * mesmo campo, e é assim que um leitor de tela anuncia "2 de 2, selecionado".
+ * O motivo de existir é um furo real: até a v3 o seletor vivia só em
+ * /produtos. Quem abrisse a home — a maioria — nunca via que o site tem dois
+ * modos de leitura.
  */
 export const ModeToggle: React.FC<{ className?: string }> = ({ className }) => {
   const [modo, trocar] = useSiteMode();
+  const empresa = modo === "empresa";
 
   return (
-    <div
-      role="radiogroup"
-      aria-label="Modo de leitura do site"
-      className={cn(
-        "flex items-center rounded-full border border-border p-[3px]",
-        className,
-      )}
-    >
-      {MODOS.map(({ id, rotulo }) => {
-        const ativo = modo === id;
-        return (
-          <button
-            key={id}
-            type="button"
-            role="radio"
-            aria-checked={ativo}
-            onClick={() => trocar(id)}
-            data-mode-surface
-            className={cn(
-              "rounded-full px-3 py-1.5 font-mono text-[11px] leading-none",
-              ativo
-                ? "border border-border-accent bg-primary/10 text-primary"
-                : "border border-transparent text-muted-foreground hover:text-foreground",
-            )}
+    <div className={cn("mt-cont", className)}>
+      <span className="mt-rotulo" data-ativo={!empresa} aria-hidden="true">
+        Dev
+      </span>
+
+      <input
+        id="modo-de-leitura"
+        type="checkbox"
+        role="switch"
+        className="mt-input"
+        checked={empresa}
+        aria-checked={empresa}
+        aria-label="Modo de leitura: desligado é Dev, ligado é Empresa"
+        onChange={(e) => trocar(e.target.checked ? "empresa" : "dev")}
+      />
+      <label htmlFor="modo-de-leitura" className="mt-label" data-mode-surface>
+        <span className="mt-knob" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            className="h-3 w-3"
           >
-            {rotulo}
-          </button>
-        );
-      })}
+            {/* O prompt da marca, no miolo: > */}
+            <path d="M8 6l8 6-8 6" />
+          </svg>
+        </span>
+      </label>
+
+      <span className="mt-rotulo" data-ativo={empresa} aria-hidden="true">
+        Empresa
+      </span>
     </div>
   );
 };

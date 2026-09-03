@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ShieldAlert, X } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { useInvasao } from "@/lib/use-invasao";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { janelasInvasao, barraInvasao } from "@/content/invasao";
@@ -82,33 +81,68 @@ const Painel: React.FC<{ aoRestaurar: () => void }> = ({ aoRestaurar }) => {
         aria-live="polite"
         className="pointer-events-none fixed right-0 top-16 bottom-20 z-[90] flex w-full max-w-[340px] flex-col items-end gap-3 overflow-y-auto px-3 sm:px-4"
       >
-        {abertas.map((j) => (
-          <div
-            key={j.id}
-            className={cn(
-              "invasao-janela pointer-events-auto w-full overflow-hidden rounded-md border bg-surface",
-              j.forte ? "border-primary" : "border-border-accent",
-            )}
-          >
-            <div className="flex items-center gap-2 border-b border-border-accent bg-surface-elevated px-3 py-1.5">
-              <span className="font-mono text-[10px] text-primary">▓</span>
-              <span className="grow font-mono text-[10.5px] text-muted-foreground">
-                {j.titulo}
-              </span>
-              <button
-                type="button"
-                onClick={() => setFechadas((f) => [...f, j.id])}
-                aria-label={`Fechar ${j.titulo}`}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <X className="h-3 w-3" aria-hidden="true" />
-              </button>
+        {abertas.map((j) =>
+          j.forte ? (
+            /* O pop-up vermelho — o principal — virou o card brutalista
+               (uiverse/0xnihilism, bloco `.brut-*` em motion.css). Preto e
+               branco chapados fazem parte da encenacao: e a unica zona do
+               site onde alarme E atmosfera, por decisao escrita. */
+            <div
+              key={j.id}
+              className="invasao-janela brut-card pointer-events-auto w-full"
+            >
+              <div className="brut-card-cabeca">
+                <span className="brut-card-icone" aria-hidden="true">
+                  <ShieldAlert className="h-4 w-4" />
+                </span>
+                <span className="brut-card-titulo grow">{j.titulo}</span>
+                <button
+                  type="button"
+                  onClick={() => setFechadas((f) => [...f, j.id])}
+                  aria-label={`Fechar ${j.titulo}`}
+                  className="text-current hover:opacity-70"
+                >
+                  <X className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </div>
+              <pre className="brut-card-corpo m-0 whitespace-pre-wrap font-mono text-[11px] leading-[1.7]">
+                {j.linhas.join("\n")}
+              </pre>
+              <div className="p-3">
+                <button
+                  type="button"
+                  onClick={aoRestaurar}
+                  className="brut-btn font-mono text-[12px]"
+                >
+                  Restaurar o site
+                </button>
+              </div>
             </div>
-            <pre className="whitespace-pre-wrap px-3 py-2.5 font-mono text-[11px] leading-[1.7] text-foreground">
-              {j.linhas.join("\n")}
-            </pre>
-          </div>
-        ))}
+          ) : (
+            <div
+              key={j.id}
+              className="invasao-janela pointer-events-auto w-full overflow-hidden rounded-md border border-border-accent bg-surface"
+            >
+              <div className="flex items-center gap-2 border-b border-border-accent bg-surface-elevated px-3 py-1.5">
+                <span className="font-mono text-[10px] text-primary">▓</span>
+                <span className="grow font-mono text-[10.5px] text-muted-foreground">
+                  {j.titulo}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setFechadas((f) => [...f, j.id])}
+                  aria-label={`Fechar ${j.titulo}`}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-3 w-3" aria-hidden="true" />
+                </button>
+              </div>
+              <pre className="whitespace-pre-wrap px-3 py-2.5 font-mono text-[11px] leading-[1.7] text-foreground">
+                {j.linhas.join("\n")}
+              </pre>
+            </div>
+          ),
+        )}
       </div>
 
       {/* A barra. Diz o que esta acontecendo e como sair — nesta ordem. */}

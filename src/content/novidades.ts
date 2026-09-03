@@ -7,6 +7,16 @@ import type { NovidadeEntry, ProximoPasso } from "../types";
  */
 export const novidades: NovidadeEntry[] = [
   {
+    id: "shizune-v031-rebrand",
+    data: "2026-09-03",
+    categoria: "lancamento",
+    titulo: "O Brain Framework virou Shizune, e a v0.3.1 saiu diagnosticada",
+    resumo:
+      "O rebrand público: mesmo método, nome novo, repositório renomeado para CaduAzeredo/shizune. A v0.3.1 saiu no mesmo dia — depois de o próprio Shizune ser diagnosticado com o próprio Shizune.",
+    detalhe:
+      "Shizune (静音, som quieto) é o nome público do que antes se chamava Brain Framework — o nome passou pela bateria de disponibilidade em 2026-09-02, e o repositório antigo foi renomeado, não duplicado. A v0.3.1, publicada em 2026-09-03 no SHA 0ccfe4f, saiu de um ciclo que é a própria tese em prática: o instrumento de diagnóstico foi apontado contra o próprio pacote (SHA c248f75), encontrou cinco divergências — nenhuma de segurança, nenhum vazamento — e quatro foram fechadas e verificadas no clone publicado, com 6 check runs verdes em Node 20, Node 22 e Bun. Um achado continua aberto: o apex shizune.dev falha o TLS enquanto o www responde normalmente. Ele vai citado aqui porque esconder o aberto seria o defeito que a ferramenta denuncia.",
+  },
+  {
     id: "brain-v021-publico",
     data: "2026-08-31",
     categoria: "lancamento",

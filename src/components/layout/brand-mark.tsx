@@ -6,6 +6,15 @@ export interface BrandMarkProps {
   size?: "sm" | "md" | "lg";
   /** Só o prompt e a barra — para favicon, avatar e espaços apertados. */
   compact?: boolean;
+  /**
+   * O que vem DEPOIS da barra: `>_ Cadu Azeredo / shizune`.
+   *
+   * A barra sempre esteve na marca e nunca teve o que separar. Com um segmento
+   * ela passa a fazer o que uma barra faz — dizer onde a pessoa está. Vem da
+   * rota, e o componente segue sem saber de rota nenhuma: quem sabe é quem o
+   * usa.
+   */
+  segmento?: string;
   className?: string;
 }
 
@@ -40,6 +49,7 @@ const CAIXA = {
 export const BrandMark: React.FC<BrandMarkProps> = ({
   size = "sm",
   compact = false,
+  segmento,
   className,
 }) => (
   <span className={cn("inline-flex items-center gap-2", className)}>
@@ -70,6 +80,15 @@ export const BrandMark: React.FC<BrandMarkProps> = ({
     >
       /
     </span>
+
+    {/* O segmento fecha o caminho. Em monoespaçada de propósito: a barra e o
+        prompt já estabelecem que aquilo é um shell, e nome de rota é um
+        ponteiro como qualquer outro neste site. */}
+    {!compact && segmento && (
+      <span className="font-mono text-[13px] leading-none text-muted-foreground">
+        {segmento}
+      </span>
+    )}
 
     {compact && <span className="sr-only">Cadu Azeredo</span>}
   </span>

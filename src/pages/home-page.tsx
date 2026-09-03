@@ -108,18 +108,16 @@ export const HomePage: React.FC = () => {
                 <span className="font-light text-primary">&nbsp;/</span>
               </h1>
 
-              <p className="max-w-[44ch] text-base sm:text-lg leading-relaxed text-muted-foreground">
+              <p className="max-w-[46ch] text-base sm:text-lg leading-relaxed text-muted-foreground">
                 Construo produtos e ponho ordem em bases que cresceram rápido
-                demais. Publico o método que uso — aberto, sem dependências,
-                verificável por quem não acredita.
+                demais. Aponto a ferramenta para mim antes de apontar para os
+                outros: o que eu entrego — site, produto, consultoria — sai com
+                registro de decisão, assinado e verificável por comando.
               </p>
 
               <div className="flex flex-wrap gap-3 pt-1">
-                <Link
-                  to="/produtos"
-                  className={buttonVariants("primary", "lg")}
-                >
-                  Ver a consultoria
+                <Link to="/shizune" className={buttonVariants("primary", "lg")}>
+                  Ver a ferramenta
                 </Link>
                 <Link
                   to="/projetos"
@@ -156,7 +154,7 @@ export const HomePage: React.FC = () => {
             </h2>
             <Link
               to="/projetos"
-              className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center py-1.5 -my-1.5 font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
             >
               ver todos
               <ArrowUpRight
@@ -166,13 +164,20 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* O Brain, elevado: e o unico com prova publica verificavel hoje. */}
-          <div className="overflow-hidden rounded-xl border border-border-accent bg-surface">
+          {/* O Shizune, elevado: e o unico com prova publica verificavel hoje.
+              (Era o card do Brain Framework — o rebrand publico e a v0.3.1
+              aposentaram o nome e os numeros antigos. Fonte dos numeros: a
+              biblia §3, medida em 2026-09-03.) */}
+          {/* O unico elemento que respira na Home e o produto. */}
+          <div className="sz-glow overflow-hidden rounded-xl bg-surface">
             <div className="grid grid-cols-1 lg:grid-cols-12">
               <div className="lg:col-span-7 flex flex-col gap-4 p-7 sm:p-9">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="rounded-full border border-border-accent bg-primary/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-primary">
-                    no ar · v0.2.1
+                    no ar · v0.3.1
+                  </span>
+                  <span className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-status-wait">
+                    lançamento · 2026-09-15
                   </span>
                   <span className="rounded border border-border px-2 py-1 font-mono text-[10px] text-muted-foreground">
                     Apache 2.0
@@ -183,37 +188,44 @@ export const HomePage: React.FC = () => {
                 </div>
 
                 <h3 className="font-sans text-xl sm:text-2xl font-bold tracking-tight">
-                  Brain Framework
+                  Shizune
                 </h3>
 
+                {/* As dores do cliente entram como pergunta, uma vez cada —
+                    nunca como acusacao. */}
+                <p className="max-w-[52ch] text-sm leading-relaxed text-foreground">
+                  Quem decidiu isso? O que a IA mudou sem ninguém ver? Quem
+                  assinou?
+                </p>
+
                 <p className="max-w-[52ch] text-sm leading-relaxed text-muted-foreground">
-                  Governança para agentes de IA: contexto confiável, decisões
-                  registradas e validadores que reprovam a própria estrutura
-                  quando ela está errada. Aberto, e verificável sem instalar
+                  Registro de decisão com autoridade: decisão numerada, commit
+                  assinado, e um comando que reprova o build quando alguém cita
+                  o que não foi decidido. Aberto, e verificável sem instalar
                   nada.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-[11px] text-muted-foreground">
-                  <span>60 arquivos</span>
+                  <span>16 decisões assinadas</span>
                   <span aria-hidden="true">·</span>
-                  <span>5 verificadores verdes</span>
+                  <span>9 verificadores</span>
                   <span aria-hidden="true">·</span>
-                  <span>1 commit público</span>
+                  <span>1 achado aberto — publicado</span>
                 </div>
 
                 <div className="flex flex-wrap gap-3 pt-3">
                   <Link
-                    to="/produtos/brain"
+                    to="/shizune"
                     className={buttonVariants("primary", "md")}
                   >
-                    Aplicar no meu projeto
+                    Conhecer o Shizune
                   </Link>
                   {repoBrain?.url && (
                     <a
                       href={repoBrain.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={buttonVariants("outline", "md")}
+                      className={buttonVariants("outline", "md") + " sz-shine"}
                     >
                       Clonar de graça
                       <ArrowUpRight
@@ -265,13 +277,14 @@ export const HomePage: React.FC = () => {
             seu site é parecido com algum destes, já foi feito antes.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tiposDeSite.map((t) => {
+          <div className="anim-stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {tiposDeSite.map((t, i) => {
               const Icone = ICONES_TIPO[t.icone];
               return (
                 <article
                   key={t.slug}
-                  className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-5"
+                  style={{ "--i": i } as React.CSSProperties}
+                  className="sz-card flex flex-col gap-3 rounded-xl bg-surface p-5"
                 >
                   <div className="flex items-center gap-2.5">
                     <Icone
@@ -320,10 +333,10 @@ export const HomePage: React.FC = () => {
               O que eu resolvo
             </h2>
             <Link
-              to="/produtos"
-              className="font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
+              to="/shizune"
+              className="inline-flex items-center py-1.5 -my-1.5 font-mono text-xs text-muted-foreground hover:text-primary transition-colors"
             >
-              escopo e fluxo
+              entregue com registro de decisão
               <ArrowUpRight
                 className="ml-1 inline h-3 w-3"
                 aria-hidden="true"
@@ -331,11 +344,12 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="anim-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {servicosResumo.map((s, i) => (
               <article
                 key={s.slug}
-                className="flex flex-col gap-2.5 rounded-xl border border-border bg-surface p-5"
+                style={{ "--i": i } as React.CSSProperties}
+                className="sz-card flex flex-col gap-2.5 rounded-xl bg-surface p-5"
               >
                 <span
                   className={`font-mono text-lg font-bold ${i === 0 ? "text-primary" : "text-muted-foreground"}`}
@@ -361,13 +375,15 @@ export const HomePage: React.FC = () => {
           >
             Construo interfaces para ideias que precisam sair do papel.
           </h2>
+          {/* A versao anterior dizia "IA como catalisadora de produtividade" —
+              o discurso generico que a postura nova aposentou. O manifesto
+              agora e a frase-mae: a ferramenta apontada para mim primeiro. */}
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed font-sans">
-            Acredito que um excelente código perde o valor se a interface for
-            confusa, assim como um design incrível falha sem uma engenharia
-            robusta. Como desenvolvedor front-end e builder de produtos, atuo na
-            intersecção entre código limpo, usabilidade (UX/UI) e pragmatismo
-            comercial, usando Inteligência Artificial como catalisadora de
-            produtividade para entregar soluções de alta qualidade.
+            Um código excelente perde valor se a interface for confusa, e um
+            design incrível falha sem engenharia por trás. Trabalho nessa
+            interseção — e aponto a ferramenta para mim antes de apontar para os
+            outros: o que sai daqui sai com registro de decisão. Quem decidiu,
+            assinado, verificável por comando.
           </p>
         </section>
 
@@ -388,7 +404,7 @@ export const HomePage: React.FC = () => {
             </div>
             <Link
               to="/projetos"
-              className="inline-flex items-center space-x-2 text-xs font-mono text-primary hover:text-primary-muted transition-colors"
+              className="inline-flex items-center space-x-2 py-1.5 -my-1.5 text-xs font-mono text-primary hover:text-primary-muted transition-colors"
             >
               <span>Explorar todos os projetos</span>
               <ArrowRight className="w-4 h-4" />
@@ -500,67 +516,108 @@ export const HomePage: React.FC = () => {
                 </p>
               </div>
             </div>
+
+            {/* Etapa atual — a linha do tempo termina no produto. */}
+            <div className="relative">
+              <span className="absolute -left-[31px] top-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-primary bg-background">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              </span>
+              <div className="space-y-2">
+                <span className="inline-block rounded border border-border-accent bg-primary/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-primary">
+                  2026 · Shizune
+                </span>
+                <h3 className="font-sans text-lg font-bold text-foreground">
+                  O método vira produto
+                </h3>
+                <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                  O jeito de trabalhar que eu usava por dentro foi publicado
+                  como Shizune: registro de decisão com autoridade, aberto sob
+                  Apache 2.0 — e diagnosticado contra si mesmo antes de ser
+                  anunciado, com o achado que restou publicado junto.
+                </p>
+                <Link
+                  to="/shizune"
+                  className="inline-flex items-center gap-1.5 py-1.5 -my-1.5 font-mono text-xs text-primary hover:text-primary-muted"
+                >
+                  ver o produto
+                  <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* SEÇÃO E: FORMA DE TRABALHAR */}
         <section data-reveal className="space-y-12 text-left">
+          {/* Os tres passos genericos ("entender, desenhar, iterar") viraram o
+              metodo real — a mesma triade da pagina do produto, dita como
+              servico. E o que "organizar a pagina em cima do Shizune" quer
+              dizer: a forma de trabalhar E o produto. */}
           <div className="space-y-2">
             <h2 data-split className="text-2xl sm:text-3xl font-bold font-sans">
-              Do problema ao produto
+              Do problema ao produto — com o método que publiquei
             </h2>
             <p className="text-sm text-muted-foreground">
-              Minha abordagem pragmática para projetar e codificar soluções
-              funcionais.
+              O mesmo ciclo do Shizune, aplicado à sua entrega: rascunho,
+              assinatura, verificação.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="anim-stagger grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Passo 1 */}
-            <div className="p-6 rounded-lg bg-surface border border-border space-y-4">
-              <div className="w-10 h-10 rounded bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                <Code2 className="w-5 h-5" />
+            <div
+              style={{ "--i": 0 } as React.CSSProperties}
+              className="sz-card space-y-4 rounded-lg bg-surface p-6"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded border border-primary/20 bg-primary/10 text-primary">
+                <Code2 className="h-5 w-5" />
               </div>
               <h3 className="font-sans text-lg font-bold text-foreground">
-                1. Entender o Problema
+                1. Rascunho
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Antes de escrever a primeira linha de código, investigo a
-                necessidade real. Entendo quem é o usuário, quais as restrições
-                técnicas e como o produto agregará valor prático.
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                A necessidade real vira contexto escrito antes da primeira linha
+                de código: quem usa, o que restringe, o que é sucesso. A máquina
+                rascunha em cima disso — nunca em cima de suposição.
               </p>
             </div>
 
             {/* Passo 2 */}
-            <div className="p-6 rounded-lg bg-surface border border-border space-y-4">
-              <div className="w-10 h-10 rounded bg-secondary/10 border border-secondary/20 flex items-center justify-center text-secondary">
-                <Layers className="w-5 h-5" />
+            <div
+              style={{ "--i": 1 } as React.CSSProperties}
+              className="sz-card space-y-4 rounded-lg bg-surface p-6"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded border border-secondary/20 bg-secondary/10 text-secondary">
+                <Layers className="h-5 w-5" />
               </div>
               <h3 className="font-sans text-lg font-bold text-foreground">
-                2. Desenhar a Experiência
+                2. Assinatura
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Esboço a arquitetura de informação e a usabilidade. Crio layouts
-                limpos, tipografia consistente e fluxos que guiam o usuário sem
-                gerar fricção cognitiva.
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Cada escolha que importa vira decisão numerada, com responsável.
+                Você vê quem decidiu o quê e quando — inclusive quando quem
+                decidiu fui eu, e principalmente quando foi você.
               </p>
             </div>
 
             {/* Passo 3 */}
-            <div className="p-6 rounded-lg bg-surface border border-border space-y-4">
-              <div className="w-10 h-10 rounded bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center text-foreground">
+            <div
+              style={{ "--i": 2 } as React.CSSProperties}
+              className="sz-card space-y-4 rounded-lg bg-surface p-6"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded border border-accent-blue/20 bg-accent-blue/10 text-foreground">
                 <Cpu
-                  className="w-5 h-5"
+                  className="h-5 w-5"
                   style={{ color: "var(--accent-blue)" }}
                 />
               </div>
               <h3 className="font-sans text-lg font-bold text-foreground">
-                3. Construir e Iterar
+                3. Verificação
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Implemento com TypeScript estrito, React e Tailwind CSS. Coloco
-                no ar rapidamente e uso feedback real ou logs de monitoramento
-                para refinar o código e a usabilidade continuamente.
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Um comando confere a entrega contra o que foi decidido e reprova
+                o que cita decisão inexistente. A entrega vem com a prova, não
+                com a promessa.
               </p>
             </div>
           </div>
@@ -578,7 +635,7 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 select-none">
+          <div className="anim-stagger grid grid-cols-2 sm:grid-cols-4 gap-4 select-none">
             {[
               { name: "React", desc: "Interfaces dinâmicas" },
               { name: "TypeScript", desc: "Tipagem estrita" },
@@ -587,11 +644,14 @@ export const HomePage: React.FC = () => {
               { name: "Tailwind CSS v4", desc: "Estilização moderna" },
               { name: "Supabase", desc: "BaaS & Autenticação" },
               { name: "UX/UI Design", desc: "Navegação e fluxos" },
-              { name: "IA Aplicada", desc: "Eficiência de código" },
-            ].map((tech) => (
+              // "IA Aplicada — eficiência de código" era o discurso que a
+              // postura aposentou; o lugar dela na bancada é o Shizune.
+              { name: "Shizune", desc: "Registro de decisão" },
+            ].map((tech, i) => (
               <div
                 key={tech.name}
-                className="p-4 rounded bg-surface/60 border border-border hover:border-primary/30 transition-colors"
+                style={{ "--i": i } as React.CSSProperties}
+                className="sz-card rounded bg-surface/60 p-4"
               >
                 <span className="block font-sans text-sm font-bold text-foreground">
                   {tech.name}
@@ -614,27 +674,33 @@ export const HomePage: React.FC = () => {
                 </p>
                 <h2
                   data-split
-                  className="text-2xl sm:text-3xl font-bold font-sans text-foreground"
+                  className="sz-glow-text text-2xl sm:text-3xl font-bold font-sans text-foreground"
                 >
                   Tem uma ideia para construir?
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground max-w-xl font-sans">
-                  Se você tem uma ideia de produto digital, precisa de um
-                  front-end moderno ou quer trocar ideias sobre tecnologia,
-                  vamos conversar.
+                  Ela entra como conversa e sai entregue com registro de
+                  decisão: você vê quem decidiu o quê, e um comando prova a
+                  entrega. Produto digital, front-end moderno, ou ordem numa
+                  base que cresceu rápido demais.
                 </p>
               </div>
 
-              <div>
+              <div className="flex flex-col items-center gap-3 md:flex-row md:items-baseline">
                 <Link
                   to="/contato"
                   className={
-                    buttonVariants("primary", "lg") +
-                    " mx-auto md:mx-0 w-fit space-x-2"
+                    buttonVariants("primary", "lg") + " w-fit space-x-2"
                   }
                 >
                   <TerminalIcon className="w-4 h-4" />
                   <span>Iniciar conversa</span>
+                </Link>
+                <Link
+                  to="/shizune"
+                  className="inline-flex items-center py-1.5 -my-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
+                >
+                  ver como eu entrego →
                 </Link>
               </div>
             </div>

@@ -85,16 +85,16 @@ export const TermsPage: React.FC = () => {
           </p>
           <p>
             <strong className="text-foreground">
-              O Brain Framework é software livre
+              O Shizune — antes chamado Brain Framework — é software livre
             </strong>
             , publicado sob a Licença Apache 2.0 em{" "}
             <a
-              href="https://github.com/CaduAzeredo/brain-framework"
+              href="https://github.com/CaduAzeredo/shizune"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline break-all"
             >
-              github.com/CaduAzeredo/brain-framework
+              github.com/CaduAzeredo/shizune
             </a>
             . A licença dele vale por si e não é restringida por estes termos:
             você pode usar, modificar, distribuir e usar comercialmente nos

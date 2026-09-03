@@ -5,6 +5,9 @@
 @theme {
   --font-sans: var(--font-family-sans);
   --font-mono: var(--font-family-mono);
+  /* Serifada editorial. Só a rota /shizune a define e a carrega; nas demais
+     ela cai na pilha de recuo e ninguém paga por ela. */
+  --font-serif: var(--font-family-serif, Georgia, "Times New Roman", serif);
 
   --color-background: var(--background);
   --color-surface: var(--surface);
@@ -18,6 +21,8 @@
   --color-border-accent: var(--border-accent);
   --color-secondary: var(--secondary);
   --color-accent-blue: var(--accent-blue);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-amber-deep: var(--accent-amber-deep);
 
   /* estado semântico — usar estes no lugar de literais do Tailwind
      (emerald-400, amber-400, red-400), que não acompanham a troca de tema */
