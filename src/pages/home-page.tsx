@@ -18,6 +18,11 @@ import { servicosResumo } from "@/content/servicos-resumo";
 import { contactLinks } from "@/content/contacts";
 import { projects } from "@/content/projects";
 import {
+  etapasDoDoctor,
+  faixaDaVitrine,
+  fechoDoDoctor,
+} from "@/content/shizune";
+import {
   ArrowRight,
   Terminal as TerminalIcon,
   Code2,
@@ -206,11 +211,12 @@ export const HomePage: React.FC = () => {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-[11px] text-muted-foreground">
-                  <span>16 decisões assinadas</span>
-                  <span aria-hidden="true">·</span>
-                  <span>9 verificadores</span>
-                  <span aria-hidden="true">·</span>
-                  <span>1 achado aberto — publicado</span>
+                  {faixaDaVitrine.map((item, i) => (
+                    <React.Fragment key={item}>
+                      {i > 0 && <span aria-hidden="true">·</span>}
+                      <span>{item}</span>
+                    </React.Fragment>
+                  ))}
                 </div>
 
                 <div className="flex flex-wrap gap-3 pt-3">
@@ -240,22 +246,22 @@ export const HomePage: React.FC = () => {
               <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-border bg-surface-elevated/40 p-6 flex items-center">
                 <TerminalWindow title="doctor" className="w-full">
                   <div className="space-y-1.5 font-mono text-[11px] leading-relaxed">
-                    {[
-                      "estrutura",
-                      "links",
-                      "refs em prosa",
-                      "estado da governança",
-                      "export (dry-run)",
-                    ].map((v) => (
-                      <p key={v} className="text-muted-foreground">
-                        <span className="text-primary">OK</span>
+                    {etapasDoDoctor.map(({ rotulo, marca }) => (
+                      <p key={rotulo} className="text-muted-foreground">
+                        <span
+                          className={
+                            marca === "OK"
+                              ? "text-primary"
+                              : "text-muted-foreground"
+                          }
+                        >
+                          {marca === "OK" ? "OK " : "n/a"}
+                        </span>
                         {"   "}
-                        {v}
+                        {rotulo}
                       </p>
                     ))}
-                    <p className="pt-2 text-foreground">
-                      os 5 verificadores passaram
-                    </p>
+                    <p className="pt-2 text-foreground">{fechoDoDoctor}</p>
                   </div>
                 </TerminalWindow>
               </div>

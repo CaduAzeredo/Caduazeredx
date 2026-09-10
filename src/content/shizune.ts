@@ -5,15 +5,23 @@
  * o texto desta página é o produto, e ele muda com mais frequência do que o
  * layout. Quem for corrigir uma ressalva não deveria precisar abrir JSX.
  *
- * FONTE DOS NÚMEROS: a bíblia do Cadu (§3, lista fechada), medida em
- * 2026-09-03 no commit `70c3fb0` do repositório de origem e no SHA publicado
- * `0ccfe4f`. Quando a bíblia e o repositório divergirem, o repositório ganha
- * — e este arquivo é corrigido no mesmo dia.
+ * FONTE DOS NÚMEROS: medição própria de 2026-09-10, no commit `b09888c` do
+ * repositório de origem e no SHA publicado `11cfbc2` (v0.4.1). A bíblia do
+ * Cadu (§3) mediu em 2026-09-03 e ficou para trás; a regra dela mesma diz que
+ * quando a bíblia e o repositório divergirem, o repositório ganha — e este
+ * arquivo é corrigido no mesmo dia.
  *
  * REGRA QUE GOVERNA ESTE ARQUIVO: todo número vem com o comando que o
  * reproduz, ou com o SHA que o congela. Número solto não entra. Contagem de
  * commits assinados se diz como PROPORÇÃO ("todos desde a fronteira"), porque
  * o número solto envelhece a cada commit.
+ *
+ * E A REGRA TEM UMA CONDIÇÃO QUE FALTAVA: o comando precisa **reproduzir** o
+ * número. Até 2026-09-10 o comando das decisões trazia `^|` — alternância com
+ * o lado esquerdo vazio, que casa toda linha não vazia. Ele contava linhas e
+ * devolvia 82 onde a página exibia 16. Imprimir um comando ao lado de um
+ * número é oferecê-lo como prova; prova que não fecha é pior que número solto.
+ * Quem editar isto: rode cada `comando` e confira contra o `valor` ao lado.
  */
 
 export interface FatoMedido {
@@ -44,42 +52,55 @@ export interface Recorte {
 }
 
 /** Data em que os números abaixo foram apurados. Move junto com eles. */
-export const medidoEm = "2026-09-03";
+export const medidoEm = "2026-09-10";
 
 /** O SHA da origem em que a medição foi feita. */
-export const shaMedicao = "70c3fb0";
+export const shaMedicao = "b09888c";
 
 /** Versão publicada e o SHA que qualquer pessoa recebe ao clonar. */
-export const versaoPublicada = "v0.3.1";
-export const shaPublicado = "0ccfe4f";
+export const versaoPublicada = "v0.4.1";
+export const shaPublicado = "11cfbc2";
 
 /** SHA da primeira passada do diagnóstico contra si mesmo. */
 export const shaDiagnostico = "c248f75";
 
 export const fatos: FatoMedido[] = [
   {
-    valor: "16",
-    rotulo: "decisões registradas e assinadas",
-    comando: "grep -cE '^| *`?DEC-[0-9]+' governance/registro-decisoes.md",
+    valor: "20",
+    rotulo: "decisões no registro",
+    comando:
+      "grep -cE '^\\| DEC-[0-9]{3} \\|' governance/registro-decisoes.md",
+    ressalva:
+      "15 vigentes e 5 em rascunho, que existem e não contam — a máquina rascunha, o humano assina, o SHA ativa. O comando anterior desta linha não reproduzia o número que ela exibia; foi corrigido em 2026-09-10, e o número mudou junto.",
   },
   {
     valor: "todos",
     rotulo: "os commits desde a fronteira de autoria estão assinados",
     comando: "git log --format='%G?' 9ca7a4e..HEAD",
     ressalva:
-      "19 de 19 em 2026-09-03, no commit 70c3fb0. O número anda a cada commit; a proporção não.",
+      "43 de 43 em 2026-09-10, no commit b09888c. O número anda a cada commit; a proporção não.",
   },
   {
-    valor: "28",
+    valor: "57",
     rotulo: "asserções no teste negativo do validador de decisões",
     comando: "grep -cE '^\\s*ok\\(' scripts/test-validate-decisions.mjs",
     ressalva:
-      "São 28 asserções dentro de um arquivo — não uma suíte de 28 testes.",
+      "São 57 asserções dentro de um arquivo — não uma suíte de 57 testes.",
   },
   {
-    valor: "9",
-    rotulo: "verificadores rodam em sequência e reprovam o build",
+    valor: "9 · 7 · 2",
+    rotulo: "etapas do doctor: 9 no total, 7 executam, 2 respondem n/a",
     comando: "node scripts/doctor.mjs",
+    ressalva:
+      "Num clone do pacote, duas etapas não têm o que verificar e respondem n/a — e isso é o comportamento certo. O defeito é a linha de fecho do comando dizer que os 9 passaram, contando os n/a como aprovados: está aberto como item 47 da fila e declarado no CHANGELOG da v0.4.1. Por isso o número aqui é 9 · 7 · 2 e não 9.",
+  },
+  {
+    valor: "2",
+    rotulo:
+      "chaves na lista de confiança: a do operador e a de máquina, que assina rascunho e nunca decisão",
+    comando: "git log -1 --format='%G? %GS' <sha da assinatura>",
+    ressalva:
+      "Desde 2026-09-10 o validador lê qual chave assinou, não só se a assinatura é boa: decisão assinada pela chave de máquina reprova, e assinante declarado que não corresponde ao principal da chave reprova. Isso prova qual chave assinou — não prova autoria humana.",
   },
   {
     valor: "66",
@@ -90,9 +111,59 @@ export const fatos: FatoMedido[] = [
   {
     valor: "6 de 6",
     rotulo: "check runs verdes no SHA publicado — Node 20, Node 22 e Bun",
-    comando: "gh api repos/CaduAzeredo/shizune/commits/0ccfe4f/check-runs",
-    ressalva: "v0.3.1, publicada em 2026-09-03.",
+    comando: "gh api repos/CaduAzeredo/shizune/commits/11cfbc2/check-runs",
+    ressalva: "v0.4.1, publicada em 2026-09-10.",
   },
+];
+
+/**
+ * O rótulo do `doctor` na demonstração de terminal.
+ *
+ * Vive aqui, e não no JSX, porque até 2026-09-10 ele estava cravado em
+ * `shizune-page.tsx` — onde nenhum arquivo de conteúdo o governava, e por isso
+ * sobreviveu a todas as correções de número que passaram por este arquivo.
+ */
+export const rotuloDoctorNoTerminal = "9 etapas · 7 executam · 2 n/a";
+
+/**
+ * As etapas do `doctor`, com a marca que cada uma recebe **num clone do
+ * pacote público** — que é onde o leitor vai rodar o comando.
+ *
+ * As duas marcadas `n/a` não têm o que verificar fora da instância de onde o
+ * pacote é exportado, e responder `n/a` ali é o comportamento certo. A janela
+ * de terminal da home mostrava cinco etapas, todas `OK`, e fechava com "os 5
+ * verificadores passaram" — retrato de 2026-08-31 que nunca mais foi tocado.
+ * Mostrar 9 todas `OK` seria trocar um número velho por uma afirmação falsa.
+ *
+ * Medido em 2026-09-10, no clone público em v0.4.1 (11cfbc2).
+ */
+export const etapasDoDoctor: { rotulo: string; marca: "OK" | "n/a" }[] = [
+  { rotulo: "estrutura", marca: "OK" },
+  { rotulo: "links", marca: "OK" },
+  { rotulo: "refs em prosa", marca: "OK" },
+  { rotulo: "estado da governança", marca: "OK" },
+  { rotulo: "export (dry-run)", marca: "n/a" },
+  { rotulo: "issue-lint (teste negativo)", marca: "n/a" },
+  { rotulo: "decisões (DEC-NNN)", marca: "OK" },
+  { rotulo: "decisões (teste negativo)", marca: "OK" },
+  { rotulo: "índice (teste negativo)", marca: "OK" },
+];
+
+/** O fecho da janela de terminal — o que a execução fez, não o total. */
+export const fechoDoDoctor = "7 executaram e passaram · 2 n/a";
+
+/**
+ * A faixa de três números da home.
+ *
+ * Vive aqui pelo motivo do `rotuloDoctorNoTerminal`: cravada no JSX, ela
+ * envelheceu sem que ninguém percebesse — chegou a 2026-09-10 dizendo "16
+ * decisões assinadas", "9 verificadores" e "1 achado aberto", este último já
+ * fechado desde 2026-09-09 e desmentido pela própria /shizune.
+ */
+export const faixaDaVitrine = [
+  "15 decisões assinadas, 20 no registro",
+  "9 etapas no doctor · 7 executam",
+  "nenhum achado aberto — o último, e o erro de diagnóstico, publicados",
 ];
 
 /**
@@ -127,7 +198,7 @@ export const fronteira: CardDaFronteira[] = [
     frase: "O registro diz",
     enfase: "o que o humano decidiu",
     detalhe:
-      "Decisão numerada, com assinante e SHA, que o comando exige antes de deixar o build passar. É isso que o Shizune é.",
+      "Decisão numerada, com assinante e SHA, que o comando exige antes de deixar o build passar. É isso que o Shizune é. Desde 2026-09-10 o comando também confere qual chave assinou: a chave que o agente usa para rascunho nunca assina decisão, e o nome escrito na linha tem de bater com o principal da chave. Continua sem provar que um humano escreveu o conteúdo — prova quem tinha a chave, e a chave pede senha desde 2026-09-06.",
     fonte: "scripts/validate-decisions.mjs",
     aberto: true,
   },

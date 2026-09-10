@@ -28,16 +28,27 @@ export const fichaShizune = {
   ],
   licenca: "Apache-2.0",
   repositorio: "https://github.com/CaduAzeredo/shizune",
-  versao: "v0.3.1",
-  shaPublicado: "0ccfe4f",
-  publicadaEm: "2026-09-03",
-  medidoEm: "2026-09-03",
-  decisoes: 16,
+  versao: "v0.4.1",
+  shaPublicado: "11cfbc2",
+  publicadaEm: "2026-09-10",
+  medidoEm: "2026-09-10",
+  decisoes: 20,
+  decisoesVigentes: 15,
+  decisoesEmRascunho: 5,
   commitsAssinados:
-    "todos desde a fronteira de autoria (19 de 19 em 2026-09-03)",
-  verificadores: 9,
+    "todos desde a fronteira de autoria (43 de 43 em 2026-09-10)",
+  /**
+   * Três números, não um. O `doctor` tem 9 etapas; num clone do pacote 7
+   * executam e 2 respondem `n/a`, porque não têm o que verificar fora da
+   * instância. Dizer "9 verificadores passaram" conta os `n/a` como aprovados
+   * — é o item 47 da fila do Shizune, aberto e declarado no CHANGELOG da
+   * v0.4.1. A Rei responde com os três.
+   */
+  doctor: { etapas: 9, executam: 7, na: 2 },
   arquivosNoPacote: 66,
   ciNoShaPublicado: "6 check runs, todos verdes — Node 20, Node 22 e Bun",
+  conferenciaDeChave:
+    "Desde 2026-09-10 o validador confere qual chave assinou: a chave de máquina, que o agente usa para rascunho, nunca assina decisão, e o assinante escrito na linha tem de bater com o principal da chave. Prova qual chave assinou — não prova autoria humana.",
   diagnostico: {
     sha: "c248f75",
     achados: 5,

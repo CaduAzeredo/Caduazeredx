@@ -48,7 +48,7 @@ export const reiTrocas: ReiTroca[] = [
   {
     id: "versao-e-numeros",
     pergunta: "em que pé está o projeto?",
-    resposta: `${fichaShizune.versao} publicada em ${fichaShizune.publicadaEm}, SHA ${fichaShizune.shaPublicado}, com ${fichaShizune.ciNoShaPublicado}. No registro: ${fichaShizune.decisoes} decisões assinadas, ${fichaShizune.verificadores} verificadores rodando em sequência, e ${fichaShizune.commitsAssinados}. Cada número desses tem o comando que o reproduz no repositório.`,
+    resposta: `${fichaShizune.versao} publicada em ${fichaShizune.publicadaEm}, SHA ${fichaShizune.shaPublicado}, com ${fichaShizune.ciNoShaPublicado}. No registro: ${fichaShizune.decisoes} decisões, das quais ${fichaShizune.decisoesVigentes} assinadas e ${fichaShizune.decisoesEmRascunho} em rascunho. O doctor tem ${fichaShizune.doctor.etapas} etapas; num clone do pacote ${fichaShizune.doctor.executam} executam e ${fichaShizune.doctor.na} respondem n/a. E ${fichaShizune.commitsAssinados}. Cada número desses tem o comando que o reproduz no repositório.`,
     destino: { rotulo: "conferir os números", tipo: "produtos" },
     palavras: [
       "versao",

@@ -12,6 +12,7 @@ import {
   placarDoDiagnostico,
   recortes,
   repositorio,
+  rotuloDoctorNoTerminal,
   shaDiagnostico,
   shaPublicado,
   totalDoPlacar,
@@ -697,7 +698,8 @@ export const ShizunePage: React.FC = () => {
                 <span className="text-primary">bun</span> scripts/doctor.mjs
                 {"\n"}
                 <span className="text-muted-foreground">
-                  {"  "}9 verificadores · nenhuma escrita
+                  {"  "}
+                  {rotuloDoctorNoTerminal} · nenhuma escrita
                 </span>
                 {"\n"}
                 <Prompt path="~/shizune" />
