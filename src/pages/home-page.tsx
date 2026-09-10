@@ -18,6 +18,7 @@ import { servicosResumo } from "@/content/servicos-resumo";
 import { contactLinks } from "@/content/contacts";
 import { projects } from "@/content/projects";
 import {
+  badgeDoProduto,
   etapasDoDoctor,
   faixaDaVitrine,
   fechoDoDoctor,
@@ -171,15 +172,23 @@ export const HomePage: React.FC = () => {
 
           {/* O Shizune, elevado: e o unico com prova publica verificavel hoje.
               (Era o card do Brain Framework — o rebrand publico e a v0.3.1
-              aposentaram o nome e os numeros antigos. Fonte dos numeros: a
-              biblia §3, medida em 2026-09-03.) */}
+              aposentaram o nome e os numeros antigos.)
+
+              FONTE DOS NUMEROS deste card e da faixa abaixo: `content/shizune.ts`,
+              medicao propria de 2026-09-10 no commit b09888c. A biblia §3, que
+              media em 2026-09-03, era a fonte anterior e ficou para tras.
+
+              NENHUM numero deste card se escreve aqui. Todos vem daquele arquivo,
+              e e por isso que este comentario existe: o badge de versao ficou
+              cravado neste JSX e sobreviveu a passada que corrigiu todo o resto,
+              porque quem editava lia um comentario que apontava a fonte errada. */}
           {/* O unico elemento que respira na Home e o produto. */}
           <div className="sz-glow overflow-hidden rounded-xl bg-surface">
             <div className="grid grid-cols-1 lg:grid-cols-12">
               <div className="lg:col-span-7 flex flex-col gap-4 p-7 sm:p-9">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="rounded-full border border-border-accent bg-primary/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-primary">
-                    no ar · v0.3.1
+                    {badgeDoProduto}
                   </span>
                   <span className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-status-wait">
                     lançamento · 2026-09-15

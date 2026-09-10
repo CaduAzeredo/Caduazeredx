@@ -126,6 +126,16 @@ export const fatos: FatoMedido[] = [
 export const rotuloDoctorNoTerminal = "9 etapas · 7 executam · 2 n/a";
 
 /**
+ * O badge do card do produto na home.
+ *
+ * Deriva de `versaoPublicada` de propósito: não tem valor próprio, então não
+ * pode divergir da fonte. Cravado no JSX, ele ficou em v0.3.1 e sobreviveu à
+ * passada que corrigiu todos os outros números da página — o mesmo caminho do
+ * "9 verificadores".
+ */
+export const badgeDoProduto = `no ar · ${versaoPublicada}`;
+
+/**
  * As etapas do `doctor`, com a marca que cada uma recebe **num clone do
  * pacote público** — que é onde o leitor vai rodar o comando.
  *

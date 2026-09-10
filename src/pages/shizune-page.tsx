@@ -26,6 +26,12 @@ const FONTE_SERIFADA =
  * JSON-LD com campos verificáveis, e só eles. Versão e licença vêm do
  * repositório público; nada aqui afirma o que um comando não reproduz.
  * Vive fora do componente para o `useSeo` não re-rodar a cada render.
+ *
+ * A versão vem de `versaoPublicada`, e isso não é detalhe: até 2026-09-10 ela
+ * estava digitada aqui e ficou em v0.3.1 enquanto o pacote ia para a v0.4.1 —
+ * com este comentário logo acima afirmando que ela vinha do repositório. Dado
+ * estruturado errado é pior que texto errado: é servido a máquinas, e um badge
+ * o leitor confere, um `softwareVersion` não.
  */
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -33,7 +39,7 @@ const JSON_LD = {
   name: "Shizune",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Bun ou Node 20+",
-  softwareVersion: "v0.3.1",
+  softwareVersion: versaoPublicada,
   license: "https://www.apache.org/licenses/LICENSE-2.0",
   codeRepository: "https://github.com/CaduAzeredo/shizune",
   author: { "@type": "Person", name: "Cadu Azeredo" },

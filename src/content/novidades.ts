@@ -7,6 +7,60 @@ import type { NovidadeEntry, ProximoPasso } from "../types";
  */
 export const novidades: NovidadeEntry[] = [
   {
+    id: "shizune-v041",
+    data: "2026-09-10",
+    categoria: "lancamento",
+    titulo: "A v0.4.1 saiu, e declara os dois defeitos que ela não conserta",
+    resumo:
+      "Release de correção publicada em 2026-09-10, SHA 11cfbc2. Traz o que o quickstart nunca respondia — adoção em repositório que já existe, squash e rebase, time com mais de uma pessoa — e uma seção nova que nomeia dois defeitos conhecidos em vez de escondê-los.",
+    detalhe:
+      "A v0.4.1 responde perguntas que a documentação deixava abertas: como adotar o método num repositório que já tem código (e qual dos dois arranjos deixa o validador ler o histórico certo, medido nos dois caminhos de invocação); o que o squash merge faz com o trailer que o CI exige e o que o rebase faz com o SHA de uma decisão já assinada; e como um time compartilha a fronteira de autoria e a lista de confiança. O README ganhou três respostas que faltavam: se algo sai da sua máquina (não sai — e o comando que reproduz isso está impresso ao lado), o que custa sair (uma deleção: sobram Markdown e git) e o que acontece se o projeto parar. A parte incomum é a seção “conhecidos e não corrigidos”: a linha de fecho do verificador conta as etapas que responderam “não se aplica” como aprovadas, e a saída dos validadores é em português sem respeitar o idioma do sistema. Nenhum dos dois foi consertado nesta versão, e os dois estão escritos na entrada da release — publicar uma versão que carrega defeito conhecido em silêncio é exatamente o que este projeto existe para pegar. Medido no clone público em 11cfbc2: 66 arquivos, 6 check runs verdes em Node 20, Node 22 e Bun, e o verificador com 9 etapas das quais 7 executam e 2 respondem “não se aplica”.",
+  },
+  {
+    id: "shizune-assinante-contra-chave",
+    data: "2026-09-10",
+    categoria: "seguranca",
+    titulo:
+      "O registro passou a conferir quem assinou contra a chave que assinou",
+    resumo:
+      "Até 2026-09-10 o validador perguntava se a assinatura era boa. Agora pergunta de qual chave ela é — e o nome escrito na linha da decisão tem de bater com o principal daquela chave. Decisão DEC-020, assinada em 9c53321.",
+    detalhe:
+      "Duas afirmações estavam sendo tratadas como uma: “uma chave confiável assinou” e “a pessoa nomeada na linha assinou”. Só a primeira era conferida — a coluna do assinante era texto livre, e uma linha dizendo um nome cujo commit foi assinado por outra chave da lista passava sem ruído. O validador passou a ler o principal da chave, além do código de verificação, e reprova em dois casos novos: decisão assinada pela chave de máquina — a que um agente usa para trabalho de rascunho, e que nunca pode assinar decisão — e assinante declarado que não corresponde ao principal. Assinante fora do mapa avisa e não reprova, para não quebrar quem usa nome livre. A correspondência é declarada pela instância num arquivo que o pacote público não leva: sem ele, nada disso roda, e um clone de terceiro não nasce vermelho por uma regra que ninguém ali decidiu. Antes de declarar o arquivo, os sete SHAs que assinam as quatorze decisões vigentes foram medidos um a um — todos com chave confiável e o mesmo principal —, porque ligar a exigência com uma linha divergente deixaria o CI vermelho contra uma linha que o próprio registro proíbe editar. O que isso prova é qual chave assinou. Não prova que um humano escreveu o conteúdo, e o texto do produto diz isso.",
+  },
+  {
+    id: "shizune-adr-046-duas-chaves",
+    data: "2026-09-10",
+    categoria: "seguranca",
+    titulo:
+      "A decisão de duas chaves foi aceita — o executor assina rascunho, o humano assina decisão",
+    resumo:
+      "O ADR-046 saiu de proposto em 2026-09-10, com as cinco verificações dele satisfeitas. Nasceu de um defeito encontrado na própria casa: a chave do operador assinava sem que o operador estivesse presente.",
+    detalhe:
+      "Em 2026-09-04 uma verificação mostrou que a chave de assinatura não tinha senha e nenhum agente a guardava: qualquer processo da máquina — inclusive uma sessão automatizada — assinava em milissegundos, sem pedir nada. A camada “assinatura verificada por chave” provava que a máquina assinou, não que a pessoa estava presente. Dois commits daquele dia tinham sido assinados assim e um deles marcava uma decisão como vigente; os dois foram revertidos e não contaram como assinatura. A correção veio em três partes: senha na chave humana, digitada só no teclado da máquina e nunca por sessão remota, aplicada em 2026-09-06; uma chave separada e marcada como de máquina, que assina trabalho de rascunho e nunca decisão; e o validador conferindo qual das duas assinou. O ADR ficou como pré-requisito declarado da data de lançamento, e foi aceito quando as quatro primeiras verificações passaram — a quinta é o CI verde, que fechou no push do mesmo dia. A chave de máquina existe para ser acusada, não usada: nenhum commit por sessão automatizada saiu daquele repositório desde 4 de setembro.",
+  },
+  {
+    id: "site-comando-que-nao-reproduzia",
+    data: "2026-09-10",
+    categoria: "arquitetura",
+    titulo:
+      "O comando impresso ao lado de um número da página nunca reproduziu aquele número",
+    resumo:
+      "A página do produto exibe cada número com o comando que o reproduz. Um deles não reproduzia: contava linhas em vez de decisões, e devolvia 82 onde a página dizia 16. Corrigido em 2026-09-10, e o número mudou junto.",
+    detalhe:
+      "A regra escrita no topo do arquivo de conteúdo dizia “todo número vem com o comando que o reproduz; número solto não entra”. O que faltava era a condição óbvia: que o comando de fato reproduza. O padrão trazia uma alternância com o lado esquerdo vazio, que casa toda linha não vazia do arquivo — contava linhas. Ninguém percebeu porque nada neste site executa o comando que a página exibe: o portão cobre contraste, movimento, tipos e build, e nenhuma dessas checagens roda o que está impresso ao lado do número. O conserto trocou o comando e o número na mesma edição, porque o número certo é 20 justamente porque o comando certo devolve 20 — quinze decisões assinadas e cinco em rascunho, que existem e não contam. Na mesma passada saíram os outros números que tinham ficado em 3 de setembro, e os que estavam cravados no código de duas páginas foram para o arquivo de conteúdo, que é onde podem ser corrigidos da próxima vez. Uma janela de terminal da home ainda mostrava cinco etapas e “os 5 verificadores passaram”, retrato de 31 de agosto; agora lista as nove com a marca real de cada uma. As duas causas estruturais — a ficha ainda digitada à mão e a ausência de qualquer checagem que execute o comando exibido — ficaram registradas como trabalho reconhecido e não feito.",
+  },
+  {
+    id: "shizune-dev-no-ar",
+    data: "2026-09-09",
+    categoria: "arquitetura",
+    titulo:
+      "shizune.dev entrou no ar, e o diagnóstico que o mantinha fora estava errado",
+    resumo:
+      "O domínio do produto respondia no www e não no domínio raiz. O diagnóstico dizia falha de certificado; a causa nunca foi certificado. Resolvido em 2026-09-09, e o erro fica escrito.",
+    detalhe:
+      "Era o último achado aberto do autodiagnóstico, e ficou aberto desde a v0.3.1. A explicação registrada na época — falha de TLS no domínio raiz — estava errada: o domínio nunca tinha sido adicionado ao projeto na hospedagem, e a delegação apontava para nameservers que recusavam a zona. O que se via como erro de certificado era ausência de zona. A medição de 2026-09-09 foi feita contra resolvers públicos, fora da máquina do operador, para que a resposta não viesse de cache local. Duas coisas ficaram dessa frente. A primeira: corrigir o placar sem dizer o que se errou seria o defeito que o produto denuncia, então o erro de diagnóstico está escrito no lugar onde o achado era relatado. A segunda é regra de método — dois dias de diagnóstico leram o código de status da resposta e não o corpo: um domínio estacionado devolvia 200 com a página do provedor, e uma verificação que confere só o status aprova a página errada. Toda checagem de “está no ar” passou a conferir uma marca esperada no conteúdo.",
+  },
+  {
     id: "shizune-v031-rebrand",
     data: "2026-09-03",
     categoria: "lancamento",
