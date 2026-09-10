@@ -193,7 +193,7 @@ export const contraNosMesmos = [
   "Apontamos o Shizune contra o próprio Shizune — três passadas no mesmo dia, em clone limpo, com HOME vazio, sem nada da instância.",
   "Primeira passada, no SHA c248f75: cinco achados. Nenhum de segurança, nenhum vazamento.",
   "Quatro foram fechados em código e texto, e a v0.3.1 saiu. O relatório do SHA publicado (0ccfe4f) fecha o placar em um.",
-  "O que continua aberto: o apex shizune.dev falha o TLS. Não é defeito de código, nenhuma edição do repositório o fecha — e ele vai citado em toda peça, porque esconder o aberto seria o defeito que a tese denuncia.",
+  "O que ficou aberto por mais tempo foi o apex shizune.dev não responder — e o diagnóstico dele estava errado. Dizia falha de TLS; a causa nunca foi TLS. O domínio nunca tinha sido adicionado ao Vercel, e a delegação apontava para nameservers que recusavam a zona. Fechado em 2026-09-09, e o erro de diagnóstico fica escrito aqui: corrigir o placar sem dizer o que se errou seria o defeito que a tese denuncia.",
 ];
 
 export interface FaixaDoPlacar {
@@ -223,20 +223,20 @@ export const placarDoDiagnostico: FaixaDoPlacar[] = [
     destaque: false,
   },
   {
-    severidade: "Aberto em 0ccfe4f",
+    severidade: "Fechado em 2026-09-09",
     quantidade: "1",
     proporcao: 0.2,
     define:
-      'O apex shizune.dev devolve HTTP 000 enquanto www responde 200. Reproduz com: curl -s -o /dev/null -w "%{http_code}" -L --max-time 20 https://shizune.dev',
+      'Ficou aberto desde 0ccfe4f: o apex shizune.dev não respondia enquanto o www respondia. O diagnóstico dizia falha de TLS e estava errado — o domínio nunca tinha entrado no Vercel, e a delegação apontava para nameservers que recusavam a zona. Confere com: curl -s -o /dev/null -w "%{http_code}" -L --max-time 20 https://shizune.dev',
     destaque: true,
   },
 ];
 
 export const totalDoPlacar = {
-  valor: "1",
+  valor: "0",
   rotulo: "achado aberto no SHA publicado",
   ressalva:
-    "O aberto vai junto, sempre: uma peça que cite os quatro fechados sem citar o que resta estaria fazendo exatamente o que a tese denuncia.",
+    "Os cinco estão fechados desde 2026-09-09. O último não era defeito de código e o diagnóstico dele estava errado — fica escrito assim mesmo, porque uma peça que zera o placar sem dizer o que errou faz exatamente o que a tese denuncia.",
 };
 
 export const limiteDoDiagnostico =
@@ -247,4 +247,5 @@ export const notaDeMarca =
 
 export const repositorio = "https://github.com/CaduAzeredo/shizune";
 export const discussoes = "https://github.com/CaduAzeredo/shizune/discussions";
-export const siteDoProduto = "https://www.shizune.dev";
+/** O apex é o canônico: o `www` redireciona para cá, e é este que o README cita. */
+export const siteDoProduto = "https://shizune.dev";

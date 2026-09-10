@@ -41,10 +41,16 @@ export const fichaShizune = {
   diagnostico: {
     sha: "c248f75",
     achados: 5,
-    fechados: 4,
-    abertos: 1,
-    oAberto:
-      "o apex shizune.dev falha o TLS (www responde normalmente) — não é defeito de código, e vai citado sempre",
+    fechados: 5,
+    abertos: 0,
+    /**
+     * O campo mudou de nome em 2026-09-09, junto com o fato. Era `oAberto` e
+     * dizia "o apex shizune.dev falha o TLS": a causa nunca foi TLS, e o
+     * achado não está mais aberto. Um campo chamado `oAberto` num placar sem
+     * nada aberto seria a mesma classe de defeito que este produto denuncia.
+     */
+    oQueDemorou:
+      "o apex shizune.dev não respondia, e o diagnóstico disso estava errado — dizia falha de TLS, mas o domínio nunca tinha sido adicionado ao Vercel e a delegação apontava para nameservers que recusavam a zona. Fechado em 2026-09-09",
   },
   contribuicoesAceitas:
     "2 contribuições aceitas em repositório externo (merges ae1ef03 e 0ef321b). O nome do repositório fica fora de material público — divulgação responsável.",

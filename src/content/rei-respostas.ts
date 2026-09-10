@@ -67,7 +67,7 @@ export const reiTrocas: ReiTroca[] = [
   {
     id: "confio-nisso",
     pergunta: "por que eu confiaria nisso?",
-    resposta: `Porque ele apanha em público: o Shizune foi diagnosticado com o próprio Shizune. Primeira passada (${fichaShizune.diagnostico.sha}): ${fichaShizune.diagnostico.achados} achados. ${fichaShizune.diagnostico.fechados} foram fechados e verificados no clone publicado — e ${fichaShizune.diagnostico.abertos} continua aberto: ${fichaShizune.diagnostico.oAberto}. Além disso, ${fichaShizune.contribuicoesAceitas}`,
+    resposta: `Porque ele apanha em público: o Shizune foi diagnosticado com o próprio Shizune. Primeira passada (${fichaShizune.diagnostico.sha}): ${fichaShizune.diagnostico.achados} achados, todos os ${fichaShizune.diagnostico.fechados} fechados e verificados no clone publicado. O último demorou, e o diagnóstico dele estava errado: ${fichaShizune.diagnostico.oQueDemorou}. Além disso, ${fichaShizune.contribuicoesAceitas}`,
     destino: { rotulo: "ler os relatórios", tipo: "repo" },
     palavras: [
       "confiar",
