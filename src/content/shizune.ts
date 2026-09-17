@@ -5,8 +5,9 @@
  * o texto desta página é o produto, e ele muda com mais frequência do que o
  * layout. Quem for corrigir uma ressalva não deveria precisar abrir JSX.
  *
- * FONTE DOS NÚMEROS: medição própria de 2026-09-10, no commit `b09888c` do
- * repositório de origem e no SHA publicado `11cfbc2` (v0.4.1). A bíblia do
+ * FONTE DOS NÚMEROS: medição própria de 2026-09-16, no commit `e575b46` do
+ * repositório de origem (remedição da de 2026-09-10 em `b09888c`, mesmos
+ * valores) e no SHA publicado `11cfbc2` (v0.4.1). A bíblia do
  * Cadu (§3) mediu em 2026-09-03 e ficou para trás; a regra dela mesma diz que
  * quando a bíblia e o repositório divergirem, o repositório ganha — e este
  * arquivo é corrigido no mesmo dia.
@@ -22,6 +23,21 @@
  * devolvia 82 onde a página exibia 16. Imprimir um comando ao lado de um
  * número é oferecê-lo como prova; prova que não fecha é pior que número solto.
  * Quem editar isto: rode cada `comando` e confira contra o `valor` ao lado.
+ *
+ * DE ONDE O COMANDO RODA: do clone, na maioria — e a `ressalva` diz quando
+ * não. O cartão dos check runs roda contra o GitHub (`gh api`), porque os
+ * check runs vivem lá, não na árvore; a seção das contribuições também. A
+ * frase de apresentação da seção de números dizia "cole qualquer um destes no
+ * clone" e era falsa para esse cartão desde 2026-09-10; em 2026-09-16 passou a
+ * prometer o que cumpre: cada comando diz de onde roda.
+ *
+ * PROPAGAÇÃO — este arquivo alimenta a `/shizune` (fatos, contribuições,
+ * placar), a home (`badgeDoProduto`, `faixaDaVitrine`, `etapasDoDoctor`,
+ * `fechoDoDoctor`) e o JSON-LD; os mesmos fatos vivem em `shizune-ficha.ts`
+ * (a Rei), `novidades.ts` (verbetes) e no site do produto (`method.ts`,
+ * `ficha.ts`). **Mudou aqui, muda lá na mesma passada** — foi por não ter esta
+ * lista que o badge de versão sobreviveu cravado no JSX a uma passada inteira
+ * de correção. Ver AGENTS.md § Propagação.
  */
 
 export interface FatoMedido {
@@ -51,11 +67,18 @@ export interface Recorte {
   vaga?: boolean;
 }
 
-/** Data em que os números abaixo foram apurados. Move junto com eles. */
-export const medidoEm = "2026-09-10";
+/**
+ * Data em que os números abaixo foram apurados. Move junto com eles.
+ *
+ * 2026-09-16: os seis comandos da lista foram rodados de novo contra a origem
+ * em `e575b46` e devolveram os mesmos valores (20 decisões; 50 commits desde a
+ * fronteira, todos `G`; 57 asserções; 66 arquivos; a v0.4.1 não mudou). A data
+ * moveu porque a medição foi refeita, não porque um número mudou.
+ */
+export const medidoEm = "2026-09-16";
 
 /** O SHA da origem em que a medição foi feita. */
-export const shaMedicao = "b09888c";
+export const shaMedicao = "e575b46";
 
 /** Versão publicada e o SHA que qualquer pessoa recebe ao clonar. */
 export const versaoPublicada = "v0.4.1";
@@ -78,7 +101,7 @@ export const fatos: FatoMedido[] = [
     rotulo: "os commits desde a fronteira de autoria estão assinados",
     comando: "git log --format='%G?' 9ca7a4e..HEAD",
     ressalva:
-      "43 de 43 em 2026-09-10, no commit b09888c. O número anda a cada commit; a proporção não.",
+      "50 de 50 em 2026-09-16, no commit e575b46 (eram 43 de 43 em 2026-09-10, em b09888c). O número anda a cada commit; a proporção não.",
   },
   {
     valor: "57",
@@ -112,9 +135,99 @@ export const fatos: FatoMedido[] = [
     valor: "6 de 6",
     rotulo: "check runs verdes no SHA publicado — Node 20, Node 22 e Bun",
     comando: "gh api repos/CaduAzeredo/shizune/commits/11cfbc2/check-runs",
-    ressalva: "v0.4.1, publicada em 2026-09-10.",
+    ressalva:
+      "v0.4.1, publicada em 2026-09-10. Este é o único desta lista que não roda no clone: roda contra o GitHub, com gh autenticado — os check runs vivem lá, não na árvore.",
   },
 ];
+
+/**
+ * As contribuições da primeira rodada — seção própria, com procedência própria.
+ *
+ * Não entram na lista `fatos` de propósito: aquela seção se apresenta com
+ * "cole qualquer um destes no clone e ele responde", e este comando não roda
+ * no clone — roda contra o GitHub, com `gh` autenticado. Misturar os dois
+ * tornaria falsa a frase de apresentação da seção, que é exatamente a classe
+ * de defeito que esta página existe para apontar. Decisão do operador em
+ * 2026-09-16 (opção A das três que estavam na mesa).
+ *
+ * Até 2026-09-15 os quatro alvos estavam sob embargo de divulgação
+ * responsável e nenhum nome aparecia aqui. O embargo venceu; o que entra é o
+ * que está público na página de cada alvo — sete issues e pull requests, com
+ * link e estado. **Nenhuma contagem de achados**, nem por alvo, nem agregada:
+ * o total anunciaria defeitos encontrados e não contados aos mantenedores. O
+ * total vive no relatório escrito; a evidência aqui são os links.
+ *
+ * Quem editar isto: rode o comando e confira o `estado` de cada linha contra
+ * o que o GitHub devolve. `estado` é fato do dia da medição.
+ */
+export interface Contribuicao {
+  repo: string;
+  numero: number;
+  tipo: "issue" | "pull request";
+  estado: string;
+  url: string;
+}
+
+export const contribuicoes = {
+  medidoEm: "2026-09-16",
+  procedencia:
+    "Estes não saem do clone: saem do GitHub. O comando abaixo precisa de gh autenticado e lista as sete para qualquer pessoa.",
+  texto:
+    "O método rodou pela primeira vez contra quatro repositórios públicos, em 2026-09-01. Sete contribuições foram enviadas — seis issues e um pull request — e duas foram aceitas pelos mantenedores. Cada uma é pública na página do projeto.",
+  comando:
+    'for r in rohitg00/agentmemory mem0ai/mem0 topoteretes/cognee TeleAI-UAGI/Awesome-Agent-Memory; do gh api "search/issues?q=repo:$r+author:CaduAzeredo" --jq \'.items[] | "\\(.number)\\t\\(.state)\\t\\(.title)"\'; done',
+  itens: [
+    {
+      repo: "TeleAI-UAGI/Awesome-Agent-Memory",
+      numero: 98,
+      tipo: "pull request",
+      estado: "mesclado em 2026-09-01",
+      url: "https://github.com/TeleAI-UAGI/Awesome-Agent-Memory/pull/98",
+    },
+    {
+      repo: "TeleAI-UAGI/Awesome-Agent-Memory",
+      numero: 100,
+      tipo: "issue",
+      estado: "fechada como concluída pelo mantenedor em 2026-09-03",
+      url: "https://github.com/TeleAI-UAGI/Awesome-Agent-Memory/issues/100",
+    },
+    {
+      repo: "mem0ai/mem0",
+      numero: 7202,
+      tipo: "issue",
+      estado: "aberta",
+      url: "https://github.com/mem0ai/mem0/issues/7202",
+    },
+    {
+      repo: "topoteretes/cognee",
+      numero: 4865,
+      tipo: "issue",
+      estado: "aberta",
+      url: "https://github.com/topoteretes/cognee/issues/4865",
+    },
+    {
+      repo: "rohitg00/agentmemory",
+      numero: 1313,
+      tipo: "issue",
+      estado: "aberta",
+      url: "https://github.com/rohitg00/agentmemory/issues/1313",
+    },
+    {
+      repo: "rohitg00/agentmemory",
+      numero: 1314,
+      tipo: "issue",
+      estado: "aberta",
+      url: "https://github.com/rohitg00/agentmemory/issues/1314",
+    },
+    {
+      repo: "rohitg00/agentmemory",
+      numero: 1315,
+      tipo: "issue",
+      estado: "aberta",
+      url: "https://github.com/rohitg00/agentmemory/issues/1315",
+    },
+  ] as Contribuicao[],
+};
 
 /**
  * O rótulo do `doctor` na demonstração de terminal.
@@ -218,10 +331,17 @@ export const fronteira: CardDaFronteira[] = [
  * Recortes: material de terceiros, só com fonte verificável.
  *
  * A vaga tracejada continua vazia de propósito — não se inventa depoimento
- * numa página cuja tese é integridade de registro. E nenhum alvo da rodada de
- * diagnóstico aparece pelo nome: embargo de divulgação responsável até
- * 2026-09-15, e o alvo com contribuições aceitas fica fora de material de
- * conteúdo por decisão do operador (2026-09-01).
+ * numa página cuja tese é integridade de registro.
+ *
+ * Sobre os alvos da rodada de diagnóstico: o embargo de divulgação
+ * responsável venceu em 2026-09-15, e os quatro alvos e as sete contribuições
+ * entram com nome e link — na seção `contribuicoes`, não aqui. O que continua
+ * fora, em caráter permanente, é todo achado que não foi enviado (as peças
+ * pendentes foram abandonadas em 2026-09-16) e qualquer contagem de achados,
+ * por alvo ou agregada. O `Awesome-Agent-Memory` segue fora de conteúdo de
+ * VÍDEO pela decisão de 2026-09-01 (alvo pequeno, achado sobre o produto do
+ * próprio mantenedor); na lista de contribuições ele entra, porque pull
+ * request mesclado é fato público.
  */
 export const recortes: Recorte[] = [
   {

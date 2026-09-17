@@ -175,8 +175,9 @@ export const HomePage: React.FC = () => {
               aposentaram o nome e os numeros antigos.)
 
               FONTE DOS NUMEROS deste card e da faixa abaixo: `content/shizune.ts`,
-              medicao propria de 2026-09-10 no commit b09888c. A biblia §3, que
-              media em 2026-09-03, era a fonte anterior e ficou para tras.
+              medicao propria de 2026-09-16 no commit e575b46 (remedicao da de
+              2026-09-10 em b09888c, mesmos valores). A biblia §3, que media em
+              2026-09-03, era a fonte anterior e ficou para tras.
 
               NENHUM numero deste card se escreve aqui. Todos vem daquele arquivo,
               e e por isso que este comentario existe: o badge de versao ficou

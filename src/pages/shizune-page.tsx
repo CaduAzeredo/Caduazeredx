@@ -4,6 +4,7 @@ import TerminalWindow from "@/components/terminal/terminal-window";
 import useSeo from "@/lib/use-seo";
 import {
   contraNosMesmos,
+  contribuicoes,
   discussoes,
   fatos,
   fronteira,
@@ -247,7 +248,8 @@ export const ShizunePage: React.FC = () => {
           </div>
           <p className="mt-3 mb-10 text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[62ch]">
             Número sem comando vira estimativa rotulada. Aqui não existe número
-            solto — cole qualquer um destes no clone e ele responde.
+            solto — cada um vem com o comando que o reproduz, e o comando diz
+            de onde: do clone, ou do GitHub.
           </p>
 
           <ul className="anim-stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 list-none p-0">
@@ -277,6 +279,53 @@ export const ShizunePage: React.FC = () => {
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* ── 2b · As sete contribuições — procedência própria ──
+            Seção separada dos números de propósito: a seção 2 promete que
+            todo comando roda no clone, e este roda contra o GitHub. Ver o
+            comentário de `contribuicoes` em `content/shizune.ts`. */}
+        <section
+          data-reveal
+          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-4">
+            <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-foreground max-w-[22ch]">
+              Sete contribuições enviadas, duas aceitas
+            </h2>
+            <span className="font-mono text-xs text-muted-foreground">
+              estado em {contribuicoes.medidoEm}
+            </span>
+          </div>
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[62ch]">
+            {contribuicoes.texto}
+          </p>
+          <p className="mt-2 mb-8 text-sm leading-relaxed text-muted-foreground max-w-[62ch]">
+            {contribuicoes.procedencia}
+          </p>
+
+          <ul className="sz-card rounded-xl bg-surface list-none p-0 m-0 divide-y divide-border">
+            {contribuicoes.itens.map((c) => (
+              <li
+                key={c.url}
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-6 py-3.5"
+              >
+                <a
+                  href={c.url}
+                  className="inline-flex items-center py-1.5 -my-1.5 font-mono text-sm text-foreground underline underline-offset-4 hover:text-primary"
+                >
+                  {c.repo}#{c.numero}
+                </a>
+                <span className="text-sm text-muted-foreground">
+                  {c.tipo}, {c.estado}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 rounded-xl border border-border bg-background px-5 py-3 font-mono text-[11px] leading-relaxed text-muted-foreground break-all">
+            <span className="text-muted-foreground">$ </span>
+            {contribuicoes.comando}
+          </p>
         </section>
 
         {/* ── 3 · As três perguntas ── */}

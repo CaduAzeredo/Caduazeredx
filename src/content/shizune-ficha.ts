@@ -10,10 +10,21 @@
  * bíblia e o repositório divergirem, o repositório ganha, e esta ficha é
  * corrigida no mesmo dia.
  *
- * EMBARGO: nenhum nome de repositório-alvo da rodada de diagnóstico antes de
- * 2026-09-15 — e o alvo com contribuições aceitas fica fora de material de
- * conteúdo por decisão do operador (2026-09-01), mesmo depois. O fato
- * publicável é a contagem, com os SHAs de merge.
+ * DIVULGAÇÃO RESPONSÁVEL: o embargo dos alvos venceu em 2026-09-15; as sete
+ * contribuições enviadas são públicas com nome e link (na `/shizune` e na
+ * `/method` do site do produto). Achado não enviado não entra nunca — as peças
+ * pendentes foram abandonadas em 2026-09-16 —, e nenhuma contagem de achados
+ * entra, nem agregada. O Awesome-Agent-Memory continua fora de conteúdo de
+ * vídeo pela decisão de 2026-09-01; na lista de contribuições ele entra,
+ * porque pull request mesclado é fato público. *(Até 2026-09-16 este parágrafo
+ * dizia "nenhum nome antes de 2026-09-15" e "o fato publicável é a contagem";
+ * ficou uma passada atrasado em relação às páginas — o caso que a regra de
+ * propagação existe para pegar.)*
+ *
+ * PROPAGAÇÃO — esta ficha afirma fatos que também vivem em `shizune.ts` (a
+ * `/shizune` e a home), `novidades.ts` e no site do produto (`method.ts`).
+ * Mudou lá, muda aqui na mesma passada — a Rei é a superfície mais fácil de
+ * esquecer porque não é rota. Ver AGENTS.md § Propagação.
  */
 export const fichaShizune = {
   nome: "Shizune",
@@ -63,8 +74,8 @@ export const fichaShizune = {
     oQueDemorou:
       "o apex shizune.dev não respondia, e o diagnóstico disso estava errado — dizia falha de TLS, mas o domínio nunca tinha sido adicionado ao Vercel e a delegação apontava para nameservers que recusavam a zona. Fechado em 2026-09-09",
   },
-  contribuicoesAceitas:
-    "2 contribuições aceitas em repositório externo (merges ae1ef03 e 0ef321b). O nome do repositório fica fora de material público — divulgação responsável.",
+  contribuicoes:
+    "7 contribuições enviadas a quatro repositórios públicos em 2026-09-01 e 02 — seis issues e um pull request; 2 aceitas (merges ae1ef03 e 0ef321b). Nomes, links e o comando que reproduz a lista estão na página /shizune. Estado em 2026-09-16.",
   requisitos:
     "Bun ou Node 20+. Zero dependências: os scripts usam só builtins.",
 } as const;

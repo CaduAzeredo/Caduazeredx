@@ -4,8 +4,28 @@ import type { NovidadeEntry, ProximoPasso } from "../types";
  * Registro do que já foi construído e validado no Brain e na Rei.
  * Cada entrada é um fato verificável (com data de medição), não copy de venda —
  * a copy de venda vive em `products.ts`.
+ *
+ * PROPAGAÇÃO — um verbete nasce na MESMA passada em que o fato entra nas
+ * outras superfícies, nunca depois: foi assim que esta lista ficou uma semana
+ * atrás das páginas que afirmavam os mesmos fatos. Quando um verbete entrar
+ * aqui, conferir se `shizune.ts` (a `/shizune` e a home), `shizune-ficha.ts`
+ * (a Rei) e o site do produto (`method.ts`, `ficha.ts`) já dizem o mesmo — e,
+ * no sentido inverso, todo fato novo naqueles arquivos pede verbete aqui.
+ * Regra completa: AGENTS.md § Propagação, e no Brain
+ * `projects/cadu-azeredo/regra-de-propagacao-entre-superficies.md`.
  */
 export const novidades: NovidadeEntry[] = [
+  {
+    id: "embargo-venceu-o-que-liberou-e-o-que-nao",
+    data: "2026-09-16",
+    categoria: "seguranca",
+    titulo:
+      "O embargo venceu: sete contribuições ganharam nome e link — e o que não foi enviado ficou fora para sempre",
+    resumo:
+      "O prazo de divulgação responsável da primeira rodada terminou em 2026-09-15. As sete contribuições enviadas a quatro repositórios públicos passaram a aparecer com nome, link e o comando que reproduz a lista, nas duas páginas. O que a data não liberou é a parte que importa: achado que não foi enviado ao mantenedor não tem data de liberação — e os que não foram, não serão.",
+    detalhe:
+      "Em 1 e 2 de setembro, sete contribuições — seis issues e um pull request — foram enviadas a quatro projetos open source de memória de agente, cada uma com o arquivo, a linha e o comando que reproduz o que ela aponta. A regra de divulgação responsável segurou os nomes por quatorze dias. Em 2026-09-16, com o prazo vencido, a lista entrou nas duas páginas com nome de repositório, número, estado e link, e com o comando ao lado: um gh api por repositório, filtrando pelo autor, que qualquer pessoa autenticada roda e obtém as mesmas sete linhas. Duas foram aceitas — o pull request mesclado no mesmo dia e uma issue fechada por um pull request do próprio mantenedor no dia seguinte; cinco seguem abertas, sem resposta. A parte que vale registrar é o que a data não liberou. A regra que segura um achado não é o calendário: é o envio. Um achado libera quando a peça que o descreve foi enviada ao mantenedor e quatorze dias se passaram; sem envio, não há relógio, e nenhuma data o abre. Havia peças redigidas, revisadas e nunca enviadas, e a decisão de 2026-09-16 foi não enviá-las: cada abertura reiniciaria quatorze dias de acompanhamento em cima da semana de lançamento, que é para divulgar. Elas foram abandonadas com o motivo escrito, e o que descreviam fica fora de qualquer material público em caráter permanente — nem nomeado, nem descrito, nem em tese. Uma delas nem chegou a ser abandonada: deixou de existir, porque o projeto corrigiu por conta própria, antes de virar issue — o registro guarda o commit que a fechou, e é resultado, não perda. O que esta página não vai mostrar, por decisão: quantos achados a rodada produziu. O número anunciaria defeitos encontrados e não contados aos mantenedores, e o que está público é o que foi enviado. A evidência são os sete links.",
+  },
   {
     id: "shizune-v041",
     data: "2026-09-10",
