@@ -1,193 +1,163 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PageShell from "@/components/layout/page-shell";
+import { MarcaRascunho } from "@/components/shizune/marcas";
 import { novidades, proximosPassos } from "@/content/novidades";
-import type { NovidadeCategoria } from "@/types";
+import { secaoDoChangelog } from "@/content/ficha";
+import type { NovidadeCategoria, NovidadeEntry } from "@/types";
+import { PUBLICACAO } from "@/lib/ambiente";
+import { oQueAparece } from "@/lib/publicacao";
 import { cn } from "@/lib/utils";
-import {
-  Compass,
-  Cpu,
-  LayoutPanelTop,
-  Network,
-  Rocket,
-  ShieldCheck,
-} from "lucide-react";
+import { Compass } from "lucide-react";
 
-const categoriaConfig: Record<
-  NovidadeCategoria,
-  {
-    label: string;
-    badgeClass: string;
-    icon: React.ComponentType<{ className?: string }>;
-  }
-> = {
-  modelo: {
-    label: "Modelo",
-    badgeClass: "bg-accent-blue/10 text-accent-blue border-accent-blue/25",
-    icon: Cpu,
-  },
-  interface: {
-    label: "Interface",
-    badgeClass: "bg-primary/10 text-primary border-primary/25",
-    icon: LayoutPanelTop,
-  },
-  lancamento: {
-    label: "Lançamento",
-    badgeClass: "bg-status-live/10 text-status-live border-status-live/30",
-    icon: Rocket,
-  },
-  seguranca: {
-    label: "Segurança",
-    badgeClass:
-      "bg-status-security/10 text-status-security border-status-security/30",
-    icon: ShieldCheck,
-  },
-  arquitetura: {
-    label: "Arquitetura",
-    badgeClass: "bg-secondary/20 text-secondary border-secondary/30",
-    icon: Network,
-  },
+const CATEGORIA: Record<NovidadeCategoria, { rotulo: string; classe: string }> = {
+  modelo: { rotulo: "Modelo", classe: "text-accent-blue border-accent-blue/30" },
+  interface: { rotulo: "Interface", classe: "text-primary border-primary/30" },
+  lancamento: { rotulo: "Lançamento", classe: "text-status-live border-status-live/30" },
+  seguranca: { rotulo: "Segurança", classe: "text-status-security border-status-security/30" },
+  arquitetura: { rotulo: "Arquitetura", classe: "text-secondary border-secondary/40" },
 };
 
+const AREA: Record<NovidadeEntry["area"], string> = { shizune: "Shizune", bastidores: "Bastidores" };
+
+const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+/** "2026-09-16" → "16 set 2026", sem depender do fuso nem do locale do navegador. */
 function formatarData(iso: string): string {
-  return new Date(`${iso}T00:00:00`).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  const [ano, mes, dia] = iso.split("-");
+  return `${dia} ${MESES[Number(mes) - 1]} ${ano}`;
 }
 
 function formatarCusto(valor: number): string {
-  return valor.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+  return valor.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+type Filtro = "todas" | NovidadeEntry["area"];
+
+/**
+ * A rota `/novidades` — a tela 19a.
+ *
+ * Um registro com data, filtrado por área: o Shizune e os bastidores. O
+ * resumo fica à vista e o verbete inteiro abre num `details`. Verbete com
+ * `conferido: false` passa pela regra de publicação: rascunho no preview, fora
+ * da produção.
+ */
 export const NovidadesPage: React.FC = () => {
   useEffect(() => {
-    document.title =
-      "Novidades | Cadu Azeredo — Front-end Developer & Product Builder";
+    document.title = "Novidades | Cadu Azeredo — Front-end Developer & Product Builder";
   }, []);
+  const [filtro, setFiltro] = useState<Filtro>("todas");
 
-  const novidadesOrdenadas = [...novidades].sort((a, b) =>
-    a.data < b.data ? 1 : a.data > b.data ? -1 : 0,
+  const visiveis = oQueAparece(
+    [...novidades].sort((a, b) => (a.data < b.data ? 1 : a.data > b.data ? -1 : 0)),
+    (e) => e.conferido !== false,
+    PUBLICACAO,
   );
+  const filtros: { id: Filtro; rotulo: string; total: number }[] = [
+    { id: "todas", rotulo: "Todas", total: visiveis.length },
+    { id: "shizune", rotulo: "Shizune", total: visiveis.filter((v) => v.item.area === "shizune").length },
+    { id: "bastidores", rotulo: "Bastidores", total: visiveis.filter((v) => v.item.area === "bastidores").length },
+  ];
+  const lista = filtro === "todas" ? visiveis : visiveis.filter((v) => v.item.area === filtro);
 
   return (
     <PageShell>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 text-left">
-        {/* Cabeçalho */}
-        <div className="space-y-4 text-left border-b border-border/80 pb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
-            Novidades
-          </h1>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-2xl leading-relaxed">
-            Registro do que já foi construído e validado de verdade no Brain e
-            na Rei. Cada item abaixo tem data de medição e é um fato
-            verificável, não copy de venda — é o histórico técnico do produto,
-            não material de marketing.
+      <div className="mx-auto max-w-4xl space-y-10 px-4 py-14 text-left sm:px-6 lg:px-8">
+        <div className="space-y-4">
+          <h1 className="titulo-serif text-[40px] leading-[1.04] text-foreground sm:text-[56px]">Novidades</h1>
+          <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Registro do que foi construído e validado. Cada item tem data e é um fato verificável, não
+            texto de venda.
           </p>
         </div>
 
-        {/* Lista cronológica de novidades */}
-        <div className="space-y-6">
-          {novidadesOrdenadas.map((entry) => {
-            const categoria = categoriaConfig[entry.categoria];
-            const Icon = categoria.icon;
-            const temRodape =
-              entry.custoUsd !== undefined || Boolean(entry.promptResumido);
+        <div role="group" aria-label="Filtrar por área" className="flex flex-wrap gap-2">
+          {filtros.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              aria-pressed={filtro === f.id}
+              onClick={() => setFiltro(f.id)}
+              className={cn(
+                "min-h-9 rounded-full border px-3.5 font-mono text-[12px] transition-colors",
+                filtro === f.id
+                  ? "border-primary/50 bg-primary/10 text-foreground"
+                  : "border-border text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {f.rotulo} · {f.total}
+            </button>
+          ))}
+        </div>
 
+        <div className="space-y-4">
+          {lista.map(({ item: entry, rascunho }) => {
+            const categoria = CATEGORIA[entry.categoria];
+            const temRodape = entry.custoUsd !== undefined || Boolean(entry.promptResumido);
             return (
-              <article
-                key={entry.id}
-                className="rounded-lg bg-surface border border-border p-6 space-y-4"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="font-mono text-[11px] text-muted-foreground/70 uppercase tracking-wide">
-                    {formatarData(entry.data)}
+              <article key={entry.id} className="space-y-3 rounded-lg border border-border bg-surface p-6">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <span className="font-mono text-[12px] text-muted-foreground">{formatarData(entry.data)}</span>
+                  <span className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[11px]", categoria.classe)}>
+                    {categoria.rotulo}
                   </span>
-                  <span
-                    className={cn(
-                      "inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono border",
-                      categoria.badgeClass,
-                    )}
-                  >
-                    <Icon className="w-3 h-3" />
-                    <span>{categoria.label}</span>
-                  </span>
+                  <span className="font-mono text-[11px] text-muted-foreground">{AREA[entry.area]}</span>
+                  {rascunho && <MarcaRascunho>rascunho · texto a assinar</MarcaRascunho>}
                 </div>
 
-                <h2
-                  data-split
-                  className="text-lg sm:text-xl font-bold font-sans text-foreground leading-snug"
-                >
-                  {entry.titulo}
-                </h2>
+                <h2 className="font-sans text-lg font-bold leading-snug text-foreground sm:text-xl">{entry.titulo}</h2>
+                <p className="font-sans text-sm leading-relaxed text-muted-foreground sm:text-base">{entry.resumo}</p>
 
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
-                  {entry.resumo}
-                </p>
-
-                <p className="text-sm text-muted-foreground/90 leading-relaxed font-sans pt-3 border-t border-border/60">
-                  {entry.detalhe}
-                </p>
-
-                {temRodape && (
-                  <p className="text-xs font-mono text-muted-foreground/60 pt-2">
-                    {entry.custoUsd !== undefined && (
-                      <span>
-                        custo real: US$ {formatarCusto(entry.custoUsd)}
-                      </span>
+                <div className="flex flex-wrap items-start gap-x-6 gap-y-2">
+                  <details className="group min-w-0 flex-1 basis-full">
+                    <summary className="inline-flex min-h-8 cursor-pointer items-center text-sm text-primary">
+                      ▸ ler o verbete inteiro
+                    </summary>
+                    <p className="mt-2 border-t border-border/60 pt-3 font-sans text-sm leading-relaxed text-muted-foreground">
+                      {entry.detalhe}
+                    </p>
+                    {temRodape && (
+                      <p className="pt-2 font-mono text-xs text-muted-foreground">
+                        {entry.custoUsd !== undefined && <span>custo real: US$ {formatarCusto(entry.custoUsd)}</span>}
+                        {entry.custoUsd !== undefined && entry.promptResumido && " · "}
+                        {entry.promptResumido && <span>tarefa: {entry.promptResumido}</span>}
+                      </p>
                     )}
-                    {entry.custoUsd !== undefined &&
-                      entry.promptResumido &&
-                      " · "}
-                    {entry.promptResumido && (
-                      <span>tarefa: {entry.promptResumido}</span>
-                    )}
-                  </p>
-                )}
+                  </details>
+                  {entry.notas && (
+                    <a
+                      href={secaoDoChangelog(entry.notas)}
+                      className="inline-flex min-h-8 items-center text-sm text-primary underline underline-offset-2"
+                    >
+                      notas da release no GitHub →
+                    </a>
+                  )}
+                </div>
               </article>
             );
           })}
         </div>
 
-        {/* O que vem a seguir */}
-        <section
-          data-reveal
-          className="space-y-6 pt-4 border-t border-border/80"
-        >
+        <section data-reveal className="space-y-6 border-t border-border/80 pt-6">
           <div className="space-y-2">
-            <h2
-              data-split
-              className="text-xl sm:text-2xl font-bold font-sans flex items-center space-x-2 text-foreground"
-            >
-              <Compass className="w-5 h-5 text-primary-muted" />
+            <h2 data-split className="flex items-center gap-2 font-sans text-xl font-bold text-foreground sm:text-2xl">
+              <Compass className="h-5 w-5 text-primary-muted" aria-hidden="true" />
               <span>O que vem a seguir</span>
             </h2>
-            <p className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed font-sans max-w-2xl">
-              Os itens abaixo são intenção registrada, não um roteiro com data
-              prometida.
+            <p className="max-w-2xl font-sans text-sm leading-relaxed text-muted-foreground">
+              Os itens abaixo são intenção registrada, não um roteiro com data prometida.
             </p>
           </div>
 
           <ul className="space-y-4">
             {proximosPassos.map((passo) => (
-              <li
-                key={passo.id}
-                className="rounded-lg bg-surface/60 border border-dashed border-border p-5 space-y-2"
-              >
+              <li key={passo.id} className="space-y-2 rounded-lg border border-dashed border-border bg-surface/60 p-5">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-sans font-bold text-sm sm:text-base text-foreground">
-                    {passo.titulo}
-                  </h3>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wide border border-border text-muted-foreground/70">
-                    Intenção · sem data
+                  <h3 className="font-sans text-sm font-bold text-foreground sm:text-base">{passo.titulo}</h3>
+                  <span className="inline-flex items-center rounded-full border border-border px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+                    intenção · sem data
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-sans">
-                  {passo.descricao}
-                </p>
+                <p className="font-sans text-sm leading-relaxed text-muted-foreground">{passo.descricao}</p>
               </li>
             ))}
           </ul>

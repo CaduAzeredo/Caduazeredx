@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- As rotas públicas do site. O domínio é o canônico (www), o mesmo do
+     `use-seo.ts`. Rota nova no `router.tsx` entra aqui na mesma passada. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.caduazeredo.com/</loc></url>
+  <url><loc>https://www.caduazeredo.com/projetos</loc></url>
+  <url><loc>https://www.caduazeredo.com/projetos/diariabr</loc></url>
+  <url><loc>https://www.caduazeredo.com/shizune</loc></url>
+  <url><loc>https://www.caduazeredo.com/shizune/roadmap</loc></url>
+  <url><loc>https://www.caduazeredo.com/shizune/evidencia</loc></url>
+  <url><loc>https://www.caduazeredo.com/novidades</loc></url>
+  <url><loc>https://www.caduazeredo.com/sobre</loc></url>
+  <url><loc>https://www.caduazeredo.com/contato</loc></url>
+  <url><loc>https://www.caduazeredo.com/privacidade</loc></url>
+  <url><loc>https://www.caduazeredo.com/termos</loc></url>
+</urlset>

@@ -4,7 +4,7 @@ import { COMANDOS_INVASAO } from "@/content/invasao";
 /**
  * Estado do modo de defesa — o easter egg.
  *
- * Vive fora do React de propósito: quem **dispara** é o console da Rei e quem
+ * Vive fora do React de propósito: quem **dispara** é o console da home e quem
  * **desenha** é um componente no topo da aplicação, e os dois não se conhecem.
  * Um contexto novo só para isto obrigaria a envolver a árvore inteira num
  * provedor por causa de uma brincadeira.

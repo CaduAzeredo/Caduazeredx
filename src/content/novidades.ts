@@ -1,24 +1,51 @@
 import type { NovidadeEntry, ProximoPasso } from "../types";
 
 /**
- * Registro do que já foi construído e validado no Brain e na Rei.
- * Cada entrada é um fato verificável (com data de medição), não copy de venda —
- * a copy de venda vive em `products.ts`.
+ * Registro do que já foi construído e validado: o Shizune e os bastidores (o
+ * assistente local). Cada entrada é um fato verificável (com data de medição),
+ * não copy de venda — a copy de venda vive em `products.ts`.
+ *
+ * SEM VERSÃO E SEM NOME DE PERSONAGEM (troca de 15/10, tela 19a). Títulos e
+ * corpos dizem "a release", com data e SHA, nunca o número da versão: a busca
+ * de versão no build reprova qualquer número de versão fora do JSON-LD. Nos
+ * bastidores, o assistente local é chamado assim; até a v4 ele tinha nome
+ * próprio, e o texto antigo continua no histórico do git.
+ *
+ * REGRA DE PUBLICAÇÃO: verbete com `conferido: false` aparece como rascunho no
+ * preview e fica fora da produção (`lib/publicacao.ts`) — é o caso de texto que
+ * o operador ainda não assinou.
  *
  * PROPAGAÇÃO — um verbete nasce na MESMA passada em que o fato entra nas
  * outras superfícies, nunca depois: foi assim que esta lista ficou uma semana
  * atrás das páginas que afirmavam os mesmos fatos. Quando um verbete entrar
- * aqui, conferir se `shizune.ts` (a `/shizune` e a home), `shizune-ficha.ts`
- * (a Rei) e o site do produto (`method.ts`, `ficha.ts`) já dizem o mesmo — e,
- * no sentido inverso, todo fato novo naqueles arquivos pede verbete aqui.
+ * aqui, conferir se `shizune.ts` (as páginas do Shizune), `respostas-console.ts`
+ * (o console da home) e o site do produto (`method.ts`, `ficha.ts`) já dizem o
+ * mesmo — e, no sentido inverso, todo fato novo naqueles arquivos pede verbete
+ * aqui.
  * Regra completa: AGENTS.md § Propagação, e no Brain
  * `projects/cadu-azeredo/regra-de-propagacao-entre-superficies.md`.
  */
 export const novidades: NovidadeEntry[] = [
   {
+    // Fato novo, medido nesta passada (2026-10-15) com o comando das aceitas
+    // da `/shizune/evidencia`. O texto foi redigido pela sessão e espera a
+    // assinatura do operador: até lá, rascunho no preview e fora da produção.
+    id: "cognee-issue-aceita",
+    data: "2026-10-04",
+    categoria: "seguranca",
+    area: "shizune",
+    conferido: false,
+    titulo: "Uma terceira contribuição foi aceita: a issue no cognee fechou como concluída",
+    resumo:
+      "Em 2026-10-04 o mantenedor do topoteretes/cognee fechou a issue 4865 como concluída. Das sete contribuições enviadas em setembro, três foram aceitas e quatro seguem abertas.",
+    detalhe:
+      "A contagem sai do mesmo comando de sempre: soma, nos quatro repositórios, os pull requests mesclados e as issues fechadas como concluídas pelo mantenedor, filtrando pelo autor. Medido em 2026-10-15. O comando e a lista com link estão na página de evidência do Shizune, e nenhuma contagem de achados entra, pela mesma decisão de 2026-09-16.",
+  },
+  {
     id: "embargo-venceu-o-que-liberou-e-o-que-nao",
     data: "2026-09-16",
     categoria: "seguranca",
+    area: "shizune",
     titulo:
       "O embargo venceu: sete contribuições ganharam nome e link — e o que não foi enviado ficou fora para sempre",
     resumo:
@@ -30,16 +57,19 @@ export const novidades: NovidadeEntry[] = [
     id: "shizune-v041",
     data: "2026-09-10",
     categoria: "lancamento",
-    titulo: "A v0.4.1 saiu, e declara os dois defeitos que ela não conserta",
+    area: "shizune",
+    notas: "CHANGELOG.md#041---2026-09-10",
+    titulo: "A release de correção saiu, e declara os dois defeitos que ela não conserta",
     resumo:
       "Release de correção publicada em 2026-09-10, SHA 11cfbc2. Traz o que o quickstart nunca respondia — adoção em repositório que já existe, squash e rebase, time com mais de uma pessoa — e uma seção nova que nomeia dois defeitos conhecidos em vez de escondê-los.",
     detalhe:
-      "A v0.4.1 responde perguntas que a documentação deixava abertas: como adotar o método num repositório que já tem código (e qual dos dois arranjos deixa o validador ler o histórico certo, medido nos dois caminhos de invocação); o que o squash merge faz com o trailer que o CI exige e o que o rebase faz com o SHA de uma decisão já assinada; e como um time compartilha a fronteira de autoria e a lista de confiança. O README ganhou três respostas que faltavam: se algo sai da sua máquina (não sai — e o comando que reproduz isso está impresso ao lado), o que custa sair (uma deleção: sobram Markdown e git) e o que acontece se o projeto parar. A parte incomum é a seção “conhecidos e não corrigidos”: a linha de fecho do verificador conta as etapas que responderam “não se aplica” como aprovadas, e a saída dos validadores é em português sem respeitar o idioma do sistema. Nenhum dos dois foi consertado nesta versão, e os dois estão escritos na entrada da release — publicar uma versão que carrega defeito conhecido em silêncio é exatamente o que este projeto existe para pegar. Medido no clone público em 11cfbc2: 66 arquivos, 6 check runs verdes em Node 20, Node 22 e Bun, e o verificador com 9 etapas das quais 7 executam e 2 respondem “não se aplica”.",
+      "A release de correção responde perguntas que a documentação deixava abertas: como adotar o método num repositório que já tem código (e qual dos dois arranjos deixa o validador ler o histórico certo, medido nos dois caminhos de invocação); o que o squash merge faz com o trailer que o CI exige e o que o rebase faz com o SHA de uma decisão já assinada; e como um time compartilha a fronteira de autoria e a lista de confiança. O README ganhou três respostas que faltavam: se algo sai da sua máquina (não sai — e o comando que reproduz isso está impresso ao lado), o que custa sair (uma deleção: sobram Markdown e git) e o que acontece se o projeto parar. A parte incomum é a seção “conhecidos e não corrigidos”: a linha de fecho do verificador conta as etapas que responderam “não se aplica” como aprovadas, e a saída dos validadores é em português sem respeitar o idioma do sistema. Nenhum dos dois foi consertado nesta versão, e os dois estão escritos na entrada da release — publicar uma versão que carrega defeito conhecido em silêncio é exatamente o que este projeto existe para pegar. Medido no clone público em 11cfbc2: 66 arquivos, 6 check runs verdes em Node 20, Node 22 e Bun, e o verificador com 9 etapas das quais 7 executam e 2 respondem “não se aplica”.",
   },
   {
     id: "shizune-assinante-contra-chave",
     data: "2026-09-10",
     categoria: "seguranca",
+    area: "shizune",
     titulo:
       "O registro passou a conferir quem assinou contra a chave que assinou",
     resumo:
@@ -51,6 +81,7 @@ export const novidades: NovidadeEntry[] = [
     id: "shizune-adr-046-duas-chaves",
     data: "2026-09-10",
     categoria: "seguranca",
+    area: "shizune",
     titulo:
       "A decisão de duas chaves foi aceita — o executor assina rascunho, o humano assina decisão",
     resumo:
@@ -62,6 +93,7 @@ export const novidades: NovidadeEntry[] = [
     id: "site-comando-que-nao-reproduzia",
     data: "2026-09-10",
     categoria: "arquitetura",
+    area: "shizune",
     titulo:
       "O comando impresso ao lado de um número da página nunca reproduziu aquele número",
     resumo:
@@ -73,38 +105,44 @@ export const novidades: NovidadeEntry[] = [
     id: "shizune-dev-no-ar",
     data: "2026-09-09",
     categoria: "arquitetura",
+    area: "shizune",
     titulo:
       "shizune.dev entrou no ar, e o diagnóstico que o mantinha fora estava errado",
     resumo:
       "O domínio do produto respondia no www e não no domínio raiz. O diagnóstico dizia falha de certificado; a causa nunca foi certificado. Resolvido em 2026-09-09, e o erro fica escrito.",
     detalhe:
-      "Era o último achado aberto do autodiagnóstico, e ficou aberto desde a v0.3.1. A explicação registrada na época — falha de TLS no domínio raiz — estava errada: o domínio nunca tinha sido adicionado ao projeto na hospedagem, e a delegação apontava para nameservers que recusavam a zona. O que se via como erro de certificado era ausência de zona. A medição de 2026-09-09 foi feita contra resolvers públicos, fora da máquina do operador, para que a resposta não viesse de cache local. Duas coisas ficaram dessa frente. A primeira: corrigir o placar sem dizer o que se errou seria o defeito que o produto denuncia, então o erro de diagnóstico está escrito no lugar onde o achado era relatado. A segunda é regra de método — dois dias de diagnóstico leram o código de status da resposta e não o corpo: um domínio estacionado devolvia 200 com a página do provedor, e uma verificação que confere só o status aprova a página errada. Toda checagem de “está no ar” passou a conferir uma marca esperada no conteúdo.",
+      "Era o último achado aberto do autodiagnóstico, e ficou aberto desde a release do rebrand, em 2026-09-03. A explicação registrada na época — falha de TLS no domínio raiz — estava errada: o domínio nunca tinha sido adicionado ao projeto na hospedagem, e a delegação apontava para nameservers que recusavam a zona. O que se via como erro de certificado era ausência de zona. A medição de 2026-09-09 foi feita contra resolvers públicos, fora da máquina do operador, para que a resposta não viesse de cache local. Duas coisas ficaram dessa frente. A primeira: corrigir o placar sem dizer o que se errou seria o defeito que o produto denuncia, então o erro de diagnóstico está escrito no lugar onde o achado era relatado. A segunda é regra de método — dois dias de diagnóstico leram o código de status da resposta e não o corpo: um domínio estacionado devolvia 200 com a página do provedor, e uma verificação que confere só o status aprova a página errada. Toda checagem de “está no ar” passou a conferir uma marca esperada no conteúdo.",
   },
   {
     id: "shizune-v031-rebrand",
     data: "2026-09-03",
     categoria: "lancamento",
-    titulo: "O Brain Framework virou Shizune, e a v0.3.1 saiu diagnosticada",
+    area: "shizune",
+    notas: "CHANGELOG.md#031---2026-09-03",
+    titulo: "O Brain Framework virou Shizune, e a release saiu diagnosticada",
     resumo:
-      "O rebrand público: mesmo método, nome novo, repositório renomeado para CaduAzeredo/shizune. A v0.3.1 saiu no mesmo dia — depois de o próprio Shizune ser diagnosticado com o próprio Shizune.",
+      "O rebrand público: mesmo método, nome novo, repositório renomeado para CaduAzeredo/shizune. A release saiu no mesmo dia — depois de o próprio Shizune ser diagnosticado com o próprio Shizune.",
     detalhe:
-      "Shizune (静音, som quieto) é o nome público do que antes se chamava Brain Framework — o nome passou pela bateria de disponibilidade em 2026-09-02, e o repositório antigo foi renomeado, não duplicado. A v0.3.1, publicada em 2026-09-03 no SHA 0ccfe4f, saiu de um ciclo que é a própria tese em prática: o instrumento de diagnóstico foi apontado contra o próprio pacote (SHA c248f75), encontrou cinco divergências — nenhuma de segurança, nenhum vazamento — e quatro foram fechadas e verificadas no clone publicado, com 6 check runs verdes em Node 20, Node 22 e Bun. Um achado continuou aberto: o apex shizune.dev não respondia enquanto o www respondia. Ele vai citado aqui porque esconder o aberto seria o defeito que a ferramenta denuncia. (Atualização de 2026-09-09: fechado — e o diagnóstico daquele dia estava errado. A causa nunca foi TLS: o domínio nunca tinha sido adicionado ao Vercel, e a delegação apontava para nameservers que recusavam a zona. Corrigido, e shizune.dev está no ar.)",
+      "Shizune (静音, som quieto) é o nome público do que antes se chamava Brain Framework — o nome passou pela bateria de disponibilidade em 2026-09-02, e o repositório antigo foi renomeado, não duplicado. A release, publicada em 2026-09-03 no SHA 0ccfe4f, saiu de um ciclo que é a própria tese em prática: o instrumento de diagnóstico foi apontado contra o próprio pacote (SHA c248f75), encontrou cinco divergências — nenhuma de segurança, nenhum vazamento — e quatro foram fechadas e verificadas no clone publicado, com 6 check runs verdes em Node 20, Node 22 e Bun. Um achado continuou aberto: o apex shizune.dev não respondia enquanto o www respondia. Ele vai citado aqui porque esconder o aberto seria o defeito que a ferramenta denuncia. (Atualização de 2026-09-09: fechado — e o diagnóstico daquele dia estava errado. A causa nunca foi TLS: o domínio nunca tinha sido adicionado ao Vercel, e a delegação apontava para nameservers que recusavam a zona. Corrigido, e shizune.dev está no ar.)",
   },
   {
     id: "brain-v021-publico",
     data: "2026-08-31",
     categoria: "lancamento",
+    area: "shizune",
+    notas: "CHANGELOG.md#021---2026-08-31",
     titulo: "O Brain Framework foi publicado como repositório público",
     resumo:
-      "O framework saiu do uso interno: repositório aberto sob Apache 2.0, sem dependências externas, com a versão v0.2.1 marcada em 31 de agosto de 2026.",
+      "O framework saiu do uso interno: repositório aberto sob Apache 2.0, sem dependências externas, com a primeira release pública marcada em 31 de agosto de 2026.",
     detalhe:
-      "Até hoje o Brain existia como repositório de governança privado, e a única prova de que ele funcionava era o resultado dos projetos que ele guiava — o que exige acreditar na descrição. A publicação torna o contrato verificável por quem não acredita: o validador que confere os metadados dos documentos roda sem instalar nada e reprova a verificação quando um segredo aparece solto no texto. Medido no dia da publicação: 60 arquivos no pacote, 1 commit no histórico público, e os 5 verificadores passando num clone limpo. Duas versões foram marcadas no mesmo dia — v0.2.0 e, em seguida, v0.2.1, que é a vigente; a segunda fechou sete achados de uma auditoria adversarial feita antes de anunciar. O que a publicação NÃO significa: adoção, uso por terceiros, ou qualquer sinal de tração. O repositório nasceu hoje e não há número de uso para relatar.",
+      "Até hoje o Brain existia como repositório de governança privado, e a única prova de que ele funcionava era o resultado dos projetos que ele guiava — o que exige acreditar na descrição. A publicação torna o contrato verificável por quem não acredita: o validador que confere os metadados dos documentos roda sem instalar nada e reprova a verificação quando um segredo aparece solto no texto. Medido no dia da publicação: 60 arquivos no pacote, 1 commit no histórico público, e os 5 verificadores passando num clone limpo. Duas versões foram marcadas no mesmo dia, e a segunda fechou sete achados de uma auditoria adversarial feita antes de anunciar. O que a publicação NÃO significa: adoção, uso por terceiros, ou qualquer sinal de tração. O repositório nasceu hoje e não há número de uso para relatar.",
   },
   {
     id: "painel-minimalista",
     data: "2026-08-30",
     categoria: "interface",
-    titulo: "O chat virou a tela principal, não mais uma entre muitas opções",
+    area: "bastidores",
+    titulo: "O chat virou a tela principal do assistente local",
     resumo:
       "Seletor de modo, seletor de escopo, prompts prontos e temporizador saíram do topo da tela e foram para uma gaveta fechada por padrão.",
     detalhe:
@@ -114,6 +152,7 @@ export const novidades: NovidadeEntry[] = [
     id: "perfis-modelo-custo",
     data: "2026-08-30",
     categoria: "modelo",
+    area: "bastidores",
     titulo: "Cada tarefa passou a escolher o tamanho certo de modelo",
     resumo:
       "Três perfis — rápido, padrão, completo — substituem o padrão único que rodava toda tarefa no modo mais caro disponível.",
@@ -127,7 +166,8 @@ export const novidades: NovidadeEntry[] = [
     id: "leitura-do-brain",
     data: "2026-08-30",
     categoria: "arquitetura",
-    titulo: "A Rei passou a poder ler a base de governança do ecossistema",
+    area: "bastidores",
+    titulo: "O assistente local passou a poder ler a base de governança do ecossistema",
     resumo:
       "A capacidade de leitura, que existia inerte por padrão, foi ativada e provada num corpus real de 126 documentos, sem nenhum vazamento de projeto em quarentena.",
     detalhe:
@@ -137,6 +177,7 @@ export const novidades: NovidadeEntry[] = [
     id: "tarefa-na-conversa",
     data: "2026-08-29",
     categoria: "interface",
+    area: "bastidores",
     titulo:
       "Pedir, aprovar e acompanhar uma tarefa virou tudo a mesma conversa",
     resumo:
@@ -149,6 +190,7 @@ export const novidades: NovidadeEntry[] = [
     id: "alarme-escrita-fora-do-escopo",
     data: "2026-08-29",
     categoria: "seguranca",
+    area: "bastidores",
     titulo:
       "Um alarme passou a mostrar quando o agente escreve fora do combinado",
     resumo:
@@ -160,28 +202,31 @@ export const novidades: NovidadeEntry[] = [
     id: "indice-quarentena",
     data: "2026-08-29",
     categoria: "seguranca",
+    area: "bastidores",
     titulo: "Um projeto de cliente pode ser listado sem nunca ser lido",
     resumo:
-      "Uma exceção estreita permite à Rei saber que documentos existem num projeto sob quarentena, sem nunca poder ler o conteúdo deles.",
+      "Uma exceção estreita permite ao assistente local saber que documentos existem num projeto sob quarentena, sem nunca poder ler o conteúdo deles.",
     detalhe:
-      "Um projeto de cliente marcado como bloqueado saía por inteiro da leitura — o que também impedia a Rei de sequer saber que documentos existiam ali, forçando uma execução paga do agente escritor só para produzir uma lista que a própria base já mantinha indexada. A correção foi uma exceção estreita, verificada em teste: de um projeto em quarentena, só cinco campos de metadados podem ser listados — identificador, tipo, status, data e caminho —, nunca o corpo do documento. Vale a ressalva por escrito: o identificador de um item já revela do que ele trata, então esse índice mostra a agenda do projeto, não o conteúdo. Por isso ele nunca vira memória da Rei, nem aparece em qualquer material que saia da conversa local — as duas travas foram verificadas separadamente.",
+      "Um projeto de cliente marcado como bloqueado saía por inteiro da leitura — o que também impedia o assistente local de sequer saber que documentos existiam ali, forçando uma execução paga do agente escritor só para produzir uma lista que a própria base já mantinha indexada. A correção foi uma exceção estreita, verificada em teste: de um projeto em quarentena, só cinco campos de metadados podem ser listados — identificador, tipo, status, data e caminho —, nunca o corpo do documento. Vale a ressalva por escrito: o identificador de um item já revela do que ele trata, então esse índice mostra a agenda do projeto, não o conteúdo. Por isso ele nunca vira memória do assistente, nem aparece em qualquer material que saia da conversa local — as duas travas foram verificadas separadamente.",
   },
   {
     id: "orquestrador-ledger-ponta-a-ponta",
     data: "2026-08-29",
     categoria: "arquitetura",
+    area: "bastidores",
     titulo:
       "Confirmar uma tarefa foi validado de ponta a ponta, com custo registrado",
     resumo:
       "Da confirmação humana até o arquivo em disco e a linha de custo no registro de uso, o ciclo completo rodou com o agente real e passou.",
     detalhe:
-      "O mecanismo que separa 'pedir' de 'fazer' foi validado com uma execução real, não simulada: depois da confirmação humana, um arquivo foi de fato criado na base, e o registro de uso de IA gravou o custo (US$ 0,49), o tempo de execução (16 segundos) e o status da tarefa como confirmada. É a prova, em produção e não apenas em teste isolado, de que os invariantes seguram na prática: a Rei nunca detém credencial de escrita própria, nenhum caminho do código dela toca o repositório de governança, e todo efeito de escrita passa por confirmação humana explícita antes de acontecer.",
+      "O mecanismo que separa 'pedir' de 'fazer' foi validado com uma execução real, não simulada: depois da confirmação humana, um arquivo foi de fato criado na base, e o registro de uso de IA gravou o custo (US$ 0,49), o tempo de execução (16 segundos) e o status da tarefa como confirmada. É a prova, em produção e não apenas em teste isolado, de que os invariantes seguram na prática: o assistente local nunca detém credencial de escrita própria, nenhum caminho do código dele toca o repositório de governança, e todo efeito de escrita passa por confirmação humana explícita antes de acontecer.",
     custoUsd: 0.49,
   },
   {
     id: "ciclo-consolidacao-esquecimento-util",
     data: "2026-08-30",
     categoria: "arquitetura",
+    area: "bastidores",
     titulo:
       "Ficou decidido como a memória do Brain deve melhorar com o tempo, não degradar",
     resumo:

@@ -10,7 +10,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!assets/|favicon|icons|robots|sitemap).*)",
+      "source": "/((?!assets/|brand/|og/|avatar/|favicon|apple-touch-icon|icons|robots|sitemap).*)",
       "destination": "/index.html"
     }
   ],

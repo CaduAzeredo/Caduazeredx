@@ -1,49 +1,51 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PageShell from "@/components/layout/page-shell";
 import { buttonVariants } from "@/components/ui/button";
 import TerminalWindow from "@/components/terminal/terminal-window";
-import { AlertCircle, Home } from "lucide-react";
 
+/**
+ * A rota que não existe — a tela 19e.
+ *
+ * O terminal mostra a rota que a pessoa pediu, como ela pediu; abaixo, a frase
+ * em texto normal e três saídas. O "SYSTEM ERROR" em caixa alta saiu.
+ */
 export const NotFoundPage: React.FC = () => {
-  // Atualizar título para SEO
+  const { pathname } = useLocation();
+
   useEffect(() => {
-    document.title = "404 Rota Não Encontrada | Cadu Azeredo";
+    document.title = "Página não encontrada | Cadu Azeredo";
   }, []);
 
   return (
     <PageShell>
-      <div className="max-w-2xl mx-auto px-4 py-20 flex flex-col justify-center items-center">
-        <TerminalWindow
-          title="error-logger --status-code-404"
-          className="border-status-alert/25"
-        >
-          <div className="space-y-6 font-mono text-xs sm:text-sm">
-            <div className="flex items-start space-x-3 text-status-alert">
-              <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-              <div className="space-y-1">
-                <p className="font-bold">SYSTEM ERROR: ROTA NÃO ENCONTRADA</p>
-                <p className="text-muted-foreground">
-                  O endereço solicitado não foi mapeado no roteador da aplicação
-                  ou foi movido temporariamente.
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-border/40 pt-4 flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="text-[11px] text-muted-foreground/60">
-                <span>$ cd /home && npm run start</span>
-              </div>
-              <Link
-                to="/"
-                className={buttonVariants("primary", "sm") + " space-x-2"}
-              >
-                <Home className="w-3.5 h-3.5 inline-block" />
-                <span>Voltar ao início</span>
-              </Link>
-            </div>
-          </div>
+      <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4 py-20 sm:px-6">
+        <TerminalWindow>
+          <p className="m-0 break-all font-mono text-[13px]">
+            <span aria-hidden="true" className="text-primary">
+              ${" "}
+            </span>
+            cd {pathname}
+          </p>
+          <p className="m-0 font-mono text-[13px] text-status-alert">rota não encontrada</p>
         </TerminalWindow>
+
+        <h1 className="titulo-serif text-[40px] leading-[1.04] text-foreground sm:text-[56px]">
+          Esta página não existe.
+        </h1>
+        <p className="text-lg text-muted-foreground">O endereço não está no mapa do site, ou mudou de lugar.</p>
+
+        <div className="flex flex-wrap gap-3">
+          <Link to="/" className={buttonVariants("primary", "md")}>
+            Voltar ao início
+          </Link>
+          <Link to="/shizune" className={buttonVariants("outline", "md")}>
+            Ver o Shizune
+          </Link>
+          <Link to="/projetos" className={buttonVariants("outline", "md")}>
+            Ver projetos
+          </Link>
+        </div>
       </div>
     </PageShell>
   );

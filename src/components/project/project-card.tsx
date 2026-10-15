@@ -2,103 +2,48 @@ import React from "react";
 import { Link } from "react-router-dom";
 import type { Project } from "@/types";
 import { ProjectStatus } from "./project-status";
-import { ArrowRight, Lock } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 
 export interface ProjectCardProps {
-  project?: Project;
-  isPlaceholder?: boolean;
-  placeholderTitle?: string;
-  placeholderDescription?: string;
+  project: Project;
 }
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({
-  project,
-  isPlaceholder = false,
-  placeholderTitle = "Laboratório de Interfaces",
-  placeholderDescription = "Próximo produto em desenvolvimento...",
-}) => {
-  if (isPlaceholder || !project) {
-    return (
-      <div className="h-full rounded-lg bg-surface/30 border border-border/40 p-6 flex flex-col justify-between opacity-45 relative overflow-hidden select-none">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-mono tracking-wider uppercase text-muted-foreground/60">
-              [Status: Ocioso]
-            </span>
-            <Lock className="w-3.5 h-3.5 text-muted-foreground/40" />
-          </div>
-          <div className="space-y-2">
-            <h4 className="font-mono text-sm font-semibold text-muted-foreground/80">
-              {placeholderTitle}
-            </h4>
-            <p className="text-xs text-muted-foreground/60 leading-relaxed">
-              {placeholderDescription}
-            </p>
-          </div>
-        </div>
-        <div className="mt-8 pt-4 border-t border-border/20 flex items-center space-x-2 text-[10px] font-mono text-muted-foreground/40">
-          <span>Aguardando commits futuros...</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="h-full rounded-lg bg-surface border border-border p-6 flex flex-col justify-between hover:border-primary/50 transition-[border-color,box-shadow] duration-300 relative group glow-border">
-      <div className="space-y-4">
-        {/* Categoria & Status */}
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] font-mono tracking-wider uppercase text-primary font-medium">
-            {project.category === "product"
-              ? "Produto / Marketplace"
-              : project.category}
-          </span>
-          <ProjectStatus status={project.status} />
-        </div>
-
-        {/* Título & Descrição */}
-        <div className="space-y-2">
-          <h3 className="font-sans text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-            {project.title}
-          </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {project.shortDescription}
-          </p>
-        </div>
-
-        {/* Papéis desempenhados */}
-        <div className="text-xs text-muted-foreground font-mono">
-          <span className="text-[10px] text-muted-foreground/60">Papel: </span>
-          {project.role.join(" • ")}
-        </div>
-      </div>
-
-      <div className="mt-8 space-y-4">
-        {/* Tecnologias */}
-        <div className="flex flex-wrap gap-1.5">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="px-2 py-0.5 rounded bg-surface-elevated border border-border text-[10px] font-mono text-muted-foreground"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* Link / CTA */}
-        <div className="pt-4 border-t border-border/80">
-          <Link
-            to={`/projetos/${project.slug}`}
-            className="inline-flex items-center space-x-2 py-1.5 -my-1.5 text-sm text-primary font-medium hover:text-primary-muted transition-colors"
-          >
-            <span>Ver estudo de caso</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+/** O rótulo da categoria, em texto normal — a caixa alta saiu na troca de 15/10. */
+const CATEGORIA: Record<string, string> = {
+  product: "produto · marketplace",
 };
+
+/**
+ * O cartão de um projeto — a forma da tela 16: categoria e estado no topo,
+ * título, descrição, papel e stack numa lista curta, e o estudo de caso.
+ *
+ * Até a v4 existia aqui uma variante "ocioso" (os cartões "Aguardando commits
+ * futuros"). Saiu com o design de 15/10: cada projeto diz em que pé está, sem
+ * cartão de "em breve".
+ */
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => (
+  <article className="flex h-full flex-col gap-4 rounded-lg border border-border bg-surface p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/50 glow-border">
+    <div className="flex flex-wrap items-center justify-between gap-2">
+      <span className="font-mono text-[11px] text-muted-foreground">
+        {CATEGORIA[project.category] ?? project.category}
+      </span>
+      <ProjectStatus status={project.status} />
+    </div>
+
+    <h3 className="titulo-serif text-[26px] leading-tight text-foreground">{project.title}</h3>
+    <p className="text-sm leading-relaxed text-muted-foreground">{project.shortDescription}</p>
+
+    <dl className="m-0 grid grid-cols-[72px_minmax(0,1fr)] gap-x-4 gap-y-1.5 text-[13px]">
+      <dt className="font-mono text-[11px] leading-5 text-muted-foreground">papel</dt>
+      <dd className="m-0 text-foreground">{project.role.join(" · ")}</dd>
+      <dt className="font-mono text-[11px] leading-5 text-muted-foreground">stack</dt>
+      <dd className="m-0 text-foreground">{project.stack.join(" · ")}</dd>
+    </dl>
+
+    <Link to={`/projetos/${project.slug}`} className={buttonVariants("outline", "md") + " mt-auto self-start"}>
+      Ver estudo de caso →
+    </Link>
+  </article>
+);
 
 export default ProjectCard;

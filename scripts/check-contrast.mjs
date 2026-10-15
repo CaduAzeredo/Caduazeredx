@@ -70,6 +70,17 @@ const PARES = [
     min: 4.5,
     uso: "texto sobre o botão principal",
   },
+  // A tinta da peça (kit de marca, 15/10): é ela que pinta o botão principal,
+  // o link e o símbolo. Fora de /shizune ela é o `--primary` do modo; no
+  // escopo da rota, o âmbar. Medida nos quatro modos como qualquer acento.
+  { fg: "tinta", bg: "background", min: 4.5, uso: "link e símbolo na tinta" },
+  { fg: "tinta", bg: "surface", min: 4.5, uso: "tinta dentro de card" },
+  {
+    fg: "background",
+    bg: "tinta",
+    min: 4.5,
+    uso: "texto sobre o botão principal, na tinta",
+  },
   { fg: "status-security", bg: "background", min: 4.5, uso: "estado" },
   { fg: "status-wait", bg: "background", min: 4.5, uso: "estado" },
   { fg: "status-alert", bg: "background", min: 4.5, uso: "estado" },

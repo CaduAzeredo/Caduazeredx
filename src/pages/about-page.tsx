@@ -1,209 +1,152 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import PageShell from "@/components/layout/page-shell";
-import { buttonVariants } from "@/components/ui/button";
-import { Terminal, BookOpen, Settings, FolderGit2 } from "lucide-react";
+import GlifoShizune from "@/components/shizune/glifo";
 import { contactLinks } from "@/content/contacts";
 
+const PRINCIPIOS = [
+  {
+    titulo: "Problema antes de tecnologia",
+    texto: "Nenhum código avançado salva um produto que ninguém quer usar.",
+  },
+  {
+    titulo: "Clareza e usabilidade",
+    texto: "Interfaces simples, diretas e acessíveis a todas as pessoas.",
+  },
+  {
+    titulo: "Engenharia sustentável",
+    texto: "TypeScript estrito, componentes reutilizáveis e nenhuma dependência desnecessária.",
+  },
+] as const;
+
+const INTERESSES = [
+  "Sistemas operacionais Linux e personalização de terminal.",
+  "Automações locais com scripts e shell.",
+  "Produtividade no ecossistema Git e GitHub.",
+  "IA aplicada ao desenvolvimento de software.",
+] as const;
+
+const TITULO_2 = "titulo-serif text-[30px] leading-[1.1] text-foreground sm:text-[40px]";
+
+/**
+ * A rota `/sobre` — a tela 19b.
+ *
+ * O que mudou: o negrito do perfil aparecia cru, com asteriscos (o texto era
+ * markdown dentro de JSX); agora é `<b>`. O cartão do assistente local "em
+ * breve" saiu, e os títulos em caixa alta viraram texto normal.
+ */
 export const AboutPage: React.FC = () => {
-  // Atualizar título para SEO
   useEffect(() => {
-    document.title =
-      "Sobre | Cadu Azeredo — Front-end Developer & Product Builder";
+    document.title = "Sobre | Cadu Azeredo — Front-end Developer & Product Builder";
   }, []);
+
+  const shizune = contactLinks.publicRepos?.find((r) => r.name === "Shizune" && r.url);
+  const githubSemProtocolo = contactLinks.github?.replace(/^https?:\/\//, "");
 
   return (
     <PageShell>
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 text-left">
-        {/* Cabeçalho */}
-        <div className="space-y-4">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight font-sans">
-            Sobre Mim
-          </h1>
-          <p className="text-xl text-primary font-mono font-medium">
-            Desenvolvedor Front-end & Product Builder
-          </p>
+      <div className="mx-auto max-w-5xl space-y-14 px-4 py-14 text-left sm:px-6 lg:px-8">
+        {/* O avatar oficial do kit, com o texto alternativo do kit. */}
+        <div className="flex flex-wrap items-center gap-8">
+          <img
+            src="/avatar/cadu-azeredo-avatar-480.webp"
+            alt="Avatar ilustrado de Cadu Azeredo, dev de Palmas-TO, com dreads e camisa preta"
+            width={168}
+            height={168}
+            decoding="async"
+            className="h-[168px] w-[168px] rounded-full border-2 border-tinta object-cover"
+          />
+          <div className="space-y-3">
+            <h1 className="titulo-serif text-[40px] leading-[1.04] text-foreground sm:text-[56px]">Sobre</h1>
+            <p className="font-mono text-[13px] text-muted-foreground">
+              dev em Palmas-TO · software com IA, com o processo à mostra
+            </p>
+          </div>
         </div>
 
-        <hr className="border-border/60" />
-
-        {/* INTRODUÇÃO */}
-        <section data-reveal className="space-y-4">
-          <h2
-            data-split
-            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
-          >
-            <Terminal className="w-5 h-5 text-primary" />
-            <span>Perfil Profissional</span>
+        <section data-reveal className="max-w-[68ch] space-y-4">
+          <h2 data-split className={TITULO_2}>
+            Perfil profissional
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
-            Olá, sou Carlos Eduardo Moura, profissionalmente conhecido como
-            **Cadu Azeredo**. Sou graduado em **Sistemas para Internet** com
-            cursos focados em **UX e UI Design**. Tenho mais de 5 anos de
-            experiência no desenvolvimento web, iniciando no ecossistema
-            WordPress e progredindo de forma consistente para desenvolvimento
-            front-end moderno utilizando **React** e **TypeScript**.
+          <p className="text-base leading-relaxed text-foreground">
+            Olá, sou Carlos Eduardo Moura, profissionalmente conhecido como <b>Cadu Azeredo</b>. Sou
+            graduado em <b>Sistemas para Internet</b> com cursos focados em <b>UX e UI Design</b>. Tenho mais
+            de 5 anos de experiência no desenvolvimento web, iniciando no ecossistema WordPress e
+            progredindo para front-end moderno com <b>React</b> e <b>TypeScript</b>.
           </p>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
-            Minha abordagem foca em unir a rigorosa engenharia de código
-            front-end moderno ao cuidado estético e usabilidade de interfaces
-            digitais, sempre orientando as decisões pela resolução de problemas
-            reais de produto.
+          <p className="text-base leading-relaxed text-muted-foreground">
+            Minha abordagem une a engenharia de front-end ao cuidado com a usabilidade, sempre orientando
+            as decisões pela resolução de problemas reais de produto.
           </p>
         </section>
 
-        {/* FILOSOFIA DE PRODUTO */}
-        <section data-reveal className="space-y-4">
-          <h2
-            data-split
-            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
-          >
-            <BookOpen className="w-5 h-5 text-secondary" />
-            <span>Como Penso Produtos</span>
+        <section data-reveal className="space-y-5">
+          <h2 data-split className={TITULO_2}>
+            Como penso produtos
           </h2>
-          <div className="grid grid-cols-1 gap-4">
-            <div className="p-4 rounded-lg bg-surface/50 border border-border/80">
-              <span className="block font-mono text-xs text-primary font-semibold uppercase mb-1">
-                Problema antes de Tecnologia
-              </span>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Nenhum código avançado salva um produto que ninguém quer usar.
-                Entender profundamente o problema, a jornada do usuário e a
-                necessidade comercial vem sempre em primeiro lugar.
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-surface/50 border border-border/80">
-              <span className="block font-mono text-xs text-primary-muted font-semibold uppercase mb-1">
-                Clareza e Usabilidade
-              </span>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Interfaces digitais precisam ser simples, diretas e acessíveis a
-                todas as pessoas. Trabalho para reduzir a fricção cognitiva e
-                entregar telas limpas e fluidas.
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-surface/50 border border-border/80">
-              <span className="block font-mono text-xs text-secondary font-semibold uppercase mb-1">
-                Engenharia Sustentável
-              </span>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Código estruturado, TypeScript estrito, componentes
-                reutilizáveis focados e ausência de dependências desnecessárias
-                ajudam a manter o código sustentável e escalável a longo prazo.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+            {PRINCIPIOS.map((p) => (
+              <div key={p.titulo} className="space-y-2 rounded-lg border border-border bg-surface p-5">
+                <h3 className="font-semibold text-foreground">{p.titulo}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{p.texto}</p>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* INTERESSES & HOBBIES (HONESTO) */}
         <section data-reveal className="space-y-4">
-          <h2
-            data-split
-            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
-          >
-            <Settings className="w-5 h-5 text-primary-muted" />
-            <span>Interesses do Workspace</span>
+          <h2 data-split className={TITULO_2}>
+            Interesses do workspace
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-sans">
-            Além do ecossistema React/TS, dedico meu tempo de estudo e testes a:
-          </p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-4 list-disc text-xs sm:text-sm text-muted-foreground">
-            <li>Sistemas operacionais Linux e personalização de terminal.</li>
-            <li>
-              Automações locais de tarefas utilizando scripts e shell scripting.
-            </li>
-            <li>Configurações de produtividade no ecossistema Git/GitHub.</li>
-            <li>
-              Estudos práticos de IA aplicada ao desenvolvimento de software.
-            </li>
+          <ul className="m-0 list-disc space-y-2 pl-5 text-base text-muted-foreground">
+            {INTERESSES.map((i) => (
+              <li key={i}>{i}</li>
+            ))}
           </ul>
         </section>
 
-        {/* REPOSITÓRIOS & CONTEÚDO */}
-        <section data-reveal className="space-y-4">
-          <h2
-            data-split
-            className="text-xl sm:text-2xl font-bold font-sans text-foreground flex items-center space-x-2"
-          >
-            <FolderGit2 className="w-5 h-5 text-secondary" />
-            <span>Repositórios & Conteúdo</span>
+        <section data-reveal className="space-y-5">
+          <h2 data-split className={TITULO_2}>
+            Repositórios e conteúdo
           </h2>
-          <div className="space-y-3">
-            {contactLinks.github && contactLinks.github.trim() !== "" && (
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+            {contactLinks.github && (
               <a
                 href={contactLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-primary font-medium hover:text-primary-muted transition-colors inline-flex items-center"
+                className="flex flex-col gap-1.5 rounded-lg border border-border bg-surface p-5 transition-colors hover:border-primary/50"
               >
-                Ver perfil no GitHub
+                <span className="font-semibold text-foreground">Perfil no GitHub</span>
+                <span className="text-sm text-muted-foreground">{githubSemProtocolo}</span>
               </a>
             )}
-            {contactLinks.publicRepos &&
-              contactLinks.publicRepos.length > 0 && (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {contactLinks.publicRepos.map((repo) =>
-                    repo.status === "public" && repo.url ? (
-                      <li key={repo.name}>
-                        <a
-                          href={repo.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-between p-3 rounded-lg bg-surface/50 border border-border/80 text-sm text-foreground hover:border-primary/50 transition-colors"
-                        >
-                          <span>{repo.name}</span>
-                          <span className="text-[10px] font-mono uppercase text-status-live">
-                            Público
-                          </span>
-                        </a>
-                      </li>
-                    ) : (
-                      <li
-                        key={repo.name}
-                        className="flex items-center justify-between p-3 rounded-lg bg-surface/30 border border-border/40 text-sm text-muted-foreground/80"
-                      >
-                        <span>{repo.name}</span>
-                        <span className="text-[10px] font-mono uppercase text-muted-foreground/60 border border-border/60 rounded-full px-2 py-0.5">
-                          Em breve
-                        </span>
-                      </li>
-                    ),
-                  )}
-                </ul>
-              )}
-            {contactLinks.youtube && contactLinks.youtube.trim() !== "" && (
+            {shizune?.url && (
+              <a
+                href={shizune.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col gap-2 rounded-lg border border-tinta-deep/50 bg-surface p-5 transition-colors hover:border-tinta-deep"
+              >
+                <span className="flex items-center gap-2 font-semibold text-foreground">
+                  <GlifoShizune tamanho={18} className="text-tinta" />
+                  Shizune
+                </span>
+                <span className="self-start rounded-full border border-status-live/40 px-2.5 py-0.5 font-mono text-[11px] text-status-live">
+                  público
+                </span>
+              </a>
+            )}
+            {contactLinks.youtube && (
               <a
                 href={contactLinks.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-primary font-medium hover:text-primary-muted transition-colors inline-flex items-center"
+                className="flex flex-col gap-1.5 rounded-lg border border-border bg-surface p-5 transition-colors hover:border-primary/50"
               >
-                Ver canal no YouTube
+                <span className="font-semibold text-foreground">Canal no YouTube</span>
+                <span className="text-sm text-muted-foreground">vídeos sobre o método</span>
               </a>
             )}
-          </div>
-        </section>
-
-        {/* CHAMADA PARA AÇÃO */}
-        <section
-          data-reveal
-          className="pt-6 border-t border-border/60 flex flex-wrap gap-4 items-center justify-between"
-        >
-          <div className="space-y-1">
-            <span className="block text-xs font-mono text-muted-foreground">
-              [sys.next_step]
-            </span>
-            <span className="block text-sm font-sans text-muted-foreground">
-              Quer conhecer meus trabalhos na prática?
-            </span>
-          </div>
-          <div className="flex gap-3">
-            <Link to="/projetos" className={buttonVariants("primary", "md")}>
-              Ver projetos
-            </Link>
-            <Link to="/contato" className={buttonVariants("outline", "md")}>
-              Contato
-            </Link>
           </div>
         </section>
       </div>

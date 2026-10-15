@@ -54,7 +54,7 @@ export const App: React.FC = () => {
       <BottomNav />
 
       {/* O modo de defesa. Nao renderiza nada ate alguem escrever o comando
-          no console da Rei — e, quando renderiza, nao bloqueia a pagina. */}
+          no console da home — e, quando renderiza, nao bloqueia a pagina. */}
       <DefenseMode />
     </div>
   );

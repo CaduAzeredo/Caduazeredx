@@ -49,6 +49,19 @@
   --accent-amber-deep: #cfa86e; /*  8,8:1 — AA. Borda quente e fio.           */
   --accent-amber-rgb: 222 195 156; /* componente para compor alpha no brilho     */
 
+  /* ---- a tinta da peça (kit de marca, 15/10) ----
+     Uma tinta por peça: verde no modo Dev, azul no modo Empresa, âmbar só em
+     /shizune, /shizune/roadmap e /shizune/evidencia. Componente e página
+     NUNCA escrevem `accent-amber`: escrevem `tinta`, e quem decide a cor é o
+     escopo — aqui ela é o `--primary` do modo; no bloco da rota /shizune, lá
+     embaixo, ela vira o âmbar. Cor de estado (reproduzido, falhou, o `$` do
+     terminal) não é tinta e continua nos tokens de estado e no `--primary`.
+     `scripts/test-tinta.mjs` reprova `accent-amber` fora daquele bloco. */
+  --tinta: var(--primary);
+  --tinta-muted: var(--primary-muted);
+  --tinta-deep: var(--primary-deep);
+  --tinta-rgb: var(--glow-rgb);
+
   /* ---- estado semântico ----
      "Segurança" saiu do verde: com o verde virando cor de marca, dois verdes
      no mesmo card brigam. Azul-gelo de-colide e combina melhor com o resto. */
@@ -64,11 +77,11 @@
   --glow-rgb: 63 163 114;
 
   /* ---- tipografia ---- */
-  /* DM Sans na frente por decisao do operador (2026-09-03) — e livre, sob
-     a Open Font License, no Google Fonts. A Jakarta fica de recuo com
-     metrica proxima: reverter e apagar um nome desta pilha. */
-  --font-family-sans:
-    "DM Sans", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  /* DM Sans no corpo, Newsreader Italic nos títulos grandes, JetBrains Mono
+     nos números e comandos — o kit de marca (15/10). A Plus Jakarta Sans saiu:
+     nenhuma tela a usa mais, e o `<link>` do `index.html` deixou de baixá-la. */
+  --font-family-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-family-serif: "Newsreader", Georgia, "Times New Roman", serif;
   --font-family-mono:
     "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     monospace;
@@ -105,7 +118,7 @@
 /* ============================================================================
    MODO DE DEFESA — o easter egg
 
-   Alcançado escrevendo `hacker.exe` (e algumas variantes) no console da Rei.
+   Alcançado escrevendo `hacker.exe` (e algumas variantes) no console da home.
    A ficção: alguém tentou invadir, e o site respondeu trancando tudo em
    vermelho de alarme. Estética de internet velha do Cyberpunk 2077, com a
    cyberpsicose vazando pela interface.
@@ -162,29 +175,34 @@
    e nenhum componente precisa saber que esta rota existe: todos já leem
    `--primary`.
 
-   ESTE BLOCO NÃO TROCA COR NENHUMA, e isso é a correção da rodada 3.
+   O BLOCO TROCA A TINTA, E SÓ ELA (kit de marca, 15/10). `--primary` não
+   muda: o `$` do terminal, o "reproduzido" e o seletor de modo continuam na
+   cor do modo escolhido, porque são estado e controle, não marca. O que vira
+   âmbar é a tinta da peça — botão principal, link, símbolo, borda quente, o
+   quadradinho da logo —, e só nas três rotas do Shizune.
 
-   A primeira versão substituía `--primary` pelo âmbar, e com isso a rota
-   virava uma ilha: quem escolheu o modo Empresa perdia o azul-aço ao navegar
-   para cá, e o seletor de modo ficava sem efeito. Agora a página herda a cor
-   do modo escolhido — verde-terminal no Dev, azul-aço no Empresa — e o âmbar
-   entra pelo `--accent-amber` do `:root`, em cinco lugares contados.
+   Até 15/10 o bloco não trocava cor nenhuma e o âmbar entrava por
+   `--accent-amber` direto nos componentes, em cinco lugares contados. Isso
+   espalhava o âmbar por onde o componente fosse usado — a home e a
+   `/projetos` também. Com a tinta, o componente não sabe de que cor é.
 
-   O bloco continua existindo por duas razões, e as duas são de verdade: ele
-   carrega a serifada editorial, e ele segue na lista de MODOS do
-   `check-contrast`. Se alguém um dia voltar a sobrescrever cor aqui, o
-   validador mede no mesmo instante — um escopo que o validador não vê é um
-   escopo onde o contraste vira opinião.
-
-   A serifada é carregada pela própria página, na montagem, e não pelo
-   `index.html`: o site inteiro não usa serifada nem eixo itálico, e essa é a
-   razão de o `<link>` global tê-los deixado de fora. Carregar dois arquivos a
-   mais em toda rota para servir uma só seria pagar o custo no lugar errado. A
-   pilha de recuo é Georgia, que existe em toda máquina e tem métrica próxima.
+   O bloco segue na lista de MODOS do `check-contrast`: um escopo que o
+   validador não vê é um escopo onde o contraste vira opinião.
    ========================================================================= */
 
 [data-rota="shizune"] {
-  --font-family-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --tinta: var(--accent-amber);
+  --tinta-muted: var(--accent-amber-deep);
+  --tinta-deep: var(--accent-amber-deep);
+  --tinta-rgb: var(--accent-amber-rgb);
+}
+
+/* No modo de defesa a tinta é o alarme, em qualquer rota. */
+:root[data-invadido] {
+  --tinta: var(--primary);
+  --tinta-muted: var(--primary-muted);
+  --tinta-deep: var(--primary-deep);
+  --tinta-rgb: var(--glow-rgb);
 }
 
 /* A transição vive só nas superfícies que carregam acento. Aplicar em `*`

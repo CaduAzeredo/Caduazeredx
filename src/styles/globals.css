@@ -5,8 +5,8 @@
 @theme {
   --font-sans: var(--font-family-sans);
   --font-mono: var(--font-family-mono);
-  /* Serifada editorial. Só a rota /shizune a define e a carrega; nas demais
-     ela cai na pilha de recuo e ninguém paga por ela. */
+  /* Serifada editorial: Newsreader Italic, dos títulos grandes (kit de marca,
+     15/10). O `index.html` baixa só o corte itálico 400. */
   --font-serif: var(--font-family-serif, Georgia, "Times New Roman", serif);
 
   --color-background: var(--background);
@@ -21,8 +21,11 @@
   --color-border-accent: var(--border-accent);
   --color-secondary: var(--secondary);
   --color-accent-blue: var(--accent-blue);
-  --color-accent-amber: var(--accent-amber);
-  --color-accent-amber-deep: var(--accent-amber-deep);
+  /* A tinta da peça. Não existe `--color-accent-amber`: o âmbar não é classe
+     que um componente escreva, é o valor da tinta no escopo de /shizune. */
+  --color-tinta: var(--tinta);
+  --color-tinta-muted: var(--tinta-muted);
+  --color-tinta-deep: var(--tinta-deep);
 
   /* estado semântico — usar estes no lugar de literais do Tailwind
      (emerald-400, amber-400, red-400), que não acompanham a troca de tema */
@@ -76,13 +79,35 @@
 }
 
 .glow-border {
-  box-shadow: 0 0 15px rgb(var(--glow-rgb) / 0.12);
+  box-shadow: 0 0 15px rgb(var(--tinta-rgb) / 0.12);
   transition: box-shadow 0.2s ease;
 }
 
 .glow-border:hover,
 .glow-strong {
-  box-shadow: 0 0 22px rgb(var(--glow-rgb) / 0.28);
+  box-shadow: 0 0 22px rgb(var(--tinta-rgb) / 0.28);
+}
+
+/* A marca do kit (logo em linha e assinatura), tingida pela página: o texto
+   herda `currentColor` e o quadradinho leva a tinta da peça. O desenho vem do
+   arquivo intacto em `public/brand/` (ver `src/lib/marca.ts`). */
+.marca svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.marca .marca-detalhe {
+  fill: var(--tinta);
+}
+
+/* Títulos grandes: Newsreader Italic 400 (kit de marca, 15/10). Corpo em DM
+   Sans e números em JetBrains Mono continuam pelos tokens de sempre. */
+.titulo-serif {
+  font-family: var(--font-family-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 .terminal-window {

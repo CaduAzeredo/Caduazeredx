@@ -31,7 +31,7 @@ const MODOS: {
 /**
  * Troca do modo de leitura.
  *
- * O padrão visual vem dos cards da Rei: régua esquerda de 3px codificando o
+ * O padrão visual é a régua esquerda de 3px codificando o
  * estado, que é mais legível de relance que borda inteira ou preenchimento.
  *
  * O que a troca faz é mudar **ordem e ênfase**, nunca visibilidade. Nada é

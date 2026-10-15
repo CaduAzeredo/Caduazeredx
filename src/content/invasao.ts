@@ -1,7 +1,7 @@
 /**
  * O modo de defesa — o easter egg.
  *
- * A ficção: alguém digita um comando de invasão no console da Rei, e o site
+ * A ficção: alguém digita um comando de invasão no console da home, e o site
  * responde trancando tudo em vermelho de alarme. Estética de internet velha do
  * Cyberpunk 2077, com a cyberpsicose vazando pela interface.
  *
@@ -47,7 +47,7 @@ export const janelasInvasao: JanelaInvasao[] = [
     linhas: [
       "TENTATIVA DE INTRUSÃO DETECTADA",
       "origem ......... este navegador",
-      "vetor .......... a caixa de texto da Rei",
+      "vetor .......... a caixa de texto do console",
       "sofisticação ... baixa",
     ],
   },
@@ -64,13 +64,13 @@ export const janelasInvasao: JanelaInvasao[] = [
     ],
   },
   {
-    id: "rei",
-    titulo: "rei.status",
+    id: "console",
+    titulo: "console.status",
     linhas: [
-      "A Rei foi para um lugar seguro.",
+      "O console foi para um lugar seguro.",
       "",
-      "Ela pediu para avisar que não guarda",
-      "segredo nenhum — as respostas dela são",
+      "Ele pediu para avisar que não guarda",
+      "segredo nenhum — as respostas dele são",
       "um arquivo de texto — então isso aqui",
       "não valeu muito a pena.",
     ],
@@ -110,5 +110,5 @@ export const janelasInvasao: JanelaInvasao[] = [
 /** A linha da barra fixa enquanto o modo está ativo. */
 export const barraInvasao = "SISTEMA EM MODO DE DEFESA";
 
-/** O que a Rei diz um instante antes de tudo ficar vermelho. */
-export const reiAntesDaInvasao = "Ah. Você é desse tipo. Tudo bem — segura aí.";
+/** O que o console diz um instante antes de tudo ficar vermelho. */
+export const consoleAntesDaInvasao ="Ah. Você é desse tipo. Tudo bem — segura aí.";

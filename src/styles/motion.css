@@ -130,13 +130,13 @@
   0%,
   100% {
     box-shadow:
-      0 0 0 1px var(--accent-amber-deep),
-      0 0 38px -6px rgb(var(--accent-amber-rgb) / 0.16);
+      0 0 0 1px var(--tinta-deep),
+      0 0 38px -6px rgb(var(--tinta-rgb) / 0.16);
   }
   50% {
     box-shadow:
-      0 0 0 1px var(--accent-amber),
-      0 0 74px -4px rgb(var(--accent-amber-rgb) / 0.3);
+      0 0 0 1px var(--tinta),
+      0 0 74px -4px rgb(var(--tinta-rgb) / 0.3);
   }
 }
 
@@ -166,8 +166,8 @@
 /* O card da tese: o único da página que respira. */
 .sz-glow {
   box-shadow:
-    0 0 0 1px var(--accent-amber-deep),
-    0 0 38px -6px rgb(var(--accent-amber-rgb) / 0.16);
+    0 0 0 1px var(--tinta-deep),
+    0 0 38px -6px rgb(var(--tinta-rgb) / 0.16);
   animation: sz-breathe 5.5s ease-in-out infinite;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -181,7 +181,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    var(--accent-amber),
+    var(--tinta),
     transparent
   );
 }
@@ -205,7 +205,7 @@
 .sz-card:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 0 0 1px var(--accent-amber-deep),
+    0 0 0 1px var(--tinta-deep),
     0 20px 44px -22px rgb(0 0 0 / 0.95);
 }
 
@@ -223,8 +223,8 @@
 /* O mesmo halo, em âmbar: só para o que é do produto. */
 .sz-glow-text-amber {
   text-shadow:
-    0 0 24px rgb(var(--accent-amber-rgb) / 0.26),
-    0 0 60px rgb(var(--accent-amber-rgb) / 0.12);
+    0 0 24px rgb(var(--tinta-rgb) / 0.26),
+    0 0 60px rgb(var(--tinta-rgb) / 0.12);
 }
 
 /* ── Linha retrátil ──────────────────────────────────────────────────────────
@@ -282,7 +282,7 @@
     ),
     radial-gradient(
       36rem 20rem at 88% 100%,
-      rgb(var(--accent-amber-rgb) / 0.06),
+      rgb(var(--tinta-rgb) / 0.06),
       transparent 70%
     );
 }
