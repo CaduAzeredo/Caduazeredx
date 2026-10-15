@@ -14,7 +14,7 @@ import { contactLinks } from "@/content/contacts";
  * marca abaixo estiver aqui, o preview mostra a marca e o build de produção da
  * Vercel recusa (`vite.config.ts`) — os Termos não vão ao ar com a data errada.
  */
-const ATUALIZADO_EM = "‹data do deploy›";
+const ATUALIZADO_EM = "15 de outubro de 2026";
 
 const Secao: React.FC<{ titulo: string; children: React.ReactNode }> = ({
   titulo,
