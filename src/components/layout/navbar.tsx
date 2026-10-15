@@ -1,10 +1,9 @@
 import React from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import BrandMark from "@/components/layout/brand-mark";
 import ModeToggle from "@/components/mode/mode-toggle";
+import Marca from "@/components/layout/marca";
 import { contactLinks } from "@/content/contacts";
-import { marcasDeRota } from "@/content/rodape-de-rota";
 import { ArrowUpRight } from "lucide-react";
 
 const navItems = [
@@ -32,12 +31,6 @@ export const Navbar: React.FC = () => {
     (r) => r.status === "public" && r.url,
   );
 
-  // O segmento da rota, quando ela é uma página de produto. A barra do lockup
-  // passa a separar alguma coisa — no topo e no rodapé, com a mesma fonte de
-  // verdade, para os dois nunca discordarem.
-  const { pathname } = useLocation();
-  const segmento = marcasDeRota[pathname]?.segmento;
-
   return (
     <nav
       className="sticky top-0 z-50 w-full border-b border-border/80 bg-background/85 backdrop-blur-md"
@@ -45,8 +38,11 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" aria-label="Cadu Azeredo — início">
-            <BrandMark size="sm" segmento={segmento} />
+          {/* A logo em linha do kit (15/10), em todas as páginas, na tinta da
+              página. A assinatura nunca vem aqui: ela fecha a peça, no
+              rodapé, e não abre. */}
+          <Link to="/" aria-label="Cadu Azeredo — início" className="inline-flex min-h-6 items-center">
+            <Marca peca="linha" altura={26} />
           </Link>
 
           <div className="flex items-center gap-3 sm:gap-7">

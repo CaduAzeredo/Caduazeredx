@@ -17,7 +17,7 @@ export const buttonVariants = (
     // sistema para todo primario do site varrer igual — caso a caso viraria
     // tres versoes do mesmo efeito.
     variant === "primary" &&
-      "sz-shine bg-primary text-background hover:bg-primary-muted glow-border active:scale-[0.98]",
+      "sz-shine bg-tinta text-background hover:bg-tinta-muted glow-border active:scale-[0.98]",
     variant === "secondary" &&
       "bg-secondary text-foreground hover:bg-secondary/80 active:scale-[0.98]",
     variant === "outline" &&

@@ -13,23 +13,23 @@ export const ProjectStatus: React.FC<ProjectStatusProps> = ({
 }) => {
   const config = {
     building: {
-      label: "Em construção",
+      label: "em construção",
       class: "bg-primary/10 text-primary border-primary/25",
       dotClass: "bg-primary animate-pulse",
     },
     live: {
-      label: "Em produção",
+      label: "em produção",
       class: "bg-status-live/10 text-status-live border-status-live/30",
       dotClass: "bg-status-live",
     },
     archived: {
-      label: "Arquivado",
+      label: "arquivado",
       class:
         "bg-muted-foreground/10 text-muted-foreground border-muted-foreground/20",
       dotClass: "bg-muted-foreground",
     },
     lab: {
-      label: "Laboratório",
+      label: "laboratório",
       class: "bg-secondary/20 text-secondary border-secondary/30",
       dotClass: "bg-secondary",
     },

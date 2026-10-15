@@ -16,19 +16,21 @@ export const servicosResumo: ServicoResumo[] = [
     slug: "auditoria",
     nome: "Auditoria técnica",
     resumo:
-      "Você herdou uma base de código — ou ela cresceu rápido demais — e precisa saber o que realmente tem antes de decidir qualquer coisa.",
+      "Você herdou uma base de código, ou ela cresceu rápido demais, e precisa saber o que realmente tem antes de decidir qualquer coisa.",
   },
   {
+    // Era "Implantação do Brain": o nome público do método é Shizune desde
+    // 2026-09-03, e a tela 15 do design de 15/10 fechou o texto.
     slug: "implantacao",
-    nome: "Implantação do Brain",
+    nome: "Implantação do Shizune",
     resumo:
-      "O framework rodando no seu repositório, com a primeira rodada conduzida junto — para o processo continuar depois que a consultoria sai.",
+      "O registro de decisão rodando no seu repositório, com a primeira rodada conduzida junto, para o processo continuar depois que a consultoria sai.",
   },
   {
     slug: "criacao",
     nome: "Criação de projeto do zero",
     resumo:
-      "Um projeto novo nascendo já governado: do primeiro levantamento de contexto ao código entregue, sem a dívida de organização que normalmente se acumula nos primeiros meses.",
+      "Um projeto novo nascendo já governado: do primeiro levantamento de contexto ao código entregue.",
   },
   {
     slug: "acompanhamento",

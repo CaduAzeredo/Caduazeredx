@@ -19,7 +19,9 @@ export const contactLinks: ContactLinks = {
   email: "caduazeredo@gmail.com", // Exemplo: "cadu@caduazeredo.com"
   linkedin: "https://www.linkedin.com/in/carlos-eduardoaz/", // Exemplo: "https://linkedin.com/in/caduazeredo"
   github: "https://github.com/CaduAzeredo", // Exemplo: "https://github.com/caduazeredo"
-  instagram: "https://github.com/CaduAzeredo", // Exemplo: "https://instagram.com/caduazeredo"
+  // Vazio de propósito (kit de marca, 15/10): nenhum link de Instagram entra
+  // até a conta existir. Até a v4 este campo apontava para o GitHub.
+  instagram: "",
   whatsapp: "https://wa.me/qr/2F5B3LFEJHYKM1", // Exemplo: "https://wa.me/5563999999999"
   youtube: "https://www.youtube.com/@CaduAzeredo",
   publicRepos: [
@@ -30,6 +32,7 @@ export const contactLinks: ContactLinks = {
       url: "https://github.com/CaduAzeredo/shizune",
       status: "public",
     },
-    { name: "Rei", status: "em-breve" },
+    // O cartão do assistente local ("em breve") saiu na troca de 15/10: cada
+    // projeto diz em que pé está, sem cartão de "em breve".
   ],
 };

@@ -1,31 +1,43 @@
-import type { ReiTroca } from "@/types";
-import { fichaShizune, foraDaFicha } from "@/content/shizune-ficha";
+import type { TrocaDoConsole } from "@/types";
+import ficha from "@/content/ficha";
+import { degrauAtual } from "@/content/degraus";
+import { contribuicoes } from "@/content/shizune";
 
 /**
- * O que a Rei responde.
+ * O que o console do ecossistema, na home, responde.
  *
  * Não é chat com modelo de linguagem: não há servidor por trás, e simular um
- * seria mentir sobre o que o site faz. É um roteiro curado — perguntas reais
- * que gente real faz, com respostas escritas e verificáveis.
+ * seria mentir sobre o que o site faz. É um roteiro curado — perguntas reais,
+ * com respostas escritas e verificáveis.
  *
- * Duas regras governam cada resposta:
+ * Três regras governam cada resposta:
  *
- * 1. **Todo fato vem da ficha** (`shizune-ficha.ts`). Se um número não está
- *    lá, ele não entra aqui — entra na ficha primeiro, com comando e data.
- * 2. **Toda resposta termina num destino real.** E quando a pessoa pode
- *    resolver sozinha, o destino é o repositório aberto, não o formulário.
- *    Mandar para o grátis primeiro é o que torna a Rei confiável em vez de
- *    vendedora.
+ * 1. **Todo número vem da ficha da release** (`ficha.ts`), a mesma das páginas
+ *    do Shizune e do shizune.dev. A única exceção são as contribuições, que
+ *    vêm de `shizune.ts`, com o próprio comando e a própria data. Número que
+ *    não está lá não entra aqui.
+ * 2. **Nenhuma versão.** A resposta diz a data e o SHA da release, nunca o
+ *    número da versão: a regra é "sem versão no texto visível".
+ * 3. **Toda resposta termina num destino real.** Quando a pessoa pode resolver
+ *    sozinha, o destino é o repositório aberto, não o formulário.
  *
- * Nenhum alvo da rodada de diagnóstico aparece pelo nome — embargo até
- * 2026-09-15, e o alvo com contribuições aceitas fica fora de material de
- * conteúdo por decisão do operador.
+ * O QUE SAIU, na troca de 15/10 (o texto antigo continua no histórico do git):
+ * a ficha de fatos própria (`shizune-ficha.ts`), que repetia à mão números da
+ * release antiga e da instância privada — contagem de decisões, CI, commits
+ * assinados —, e os números do autodiagnóstico de setembro, que não foram
+ * medidos de novo. Até a v4 deste site, este console tinha nome e avatar de
+ * personagem; agora ele é só o console.
+ *
+ * PROPAGAÇÃO — ver AGENTS.md § Propagação.
  */
-export const reiTrocas: ReiTroca[] = [
+const agora = degrauAtual();
+
+export const trocasDoConsole: TrocaDoConsole[] = [
   {
     id: "o-que-e-shizune",
     pergunta: "o que é o Shizune?",
-    resposta: `${fichaShizune.oQueE} Era o ${fichaShizune.nomeAnterior}; o nome mudou, o método não. É aberto sob ${fichaShizune.licenca} e roda sem instalar dependência nenhuma — você clona e verifica hoje, sem falar com ninguém.`,
+    resposta:
+      "Registro de decisão sobre o git: a máquina rascunha, você assina, o comando verifica. Decisão numerada, commit assinado, e um comando que reprova o build quando alguém cita o que não foi decidido. É aberto sob Apache-2.0 e roda sem instalar dependência nenhuma — você clona e verifica hoje, sem falar com ninguém.",
     destino: { rotulo: "abrir o repositório", tipo: "repo" },
     palavras: [
       "shizune",
@@ -46,10 +58,10 @@ export const reiTrocas: ReiTroca[] = [
     ],
   },
   {
-    id: "versao-e-numeros",
+    id: "em-que-pe",
     pergunta: "em que pé está o projeto?",
-    resposta: `${fichaShizune.versao} publicada em ${fichaShizune.publicadaEm}, SHA ${fichaShizune.shaPublicado}, com ${fichaShizune.ciNoShaPublicado}. No registro: ${fichaShizune.decisoes} decisões, das quais ${fichaShizune.decisoesVigentes} assinadas e ${fichaShizune.decisoesEmRascunho} em rascunho. O doctor tem ${fichaShizune.doctor.etapas} etapas; num clone do pacote ${fichaShizune.doctor.executam} executam e ${fichaShizune.doctor.na} respondem n/a. E ${fichaShizune.commitsAssinados}. Cada número desses tem o comando que o reproduz no repositório.`,
-    destino: { rotulo: "conferir os números", tipo: "produtos" },
+    resposta: `A release mais recente saiu em ${ficha.data}, no SHA ${ficha.shaCurto}. Num clone do pacote, o doctor fecha com ${ficha.doctor.passaram} etapas que passaram e ${ficha.doctor.na} que respondem n/a; o teste negativo tem ${ficha.asseracoes} asserções; o pacote tem ${ficha.arquivos} arquivos.${agora ? ` O degrau em andamento no roadmap é “${agora.nome}”.` : ""} Cada número tem o comando que o reproduz.`,
+    destino: { rotulo: "conferir os números", tipo: "shizune" },
     palavras: [
       "versao",
       "release",
@@ -60,34 +72,33 @@ export const reiTrocas: ReiTroca[] = [
       "maduro",
       "pronto",
       "estavel",
-      "quantas decisoes",
-      "ci",
+      "roadmap",
+      "degrau",
     ],
   },
   {
     id: "confio-nisso",
     pergunta: "por que eu confiaria nisso?",
-    resposta: `Porque ele apanha em público: o Shizune foi diagnosticado com o próprio Shizune. Primeira passada (${fichaShizune.diagnostico.sha}): ${fichaShizune.diagnostico.achados} achados, todos os ${fichaShizune.diagnostico.fechados} fechados e verificados no clone publicado. O último demorou, e o diagnóstico dele estava errado: ${fichaShizune.diagnostico.oQueDemorou}. Além disso, ${fichaShizune.contribuicoes}`,
-    destino: { rotulo: "ler os relatórios", tipo: "repo" },
+    resposta: `Você não precisa confiar: cada afirmação tem o comando que a confere num clone limpo do repositório público, com o SHA e o dia da medição, e o que você não consegue rodar sozinho não entra na página. O que ele não prova também está escrito: a assinatura mostra qual chave assinou, nunca quem escreveu o conteúdo. Fora do clone, as contribuições a quatro repositórios públicos de memória de agente estão listadas com link — ${contribuicoes.abertas} abertas, ${contribuicoes.aceitas} aceitas, medido em ${contribuicoes.medidoEm}.`,
+    destino: { rotulo: "ver a evidência", tipo: "shizune" },
     palavras: [
       "confiar",
       "confianca",
       "prova",
       "funciona mesmo",
       "serio",
-      "diagnostico",
-      "auditoria do proprio",
+      "evidencia",
       "contra si",
-      "achado",
-      "erro",
       "validado",
+      "contribuicoes",
     ],
   },
   {
     id: "o-que-nao-e",
     pergunta: "isso prova que um humano escreveu?",
-    resposta: `Não — e quem te disser que sim está vendendo errado. ${fichaShizune.oQueNaoE[0]} ${fichaShizune.oQueNaoE[2]}`,
-    destino: { rotulo: "ver como o comando verifica", tipo: "produtos" },
+    resposta:
+      "Não — e quem te disser que sim está vendendo errado. A assinatura mostra qual chave assinou, nunca quem escreveu o conteúdo: a decisão passa a ter um responsável nomeado, o que é outra coisa. E não é ferramenta de marca d'água: a marca d'água diz o que a máquina escreveu; o registro diz o que o humano decidiu.",
+    destino: { rotulo: "ver como o comando verifica", tipo: "shizune" },
     palavras: [
       "autoria",
       "humano escreveu",
@@ -105,7 +116,7 @@ export const reiTrocas: ReiTroca[] = [
     pergunta: "serve para um time pequeno?",
     resposta:
       "Serve, e é onde rende mais. O custo dele é escrever o contexto e a decisão uma vez, em vez de cada pessoa reconstruir o seu a cada sessão — e num time de três ou quatro essa conta se paga rápido. Requisito: Bun ou Node 20+, e nada mais.",
-    destino: { rotulo: "ver como aplico no seu caso", tipo: "produtos" },
+    destino: { rotulo: "ver como aplico no seu caso", tipo: "shizune" },
     palavras: [
       "time",
       "equipe",
@@ -182,10 +193,11 @@ export const reiTrocas: ReiTroca[] = [
 ];
 
 /**
- * A frase que separa a Rei de um chatbot que blefa: quando a pergunta sai da
- * ficha, ela diz isso — e aponta um destino de verdade.
+ * A frase que separa o console de um chatbot que blefa: quando a pergunta sai
+ * do roteiro, ele diz isso — e aponta um destino de verdade.
  */
-export const reiNaoSei = foraDaFicha;
+export const respostaSemDado =
+  "Não tenho esse dado aqui — e inventar seria o defeito que o Shizune denuncia. O repositório tem: cada número de lá vem com o comando que o reproduz.";
 
-export const reiAbertura =
+export const aberturaDoConsole =
   "Posso explicar o que o Shizune faz, mostrar os números com o comando de cada um, ou te levar direto para a conversa. O que te trouxe aqui?";

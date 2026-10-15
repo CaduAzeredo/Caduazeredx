@@ -58,6 +58,12 @@ export interface NovidadeEntry {
   promptResumido?: string;
   custoUsd?: number;
   categoria: NovidadeCategoria;
+  /** O filtro da página: o produto público, ou os bastidores (o assistente local). */
+  area: "shizune" | "bastidores";
+  /** A seção do CHANGELOG do pacote (`CHANGELOG.md#…`), nos verbetes de release. */
+  notas?: string;
+  /** `false`: texto ainda não assinado — rascunho no preview, fora da produção. */
+  conferido?: boolean;
 }
 
 export interface ProximoPasso {
@@ -99,18 +105,19 @@ export interface TipoDeSite {
   icone: IconeTipoDeSite;
 }
 
-export type ReiDestinoTipo = "repo" | "produtos" | "contato";
+/** Para onde uma resposta do console da home leva: o repositório, a página do Shizune ou o contato. */
+export type TipoDeDestino = "repo" | "shizune" | "contato";
 
-export interface ReiDestino {
+export interface DestinoDoConsole {
   rotulo: string;
-  tipo: ReiDestinoTipo;
+  tipo: TipoDeDestino;
 }
 
-export interface ReiTroca {
+export interface TrocaDoConsole {
   id: string;
   pergunta: string;
   resposta: string;
-  destino: ReiDestino;
+  destino: DestinoDoConsole;
   /**
    * Termos que fazem esta troca casar com o que a pessoa digitou. Sem acento e
    * em minusculas — a normalizacao acontece dos dois lados antes de comparar.

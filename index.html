@@ -2,29 +2,61 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO Básico -->
-    <title>Cadu Azeredo — Front-end Developer & Product Builder</title>
+    <!-- Favicon do kit de marca (15/10, tela 15b): o SVG, os PNGs e o ícone
+         da tela inicial. O favicon antigo (o prompt) saiu. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0a0e10" />
+
+    <!-- Título e descrição: seção 7 do kit de marca. -->
+    <title>Cadu Azeredo — dev em Palmas-TO, software com IA</title>
     <meta
       name="description"
-      content="Portfólio de Cadu Azeredo, desenvolvedor front-end e builder de produtos digitais com React, TypeScript, UX/UI e IA aplicada."
+      content="Sou o Cadu, dev em Palmas-TO. Faço sites, atendimento no WhatsApp e sistemas com IA, e mostro o processo. Criador do Shizune."
     />
 
-    <!-- Open Graph (Metadados de Redes Sociais) -->
-    <meta
-      property="og:title"
-      content="Cadu Azeredo — Front-end Developer & Product Builder"
-    />
+    <!-- Open Graph: a prévia quando alguém cola o link. -->
+    <meta property="og:title" content="Cadu Azeredo — dev em Palmas-TO" />
     <meta
       property="og:description"
-      content="Portfólio de Cadu Azeredo, desenvolvedor front-end e builder de produtos digitais com React, TypeScript, UX/UI e IA aplicada."
+      content="Faço software com IA e mostro o processo, erro incluso."
     />
+    <meta
+      property="og:image"
+      content="https://caduazeredo.com/og/cadu-azeredo-og-1200x630.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://caduazeredo.com" />
 
-    <meta name="theme-color" content="#0A0E10" />
+    <!-- Dados estruturados da pessoa. `sameAs` só com o GitHub: o Instagram
+         entra quando a conta existir. Bloco de dados (não executa), por isso a
+         política script-src 'self' não o bloqueia. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Cadu Azeredo",
+        "url": "https://caduazeredo.com",
+        "image": "https://caduazeredo.com/avatar/cadu-azeredo-avatar-480.webp",
+        "jobTitle": "Desenvolvedor de software",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Palmas",
+          "addressRegion": "TO",
+          "addressCountry": "BR"
+        },
+        "sameAs": ["https://github.com/CaduAzeredo"]
+      }
+    </script>
 
     <!-- Modo de leitura e casca de boot, antes do primeiro desenho. Arquivo
          externo e não script inline porque a política de segurança declara
@@ -34,12 +66,13 @@
     <script src="/mode-init.js"></script>
     <script src="/boot.js" defer></script>
 
-    <!-- Fontes — sem o eixo itálico: o site inteiro não usa nenhum, e o eixo
-         custa dois arquivos por família. Faixa de peso reduzida ao que existe. -->
+    <!-- Fontes do kit de marca (15/10): DM Sans no corpo, JetBrains Mono nos
+         números e comandos, e da Newsreader só o corte itálico 400, dos
+         títulos grandes. A Plus Jakarta Sans saiu: nenhuma tela a usa. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..800&family=JetBrains+Mono:wght@400..700&family=Plus+Jakarta+Sans:wght@300..800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..800&family=JetBrains+Mono:wght@400..700&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap"
       rel="stylesheet"
     />
 
@@ -109,27 +142,11 @@
         justify-content: center;
         font-size: 22px;
       }
-      #boot .boot-prompt {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border: 1px solid #3fa372;
-        border-radius: 7px;
-        color: #3fa372;
-        font-weight: 700;
-        font-size: 13px;
-      }
       #boot .boot-name {
-        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
-      #boot .boot-slash {
-        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-        font-weight: 300;
-        color: #3fa372;
+        font-family: "Newsreader", Georgia, "Times New Roman", serif;
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -0.01em;
       }
       #boot ul {
         list-style: none;
@@ -209,10 +226,10 @@
       <button class="boot-skip" id="boot-skip" type="button">pular</button>
 
       <div class="boot-mid">
+        <!-- O nome em texto: o lockup antigo (prompt e barra) saiu na troca de
+             15/10, e a assinatura nova ainda não existe. -->
         <div class="boot-brand">
-          <span class="boot-prompt">&gt;_</span>
           <span class="boot-name">Cadu Azeredo</span>
-          <span class="boot-slash">/</span>
         </div>
 
         <ul>

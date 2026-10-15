@@ -129,7 +129,7 @@ lugares que a troca de token não alcançava.
 
 Escritas para não serem redescobertas caso a caso:
 
-- **A Rei não é mascote.** Ela é presença, não assistente. Nunca persegue o scroll, nunca abre sozinha, nunca pergunta "posso ajudar?", nunca aparece em bolha com rabinho. Quem só quer contratar passa por ela sem ser interrompido.
+- **O console da home não é mascote.** É presença, não assistente, e não tem nome nem avatar de personagem (saíram em 15/10). Nunca persegue o scroll, nunca abre sozinho, nunca pergunta "posso ajudar?", nunca aparece em bolha com rabinho. Quem só quer contratar passa por ele sem ser interrompido.
 - **Nada de `display:none` por modo.** Só `order`.
 - **Nada de chuva em `<canvas>`**, grão animado, parallax ou scroll-jacking.
 - **Nada de aberração cromática global**: destrói o antialiasing do texto. Aceita só escopada a hover, por milissegundos.

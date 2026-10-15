@@ -8,7 +8,13 @@ import { contactLinks } from "@/content/contacts";
  * Alterações nascem lá e vêm para cá — não o contrário.
  */
 
-const ATUALIZADO_EM = "31 de agosto de 2026";
+/**
+ * A data muda no deploy (aprovação do operador, 15/10, 11h25): quem põe o texto
+ * novo no ar escreve aqui o dia, no formato "15 de outubro de 2026". Enquanto a
+ * marca abaixo estiver aqui, o preview mostra a marca e o build de produção da
+ * Vercel recusa (`vite.config.ts`) — os Termos não vão ao ar com a data errada.
+ */
+const ATUALIZADO_EM = "15 de outubro de 2026";
 
 const Secao: React.FC<{ titulo: string; children: React.ReactNode }> = ({
   titulo,
@@ -101,12 +107,12 @@ export const TermsPage: React.FC = () => {
             termos da Apache 2.0.
           </p>
           <p>
-            <strong className="text-foreground">Marca.</strong> O nome "Brain
-            Framework", a composição "Brain Framework — by Cadu Azeredo" e o
+            <strong className="text-foreground">Marca.</strong> O nome
+            "Shizune", a composição "Shizune — by Cadu Azeredo" e o
             nome "Cadu Azeredo" <strong className="text-foreground">não</strong>{" "}
             são licenciados junto com o código: a seção 6 da Apache 2.0 é
             explícita em não conceder direito de marca. Você pode dizer que seu
-            trabalho foi feito <em>com</em> o Brain Framework; não pode se
+            trabalho foi feito <em>com</em> o Shizune; não pode se
             apresentar sob o nome composto nem sugerir endosso, parceria ou
             afiliação que não existam.
           </p>
@@ -134,7 +140,7 @@ export const TermsPage: React.FC = () => {
 
         <Secao titulo="5. Software fornecido como está">
           <p>
-            O Brain Framework é distribuído{" "}
+            O Shizune é distribuído{" "}
             <strong className="text-foreground">sem garantias</strong>, nos
             termos das seções 7 e 8 da Apache 2.0: sem garantia de adequação a
             um propósito, e sem responsabilidade por danos decorrentes do uso.

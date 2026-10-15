@@ -1,165 +1,228 @@
 /**
- * Conteúdo da rota /shizune.
+ * Conteúdo das páginas do Shizune neste site: `/shizune` (visão geral),
+ * `/shizune/evidencia` e `/shizune/roadmap`.
  *
- * Separado do componente pelo mesmo motivo dos outros arquivos de `content/`:
- * o texto desta página é o produto, e ele muda com mais frequência do que o
- * layout. Quem for corrigir uma ressalva não deveria precisar abrir JSX.
+ * Fonte do texto: as telas 17, 18a e 18b do design
+ * (`projects/brain-launch/design/` no Brain), conferidas pela verificação de
+ * 15/10. São o espelho em português das páginas do shizune.dev. Nenhuma frase
+ * do design foi reescrita; as mudanças que a release real exigiu estão nos
+ * comentários de cada bloco.
  *
- * FONTE DOS NÚMEROS: medição própria de 2026-09-16, no commit `e575b46` do
- * repositório de origem (remedição da de 2026-09-10 em `b09888c`, mesmos
- * valores) e no SHA publicado `11cfbc2` (v0.4.1). A bíblia do
- * Cadu (§3) mediu em 2026-09-03 e ficou para trás; a regra dela mesma diz que
- * quando a bíblia e o repositório divergirem, o repositório ganha — e este
- * arquivo é corrigido no mesmo dia.
+ * FONTE DOS NÚMEROS: a ficha da release (`ficha.ts`), a mesma do shizune.dev. A
+ * única exceção são as contribuições, que rodam contra o GitHub e trazem o
+ * próprio comando e a própria data.
  *
- * REGRA QUE GOVERNA ESTE ARQUIVO: todo número vem com o comando que o
- * reproduz, ou com o SHA que o congela. Número solto não entra. Contagem de
- * commits assinados se diz como PROPORÇÃO ("todos desde a fronteira"), porque
- * o número solto envelhece a cada commit.
+ * SEM VERSÃO NO TEXTO VISÍVEL. A versão vive só no `softwareVersion` do JSON-LD
+ * da `/shizune`, lida da ficha. Até a v4 deste site, a versão estava aqui
+ * (`versaoPublicada`) e aparecia num selo da home.
  *
- * E A REGRA TEM UMA CONDIÇÃO QUE FALTAVA: o comando precisa **reproduzir** o
- * número. Até 2026-09-10 o comando das decisões trazia `^|` — alternância com
- * o lado esquerdo vazio, que casa toda linha não vazia. Ele contava linhas e
- * devolvia 82 onde a página exibia 16. Imprimir um comando ao lado de um
- * número é oferecê-lo como prova; prova que não fecha é pior que número solto.
- * Quem editar isto: rode cada `comando` e confira contra o `valor` ao lado.
+ * O QUE SAIU, na troca para o design de 15/10 (o texto antigo continua no
+ * histórico do git): a lista de fatos com comando (os números de produto foram
+ * para a `/shizune/evidencia`, lidos da ficha; os números da instância privada
+ * saíram, porque não se reproduzem num clone público), as três perguntas da
+ * fronteira, o placar retrátil do diagnóstico, a vaga de citação reservada e a
+ * frase que dizia que os repositórios "seguem sem nome até 2026-09-15".
  *
- * DE ONDE O COMANDO RODA: do clone, na maioria — e a `ressalva` diz quando
- * não. O cartão dos check runs roda contra o GitHub (`gh api`), porque os
- * check runs vivem lá, não na árvore; a seção das contribuições também. A
- * frase de apresentação da seção de números dizia "cole qualquer um destes no
- * clone" e era falsa para esse cartão desde 2026-09-10; em 2026-09-16 passou a
- * prometer o que cumpre: cada comando diz de onde roda.
- *
- * PROPAGAÇÃO — este arquivo alimenta a `/shizune` (fatos, contribuições,
- * placar), a home (`badgeDoProduto`, `faixaDaVitrine`, `etapasDoDoctor`,
- * `fechoDoDoctor`) e o JSON-LD; os mesmos fatos vivem em `shizune-ficha.ts`
- * (a Rei), `novidades.ts` (verbetes) e no site do produto (`method.ts`,
- * `ficha.ts`). **Mudou aqui, muda lá na mesma passada** — foi por não ter esta
- * lista que o badge de versão sobreviveu cravado no JSX a uma passada inteira
- * de correção. Ver AGENTS.md § Propagação.
+ * PROPAGAÇÃO — ver AGENTS.md § Propagação.
  */
 
-export interface FatoMedido {
-  valor: string;
-  rotulo: string;
-  comando: string;
-  ressalva?: string;
-}
+export const repositorio = "https://github.com/CaduAzeredo/shizune";
+export const discussoes = "https://github.com/CaduAzeredo/shizune/discussions";
+/** O apex é o canônico: o `www` redireciona para cá. */
+export const siteDoProduto = "https://shizune.dev";
+export const quickstartSetup =
+  "https://github.com/CaduAzeredo/shizune/blob/main/QUICKSTART.md#setup-prompt";
+export const changelog = "https://github.com/CaduAzeredo/shizune/blob/main/CHANGELOG.md";
+export const clone = "git clone https://github.com/CaduAzeredo/shizune.git";
+export const checkoutDaUltima = 'git checkout "$(git tag --sort=-v:refname | head -1)"';
 
-export interface CardDaFronteira {
-  estado: string;
-  ordem: string;
-  frase: string;
-  enfase: string;
-  detalhe: string;
-  fonte: string;
-  aberto: boolean;
-}
+/** O submenu das três páginas, mais o espelho em inglês. */
+export const submenu = [
+  { rota: "/shizune", rotulo: "visão geral" },
+  { rota: "/shizune/roadmap", rotulo: "roadmap" },
+  { rota: "/shizune/evidencia", rotulo: "evidência" },
+] as const;
 
-export interface Recorte {
-  sigla: string;
-  fonte: string;
-  quando: string;
-  citacao: string;
-  enfase: string;
-  fecho: string;
-  vaga?: boolean;
-}
+export const espelhoEmIngles: Record<string, string> = {
+  "/shizune": "https://shizune.dev/",
+  "/shizune/roadmap": "https://shizune.dev/roadmap",
+  "/shizune/evidencia": "https://shizune.dev/evidence",
+};
+
+// ── /shizune ────────────────────────────────────────────────────────────────
+
+export const visaoGeral = {
+  hero: {
+    linhas: [
+      { sujeito: "A máquina ", verbo: "rascunha." },
+      { sujeito: "Você ", verbo: "assina." },
+      { sujeito: "O comando ", verbo: "verifica." },
+    ],
+    subtitulo: "Quem decidiu, e dá para provar?",
+    texto:
+      "Seu agente de IA lembra, mas obedece ao que foi decidido. Decisão numerada, commit assinado, e um comando que reprova o build quando alguém cita o que não foi decidido.",
+    reprovar: "Veja ele reprovar um commit ↓",
+    comigo: "Ou faça comigo",
+    rodape: "Apache-2.0 · zero dependências · Node 20+ ou Bun",
+  },
+  configurar: {
+    titulo: "Configurar o Shizune",
+    rotuloDoPrompt: "seu agente · prompt",
+    /** O trecho que a página mostra; o botão copia o prompt inteiro do QUICKSTART. */
+    trecho:
+      "You are at the root of a Shizune repository. Before doing anything: read AGENTS.md in full, then skills/README.md …",
+    /** O prompt inteiro, copiado do QUICKSTART do pacote sem mudança — em inglês, como o pacote. */
+    promptCompleto:
+      "You are at the root of a Shizune repository. Before doing anything:\n\n" +
+      "1. Read AGENTS.md in full — it is the operating contract that governs how you\n" +
+      "   write and what you may touch in this repository.\n" +
+      "2. Read skills/README.md to learn the available skill pipeline\n" +
+      "   (grill-with-docs -> domain-modeling -> to-spec -> implement -> handoff).\n\n" +
+      "Then walk me through the pipeline for project <slug>:\n" +
+      "- Start with the grill-with-docs skill: interview me until you have enough\n" +
+      "  facts, and fill in projects/<slug>/CONTEXT.md, marking as HYPOTHESIS\n" +
+      "  anything I do not confirm with evidence.\n" +
+      "- Advance one skill at a time, asking for my approval before moving on.\n" +
+      "- Every .md file you create is born with the v2 frontmatter defined in\n" +
+      "  AGENTS.md. When you finish, run bun scripts/doctor.mjs and fix every\n" +
+      "  error before stopping.",
+    origem: "do QUICKSTART.md · em inglês, como o pacote",
+    promptInteiro: "prompt inteiro →",
+    comandos: ["git clone https://github.com/CaduAzeredo/shizune.git", "cd shizune", "bun scripts/doctor.mjs"],
+    legendaTerminal: "roda no terminal",
+    legendaAgente: "vai para o agente",
+  },
+  comoFunciona: {
+    rotulo: "como funciona",
+    titulo: "Três partes. Nenhuma faz o trabalho da outra.",
+    partes: [
+      { quem: "01 · a máquina", titulo: "Rascunha a decisão", linha: "DEC-‹NNN› · rascunho", comando: false },
+      { quem: "02 · você", titulo: "Assina", linha: "DEC-‹NNN› · vigente · ‹sha›", comando: false },
+      { quem: "03 · o comando", titulo: "Verifica", linha: "node scripts/validate-decisions.mjs", comando: true },
+    ],
+    camadas: [
+      { rotulo: "● resolvido em outro lugar", texto: "A marca d'água diz o que a máquina escreveu.", produto: false },
+      { rotulo: "● resolvido em outro lugar", texto: "A chave diz quem enviou.", produto: false },
+      { rotulo: "◆ isto é o Shizune", texto: "O registro diz o que o humano decidiu.", produto: true },
+    ],
+    nota: "A assinatura mostra qual chave assinou, nunca quem escreveu o conteúdo.",
+    vizinhos: "Onde o Shizune se encaixa entre os vizinhos →",
+  },
+  exemplo: {
+    ancora: "exemplo",
+    rotulo: "exemplo · um commit cita uma decisão que não existe",
+    titulo: "O que acontece quando um commit cita o DEC-999?",
+    aposte: { titulo: "Aposte", texto: "O registro não tem DEC-999. O commit passa?", opcoes: ["Passa", "Reprova"] },
+    rode: { titulo: "Rode", rotulo: "terminal · clone limpo" },
+    leia: {
+      titulo: "Leia o que ele disse",
+      texto:
+        "O validador recusa com código 1 e diz o motivo. Uma recusa que não se explica também reprovaria o teste.",
+    },
+    rotuloSaida: "saída · teste negativo",
+    codigo: "validador · código 1",
+    secao: "[negativo]",
+    destaques: ["commit que cita DEC inexistente", "explicou que o DEC-999 não existe"],
+    inteira: "▸ a execução inteira",
+  },
+  /**
+   * Contra nós mesmos. O design marca os números como "a medir de novo": eles
+   * vêm do relatório de uma release antiga, medido na instância. Pela regra de
+   * publicação, aparecem como rascunho no preview e ficam fora da produção até
+   * a medição nova — a mesma decisão do shizune.dev.
+   */
+  contraNos: {
+    conferido: false,
+    rotulo: "contra nós mesmos",
+    titulo: "O mesmo instrumento, virado para dentro.",
+    texto:
+      "Apontamos o Shizune contra o próprio Shizune, em clone limpo e com HOME vazio. O que ele achou, e o que aconteceu com cada achado, fica escrito, inclusive o diagnóstico que erramos.",
+    passos: [
+      { valor: "5", texto: "achados na primeira passada", rodape: "sha c248f75", fechado: false },
+      { valor: "4", texto: "fechados em código e texto", rodape: "release seguinte", fechado: false },
+      { valor: "1", texto: "fechado depois; o primeiro diagnóstico estava errado", rodape: "2026-09-09", fechado: false },
+      { valor: "0", texto: "abertos no SHA publicado", rodape: "sha 0ccfe4f", fechado: true },
+    ],
+    limite: "Cinco checagens portáteis não são auditoria. Não houve comparação com nenhum outro projeto.",
+    marca: "rascunho · números a medir de novo",
+  },
+  recortes: {
+    rotulo: "recortes",
+    titulo: "O contexto, dito por terceiros.",
+    itens: [
+      {
+        fonte: "block.xyz · jul/2026",
+        forma: "paráfrase",
+        texto: "Cada agente é membro de verdade, com conta própria, chaves criptográficas e permissões.",
+        fecho: "Quem fez, resolvido. A autoridade da decisão não entrou na conta.",
+        /** A página da Block ainda não foi conferida: rascunho no preview, fora da produção. */
+        link: null as string | null,
+        lidaEm: null as string | null,
+      },
+      {
+        fonte: "Apache License 2.0, seção 6",
+        forma: "",
+        texto: "A licença concede patente e cópia, e não concede direito de marca.",
+        fecho: "Por isso o código é livre e o nome composto não é.",
+        link: "https://www.apache.org/licenses/LICENSE-2.0" as string | null,
+        lidaEm: "texto legal" as string | null,
+      },
+      {
+        fonte: "medição própria · 2026",
+        forma: "",
+        texto: "Arquivo de contexto aumenta passos e custo de inferência.",
+        fecho: "O argumento aqui é precisão, nunca economia.",
+        link: "" as string | null,
+        lidaEm: "" as string | null,
+        /**
+         * Medição nossa, sem página de terceiro — mas sem o comando que a
+         * reproduz. Decisão do operador (15/10, 13h47): rascunho no preview,
+         * fora da produção, até o comando entrar aqui, ao lado do número.
+         */
+        comando: null as string | null,
+      },
+    ],
+    rascunho: "rascunho · fonte a conferir",
+    semFonte: "‹link da página da Block›",
+    semData: "‹data›",
+    rascunhoComando: "rascunho · sem o comando ao lado",
+    semComando: "‹o comando que reproduz a medição›",
+  },
+  comecar: {
+    rotulo: "começar",
+    titulo: "Três comandos. Nada instalado.",
+    texto: "Sem npm install, sem package.json. Os scripts usam só builtins.",
+    passo1: "terminal · passo 1 de 3",
+    passo2: "terminal · passo 2 de 3",
+    passo3: "terminal · passo 3 de 3",
+    novoProjeto: "bun scripts/new-project.mjs my-project",
+    saida: "linha de fecho esperada · da ficha da release",
+  },
+  comigo: {
+    rotulo: "faça, ou faça comigo",
+    titulo: "Testa o comando. Se passar, me chama.",
+    texto:
+      "O core é livre e continua assim. Auditoria técnica, ou a camada de decisão de pé no seu código: isso é uma conversa.",
+    falar: "Falar comigo",
+    discussion: "Abrir uma discussion",
+    preco: "Não existe tabela de preço publicada: preço que ninguém validou é hipótese.",
+  },
+} as const;
+
+// ── /shizune/evidencia ──────────────────────────────────────────────────────
 
 /**
- * Data em que os números abaixo foram apurados. Move junto com eles.
+ * As contribuições — as duas contagens do design, com o comando de cada uma, e
+ * a lista com link. Rodam contra o GitHub, não contra o clone. A soma é por
+ * `awk`, e não por `bc` como no design: o `bc` não existe em toda máquina.
  *
- * 2026-09-16: os seis comandos da lista foram rodados de novo contra a origem
- * em `e575b46` e devolveram os mesmos valores (20 decisões; 50 commits desde a
- * fronteira, todos `G`; 57 asserções; 66 arquivos; a v0.4.1 não mudou). A data
- * moveu porque a medição foi refeita, não porque um número mudou.
+ * Medido em 2026-10-15. O que mudou desde 16/09: a issue do cognee foi fechada
+ * como concluída pelo mantenedor em 2026-10-04 — é ela que faz as aceitas serem
+ * três, e não duas. **Nenhuma contagem de achados** (decisão de 16/09).
  */
-export const medidoEm = "2026-09-16";
+const REPOS =
+  "rohitg00/agentmemory mem0ai/mem0 topoteretes/cognee TeleAI-UAGI/Awesome-Agent-Memory";
 
-/** O SHA da origem em que a medição foi feita. */
-export const shaMedicao = "e575b46";
-
-/** Versão publicada e o SHA que qualquer pessoa recebe ao clonar. */
-export const versaoPublicada = "v0.4.1";
-export const shaPublicado = "11cfbc2";
-
-/** SHA da primeira passada do diagnóstico contra si mesmo. */
-export const shaDiagnostico = "c248f75";
-
-export const fatos: FatoMedido[] = [
-  {
-    valor: "20",
-    rotulo: "decisões no registro",
-    comando:
-      "grep -cE '^\\| DEC-[0-9]{3} \\|' governance/registro-decisoes.md",
-    ressalva:
-      "15 vigentes e 5 em rascunho, que existem e não contam — a máquina rascunha, o humano assina, o SHA ativa. O comando anterior desta linha não reproduzia o número que ela exibia; foi corrigido em 2026-09-10, e o número mudou junto.",
-  },
-  {
-    valor: "todos",
-    rotulo: "os commits desde a fronteira de autoria estão assinados",
-    comando: "git log --format='%G?' 9ca7a4e..HEAD",
-    ressalva:
-      "50 de 50 em 2026-09-16, no commit e575b46 (eram 43 de 43 em 2026-09-10, em b09888c). O número anda a cada commit; a proporção não.",
-  },
-  {
-    valor: "57",
-    rotulo: "asserções no teste negativo do validador de decisões",
-    comando: "grep -cE '^\\s*ok\\(' scripts/test-validate-decisions.mjs",
-    ressalva:
-      "São 57 asserções dentro de um arquivo — não uma suíte de 57 testes.",
-  },
-  {
-    valor: "9 · 7 · 2",
-    rotulo: "etapas do doctor: 9 no total, 7 executam, 2 respondem n/a",
-    comando: "node scripts/doctor.mjs",
-    ressalva:
-      "Num clone do pacote, duas etapas não têm o que verificar e respondem n/a — e isso é o comportamento certo. O defeito é a linha de fecho do comando dizer que os 9 passaram, contando os n/a como aprovados: está aberto como item 47 da fila e declarado no CHANGELOG da v0.4.1. Por isso o número aqui é 9 · 7 · 2 e não 9.",
-  },
-  {
-    valor: "2",
-    rotulo:
-      "chaves na lista de confiança: a do operador e a de máquina, que assina rascunho e nunca decisão",
-    comando: "git log -1 --format='%G? %GS' <sha da assinatura>",
-    ressalva:
-      "Desde 2026-09-10 o validador lê qual chave assinou, não só se a assinatura é boa: decisão assinada pela chave de máquina reprova, e assinante declarado que não corresponde ao principal da chave reprova. Isso prova qual chave assinou — não prova autoria humana.",
-  },
-  {
-    valor: "66",
-    rotulo: "arquivos no pacote público",
-    comando:
-      "grep -cE '^[^[:space:]]' governance/public-package/inventario-esperado.txt",
-  },
-  {
-    valor: "6 de 6",
-    rotulo: "check runs verdes no SHA publicado — Node 20, Node 22 e Bun",
-    comando: "gh api repos/CaduAzeredo/shizune/commits/11cfbc2/check-runs",
-    ressalva:
-      "v0.4.1, publicada em 2026-09-10. Este é o único desta lista que não roda no clone: roda contra o GitHub, com gh autenticado — os check runs vivem lá, não na árvore.",
-  },
-];
-
-/**
- * As contribuições da primeira rodada — seção própria, com procedência própria.
- *
- * Não entram na lista `fatos` de propósito: aquela seção se apresenta com
- * "cole qualquer um destes no clone e ele responde", e este comando não roda
- * no clone — roda contra o GitHub, com `gh` autenticado. Misturar os dois
- * tornaria falsa a frase de apresentação da seção, que é exatamente a classe
- * de defeito que esta página existe para apontar. Decisão do operador em
- * 2026-09-16 (opção A das três que estavam na mesa).
- *
- * Até 2026-09-15 os quatro alvos estavam sob embargo de divulgação
- * responsável e nenhum nome aparecia aqui. O embargo venceu; o que entra é o
- * que está público na página de cada alvo — sete issues e pull requests, com
- * link e estado. **Nenhuma contagem de achados**, nem por alvo, nem agregada:
- * o total anunciaria defeitos encontrados e não contados aos mantenedores. O
- * total vive no relatório escrito; a evidência aqui são os links.
- *
- * Quem editar isto: rode o comando e confira o `estado` de cada linha contra
- * o que o GitHub devolve. `estado` é fato do dia da medição.
- */
 export interface Contribuicao {
   repo: string;
   numero: number;
@@ -169,284 +232,189 @@ export interface Contribuicao {
 }
 
 export const contribuicoes = {
-  medidoEm: "2026-09-16",
-  procedencia:
-    "Estes não saem do clone: saem do GitHub. O comando abaixo precisa de gh autenticado e lista as sete para qualquer pessoa.",
-  texto:
-    "O método rodou pela primeira vez contra quatro repositórios públicos, em 2026-09-01. Sete contribuições foram enviadas — seis issues e um pull request — e duas foram aceitas pelos mantenedores. Cada uma é pública na página do projeto.",
-  comando:
-    'for r in rohitg00/agentmemory mem0ai/mem0 topoteretes/cognee TeleAI-UAGI/Awesome-Agent-Memory; do gh api "search/issues?q=repo:$r+author:CaduAzeredo" --jq \'.items[] | "\\(.number)\\t\\(.state)\\t\\(.title)"\'; done',
+  medidoEm: "2026-10-15",
+  abertas: 7,
+  aceitas: 3,
+  comandoAbertas: `for r in ${REPOS}; do gh api "search/issues?q=repo:$r+author:CaduAzeredo" --jq '.total_count'; done | awk '{s+=$1} END {print s}'`,
+  comandoAceitas: `for r in ${REPOS}; do for q in 'is:pr+is:merged' 'is:issue+reason:completed'; do gh api "search/issues?q=repo:$r+author:CaduAzeredo+$q" --jq '.total_count'; done; done | awk '{s+=$1} END {print s}'`,
   itens: [
-    {
-      repo: "TeleAI-UAGI/Awesome-Agent-Memory",
-      numero: 98,
-      tipo: "pull request",
-      estado: "mesclado em 2026-09-01",
-      url: "https://github.com/TeleAI-UAGI/Awesome-Agent-Memory/pull/98",
-    },
-    {
-      repo: "TeleAI-UAGI/Awesome-Agent-Memory",
-      numero: 100,
-      tipo: "issue",
-      estado: "fechada como concluída pelo mantenedor em 2026-09-03",
-      url: "https://github.com/TeleAI-UAGI/Awesome-Agent-Memory/issues/100",
-    },
-    {
-      repo: "mem0ai/mem0",
-      numero: 7202,
-      tipo: "issue",
-      estado: "aberta",
-      url: "https://github.com/mem0ai/mem0/issues/7202",
-    },
-    {
-      repo: "topoteretes/cognee",
-      numero: 4865,
-      tipo: "issue",
-      estado: "aberta",
-      url: "https://github.com/topoteretes/cognee/issues/4865",
-    },
-    {
-      repo: "rohitg00/agentmemory",
-      numero: 1313,
-      tipo: "issue",
-      estado: "aberta",
-      url: "https://github.com/rohitg00/agentmemory/issues/1313",
-    },
-    {
-      repo: "rohitg00/agentmemory",
-      numero: 1314,
-      tipo: "issue",
-      estado: "aberta",
-      url: "https://github.com/rohitg00/agentmemory/issues/1314",
-    },
-    {
-      repo: "rohitg00/agentmemory",
-      numero: 1315,
-      tipo: "issue",
-      estado: "aberta",
-      url: "https://github.com/rohitg00/agentmemory/issues/1315",
-    },
+    { repo: "TeleAI-UAGI/Awesome-Agent-Memory", numero: 98, tipo: "pull request", estado: "mesclado em 2026-09-01", url: "https://github.com/TeleAI-UAGI/Awesome-Agent-Memory/pull/98" },
+    { repo: "TeleAI-UAGI/Awesome-Agent-Memory", numero: 100, tipo: "issue", estado: "fechada como concluída pelo mantenedor em 2026-09-03", url: "https://github.com/TeleAI-UAGI/Awesome-Agent-Memory/issues/100" },
+    { repo: "topoteretes/cognee", numero: 4865, tipo: "issue", estado: "fechada como concluída pelo mantenedor em 2026-10-04", url: "https://github.com/topoteretes/cognee/issues/4865" },
+    { repo: "mem0ai/mem0", numero: 7202, tipo: "issue", estado: "aberta", url: "https://github.com/mem0ai/mem0/issues/7202" },
+    { repo: "rohitg00/agentmemory", numero: 1313, tipo: "issue", estado: "aberta", url: "https://github.com/rohitg00/agentmemory/issues/1313" },
+    { repo: "rohitg00/agentmemory", numero: 1314, tipo: "issue", estado: "aberta", url: "https://github.com/rohitg00/agentmemory/issues/1314" },
+    { repo: "rohitg00/agentmemory", numero: 1315, tipo: "issue", estado: "aberta", url: "https://github.com/rohitg00/agentmemory/issues/1315" },
   ] as Contribuicao[],
 };
 
-/**
- * O rótulo do `doctor` na demonstração de terminal.
- *
- * Vive aqui, e não no JSX, porque até 2026-09-10 ele estava cravado em
- * `shizune-page.tsx` — onde nenhum arquivo de conteúdo o governava, e por isso
- * sobreviveu a todas as correções de número que passaram por este arquivo.
- */
-export const rotuloDoctorNoTerminal = "9 etapas · 7 executam · 2 n/a";
+export const evidencia = {
+  cabeca: {
+    rotulo: "shizune / evidência",
+    titulo: "Evidência",
+    texto:
+      "Cada afirmação do produto, o comando que a confere no repositório público e quando ela foi medida pela última vez. O que você não consegue rodar sozinho não entra aqui.",
+  },
+  comoLer: {
+    ancora: "como-ler",
+    titulo: "Como ler o estado",
+    legenda: [
+      { marca: "● reproduzido", estado: "reproduzida" },
+      { marca: "◐ desatualizada", estado: "desatualizada" },
+      { marca: "◆ falhou", estado: "falhou" },
+      { marca: "○ ainda não medido", estado: "nao-medida" },
+    ],
+    desatualizada: "Desatualizada",
+    explicacao:
+      " quer dizer que a medição não é do SHA da release mais recente. Não tem a ver com quantos dias passaram.",
+  },
+  afirmacoes: {
+    ancora: "afirmacoes",
+    titulo: "Afirmações que você roda",
+    texto: "Cada uma roda num clone limpo do repositório público.",
+    rotuloDoComando: "terminal · clone público limpo",
+    mostra: "mostra:",
+    naoMostra: "não mostra:",
+    validador: {
+      titulo: "O validador recusa o que deve",
+      texto: "asserções no próprio teste negativo, dentro de um arquivo. Não é uma suíte de testes separados.",
+      mostra: "Quantos casos o validador precisa recusar ou aceitar.",
+      naoMostra: "Que ele acerta além desses casos.",
+    },
+    chaveDeMaquina: {
+      titulo: "Chave de máquina não assina decisão",
+      texto:
+        "O teste negativo aponta uma decisão para um commit assinado por uma chave marcada maquina e espera a recusa, com o nome da chave.",
+      mostra: "Que rascunho e decisão são assinados por chaves diferentes.",
+      naoMostra: "Quem segurava a chave humana.",
+    },
+    doctor: {
+      titulo: "O doctor não conta n/a como aprovado",
+      texto: "é a linha de fecho numa árvore exportada: duas etapas não têm o que conferir ali e dizem isso.",
+      mostra: "Que cada etapa rodou ou disse que não podia rodar.",
+      naoMostra: "Que as etapas puladas passariam.",
+    },
+    pacote: {
+      titulo: "O que você clona",
+      texto: "arquivos no pacote público.",
+      mostra: "Quanto você clona.",
+      naoMostra: "A qualidade de nada disso.",
+    },
+    contribuicoes: {
+      titulo: "Contribuições abertas em repositórios públicos",
+      texto:
+        "issues e pull requests abertos por CaduAzeredo em quatro repositórios públicos de memória de agente. O valor sai do comando, não é digitado aqui.",
+      mostra:
+        "Que cada contribuição é pública, com link. Quantas foram aceitas é outra contagem: pull requests mesclados mais issues fechadas como concluídas.",
+      naoMostra:
+        "Que os projetos são piores que outros: não houve comparação. Não é a contagem de achados resolvidos por terceiros do caderno de evidências, que conta achados.",
+      rotuloDoComando: "terminal · roda contra o GitHub, precisa do gh logado",
+      ondeRoda: "roda contra o GitHub, não contra o clone",
+      aceitas: "Destas, aceitas:",
+      aceitasTexto: "pull requests mesclados mais issues fechadas como concluídas pelo mantenedor.",
+      lista: "Cada uma, com link",
+      estadoEm: "Estado em 2026-10-15.",
+    },
+  },
+  naoAfirmamos: {
+    ancora: "nao-afirmamos",
+    titulo: "O que não afirmamos",
+    itens: [
+      { titulo: "◆ Autoria humana", texto: "A assinatura mostra qual chave assinou, nunca quem escreveu o conteúdo." },
+      { titulo: "◆ Economia", texto: "Nenhum ganho de tempo, tokens ou custo foi medido, então nenhum é afirmado." },
+      { titulo: "◆ Decisão boa", texto: "O registro prova que uma decisão foi assinada, não que ela estava certa." },
+    ],
+  },
+  encaixe: {
+    ancora: "encaixe",
+    rotulo: "Onde o Shizune se encaixa",
+    titulo: (porExtenso: string): string => `${porExtenso} vizinhos. Uma ligação que falta.`,
+    texto:
+      "Todos os vizinhos que encontramos registram o que a máquina fez, ou seguram uma ação até alguém aprovar. Nenhum dos que encontramos liga essa ação a uma decisão humana assinada que um comando confere.",
+    faixas: [
+      { rotulo: "● os vizinhos", texto: "Registram o que a máquina fez.", produto: false },
+      { rotulo: "● os vizinhos", texto: "Seguram uma ação até alguém aprovar.", produto: false },
+      { rotulo: "◆ Shizune", texto: "Liga essa ação a uma decisão humana assinada, e um comando confere.", produto: true },
+    ],
+    nota:
+      "Um mapa de encaixe, não uma comparação. Cada linha é a leitura de uma fonte pública, com o link e a data em que a lemos. A linha fica marcada como rascunho até o link ser conferido. Se você conhece uma ferramenta que fecha a lacuna, abra uma issue e a linha entra.",
+    colunas: ["Vizinho", "O que resolve", "A lacuna", "Por onde o Shizune se conecta", "Degrau"],
+    fonte: "fonte",
+    lidaEm: "lida em",
+    semFonte: "‹link primário›",
+    semData: "‹data›",
+    rascunho: "rascunho · link a conferir",
+    rodape: "A última coluna usa os degraus do roadmap.",
+    verDegraus: "Ver os seis degraus →",
+  },
+} as const;
 
-/**
- * O badge do card do produto na home.
- *
- * Deriva de `versaoPublicada` de propósito: não tem valor próprio, então não
- * pode divergir da fonte. Cravado no JSX, ele ficou em v0.3.1 e sobreviveu à
- * passada que corrigiu todos os outros números da página — o mesmo caminho do
- * "9 verificadores".
- */
-export const badgeDoProduto = `no ar · ${versaoPublicada}`;
-
-/**
- * As etapas do `doctor`, com a marca que cada uma recebe **num clone do
- * pacote público** — que é onde o leitor vai rodar o comando.
- *
- * As duas marcadas `n/a` não têm o que verificar fora da instância de onde o
- * pacote é exportado, e responder `n/a` ali é o comportamento certo. A janela
- * de terminal da home mostrava cinco etapas, todas `OK`, e fechava com "os 5
- * verificadores passaram" — retrato de 2026-08-31 que nunca mais foi tocado.
- * Mostrar 9 todas `OK` seria trocar um número velho por uma afirmação falsa.
- *
- * Medido em 2026-09-10, no clone público em v0.4.1 (11cfbc2).
- */
-export const etapasDoDoctor: { rotulo: string; marca: "OK" | "n/a" }[] = [
-  { rotulo: "estrutura", marca: "OK" },
-  { rotulo: "links", marca: "OK" },
-  { rotulo: "refs em prosa", marca: "OK" },
-  { rotulo: "estado da governança", marca: "OK" },
-  { rotulo: "export (dry-run)", marca: "n/a" },
-  { rotulo: "issue-lint (teste negativo)", marca: "n/a" },
-  { rotulo: "decisões (DEC-NNN)", marca: "OK" },
-  { rotulo: "decisões (teste negativo)", marca: "OK" },
-  { rotulo: "índice (teste negativo)", marca: "OK" },
-];
-
-/** O fecho da janela de terminal — o que a execução fez, não o total. */
-export const fechoDoDoctor = "7 executaram e passaram · 2 n/a";
-
-/**
- * A faixa de três números da home.
- *
- * Vive aqui pelo motivo do `rotuloDoctorNoTerminal`: cravada no JSX, ela
- * envelheceu sem que ninguém percebesse — chegou a 2026-09-10 dizendo "16
- * decisões assinadas", "9 verificadores" e "1 achado aberto", este último já
- * fechado desde 2026-09-09 e desmentido pela própria /shizune.
- */
-export const faixaDaVitrine = [
-  "15 decisões assinadas, 20 no registro",
-  "9 etapas no doctor · 7 executam",
-  "nenhum achado aberto — o último, e o erro de diagnóstico, publicados",
-];
-
-/**
- * As três perguntas. A terceira é o produto — e a tríade agora afirma a
- * resposta em vez de lamentar a ausência: "O registro diz o que o humano
- * decidiu."
- */
-export const fronteira: CardDaFronteira[] = [
-  {
-    estado: "Resolvido",
-    ordem: "01 / 03",
-    frase: "A marca d’água diz",
-    enfase: "o que a máquina escreveu",
-    detalhe:
-      "Pergunta técnica, resposta técnica. Ela identifica a ferramenta — e nada além.",
-    fonte: "2026-08-02",
-    aberto: false,
-  },
-  {
-    estado: "Resolvido",
-    ordem: "02 / 03",
-    frase: "A chave diz",
-    enfase: "quem enviou",
-    detalhe:
-      "O block/buzz dá a cada agente conta, chave criptográfica e permissão próprias. Identidade resolvida.",
-    fonte: "jul/2026",
-    aberto: false,
-  },
-  {
-    estado: "O produto",
-    ordem: "03 / 03",
-    frase: "O registro diz",
-    enfase: "o que o humano decidiu",
-    detalhe:
-      "Decisão numerada, com assinante e SHA, que o comando exige antes de deixar o build passar. É isso que o Shizune é. Desde 2026-09-10 o comando também confere qual chave assinou: a chave que o agente usa para rascunho nunca assina decisão, e o nome escrito na linha tem de bater com o principal da chave. Continua sem provar que um humano escreveu o conteúdo — prova quem tinha a chave, e a chave pede senha desde 2026-09-06.",
-    fonte: "scripts/validate-decisions.mjs",
-    aberto: true,
-  },
-];
-
-/**
- * Recortes: material de terceiros, só com fonte verificável.
- *
- * A vaga tracejada continua vazia de propósito — não se inventa depoimento
- * numa página cuja tese é integridade de registro.
- *
- * Sobre os alvos da rodada de diagnóstico: o embargo de divulgação
- * responsável venceu em 2026-09-15, e os quatro alvos e as sete contribuições
- * entram com nome e link — na seção `contribuicoes`, não aqui. O que continua
- * fora, em caráter permanente, é todo achado que não foi enviado (as peças
- * pendentes foram abandonadas em 2026-09-16) e qualquer contagem de achados,
- * por alvo ou agregada. O `Awesome-Agent-Memory` segue fora de conteúdo de
- * VÍDEO pela decisão de 2026-09-01 (alvo pequeno, achado sobre o produto do
- * próprio mantenedor); na lista de contribuições ele entra, porque pull
- * request mesclado é fato público.
- */
-export const recortes: Recorte[] = [
-  {
-    sigla: "B",
-    fonte: "block.xyz",
-    quando: "jul/2026",
-    citacao: "Cada agente é membro de verdade, com",
-    enfase: "conta própria, chaves criptográficas e permissões",
-    fecho:
-      "Quem fez, resolvido. A autoridade da decisão — quem mandou fazer, e com que direito — não entrou na conta.",
-  },
-  {
-    sigla: "§",
-    fonte: "Apache License 2.0, seção 6",
-    quando: "texto legal",
-    citacao: "A licença concede patente e cópia, e",
-    enfase: "não concede direito de marca",
-    fecho:
-      "Por isso o código é livre e o nome composto não é. Fork é direito; assinatura é identidade.",
-  },
-  {
-    sigla: "◇",
-    fonte: "medição própria",
-    quando: "2026",
-    citacao: "Arquivo de contexto",
-    enfase: "aumenta",
-    fecho:
-      "O erro é nosso e está publicado. É por isso que o argumento aqui é precisão, nunca economia.",
-  },
-  {
-    sigla: "—",
-    fonte: "vaga reservada",
-    quando: "a confirmar",
-    citacao: "[CITAÇÃO DE TERCEIRO — texto e fonte a confirmar]",
-    enfase: "",
-    fecho:
-      "Entra quando houver uma frase pública, com link, que sustente o argumento. Não se inventa depoimento numa página cuja tese é integridade de registro.",
-    vaga: true,
-  },
-];
+// ── /shizune/roadmap ────────────────────────────────────────────────────────
 
 /**
- * Contra nós mesmos — o arco inteiro, porque ele só funciona inteiro.
- *
- * Regra dura da bíblia (§3.3): o achado aberto vai junto, SEMPRE. Uma peça
- * que cite os quatro fechados sem citar o aberto está fazendo exatamente o
- * que a tese denuncia.
+ * Uma frase do design mudou, porque foi escrita antes da release: "Estado de
+ * hoje, antes da próxima release. Quando ela sair, o primeiro degrau vira feito".
+ * Com a release publicada, o primeiro degrau JÁ é feito.
  */
-export const contraNosMesmos = [
-  "Apontamos o Shizune contra o próprio Shizune — três passadas no mesmo dia, em clone limpo, com HOME vazio, sem nada da instância.",
-  "Primeira passada, no SHA c248f75: cinco achados. Nenhum de segurança, nenhum vazamento.",
-  "Quatro foram fechados em código e texto, e a v0.3.1 saiu. O relatório do SHA publicado (0ccfe4f) fecha o placar em um.",
-  "O que ficou aberto por mais tempo foi o apex shizune.dev não responder — e o diagnóstico dele estava errado. Dizia falha de TLS; a causa nunca foi TLS. O domínio nunca tinha sido adicionado ao Vercel, e a delegação apontava para nameservers que recusavam a zona. Fechado em 2026-09-09, e o erro de diagnóstico fica escrito aqui: corrigir o placar sem dizer o que se errou seria o defeito que a tese denuncia.",
-];
-
-export interface FaixaDoPlacar {
-  severidade: string;
-  quantidade: string;
-  proporcao: number;
-  define: string;
-  destaque: boolean;
-}
-
-/** O arco do diagnóstico, linha a linha retrátil. */
-export const placarDoDiagnostico: FaixaDoPlacar[] = [
-  {
-    severidade: "Achados em c248f75",
-    quantidade: "5",
-    proporcao: 1,
-    define:
-      "Primeira passada: nenhuma alta, três médias, duas baixas. Nenhuma de segurança. Nenhum vazamento.",
-    destaque: false,
+export const roadmap = {
+  cabeca: {
+    rotulo: "shizune / roadmap",
+    titulo: "Roadmap",
+    texto: "Cada degrau fecha uma ameaça e publica uma prova. Degrau tem nome, não número.",
   },
-  {
-    severidade: "Fechados na v0.3.1",
-    quantidade: "4",
-    proporcao: 0.8,
-    define:
-      "Consertados em código e texto e verificados no clone do SHA publicado, não na máquina do autor.",
-    destaque: false,
+  degraus: {
+    ancora: "degraus",
+    titulo: "Os seis degraus",
+    nota:
+      "Estado lido da ficha da release mais recente. Quando a próxima release sair, o degrau em andamento vira feito e o seguinte vira agora, no mesmo PR que atualiza esta página.",
+    oQueFecha: "O que fecha",
+    /** A marca do item que nomeia fornecedor de IA, até a fonte ser conferida. */
+    rascunhoFornecedor: "rascunho · nome de fornecedor, fonte a conferir",
+    prova: "Prova a publicar",
+    quandoFeito: "Quando terminar",
+    registro: "As notas da release e a seção do CHANGELOG viram o registro deste degrau.",
   },
-  {
-    severidade: "Fechado em 2026-09-09",
-    quantidade: "1",
-    proporcao: 0.2,
-    define:
-      'Ficou aberto desde 0ccfe4f: o apex shizune.dev não respondia enquanto o www respondia. O diagnóstico dizia falha de TLS e estava errado — o domínio nunca tinha entrado no Vercel, e a delegação apontava para nameservers que recusavam a zona. Confere com: curl -s -o /dev/null -w "%{http_code}" -L --max-time 20 https://shizune.dev',
-    destaque: true,
+  feito: {
+    ancora: "feito",
+    titulo: "Já feito",
+    antes: {
+      titulo: "Chave confiável que não é a do dono",
+      texto:
+        "O validador confere quem assinou contra a chave declarada, e a chave de máquina pode ser declarada. Saiu em 2026-09-10.",
+      ancoraNoChangelog: "CHANGELOG.md#041---2026-09-10",
+    },
+    degrauFeito: (data: string): string =>
+      `Fechado na release mais recente, em ${data}. As notas da release e a seção do CHANGELOG são o registro dele.`,
+    notas: "Notas da release →",
+    rodape: "O histórico em inglês mora nas notas de release e no CHANGELOG. Esta lista aponta para eles.",
   },
-];
+  cadeia: {
+    ancora: "cadeia",
+    rotulo: "fora dos degraus",
+    titulo: "A cadeia: release até os sites",
+    texto:
+      "Cada site consulta a release pública mais recente por agendamento e abre um PR num ramo de prévia, no próprio repositório. O PR traz a diferença da ficha e passa pelo portão do site. O merge continua com o dono. O navegador nunca busca nada ao vivo.",
+    ameacaRotulo: "Ameaça",
+    ameaca: "Credencial que cruza repositórios; número que muda sem ninguém ver.",
+    provaRotulo: "Prova a publicar",
+    prova: "Sete testes negativos rodados em repositórios de teste. Sem eles, a cadeia não é afirmada.",
+  },
+  depois: {
+    ancora: "depois",
+    titulo: "Depois dos degraus",
+    item: {
+      titulo: "Painel de aprovação em tempo real",
+      texto:
+        "Assina no seu dispositivo e nunca guarda chave. Ameaça: a nova superfície do próprio painel. Prova: teste de intrusão antes de abrir.",
+    },
+  },
+} as const;
 
-export const totalDoPlacar = {
-  valor: "0",
-  rotulo: "achado aberto no SHA publicado",
-  ressalva:
-    "Os cinco estão fechados desde 2026-09-09. O último não era defeito de código e o diagnóstico dele estava errado — fica escrito assim mesmo, porque uma peça que zera o placar sem dizer o que errou faz exatamente o que a tese denuncia.",
-};
-
-export const limiteDoDiagnostico =
-  "Cinco checagens portáteis não são auditoria. Não houve comparação com nenhum outro projeto.";
-
-export const notaDeMarca =
-  "Fork é livre sob a licença, mas não usa o nome composto.";
-
-export const repositorio = "https://github.com/CaduAzeredo/shizune";
-export const discussoes = "https://github.com/CaduAzeredo/shizune/discussions";
-/** O apex é o canônico: o `www` redireciona para cá, e é este que o README cita. */
-export const siteDoProduto = "https://shizune.dev";
+/** A ficha da release, faixa "lido da ficha". */
+export const faixa = {
+  lido: (sha: string, data: string): string =>
+    `Lido da ficha da release mais recente · sha ${sha} · ${data}`,
+  emDia: "● em dia",
+  atrasada:
+    "Desatualizada: esta página saiu de uma ficha cujo SHA difere da release mais recente. Os estados abaixo podem estar atrasados.",
+} as const;

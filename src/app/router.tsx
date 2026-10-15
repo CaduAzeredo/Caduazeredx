@@ -11,6 +11,9 @@ const NovidadesPage = lazy(() => import("@/pages/novidades-page"));
 // Rota própria, fora de /produtos: /produtos/brain fala com empresa, esta
 // fala com quem lê código antes de ler texto. Duas portas, sem conflito.
 const ShizunePage = lazy(() => import("@/pages/shizune-page"));
+// O espelho em português das duas páginas de leitura do shizune.dev.
+const ShizuneRoadmapPage = lazy(() => import("@/pages/shizune-roadmap-page"));
+const ShizuneEvidenciaPage = lazy(() => import("@/pages/shizune-evidencia-page"));
 const AboutPage = lazy(() => import("@/pages/about-page"));
 const ContactPage = lazy(() => import("@/pages/contact-page"));
 const PrivacyPage = lazy(() => import("@/pages/privacy-page"));
@@ -58,14 +61,15 @@ export const AppRouter: React.FC = () => {
         <Route path="/projetos/:slug" element={<ProjectDetailPage />} />
         {/* /produtos saiu de cena: o Shizune assumiu a vitrine (decisão do
             operador, 2026-09-03). O 301 de verdade vive no vercel.json; este
-            Navigate cobre a navegação interna e o dev server. A Rei saiu da
-            vitrine por ora — volta quando tiver página própria. */}
+            Navigate cobre a navegação interna e o dev server. */}
         <Route path="/produtos" element={<Navigate to="/shizune" replace />} />
         <Route
           path="/produtos/:slug"
           element={<Navigate to="/shizune" replace />}
         />
         <Route path="/shizune" element={<ShizunePage />} />
+        <Route path="/shizune/roadmap" element={<ShizuneRoadmapPage />} />
+        <Route path="/shizune/evidencia" element={<ShizuneEvidenciaPage />} />
         <Route path="/novidades" element={<NovidadesPage />} />
         <Route path="/sobre" element={<AboutPage />} />
         <Route path="/contato" element={<ContactPage />} />

@@ -10,7 +10,7 @@ export const projects: Project[] = [
     featured: true,
     category: "product",
     stack: ["React", "TypeScript", "Vite", "Bun", "Supabase (futuro)"],
-    role: ["Desenvolvedor Front-end", "Product Builder", "UX/UI Designer"],
+    role: ["Desenvolvedor front-end", "Product builder", "UX/UI"],
     year: 2026,
     problem:
       "Dificuldade na contratação ágil de prestadores de serviço confiáveis para diárias e eventos locais, além da falta de um canal unificado e profissional para quem oferece esses serviços em Palmas.",
