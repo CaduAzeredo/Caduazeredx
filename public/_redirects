@@ -1,0 +1,11 @@
+# Endereços do site antigo (v4) que levam para o lugar novo.
+/produtos /specs 301
+/produtos/* /specs 301
+/shizune /dev 301
+/shizune/* /dev 301
+/projetos /dev 301
+/projetos/* /dev 301
+/novidades /comunidade 301
+/sobre /dev 301
+/contato /comunidade 301
+/blog /comunidade 301
