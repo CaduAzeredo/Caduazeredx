@@ -268,6 +268,9 @@ p{margin:0;max-width:62ch}
 footer{border-top:2px solid var(--osso);background:var(--crt)}
 footer .in{max-width:1180px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) calc(56px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 footer svg{width:44px;height:31px}
+footer .credito{flex:0 0 100%;max-width:none;margin:0;padding-top:12px;border-top:1px dashed var(--fio);color:var(--cinza);font-size:18px;letter-spacing:.02em}
+footer .credito a{color:var(--fosforo);text-decoration:none;font-family:var(--f-display);font-size:14px;letter-spacing:.08em}
+footer .credito a:hover,footer .credito a:focus-visible{text-decoration:underline}
 footer nav{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--f-term);font-size:20px}
 footer nav a,footer nav button{background:none;border:0;color:var(--osso);font:inherit;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
 
