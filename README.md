@@ -30,4 +30,4 @@ Sem framework e sem dependência em produção.
 3. Variável de ambiente `VITE_LEAD_FORM_ENDPOINT` com o endpoint do Formspree.
 4. Domínio personalizado `www.caduazeredo.com` (e o domínio sem `www` redirecionando para ele).
 
-O site antigo (v4) está em `docs/v4/` e na tag `arquivo/v4-shizune`.
+O site antigo (v4) está em `docs/v4/` e no commit `6865c45` (último da v4).

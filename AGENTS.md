@@ -1,6 +1,6 @@
 # Regras para agentes — caduazeredo.com (DEMPA.98)
 
-Este arquivo vale para qualquer agente que mexa neste repositório. A versão anterior do site (v4, React + Shizune) está arquivada em `docs/v4/` e na tag `arquivo/v4-shizune`; as regras dela não valem mais.
+Este arquivo vale para qualquer agente que mexa neste repositório. A versão anterior do site (v4, React + Shizune) está arquivada em `docs/v4/` e no commit `6865c45` (último da v4); as regras dela não valem mais.
 
 ## Combinado com o Cadu
 
