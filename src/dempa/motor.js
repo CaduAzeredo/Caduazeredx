@@ -229,7 +229,7 @@ import IC from "./icones.json";
     fantasma:{n:'O fantasma',t:'Nem rosto nem voz: tudo por IA. O segredo é volume e ritmo.',nichos:['curiosidades rápidas','fatos de bichos','tecnologia que marcou época'],f:'Shorts 100% IA, 1 ou 2 por dia',spec:'Short em 2D + Checagem',p:'Vou criar um canal de Shorts feito todo com IA, sem rosto e sem voz minha. Sugira 3 nichos com pouca concorrência em português, e para cada um diga que tipo de voz de IA e de imagem combina.'},
     rosto:{n:'O rosto da marca',t:'Você aparece. Cresce mais devagar, mas vira marca e vende melhor.',nichos:['bastidores do que você faz','ensinar o que você sabe','desafios de 30 dias'],f:'Vídeo com você falando + cortes verticais',spec:'Checagem de roteiro',p:'Vou gravar vídeos falando para a câmera sobre [ASSUNTO]. Me ajude a transformar 5 tópicos soltos em um roteiro de 8 min com começo forte, 3 partes e um final que leve para o próximo vídeo.'}};
   var chat=document.getElementById('chat'),cc=document.getElementById('chatC'),rb=document.getElementById('roboB'),resp={};
-  function bal(t,eu){var d=document.createElement('div');d.className='bal '+(eu?'eu':'ro');d.innerHTML=t;cc.appendChild(d);cc.scrollTop=cc.scrollHeight;return d}
+  function bal(t,eu){var d=document.createElement('div');d.className='bal '+(eu?'eu':'ro');if(eu)d.textContent=t;else d.innerHTML=t;cc.appendChild(d);cc.scrollTop=cc.scrollHeight;return d}
   function ops(lista,cb){var d=document.createElement('div');d.className='ops';lista.forEach(function(o){var b=document.createElement('button');b.type='button';b.className='op';b.textContent=o[1];b.onclick=function(){d.remove();bal(o[1],1);cb(o[0])};d.appendChild(b)});cc.appendChild(d);cc.scrollTop=cc.scrollHeight;var f=d.querySelector('button');if(f)f.focus()}
   function fala(t,cb){rEst='falando';setTimeout(function(){bal(t);rEst='parado';cb&&cb()},reduz?0:450)}
   function inicio(){cc.innerHTML='';resp={};
@@ -240,9 +240,9 @@ import IC from "./icones.json";
     setTimeout(function(){var d=bal('');d.className='perfil';d.innerHTML='<h4>'+P.n+'</h4><p style="margin:0;font-size:14px">'+P.t+'</p><b style="font-size:13px">3 nichos para testar</b><ul>'+P.nichos.map(function(n){return '<li>'+n+'</li>'}).join('')+'</ul><span style="font-size:14px"><b>Formato:</b> '+P.f+'</span><b style="font-size:13px">Cole isto na sua IA</b><div class="prompt">'+P.p+'</div><button type="button" class="op" id="copiar">Copiar o texto</button>';
       document.getElementById('copiar').onclick=function(){try{navigator.clipboard.writeText(P.p);this.textContent='Copiado!'}catch(e){}};
       rEst='parado';fala('Quer o resto de graça? O e-book tem o passo a passo do seu perfil.',function(){ops([['sim','Quero o e-book grátis'],['nao','Agora não']],function(r){if(r==='sim')cadastro(P);else fala('Tudo bem. Eu fico aqui no canto se mudar de ideia.',function(){ops([['rec','Refazer o quiz']],inicio)})})})},reduz?0:500)}
-  function cadastro(P){fala('O e-book do seu perfil está sendo escrito. Me diz seu e-mail que eu te mando assim que ficar pronto.',function(){var f=document.createElement('form');f.className='cad';f.innerHTML='<label for="emq" style="position:absolute;left:-9999px">E-mail</label><input id="emq" type="email" required placeholder="seu@email.com"><label class="ck"><input type="checkbox" required> Aceito receber o e-book quando sair e os avisos de vídeo novo. Posso sair quando quiser.</label><button class="btn pri" type="submit">Me avise</button>';
+  function cadastro(P){fala('O e-book do seu perfil está sendo escrito. Me diz seu e-mail que eu te mando assim que ficar pronto.',function(){var f=document.createElement('form');f.className='cad';f.innerHTML='<label for="emq" style="position:absolute;left:-9999px">E-mail</label><input id="emq" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><label class="ck"><input type="checkbox" required> Aceito receber o e-book quando sair e os avisos de vídeo novo. Posso sair quando quiser.</label><button class="btn pri" type="submit">Me avise</button>';
     f.onsubmit=function(e){e.preventDefault();var em=f.querySelector('input[type=email]').value;f.remove();bal(em,1);rEst='pensando';
-      enviaLead({email:em,interesse:'ebook',perfil:P.n,origem:'quiz'}).then(function(ok){rEst=ok?'feliz':'erro';
+      enviaLead({email:em,interesse:'ebook',perfil:P.n,origem:'quiz'},f).then(function(ok){rEst=ok?'feliz':'erro';
         if(!ok){fala('Não consegui anotar agora. Escreva para <a href="mailto:caduazeredo@gmail.com">caduazeredo@gmail.com</a> que eu te coloco na lista.');return}
         fala('Anotado! O <b>"Primeiro canal: guia do '+P.n.replace(/^O /,'').toLowerCase()+'"</b> chega no seu e-mail assim que ficar pronto.',function(){
           fala('Enquanto isso, siga o canal para ver os vídeos: <a href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank" class="btn" style="margin-top:6px">Seguir no YouTube</a>',function(){rEst='parado';ops([['specs','Ver as specs']],function(){abre(false);ir('specs',{push:true})})})})})};
@@ -272,10 +272,14 @@ import IC from "./icones.json";
   if(location.hash)setTimeout(function(){rola(location.hash.slice(1))},120);
   // listas de espera
   var ENDPOINT=import.meta.env.VITE_LEAD_FORM_ENDPOINT||'';
-  function enviaLead(d){if(!ENDPOINT)return Promise.resolve(false);d.pagina=location.pathname;
+  /* origem por vídeo: ?v=ep01 no link da descrição. Vale para a visita inteira. */
+  var VIDEO=(function(){var v=null;try{v=new URLSearchParams(location.search).get('v')}catch(e){}
+    if(v&&/^[a-z0-9_-]{1,40}$/i.test(v)){v=v.toLowerCase();try{sessionStorage.setItem('cadu_v',v)}catch(e){}return v}
+    try{return sessionStorage.getItem('cadu_v')||''}catch(e){return ''}})();
+  function enviaLead(d,f){var hp=f&&f.querySelector('[name=_gotcha]');if(hp&&hp.value)return Promise.resolve(true);if(!ENDPOINT)return Promise.resolve(false);d.pagina=location.pathname;if(VIDEO)d.video=VIDEO;
     return fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
   document.querySelectorAll('form.lista').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var bt=f.querySelector('button');bt.disabled=true;
-    enviaLead({email:f.querySelector('input[type=email]').value,interesse:f.dataset.interesse,origem:'lista'}).then(function(ok){
+    enviaLead({email:f.querySelector('input[type=email]').value,interesse:f.dataset.interesse,origem:'lista'},f).then(function(ok){
       var p=document.createElement('p');p.setAttribute('role','status');
       if(ok){p.className='lista-ok';p.textContent='> anotado. eu te aviso primeiro_';f.replaceWith(p)}
       else{bt.disabled=false;p.className='lista-erro';p.innerHTML='Não consegui anotar agora. Escreva para <a href="mailto:caduazeredo@gmail.com">caduazeredo@gmail.com</a>.';var v=f.querySelector('.lista-erro');if(v)v.remove();f.appendChild(p)}})})});

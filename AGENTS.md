@@ -24,8 +24,15 @@ Este arquivo vale para qualquer agente que mexa neste repositório. A versão an
 3. **CSP rígida** (`public/_headers`): `script-src 'self'`. Proibido script inline (exceto `application/ld+json`) e `onclick`/`onsubmit` no HTML; os cliques passam por delegação em `motor.js`. Domínio externo novo (fonte, API) precisa entrar na CSP.
 4. **Nunca `addEventListener("keydown")` em `document` ou `window`.** Teclas ficam presas ao elemento que precisa delas.
 5. **Leads:** formulários `form.lista` com `data-interesse` enviam JSON para `VITE_LEAD_FORM_ENDPOINT` (Formspree). A caixa de consentimento nunca vem marcada. Sem endpoint, o site mostra o aviso "Escreva para caduazeredo@gmail.com", nunca um sucesso falso.
-6. **`.pend` é marca de maquete** e não pode chegar ao `dist/`.
-7. Respeite `prefers-reduced-motion`: animação de digitação e loops param, e o texto fica inteiro no HTML.
+6. **Origem por vídeo:** o link da descrição de cada vídeo leva `?v=ep01` (letras, números, `-` e `_`, até 40). O motor guarda o valor na visita e manda como `video` em todo lead. Não troque o nome do parâmetro sem avisar o financeiro, que lê esse campo.
+7. **Anti-robô:** todo formulário de lead tem o campo invisível `_gotcha`. Preenchido, o envio é descartado e o robô vê "anotado". O `check` reprova formulário sem ele.
+8. **Texto digitado pela pessoa nunca entra por `innerHTML`.** Use `textContent`.
+9. **`.pend` é marca de maquete** e não pode chegar ao `dist/`.
+10. Respeite `prefers-reduced-motion`: animação de digitação e loops param, e o texto fica inteiro no HTML.
+
+## Segurança
+
+O que o código garante e o que depende de painel (Cloudflare, GitHub, Formspree, Kiwify, domínio) está em `docs/SEGURANCA.md`. Mudança em `_headers` passa pelo `check`, que reprova se a CSP afrouxar ou se o HSTS sumir.
 
 ## Visual
 

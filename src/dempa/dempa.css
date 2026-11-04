@@ -283,3 +283,5 @@ footer nav a,footer nav button{background:none;border:0;color:var(--osso);font:i
 .lista-ok{font-family:var(--f-term);font-size:22px;color:var(--fosforo)}
 .lista-erro{font-family:var(--f-term);font-size:20px;color:var(--sinal)}
 .pend{display:none}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
