@@ -1,6 +1,6 @@
 # caduazeredo.com
 
-Site do Cadu Azeredo no estilo DEMPA.98: canais, specs à venda, comunidade e o Círculo. Produto em `PRODUCT.md`, visual em `DESIGN.md`, regras para quem mexe no código em `AGENTS.md`.
+Site do Cadu Azeredo no estilo DEMPA: canais, specs à venda, comunidade e o Círculo. Produto em `PRODUCT.md`, visual em `DESIGN.md`, regras para quem mexe no código em `AGENTS.md`.
 
 ## Rodar
 

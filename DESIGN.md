@@ -1,4 +1,4 @@
-# Design — DEMPA.98
+# Design — DEMPA
 
 Estilo: computador de 98, anime de fim dos anos 90, colagem e terminal. Fundo de tubo de CRT, verde fósforo firme, ossos e ruído. A versão anterior está em `docs/v4/DESIGN.md`.
 

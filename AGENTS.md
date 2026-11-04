@@ -1,4 +1,4 @@
-# Regras para agentes — caduazeredo.com (DEMPA.98)
+# Regras para agentes — caduazeredo.com (DEMPA)
 
 Este arquivo vale para qualquer agente que mexa neste repositório. A versão anterior do site (v4, React + Shizune) está arquivada em `docs/v4/` e no commit `6865c45` (último da v4); as regras dela não valem mais.
 

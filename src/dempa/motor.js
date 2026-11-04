@@ -1,5 +1,5 @@
 /* eslint-disable */
-// Motor do site DEMPA.98: ícones, símbolo, animações, quiz, borrão e rotas.
+// Motor do site DEMPA: ícones, símbolo, animações, quiz, borrão e rotas.
 // Portado da maquete aprovada em 4/11/2026. Ver AGENTS.md.
 import IC from "./icones.json";
 (function(){
@@ -35,7 +35,7 @@ import IC from "./icones.json";
   document.getElementById('pacotes').innerHTML=PAC.map(function(p){return '<article class="pacote '+p[6]+'"><span class="term" style="color:var(--fosforo)">'+p[0]+'.zip'+(p[6]?' · recomendado':'')+'</span><h3 style="font-size:16px">'+p[1]+'</h3><p class="nota" style="color:var(--osso)">'+p[2]+'</p><ul>'+p[3].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><span class="preco" style="margin-top:auto"><s>R$ '+p[4]+'</s>R$ '+p[5]+'</span><span class="eco">economiza R$ '+(p[4]-p[5])+'</span><a class="btn '+(p[6]?'pri respira':'')+'" href="#espera" data-rola="espera">Avise-me</a></article>'}).join('');
   document.getElementById('extras').innerHTML=EXT.map(function(e){return '<div class="extra"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(e[0])+'</svg><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><b>'+e[1]+'</b><span class="nota">'+e[2]+'</span><span class="pr">'+e[3]+'</span></div></div>'}).join('');
   // posts
-  var PO=[['EP 01','Por que parei de programar (por enquanto)','#3dff7e','IA'],['EP 01','Os bastidores do primeiro vídeo: o que eu gravei e o que cortei','#3fd8ff','Internet'],['rede','Canal 03 revelado: por que eu criei e quanto ele fez no primeiro mês','#3fd8ff','Internet'],['spec','Como uma spec vira um Short em 2D, passo a passo','#3dff7e','IA'],['marca','O que é o estilo DEMPA.98 e de onde ele veio','#ff3a6e','Sonho'],['setup','Meu Linux com o tema de ícones e cursor novo','#ffb21e','Oficina']];
+  var PO=[['EP 01','Por que parei de programar (por enquanto)','#3dff7e','IA'],['EP 01','Os bastidores do primeiro vídeo: o que eu gravei e o que cortei','#3fd8ff','Internet'],['rede','Canal 03 revelado: por que eu criei e quanto ele fez no primeiro mês','#3fd8ff','Internet'],['spec','Como uma spec vira um Short em 2D, passo a passo','#3dff7e','IA'],['marca','O que é o estilo DEMPA e de onde ele veio','#ff3a6e','DEMPA'],['setup','Meu Linux com o tema de ícones e cursor novo','#ffb21e','Oficina']];
   document.getElementById('posts').innerHTML=PO.map(function(p){return '<div class="post"><span class="d">'+p[0]+'</span><b>'+p[1]+'</b><span class="tag" style="color:'+p[2]+'">'+p[3]+'</span></div>'}).join('');
   // miniatura da home
   function thumb(){var c=document.getElementById('thumbHome'),k=c.getContext('2d');k.fillStyle='#060908';k.fillRect(0,0,640,360);k.fillStyle='#1d5a35';
