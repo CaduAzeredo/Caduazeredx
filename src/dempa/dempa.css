@@ -422,3 +422,11 @@ body::before{background:#0d1512}
 .ap-jan{width:112px;height:auto;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.5))}
 @media (max-width:640px){.atalho img{height:56px}.ap-topo{width:88px}}
 @media (prefers-reduced-motion:reduce){.ap-topo{animation:none}.atalho img{transition:none}}
+
+/* gifs em pixel (feitos no GPT) */
+.gif{display:block;line-height:0}.gif img{image-rendering:pixelated;display:block}
+.status{position:relative}.g-dev{position:absolute;right:16px;top:50%;transform:translateY(-50%)}
+.g-tit img{width:56px;height:56px}
+#espera .win-body{position:relative}.g-esp{position:absolute;right:20px;top:12px}.g-esp img{width:84px;height:84px}
+@media (max-width:820px){.g-dev{position:static;transform:none;order:9}.g-dev img{width:96px;height:96px}.g-esp{position:static}.g-esp img{width:64px;height:64px}}
+.com-gif{display:flex;align-items:center;gap:12px}
