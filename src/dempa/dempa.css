@@ -372,3 +372,23 @@ html{overflow-x:clip}
 @media (prefers-reduced-motion:reduce){.pg.on{animation:none}}
 .pp[hidden]{display:none}
 .lista .ck input{flex:none}
+
+/* ===== terceira passada (10/11): topo escuro e bege médio ===== */
+:root{--areia:#bdb69e;--areia-2:#aba48c;--tinta-areia:#27332d}
+.bar{background:#0d1512;color:var(--osso);border-bottom:2px solid var(--trilha)}
+body::before{background:#0d1512}
+.aba{color:var(--osso)}.aba:hover{border-color:var(--osso)}
+.aba[aria-current="page"]{background:var(--fosforo);color:var(--crt)}
+.bar .rel{color:var(--fosforo)}.bar .rel:hover,.bar .rel:focus-visible{border-color:var(--fosforo)}
+.win.claro{background:var(--areia);border-color:var(--areia)}
+.win.claro .win-bar{background:#0d1512}
+.win.claro .term,.win.claro .nota,.win.claro .lista .ck,.win.claro .wp figcaption{color:var(--tinta-areia)!important}
+.win.claro .btn{background:var(--areia)}
+.win.claro .lista input[type=email]{background:#d6d0ba}
+.win.claro .chip{border-color:#8f8973;color:var(--tinta-areia)}
+.win.claro .ic:hover,.win.claro .ic[aria-pressed="true"]{background:var(--areia-2)}
+.win.claro .ic .pa{fill:var(--osso)}.win.claro .ic .po{fill:var(--areia-2)}
+.win.claro .pp{border-top-color:#8f8973}
+.hero.ceu.claro .txt{background:var(--areia)}
+.hero.ceu.claro .txt .term,.hero.ceu.claro .sub{color:#14532f!important}
+:root{--osso:#d9d4bf}
