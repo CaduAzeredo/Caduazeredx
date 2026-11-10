@@ -484,3 +484,15 @@ a.yt-c:focus-visible{outline:2px dashed var(--fosforo);outline-offset:4px}
 .m-p[hidden]{display:none}
 .m-rol{overflow-x:auto}
 .dlog .oc{color:var(--cinza)}
+
+/* menu do topo no celular: ícones, e só a página aberta mostra o nome */
+.aba .px{display:none}
+@media (max-width:760px){
+  .abas{flex:1;min-width:0;justify-content:space-between;gap:0}
+  .aba{display:flex;align-items:center;gap:5px;padding:6px 5px}
+  .aba .px{display:block;width:22px;height:22px;flex:none}
+  .aba span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .aba[aria-current="page"]{background:var(--placa);color:var(--fosforo);border-color:var(--fosforo)}
+  .aba[aria-current="page"] span{position:static;width:auto;height:auto;clip-path:none;font-size:9px;letter-spacing:.02em}
+}
+@media (max-width:370px){.aba{padding:6px 4px}.aba[aria-current="page"] span{position:absolute;width:1px;height:1px;clip-path:inset(50%)}}
