@@ -392,3 +392,25 @@ body::before{background:#0d1512}
 .hero.ceu.claro .txt{background:var(--areia)}
 .hero.ceu.claro .txt .term,.hero.ceu.claro .sub{color:#14532f!important}
 :root{--osso:#d9d4bf}
+
+/* quarta passada: aba Dev com a cabeça e o status carregando */
+.dev-topo{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.cabeca{position:relative;width:176px;aspect-ratio:4/5;animation:flutua 5s ease-in-out infinite}
+.cabeca img{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.cabeca .c2{opacity:0;animation:pisca-olho 6s steps(1) infinite}
+@keyframes flutua{0%,100%{transform:translateY(-6px)}50%{transform:translateY(6px)}}
+@keyframes pisca-olho{0%,94%{opacity:0}95%,98%{opacity:1}99%,100%{opacity:0}}
+.status{display:flex;flex-direction:column;gap:6px}
+.st-l{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.st-k{color:var(--cinza);min-width:132px}
+.st-v{display:inline-flex;align-items:center;gap:8px;color:var(--osso)}
+.st-v .px{width:22px;height:22px;flex:none}
+.carga{display:inline-flex;gap:3px;padding:3px;border:2px solid var(--fosforo)}
+.carga i{width:8px;height:18px;background:var(--fosforo)}
+.carga i.vz{background:transparent}
+.carga i.pisca{animation:carga-p 1.1s steps(1) infinite}
+@keyframes carga-p{50%{opacity:.15}}
+.btn.comic{display:inline-flex;align-items:center;gap:8px}
+.btn.comic .px{width:20px;height:20px}
+@media (max-width:640px){.dev-topo{grid-template-columns:1fr;gap:12px}.cabeca{width:128px}.st-k{min-width:0;width:100%}}
+@media (prefers-reduced-motion:reduce){.cabeca,.cabeca .c2,.carga i.pisca{animation:none}}

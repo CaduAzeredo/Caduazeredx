@@ -290,7 +290,7 @@
     <p>Os vídeos do canal Cadu Azeredo. Esta página é alimentada pelo mesmo painel em que eu organizo a produção.</p>
     <p class="term" id="canalAgora" hidden></p>
     <div class="placar" id="canalPlacar" hidden><div><b id="plInsc"></b><span>inscritos</span></div><div><b id="plVid"></b><span>vídeos</span></div><div><b id="plViews"></b><span>visualizações</span></div><p class="nota" id="plQuando"></p></div>
-    <div class="row"><a class="btn pri" id="canalLink" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Seguir no YouTube</a></div>
+    <div class="row"><a class="btn pri comic" id="canalLink" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank"><svg class="px" data-ic="yt" aria-hidden="true"></svg>Seguir no YouTube</a></div>
   </section>
   <section class="sec">
     <div class="sec-h"><h2>Em breve</h2><span class="term">agendados</span></div>
@@ -347,12 +347,22 @@
 
 <!-- DEV -->
 <div class="pg sec" id="dev" style="gap:28px">
-  <section class="sec">
-    <span class="term" style="color:var(--cinza)">C:\CADU\DEV&gt; status</span>
-    <h1>Dev</h1>
-    <p>O lado programador. A programação está em pausa enquanto o foco é o YouTube, mas os projetos ficam aqui.</p>
+  <section class="dev-topo">
+    <div class="cabeca" aria-hidden="true"><img class="c1" src="/dempa/cabeca/fechada.png" alt="" width="256" height="320"><img class="c2" src="/dempa/cabeca/piscando.png" alt="" width="256" height="320"></div>
+    <div class="sec" style="gap:14px">
+      <span class="term" style="color:var(--cinza)">C:\CADU\DEV&gt; status</span>
+      <h1>Dev</h1>
+      <p>O lado programador. Hoje o código trabalha para os canais: automação, IA e as ferramentas que eu monto para produzir.</p>
+    </div>
   </section>
-  <div class="terminal" role="img" aria-label="Terminal mostrando status: programação pausada, foco em YouTube"><span class="c">$</span> cadu --status<br>programacao ........ <span style="color:var(--ambar)">PAUSADA</span><br>foco ............... youtube + rede de canais<br>ferramentas ........ IA, automação, Linux<br><span class="c">$</span> _</div>
+  <div class="terminal status">
+    <div class="st-l"><span class="c">$</span> cadu --status</div>
+    <div class="st-l"><span class="st-k">programação</span><span class="carga" role="img" aria-label="carregando"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="pisca"></i><i class="vz"></i><i class="vz"></i></span><span class="st-v">carregando_</span></div>
+    <div class="st-l"><span class="st-k">foco</span><span class="st-v"><svg class="px" data-ic="yt" aria-hidden="true"></svg>YouTube + rede de canais</span></div>
+    <div class="st-l"><span class="st-k">IA</span><span class="st-v"><svg class="px" data-ic="chip" aria-hidden="true"></svg>todas, cada uma no que faz melhor</span></div>
+    <div class="st-l"><span class="st-k">automação</span><span class="st-v"><svg class="px" data-ic="roteiro" aria-hidden="true"></svg>do roteiro ao vídeo pronto</span></div>
+    <div class="st-l"><span class="st-k">sistema</span><span class="st-v"><svg class="px" data-ic="monitor" aria-hidden="true"></svg>Linux no dia a dia · roda no Windows também</span></div>
+  </div>
   <section class="sec">
     <div class="sec-h"><h2>Projetos</h2><span class="term">github</span></div>
     <div class="projs">
