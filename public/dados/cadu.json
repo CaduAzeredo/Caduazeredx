@@ -24,7 +24,8 @@
       "hora": "12:00",
       "url": "https://youtu.be/qWzF0_0GHsA",
       "capa": "dados/capas/subida.jpg",
-      "duracao": "1:17"
+      "duracao": "1:17",
+      "estreia": true
     },
     {
       "titulo": "Specs DEMPA · os métodos por trás dos vídeos",
