@@ -37,15 +37,8 @@ import IC from "./icones.json";
   document.getElementById('pacotes').innerHTML=PAC.map(function(p){return '<article class="pacote '+p[6]+'"><span class="term" style="color:var(--fosforo)">'+p[0]+'.zip'+(p[6]?' · recomendado':'')+'</span><h3 style="font-size:16px">'+p[1]+'</h3><p class="nota" style="color:var(--osso)">'+p[2]+'</p><ul>'+p[3].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><span class="preco" style="margin-top:auto"><s>R$ '+p[4]+'</s>R$ '+p[5]+'</span><span class="eco">economiza R$ '+(p[4]-p[5])+'</span><a class="btn '+(p[6]?'pri respira':'')+'" href="#espera" data-rola="espera">Avise-me</a></article>'}).join('');
   document.getElementById('extras').innerHTML=EXT.map(function(e){return '<div class="extra"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(e[0])+'</svg><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><b>'+e[1]+'</b><span class="nota">'+e[2]+'</span><span class="pr">'+e[3]+'</span></div></div>'}).join('');
   // posts
-  var PO=[['EP 01','Por que parei de programar (por enquanto)','#3dff7e','IA'],['EP 01','Os bastidores do primeiro vídeo: o que eu gravei e o que cortei','#3fd8ff','Internet'],['rede','Canal 03 revelado: por que eu criei e quanto ele fez no primeiro mês','#3fd8ff','Internet'],['spec','Como uma spec vira um Short em 2D, passo a passo','#3dff7e','IA'],['marca','O que é o estilo DEMPA e de onde ele veio','#ff3a6e','DEMPA'],['setup','Meu Linux com o tema de ícones e cursor novo','#ffb21e','Oficina']];
+  var PO=[['EP 01','Por que o meu código agora trabalha para os canais','#3dff7e','IA'],['EP 01','Os bastidores do primeiro vídeo: o que eu gravei e o que cortei','#3fd8ff','Internet'],['rede','Canal 03 revelado: por que eu criei e quanto ele fez no primeiro mês','#3fd8ff','Internet'],['spec','Como uma spec vira um Short em 2D, passo a passo','#3dff7e','IA'],['marca','O que é o estilo DEMPA e de onde ele veio','#ff3a6e','DEMPA'],['setup','Meu Linux com o tema de ícones e cursor novo','#ffb21e','Oficina']];
   document.getElementById('posts').innerHTML=PO.map(function(p){return '<div class="post"><span class="d">'+p[0]+'</span><b>'+p[1]+'</b><span class="tag" style="color:'+p[2]+'">'+p[3]+'</span></div>'}).join('');
-  // miniatura da home
-  function thumb(){var c=document.getElementById('thumbHome'),k=c.getContext('2d');k.fillStyle='#060908';k.fillRect(0,0,640,360);k.fillStyle='#1d5a35';
-    for(var y=0;y<360;y+=8)for(var x=(y/8)%2?4:0;x<640;x+=8)if(((x*7+y*13)%97)/97<(1-x/640)*.9)k.fillRect(x,y,2,2);
-    k.fillStyle='#2a3a33';k.beginPath();k.ellipse(130,140,58,70,0,0,7);k.fill();k.beginPath();k.moveTo(20,360);k.bezierCurveTo(25,250,80,215,130,215);k.bezierCurveTo(180,215,235,250,240,360);k.fill();
-    k.font='44px Silkscreen';k.fillStyle='#3dff7e';k.fillText('COMECEI',303,233);k.fillText('DO ZERO',303,283);k.fillStyle='#e9e6d6';k.fillText('COMECEI',300,230);k.fillText('DO ZERO',300,280);
-    k.fillStyle='#3dff7e';k.fillRect(300,150,90,28);k.fillStyle='#060908';k.font='16px Silkscreen';k.fillText('EP 01',310,170);
-    k.fillStyle='rgba(0,0,0,.15)';for(var s=0;s<360;s+=3)k.fillRect(0,s,640,1)}
 
   // ---------- specs: loops 9:16 ----------
   function loopShort(k,t){var W=270,H=480;k.fillStyle='#060908';k.fillRect(0,0,W,H);
@@ -254,9 +247,9 @@ import IC from "./icones.json";
   chat.addEventListener('keydown',function(e){if(e.key==='Escape'){abre(false);rb.focus()}});
   cc.addEventListener('click',function(e){if(e.target.closest('[data-ir]'))abre(false)});
   // navegação por rotas de verdade
-  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/privacidade':'privacidade','/termos':'termos'};
+  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'Pasta DEMPA · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',dev:'Dev · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'Pasta DEMPA · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',dev:'Dev · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});
@@ -316,16 +309,23 @@ import IC from "./icones.json";
     if(d.canal&&urlYT(d.canal.url))document.getElementById('canalLink').href=d.canal.url;
     var sr={};(d.series||[]).forEach(function(s){sr[s.k]=s.nome});
     var br=(d.em_breve||[]).slice(0,5);
-    // card de vídeo agendado: o link só aparece depois da data e hora, porque antes disso o vídeo está privado
-    function cardV(v,n){var c=el('article','cardv'),m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v.data||''),h=/^(\d{2}):(\d{2})$/.exec(v.hora||''),qd=m?new Date(+m[1],+m[2]-1,+m[3],h?+h[1]:0,h?+h[2]:0):null,saiu=qd&&Date.now()>=qd.getTime();
-      var t=el('div','cv-t');t.appendChild(el('span','cv-n','0'+(n+1)));t.appendChild(el('span','cv-d',m?dataBR(v.data)+(h?' · '+(+h[1])+'h'+(+h[2]?h[2]:''):''):'em breve'));c.appendChild(t);
-      c.appendChild(el('h3','',String(v.titulo||'?').slice(0,120)));
-      var r=el('div','row');
-      if(saiu&&urlYT(v.url)){var a=el('a','btn pri','Assistir');a.href=v.url;a.target='_blank';a.rel='noopener';r.appendChild(a)}
-      else{r.appendChild(el('span','tag ps',qd?'agendado':'sai com o site'));if(qd){var dd=Math.ceil((qd.getTime()-Date.now())/864e5);r.appendChild(el('span','term cv-f',dd<=1?'falta 1 dia':'faltam '+dd+' dias'))}}
-      c.appendChild(r);return c}
-    if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v,n){cb.appendChild(cardV(v,n))});
-      var hb=document.getElementById('homeBreve');if(hb&&br.length>1){hb.textContent='';br.slice(1).forEach(function(v,n){hb.appendChild(cardV(v,n+1))});hb.hidden=false}}
+    // card de vídeo no jeito do YouTube. O link aparece se o vídeo tem estreia (a página já é pública) ou se a data já passou.
+    function cardV(v,gr){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v.data||''),h=/^(\d{2}):(\d{2})$/.exec(v.hora||''),qd=m?new Date(+m[1],+m[2]-1,+m[3],h?+h[1]:0,h?+h[2]:0):null,saiu=qd&&Date.now()>=qd.getTime();
+      var abre=urlYT(v.url)&&(saiu||v.estreia===true),c=el(abre?'a':'article','yt-c'),tit=String(v.titulo||'?').slice(0,120),qdo=m?dataBR(v.data)+(h?' às '+(+h[1])+'h'+(+h[2]?h[2]:''):''):'';
+      if(abre){c.href=v.url;c.target='_blank';c.rel='noopener';c.setAttribute('aria-label','Abrir no YouTube: '+tit)}
+      var t=el('span','yt-t');
+      if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading=gr?'eager':'lazy';im.width=960;im.height=540;t.appendChild(im)}else t.appendChild(el('span','yt-s','sem capa ainda_'));
+      t.appendChild(el('span','yt-e'+(saiu?' ok':qd?'':' es'),saiu?'No ar':qd?(v.estreia===true?'Estreia · ':'')+dataBR(v.data)+(h?' · '+(+h[1])+'h'+(+h[2]?h[2]:''):''):'Em breve'));
+      if(/^\d{1,2}:\d{2}$/.test(v.duracao||''))t.appendChild(el('span','yt-d',v.duracao));
+      c.appendChild(t);
+      var mt=el('span','yt-m'),av=el('img','yt-a');av.src='/dempa/cabeca/fechada.png';av.alt='';av.width=256;av.height=320;mt.appendChild(av);
+      var x=el('span','yt-x');x.appendChild(el('b','',tit));x.appendChild(el('span','','Cadu Azeredo'));
+      var dd=qd&&!saiu?Math.ceil((qd.getTime()-Date.now())/864e5):0,l=saiu?'Saiu em '+qdo:qd?(v.estreia===true?'Estreia em ':'Sai em ')+qdo+(dd?(dd<=1?' · falta 1 dia':' · faltam '+dd+' dias'):''):'Sai com o site';
+      if(v.ep)l+=' · '+String(v.ep).slice(0,40);x.appendChild(el('span','',l));mt.appendChild(x);c.appendChild(mt);return c}
+    if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v){cb.appendChild(cardV(v))});
+      var yd=document.getElementById('ytDest'),nv=cardV(br[0],true);nv.id='ytDest';if(yd)yd.replaceWith(nv);
+      var yb=document.getElementById('ytDestBtn');if(yb&&nv.tagName==='A'){yb.href=nv.href;if(nv.querySelector('.yt-e.ok'))yb.lastChild.textContent='Assistir no YouTube'}
+      var hb=document.getElementById('homeBreve');if(hb&&br.length>1){hb.textContent='';br.slice(1).forEach(function(v){hb.appendChild(cardV(v))});hb.hidden=false}}
     var na=(d.no_ar||[]).filter(function(v){return urlYT(v.url)}).slice(0,12);if(na.length){var cn=document.getElementById('canalNoAr');cn.textContent='';na.forEach(function(v){var a=el('a','vid');a.href=v.url;a.target='_blank';a.rel='noopener';
       if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading='lazy';a.appendChild(im)}
       a.appendChild(el('b','',String(v.titulo||'').slice(0,120)));a.appendChild(el('span','nota',[sr[v.serie],dataBR(v.data),v.duracao].filter(Boolean).join(' · ')));cn.appendChild(a)})}
@@ -358,6 +358,10 @@ import IC from "./icones.json";
   document.getElementById('rel').addEventListener('click',function(){ceuMan=true;poeCeu((ceuI+1)%CEUS.length);ir('inicio',{push:true})});
   if(cx&&!reduz)requestAnimationFrame(ceuAnda);
   var aBob=document.getElementById('atalhoBob');if(aBob)aBob.addEventListener('click',function(){abre(true)});
+  // área do membro (prévia): abas
+  var MT=[].slice.call(document.querySelectorAll('[data-m]'));
+  MT.forEach(function(b){b.addEventListener('click',function(){MT.forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');x.classList.toggle('on',x===b)});
+    [].forEach.call(document.querySelectorAll('.m-p'),function(q){q.hidden=q.id!=='m-'+b.dataset.m})})});
   // grupo aberto: o botão só vira link quando existir um convite de verdade
   var GRUPO='';
   if(/^https:\/\/(chat\.whatsapp\.com|discord\.gg)\//.test(GRUPO)){var gb=document.getElementById('grupoBtn'),ga=document.createElement('a');ga.className='btn pri';ga.href=GRUPO;ga.target='_blank';ga.rel='noopener';ga.textContent='Entrar no grupo';gb.replaceWith(ga)}
@@ -368,7 +372,6 @@ import IC from "./icones.json";
     document.getElementById('plInsc').textContent=a||'—';document.getElementById('plVid').textContent=b;document.getElementById('plViews').textContent=c;
     var q=new Date(d.atualizado);document.getElementById('plQuando').textContent='números públicos do YouTube'+(isNaN(q)?'':', lidos em '+q.toLocaleDateString('pt-BR'));
     document.getElementById('canalPlacar').hidden=false}).catch(function(){});
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(thumb);else thumb();
   // borrão glitch
   function borraLogo(){if(typeof borra==='function')borra()}
   var P=['#060908','#1f7a4b','#3dff7e','#0c2a1c'];

@@ -81,8 +81,8 @@
   <section class="sec">
     <div class="sec-h"><h2>Minha rede de canais</h2><span class="term">canais que eu crio e cuido, sem o meu nome</span></div>
     <div class="rede">
-      <div class="item"><svg class="px" data-ic="roteiro" aria-hidden="true"></svg><div><b>O Historiador Br</b><div class="nota">uma história por dia · dark · <span class="cens" aria-label="número oculto">00.000 views</span></div></div><span class="tag rd">no ar</span></div>
-      <div class="item"><svg class="px" data-ic="pata" aria-hidden="true"></svg><div><b>Bicho de Verdade</b><div class="nota">curiosidades de animais · dark · <span class="cens" aria-label="número oculto">0.000 views</span></div></div><span class="tag ps">pausado</span></div>
+      <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal um aqui</b><div class="oc">canal 01 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
+      <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal dois aqui</b><div class="oc">canal 02 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
       <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal três aqui</b><div class="oc">canal 03 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
       <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal quatro aqui</b><div class="oc">canal 04 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
     </div>
@@ -100,13 +100,16 @@
 
   <section class="sec">
     <div class="sec-h"><h2>Próximos vídeos</h2><span class="term">no YouTube</span></div>
-    <div class="video">
-      <div class="thumb"><canvas id="thumbHome" width="640" height="360" aria-label="Miniatura ilustrativa do primeiro vídeo"></canvas></div>
+    <div class="ytd">
+      <a class="yt-c" id="ytDest" href="https://youtu.be/qTQ-Yemyqds" rel="noopener" target="_blank" aria-label="Abrir no YouTube: Como começar no YouTube do zero em 2026 (12 dias, 3 canais)">
+        <span class="yt-t"><img src="/dados/capas/x00.jpg" alt="Capa do vídeo: Comece do jeito certo" width="960" height="540"><span class="yt-e">Estreia · 15/11 · 12h</span><span class="yt-d">8:48</span></span>
+        <span class="yt-m"><img class="yt-a" src="/dempa/cabeca/fechada.png" alt="" width="256" height="320"><span class="yt-x"><b>Como começar no YouTube do zero em 2026 (12 dias, 3 canais)</b><span>Cadu Azeredo</span><span>Estreia em 15/11 às 12h · EP 01 · série Começar</span></span></span>
+      </a>
       <div class="sec" style="gap:12px">
-        <span class="row"><span class="tag of">01</span><span class="tag ps">15/11 · 12h</span></span>
-        <h3 style="font-size:20px">Como começar no YouTube do zero em 2026 (12 dias, 3 canais)</h3>
-        <p>O primeiro vídeo do canal. Sai no dia 15, ao meio-dia.</p>
-        <div class="row"><a class="btn pri" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Seguir o canal no YouTube</a><a class="btn" href="/canal" data-ir="canal">Ver a agenda</a></div>
+        <span class="row"><span class="tag of">EP 01</span><span class="tag ps">série Começar</span></span>
+        <p>O primeiro vídeo do canal. A estreia é no dia 15, ao meio-dia. Dá para abrir a página do vídeo agora e ativar o lembrete.</p>
+        <div class="row"><a class="btn pri comic" id="ytDestBtn" href="https://youtu.be/qTQ-Yemyqds" rel="noopener" target="_blank"><svg class="px" data-ic="yt" aria-hidden="true"></svg>Ativar lembrete no YouTube</a><a class="btn" href="/canal" data-ir="canal">Ver a agenda</a></div>
+        <a class="oc" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">seguir o canal &gt;</a>
       </div>
     </div>
     <div class="agenda" id="homeBreve" hidden></div>
@@ -192,10 +195,10 @@
       <div class="painel">
         <div class="sec" style="gap:8px"><h3>Vídeos por semana</h3><div class="barras" aria-hidden="true"><i style="height:20%"></i><i style="height:35%"></i><i style="height:30%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:66%"></i><i style="height:92%"></i></div><span class="nota">8 semanas · <span class="cens">0000</span> views · receita <span class="cens">R$ 000</span></span></div>
         <table class="tab"><thead><tr><th>Canal</th><th>Spec</th><th>Views</th></tr></thead><tbody>
-          <tr><td>Historiador</td><td>dossiê</td><td><span class="cens">00.000</span></td></tr>
+          <tr><td><span class="cens">canal 01</span></td><td>dossiê</td><td><span class="cens">00.000</span></td></tr>
           <tr><td><span class="cens">canal 03</span></td><td>short 2D</td><td><span class="cens">0.000</span></td></tr>
           <tr><td><span class="cens">canal 04</span></td><td>checagem</td><td><span class="cens">0.000</span></td></tr>
-          <tr><td>Bicho de Verdade</td><td>short 2D</td><td><span class="cens">0.000</span></td></tr>
+          <tr><td><span class="cens">canal 02</span></td><td>short 2D</td><td><span class="cens">0.000</span></td></tr>
         </tbody></table>
       </div><p class="nota">Barras ilustrativas, até o primeiro print real.</p></div></section>
 
@@ -235,7 +238,7 @@
         <h3 style="margin-top:8px">Regras</h3><ul class="nota" style="margin:0;padding-left:20px"><li>Mostre o que fez, não só o link.</li><li>Sem spam e sem venda dentro do grupo.</li><li>Dúvida boa é dúvida com print.</li></ul></div></section>
     <section class="win"><div class="win-bar"><span>mural.log</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="win-body"><h2>Mural</h2><div class="mural">
-        <div class="msg"><div class="term">[aviso] 03/11</div>Canal novo vem aí: série 01 começa com o episódio "Comecei do zero".</div>
+        <div class="msg"><div class="term">[aviso] 15/11 · 12h</div>Estreia do primeiro vídeo do canal: "Como começar no YouTube do zero em 2026".</div>
         <div class="msg" style="border-color:var(--ambar)"><div class="term">[spec] em breve</div>Primeira spec abre para quem estiver na lista.</div>
       </div></div></section>
   </div>
@@ -287,7 +290,7 @@
         <div class="kp"><span class="term">canal 03</span><b class="cens" aria-label="nome oculto">Nome aqui</b></div>
         <p class="nota" style="grid-column:1/-1">Lá dentro, sem borrão.</p>
       </div></div>
-    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a></div>
+    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a><a class="btn" href="/circulo" data-ir="membro">Ver o Círculo por dentro</a></div>
     <p class="nota">Não é investimento: o preço sobe só para quem entra depois. Você paga pelo que recebe, e tem 7 dias de garantia.</p>
   </section>
 </div>
@@ -298,7 +301,7 @@
     <img class="ap-topo" src="/dempa/aparelhos/tv.webp" alt="" width="231" height="280">
     <span class="term" style="color:var(--cinza)">C:\CADU&gt; canal.exe</span>
     <h1>Canal</h1>
-    <p>Os vídeos do canal Cadu Azeredo. Esta página é alimentada pelo mesmo painel em que eu organizo a produção.</p>
+    <p>Os vídeos do canal Cadu Azeredo: o que está agendado e o que já saiu.</p>
     <p class="term" id="canalAgora" hidden></p>
     <div class="placar" id="canalPlacar" hidden><div><b id="plInsc"></b><span>inscritos</span></div><div><b id="plVid"></b><span>vídeos</span></div><div><b id="plViews"></b><span>visualizações</span></div><p class="nota" id="plQuando"></p></div>
     <div class="row"><a class="btn pri comic" id="canalLink" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank"><svg class="px" data-ic="yt" aria-hidden="true"></svg>Seguir no YouTube</a></div>
@@ -311,6 +314,92 @@
     <div class="sec-h"><h2>No ar</h2><span class="term">do mais novo para o mais antigo</span></div>
     <div class="vids" id="canalNoAr"><p class="vazio">&gt; nenhum vídeo no ar ainda_</p></div>
   </section>
+</div>
+
+<!-- CÍRCULO POR DENTRO (prévia da área de quem entra) -->
+<div class="pg sec" id="membro" style="gap:28px">
+  <section class="sec" style="gap:14px">
+    <span class="term" style="color:var(--sinal)">C:\CADU\CIRCULO&gt; previa_</span>
+    <h1>Círculo por dentro</h1>
+    <p>É assim que vai ser a área de quem entra. Aqui fora, nomes e números ficam no borrão; lá dentro, não. O acesso abre junto com o lote 01.</p>
+    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a><a class="btn" href="/comunidade" data-ir="comunidade">Voltar para a comunidade</a></div>
+  </section>
+  <div class="m-abas" role="tablist" aria-label="Seções da área do membro">
+    <button class="on" type="button" role="tab" aria-selected="true" aria-controls="m-inicio" data-m="inicio">Início</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-numeros" data-m="numeros">Números</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-videos" data-m="videos">Vídeos</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-downloads" data-m="downloads">Downloads</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-acesso" data-m="acesso">Acesso</button>
+  </div>
+
+  <div class="m-p duas" id="m-inicio" role="tabpanel">
+    <section class="win"><div class="win-bar"><span>primeiros_passos.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Primeiros passos</h2><div class="passos">
+        <div class="passo"><b class="oc">01</b><div style="flex:1"><b>Entrar no Círculo</b><div class="nota">a compra vai ser pela Kiwify</div></div></div>
+        <div class="passo"><b class="oc">02</b><div style="flex:1"><b>Baixar as specs</b><div class="nota">as 13 de hoje, sempre na versão mais nova</div></div></div>
+        <div class="passo"><b class="oc">03</b><div style="flex:1"><b>Se apresentar</b><div class="nota">diga qual é o seu canal e onde você travou</div></div></div>
+        <div class="passo"><b class="oc">04</b><div style="flex:1"><b>Pedir a sua auditoria</b><div class="nota">eu olho o seu canal com você</div></div></div>
+      </div></div></section>
+    <section class="win"><div class="win-bar"><span>novidades.log</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Novidades</h2><p class="nota">O que vai aparecer aqui, na ordem em que acontece:</p><div class="mural">
+        <div class="msg"><div class="term">[números]</div>O que mudou nos canais da rede e o que eu vou fazer com isso.</div>
+        <div class="msg" style="border-color:var(--ciano)"><div class="term">[vídeo]</div>Episódio novo da série fechada de bastidores.</div>
+        <div class="msg" style="border-color:var(--ambar)"><div class="term">[spec em teste]</div>Spec nova antes de ir para a loja, para você usar e me dizer o que quebrou.</div>
+      </div></div></section>
+  </div>
+
+  <div class="m-p sec" id="m-numeros" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>numeros_da_rede.exe</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Números da rede</h2><p>Tudo que eu não mostro em público, canal por canal.</p>
+        <div class="prev-c">
+          <div class="kp"><span class="term">inscritos na rede</span><b class="cens" aria-label="número oculto">12.345</b></div>
+          <div class="kp"><span class="term">views em 28 dias</span><b class="cens" aria-label="número oculto">123.456</b></div>
+          <div class="kp"><span class="term">receita do mês</span><b class="cens" aria-label="número oculto">R$ 1.234</b></div>
+          <div class="kp"><span class="term">vídeos no mês</span><b class="cens" aria-label="número oculto">00</b></div>
+        </div>
+        <div class="m-rol"><table class="tab"><thead><tr><th>Canal</th><th>Inscritos</th><th>Views 28d</th><th>Receita</th></tr></thead><tbody>
+          <tr><td><span class="cens">canal 01</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+          <tr><td><span class="cens">canal 02</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+          <tr><td><span class="cens">canal 03</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+          <tr><td><span class="cens">canal 04</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+        </tbody></table></div>
+        <p class="nota">O painel com os números entra quando a área tiver login. Até lá, eles vão por dentro do grupo.</p></div></section>
+  </div>
+
+  <div class="m-p sec" id="m-videos" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>videos_do_circulo</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Vídeos do Círculo</h2><p>Uma série de bastidores que não vai para o canal aberto. Os episódios vão ficar em link fechado do YouTube, então nada pesa no site.</p>
+        <p class="vazio">&gt; o primeiro episódio entra junto com o lote 01_</p></div></section>
+  </div>
+
+  <div class="m-p sec" id="m-downloads" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>downloads</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Downloads</h2><p>Tudo que é seu, sempre na versão mais nova.</p>
+        <div class="projs">
+          <div class="proj"><svg class="px" data-ic="pasta" aria-hidden="true"></svg><div><b>specs/</b><p class="nota">as 13 specs de hoje e as próximas</p></div></div>
+          <div class="proj"><svg class="px" data-ic="chip" aria-hidden="true"></svg><div><b>em_teste/</b><p class="nota">specs que ainda não foram para a loja</p></div></div>
+          <div class="proj"><svg class="px" data-ic="coracao" aria-hidden="true"></svg><div><b>bonus/</b><p class="nota">guia do nicho, kit visual e banco de temas</p></div></div>
+        </div>
+        <p class="nota">Os arquivos vão ficar na área de membros da Kiwify, e os botões daqui levam até lá.</p></div></section>
+  </div>
+
+  <div class="m-p duas" id="m-acesso" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>contato.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Falar comigo</h2><div class="passos">
+        <div class="passo"><svg class="px" data-ic="sino" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Meu WhatsApp pessoal</b><div class="nota">só no lote 01, porque são 10 pessoas</div></div><span class="tag of">lote 01</span></div>
+        <div class="passo"><svg class="px" data-ic="olho" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Auditoria</b><div class="nota">você manda o canal e eu devolvo, por vídeo, o que eu mudaria</div></div></div>
+        <div class="passo"><svg class="px" data-ic="rede" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Grupo de membros</b><div class="nota">para trocar canal, nicho e resultado entre si</div></div></div>
+      </div></div></section>
+    <section class="win"><div class="win-bar"><span>minha_conta.cfg</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Minha conta</h2>
+        <table class="tab"><tbody>
+          <tr><td>lote</td><td>01 · R$ 497</td></tr>
+          <tr><td>preço</td><td>travado para quem já entrou</td></tr>
+          <tr><td>período</td><td>12 meses</td></tr>
+          <tr><td>pagamento e nota</td><td>pela Kiwify</td></tr>
+          <tr><td>garantia</td><td>7 dias</td></tr>
+        </tbody></table></div></section>
+  </div>
 </div>
 
 <!-- PASTA DEMPA -->
@@ -385,21 +474,19 @@
   </section>
   <section class="sec" id="bastidores">
     <div class="sec-h"><h2>Como este site foi feito</h2><span class="term">decisoes.log</span></div>
-    <p>Tudo aberto: o que eu usei, o que eu deixei de fora e por quê. O padrão é este: <b>começar grátis, só pagar quando entrar dinheiro, e reinvestir.</b></p>
-    <div class="player" style="aspect-ratio:auto;min-height:0;height:auto"><div class="player-in" style="padding:22px;position:static"><svg class="px" data-ic="play" style="width:48px;height:48px" aria-hidden="true"></svg><b class="term" style="font-size:24px">EP 01 · eu mostrando este site por dentro</b><span class="tag ps">em breve</span></div></div>
+    <p>O que eu usei, o que eu deixei de fora e por quê. Cada decisão destrava junto com o vídeo em que eu mostro o site por dentro.</p>
+    <div class="player" style="aspect-ratio:auto;min-height:0;height:auto"><div class="player-in" style="padding:22px;position:static"><svg class="px" data-ic="play" style="width:48px;height:48px" aria-hidden="true"></svg><b class="term" style="font-size:24px">eu mostrando este site por dentro</b><span class="tag ps">em breve</span></div></div>
     <ol class="dlog">
-      <li><span class="d">#01 hospedagem</span><b>Cloudflare Pages, e não Vercel</b><p>O plano grátis da Vercel é só para uso pessoal. Como o site vende specs, ele passou a ser comercial. O Cloudflare é grátis, permite vender e não cobra por visita.</p></li>
-      <li><span class="d">#02 venda</span><b>Kiwify, e não Hotmart</b><p>Ela cuida do pagamento, da entrega do arquivo e do reembolso. A conta das taxas eu mostro no vídeo, com os números da minha conta.</p></li>
-      <li><span class="d">#03 dados</span><b>Sem banco de dados, por enquanto</b><p>Cada dado já tem dono: os clientes ficam na Kiwify, os e-mails da lista no Formspree (e depois no Brevo), os textos aqui no código e o progresso do painel no seu navegador. O banco só entra quando o painel precisar de login.</p></li>
-      <li><span class="d">#04 conteúdo</span><b>O blog é um arquivo de texto</b><p>Cada post vai ser um arquivo no repositório. Publicar vai ser salvar e mandar para o GitHub, sem painel de administração para manter.</p></li>
-      <li><span class="d">#05 canais</span><b>Números ao vivo pela API do YouTube</b><p>Vai ser uma função pequena que busca os números a cada 6 horas. O limite grátis da API é de 10 mil unidades por dia, e o site vai usar poucas.</p></li>
+      <li><span class="d">#01 hospedagem</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#02 venda</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#03 dados</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#04 conteúdo</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#05 canais</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
     </ol>
-    <div class="sec-h" style="margin-top:8px"><h2>A automação</h2><span class="term">da compra ao acesso</span></div>
-    <div class="fluxo" role="img" aria-label="Fluxo: compra na Kiwify, aviso para o site, e-mail com o acesso, painel liberado">
-      <div><b>01</b><span>compra na Kiwify</span></div><i>›</i><div><b>02</b><span>a Kiwify avisa o site</span></div><i>›</i><div><b>03</b><span>e-mail com o acesso</span></div><i>›</i><div class="fim"><b>04</b><span>painel liberado</span></div>
+    <div class="sec-h" style="margin-top:8px"><h2>Da compra ao acesso</h2><span class="term">como vai ser</span></div>
+    <div class="fluxo" role="img" aria-label="Fluxo: compra na Kiwify, pagamento confirmado, e-mail com o acesso, arquivos liberados">
+      <div><b>01</b><span>compra na Kiwify</span></div><i>›</i><div><b>02</b><span>pagamento confirmado</span></div><i>›</i><div><b>03</b><span>e-mail com o acesso</span></div><i>›</i><div class="fim"><b>04</b><span>arquivos liberados</span></div>
     </div>
-    <p class="nota">Os passos 01 e 03 a própria Kiwify faz. Os passos 02 e 04 entram quando o painel tiver login.</p>
-    <p class="nota">Custo atual: <b style="color:var(--fosforo)">R$ 0 por mês</b>, mais o domínio por ano e a taxa da Kiwify em cada venda.</p>
   </section>
 </div>
 

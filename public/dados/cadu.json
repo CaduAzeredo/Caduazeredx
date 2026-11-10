@@ -1,28 +1,36 @@
 {
- "versao": 1,
- "gerado_em": "2026-11-10T16:20:00-03:00",
- "canal": {
-  "nome": "Cadu Azeredo",
-  "url": "https://www.youtube.com/@CaduAzeredo"
- },
- "agora": "",
- "no_ar": [],
- "em_breve": [
-  {
-   "titulo": "Como começar no YouTube do zero em 2026 (12 dias, 3 canais)",
-   "data": "2026-11-15",
-   "hora": "12:00",
-   "url": "https://youtu.be/qTQ-Yemyqds"
+  "versao": 1,
+  "gerado_em": "2026-11-10T16:20:00-03:00",
+  "canal": {
+    "nome": "Cadu Azeredo",
+    "url": "https://www.youtube.com/@CaduAzeredo"
   },
-  {
-   "titulo": "Sobe com a gente · climb with us",
-   "data": "2026-11-16",
-   "hora": "12:00",
-   "url": "https://youtu.be/qWzF0_0GHsA"
-  },
-  {
-   "titulo": "Specs DEMPA · os métodos por trás dos vídeos"
-  }
- ],
- "series": []
+  "agora": "",
+  "no_ar": [],
+  "em_breve": [
+    {
+      "titulo": "Como começar no YouTube do zero em 2026 (12 dias, 3 canais)",
+      "data": "2026-11-15",
+      "hora": "12:00",
+      "url": "https://youtu.be/qTQ-Yemyqds",
+      "capa": "dados/capas/x00.jpg",
+      "duracao": "8:48",
+      "estreia": true,
+      "ep": "EP 01 · série Começar"
+    },
+    {
+      "titulo": "Sobe com a gente · climb with us",
+      "data": "2026-11-16",
+      "hora": "12:00",
+      "url": "https://youtu.be/qWzF0_0GHsA",
+      "capa": "dados/capas/subida.jpg",
+      "duracao": "1:17"
+    },
+    {
+      "titulo": "Specs DEMPA · os métodos por trás dos vídeos",
+      "capa": "dados/capas/specs.jpg",
+      "duracao": "0:59"
+    }
+  ],
+  "series": []
 }
