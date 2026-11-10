@@ -447,3 +447,12 @@ body::before{background:#0d1512}
 .cam-pilha .fn{font-size:14px;line-height:1.4}
 .cam-pilha .io{font-family:var(--f-term);font-size:17px;line-height:1.1;color:var(--cinza)}
 @media (max-width:860px){.cam{grid-template-columns:1fr}}
+
+/* cards dos vídeos agendados */
+.agenda{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.agenda[hidden]{display:none}
+.cardv{display:flex;flex-direction:column;gap:12px;border:2px solid var(--osso);background:var(--crt);box-shadow:5px 5px 0 var(--trilha);padding:0 16px 16px;min-width:0}
+.cv-t{display:flex;justify-content:space-between;align-items:center;margin:0 -16px;padding:6px 12px;background:var(--placa);border-bottom:2px solid var(--osso);font-family:var(--f-term);font-size:22px;line-height:1}
+.cv-n{color:var(--cinza)}.cv-d{color:var(--fosforo)}
+.cardv h3{font-size:15px;line-height:1.45;flex:1}
+.cardv .row{align-items:center}.cv-f{font-size:19px;color:var(--cinza)}

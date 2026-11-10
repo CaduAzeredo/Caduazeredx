@@ -315,8 +315,17 @@ import IC from "./icones.json";
     if(d.agora){var ag=document.getElementById('canalAgora');ag.textContent='> agora: '+String(d.agora).slice(0,140);ag.hidden=false}
     if(d.canal&&urlYT(d.canal.url))document.getElementById('canalLink').href=d.canal.url;
     var sr={};(d.series||[]).forEach(function(s){sr[s.k]=s.nome});
-    var br=(d.em_breve||[]).slice(0,5);if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v){var i=el('div','ag');i.appendChild(el('span','d',dataBR(v.data)||'em breve'));i.appendChild(el('b','',String(v.titulo||'?').slice(0,120)));
-      if(urlYT(v.url)){var a=el('a','btn','Ativar lembrete');a.href=v.url;a.target='_blank';a.rel='noopener';i.appendChild(a)}else i.appendChild(el('span','tag ps','agendado'));cb.appendChild(i)})}
+    var br=(d.em_breve||[]).slice(0,5);
+    // card de vídeo agendado: o link só aparece depois da data e hora, porque antes disso o vídeo está privado
+    function cardV(v,n){var c=el('article','cardv'),m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v.data||''),h=/^(\d{2}):(\d{2})$/.exec(v.hora||''),qd=m?new Date(+m[1],+m[2]-1,+m[3],h?+h[1]:0,h?+h[2]:0):null,saiu=qd&&Date.now()>=qd.getTime();
+      var t=el('div','cv-t');t.appendChild(el('span','cv-n','0'+(n+1)));t.appendChild(el('span','cv-d',m?dataBR(v.data)+(h?' · '+(+h[1])+'h'+(+h[2]?h[2]:''):''):'em breve'));c.appendChild(t);
+      c.appendChild(el('h3','',String(v.titulo||'?').slice(0,120)));
+      var r=el('div','row');
+      if(saiu&&urlYT(v.url)){var a=el('a','btn pri','Assistir');a.href=v.url;a.target='_blank';a.rel='noopener';r.appendChild(a)}
+      else{r.appendChild(el('span','tag ps',qd?'agendado':'sai com o site'));if(qd){var dd=Math.ceil((qd.getTime()-Date.now())/864e5);r.appendChild(el('span','term cv-f',dd<=1?'falta 1 dia':'faltam '+dd+' dias'))}}
+      c.appendChild(r);return c}
+    if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v,n){cb.appendChild(cardV(v,n))});
+      var hb=document.getElementById('homeBreve');if(hb&&br.length>1){hb.textContent='';br.slice(1).forEach(function(v,n){hb.appendChild(cardV(v,n+1))});hb.hidden=false}}
     var na=(d.no_ar||[]).filter(function(v){return urlYT(v.url)}).slice(0,12);if(na.length){var cn=document.getElementById('canalNoAr');cn.textContent='';na.forEach(function(v){var a=el('a','vid');a.href=v.url;a.target='_blank';a.rel='noopener';
       if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading='lazy';a.appendChild(im)}
       a.appendChild(el('b','',String(v.titulo||'').slice(0,120)));a.appendChild(el('span','nota',[sr[v.serie],dataBR(v.data),v.duracao].filter(Boolean).join(' · ')));cn.appendChild(a)})}
