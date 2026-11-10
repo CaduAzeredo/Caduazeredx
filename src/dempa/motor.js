@@ -18,7 +18,7 @@ import IC from "./icones.json";
     return s+'<path d="M'+f(G.k0[0])+' '+f(G.k0[1])+'L'+f(G.k1[0])+' '+f(G.k1[1])+'" stroke="'+ne+'" stroke-width="'+f(G.kw)+'" '+(o.glow?'style="filter:drop-shadow(0 0 4px rgba(61,255,126,.8))"':'')+'/></g>'}
   document.querySelectorAll('[data-simb]').forEach(function(e){var d=e.dataset;e.innerHTML=simb(+d.simb,{tinta:d.tinta,bg:d.bg,neon:d.neon})});
   var hs=document.getElementById('heroSimb'),st=document.getElementById('heroSt'),tA=0,reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function dh(t){hs.innerHTML=simb(t,{bg:'#000',glow:1});st.textContent=t<.5?'CA':'01';tA=t}
+  function dh(t){if(!hs)return;hs.innerHTML=simb(t,{bg:'#000',glow:1});st.textContent=t<.5?'CA':'01';tA=t}
   function vai(a,cb){var de=tA,i=null;function p(ts){if(!i)i=ts;var q=Math.min(1,(ts-i)/600);q=Math.round(q*12)/12;dh(de+(a-de)*q);if(q<1)requestAnimationFrame(p);else cb&&cb()}requestAnimationFrame(p)}
   dh(0);if(!reduz){(function ciclo(){setTimeout(function(){vai(1,function(){setTimeout(function(){vai(0,ciclo)},1400)})},2800)})()}
   // canais oficiais
@@ -28,22 +28,20 @@ import IC from "./icones.json";
   document.getElementById('oficiais').innerHTML=OF.map(function(c){return '<article class="canal"><div class="ban"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(c[1],c[2])+'</svg><b>'+c[0].toUpperCase()+'</b></div><div class="cb"><p>'+c[3]+'</p><div class="row"><span class="tag '+c[5]+'">'+c[4]+'</span><span class="tag of">oficial</span></div></div></article>'}).join('');
   // specs
   var SP=[['Short em 2D','imagem','roteiro, voz e cenas em 2D para Shorts de 60 s.','R$ 47',''],['Dossiê investigativo','roteiro','pesquisa com fontes, linha do tempo e roteiro longo.','R$ 67',''],['Checagem de roteiro','info','confere fatos, datas e nomes antes de gravar.','R$ 27',''],['Narração com tela','microfone','você fala por tópicos e ela monta o roteiro, os cortes e as legendas por cima da tela.','R$ 47','nova'],['Miniatura e título','tv','3 miniaturas no molde DEMPA (borda, glitch, texto curto) e 5 títulos para testar.','R$ 27','nova'],['Cortes em Shorts','play','pega um vídeo longo, acha os 5 melhores trechos e entrega cada um vertical e legendado.','R$ 37','nova']];
-  var PAC=[['PACOTE_SHORTS','Pacote Shorts','para quem quer postar todo dia',['Short em 2D','Cortes em Shorts','Miniatura e título'],111,77,''],['PACOTE_TUDO','Todas as 6 specs','o kit completo, com as specs novas que saírem',['as 6 specs','atualizações e specs novas','painel do comprador'],252,147,'top'],['PACOTE_LONGO','Pacote Vídeo longo','para vídeos de 8 a 15 minutos',['Dossiê investigativo','Narração com tela','Checagem de roteiro'],141,97,'']];
-  var EXT=[['grafico','Guia: o seu nicho está aquecido?','como saber se o nicho ainda cresce antes de começar.','R$ 19'],['imagem','Kit visual DEMPA','intro de 3 s, bordas, glitch e as 4 cores para o seu canal.','R$ 17'],['disquete','Banco de temas','temas prontos, separados por nicho. <span class="pend">[quantidade]</span>','R$ 27']];
-  function cards(){return SP.map(function(s,i){return '<article class="spec"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(s[1])+'</svg><span class="term" style="color:var(--cinza)">SPEC_0'+(i+1)+(s[4]?' <span class="tag rd">'+s[4]+'</span>':'')+'</span><h3 style="font-size:16px">'+s[0]+'</h3><p class="nota" style="color:var(--osso)">'+s[2]+'</p><span class="pr">'+s[3]+' <span class="nota">avulso · lançamento</span></span><a class="btn" href="/specs#espera" data-ir="specs" data-rola="espera">Avise-me</a></article>'}).join('')}
-  document.getElementById('specsHome').innerHTML=cards().split('</article>').slice(0,3).join('</article>')+'</article>';document.getElementById('specsPg').innerHTML=cards();
+  // cadeia de cinema: 7 specs novas (19-youtube/10-base/specs, aprovadas em 5/11). Preços = sugestão, falta o ok do Cadu.
+  var SC=[['Cadeia de cinema','roteiro','4 fases e 5 portões: você aprova no papel antes de gastar com voz e render.','R$ 27','nova'],['Ficha de estilo','imagem','o visual do canal em números: cores, fontes, movimento e o que não pode. Tira a cara de IA.','R$ 37','nova'],['Storyboard e cards','pasta','uma linha por cena e um quadro parado de cada uma, para aprovar antes de animar.','R$ 37','nova'],['Checagem de ritmo','ampulheta','lê o vídeo pronto e aponta cena parada demais ou imagem rápida demais.','R$ 27','nova'],['Mídia real primeiro','olho','a ordem certa para cada cena: sua mídia, acervo livre, desenho em código e só depois IA.','R$ 17','nova'],['A fala guia a tela','texto','cada número, nome e data que você fala vira imagem na hora exata da palavra.','R$ 27','nova'],['Ferramentas de IA para vídeo','chip','capa, revisor de quadros e ficha lida por outra conversa. Estou testando antes de soltar.','','em teste']];
+  var PAC=[['PACOTE_SHORTS','Pacote Shorts','para quem quer postar todo dia',['Short em 2D','Cortes em Shorts','Miniatura e título'],111,77,''],['PACOTE_TUDO','Todas as 13 specs','o kit completo: as 6 de formato e as 7 de cinema',['as 13 specs','atualizações e specs novas','painel do comprador'],424,197,'top'],['PACOTE_CINEMA','Pacote Cadeia de cinema','para o vídeo sair com cara de filme, não de IA',['as 7 specs de cinema','ficha de estilo do seu canal','checagem de ritmo'],172,97,''],['PACOTE_LONGO','Pacote Vídeo longo','para vídeos de 8 a 15 minutos',['Dossiê investigativo','Narração com tela','Checagem de roteiro'],141,97,'']];
+  var EXT=[['grafico','Guia: o seu nicho está aquecido?','como saber se o nicho ainda cresce antes de começar.','R$ 19'],['imagem','Kit visual DEMPA','intro de 3 s, bordas, glitch e as 4 cores para o seu canal.','R$ 17'],['disquete','Banco de temas','temas prontos, separados por nicho.','R$ 27']];
+  // compra: nome da spec -> link de checkout da Kiwify. Vazio = botão "Avise-me". Só entra link que o Cadu já conferiu e ligou.
+  var COMPRA={};
+  function botao(nome){var u=COMPRA[nome];return typeof u==='string'&&/^https:\/\/pay\.kiwify\.com\.br\/[A-Za-z0-9]+$/.test(u)?'<a class="btn pri" href="'+u+'" rel="noopener" target="_blank">Comprar</a>':'<a class="btn" href="/specs#espera" data-ir="specs" data-rola="espera">Avise-me</a>'}
+  function cards(L,b){L=L||SP;b=b||0;return L.map(function(s,i){var n=i+1+b;return '<article class="spec">'+(s[3]?'<span class="tag-l">lançamento</span>':'')+'<svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(s[1])+'</svg><span class="term" style="color:var(--cinza)">SPEC_'+(n<10?'0':'')+n+(s[4]?' <span class="tag rd">'+s[4]+'</span>':'')+'</span><h3 style="font-size:16px">'+s[0]+'</h3><p class="nota" style="color:var(--osso)">'+s[2]+'</p><span class="pr">'+(s[3]?s[3]+' <span class="nota">avulso</span>':'<span class="nota">vem no pacote de cinema</span>')+'</span>'+botao(s[0])+'</article>'}).join('')}
+  document.getElementById('specsHome').innerHTML=cards().split('</article>').slice(0,3).join('</article>')+'</article>';document.getElementById('specsPg').innerHTML=cards();document.getElementById('specsCine').innerHTML=cards(SC,SP.length);
   document.getElementById('pacotes').innerHTML=PAC.map(function(p){return '<article class="pacote '+p[6]+'"><span class="term" style="color:var(--fosforo)">'+p[0]+'.zip'+(p[6]?' · recomendado':'')+'</span><h3 style="font-size:16px">'+p[1]+'</h3><p class="nota" style="color:var(--osso)">'+p[2]+'</p><ul>'+p[3].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><span class="preco" style="margin-top:auto"><s>R$ '+p[4]+'</s>R$ '+p[5]+'</span><span class="eco">economiza R$ '+(p[4]-p[5])+'</span><a class="btn '+(p[6]?'pri respira':'')+'" href="#espera" data-rola="espera">Avise-me</a></article>'}).join('');
   document.getElementById('extras').innerHTML=EXT.map(function(e){return '<div class="extra"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(e[0])+'</svg><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><b>'+e[1]+'</b><span class="nota">'+e[2]+'</span><span class="pr">'+e[3]+'</span></div></div>'}).join('');
   // posts
-  var PO=[['EP 01','Por que parei de programar (por enquanto)','#3dff7e','IA'],['EP 01','Os bastidores do primeiro vídeo: o que eu gravei e o que cortei','#3fd8ff','Internet'],['rede','Canal 03 revelado: por que eu criei e quanto ele fez no primeiro mês','#3fd8ff','Internet'],['spec','Como uma spec vira um Short em 2D, passo a passo','#3dff7e','IA'],['marca','O que é o estilo DEMPA e de onde ele veio','#ff3a6e','DEMPA'],['setup','Meu Linux com o tema de ícones e cursor novo','#ffb21e','Oficina']];
+  var PO=[['EP 01','Por que o meu código agora trabalha para os canais','#3dff7e','IA'],['EP 01','Os bastidores do primeiro vídeo: o que eu gravei e o que cortei','#3fd8ff','Internet'],['rede','Canal 03 revelado: por que eu criei e quanto ele fez no primeiro mês','#3fd8ff','Internet'],['spec','Como uma spec vira um Short em 2D, passo a passo','#3dff7e','IA'],['marca','O que é o estilo DEMPA e de onde ele veio','#ff3a6e','DEMPA'],['setup','Meu Linux com o tema de ícones e cursor novo','#ffb21e','Oficina']];
   document.getElementById('posts').innerHTML=PO.map(function(p){return '<div class="post"><span class="d">'+p[0]+'</span><b>'+p[1]+'</b><span class="tag" style="color:'+p[2]+'">'+p[3]+'</span></div>'}).join('');
-  // miniatura da home
-  function thumb(){var c=document.getElementById('thumbHome'),k=c.getContext('2d');k.fillStyle='#060908';k.fillRect(0,0,640,360);k.fillStyle='#1d5a35';
-    for(var y=0;y<360;y+=8)for(var x=(y/8)%2?4:0;x<640;x+=8)if(((x*7+y*13)%97)/97<(1-x/640)*.9)k.fillRect(x,y,2,2);
-    k.fillStyle='#2a3a33';k.beginPath();k.ellipse(130,140,58,70,0,0,7);k.fill();k.beginPath();k.moveTo(20,360);k.bezierCurveTo(25,250,80,215,130,215);k.bezierCurveTo(180,215,235,250,240,360);k.fill();
-    k.font='44px Silkscreen';k.fillStyle='#3dff7e';k.fillText('COMECEI',303,233);k.fillText('DO ZERO',303,283);k.fillStyle='#e9e6d6';k.fillText('COMECEI',300,230);k.fillText('DO ZERO',300,280);
-    k.fillStyle='#3dff7e';k.fillRect(300,150,90,28);k.fillStyle='#060908';k.font='16px Silkscreen';k.fillText('EP 01',310,170);
-    k.fillStyle='rgba(0,0,0,.15)';for(var s=0;s<360;s+=3)k.fillRect(0,s,640,1)}
 
   // ---------- specs: loops 9:16 ----------
   function loopShort(k,t){var W=270,H=480;k.fillStyle='#060908';k.fillRect(0,0,W,H);
@@ -161,7 +159,7 @@ import IC from "./icones.json";
   // revelar ao rolar
   var rvs=document.querySelectorAll('.rv');
   if(reduz||!('IntersectionObserver' in window))rvs.forEach(function(e){e.classList.add('vis')});
-  else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:.12});rvs.forEach(function(e){io.observe(e)})}
+  else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px -12% 0px'});rvs.forEach(function(e){io.observe(e)})}
 
   // ---------- robô quiz (sem IA: respostas prontas) ----------
   var OSSO='#e9e6d6',CRT='#060908',PLACA='#0c2a1c',TRILHA='#1f7a4b',CINZA='#8f9a93',SINAL='#ff3a6e',ESC='#1a2621';
@@ -233,7 +231,7 @@ import IC from "./icones.json";
   function ops(lista,cb){var d=document.createElement('div');d.className='ops';lista.forEach(function(o){var b=document.createElement('button');b.type='button';b.className='op';b.textContent=o[1];b.onclick=function(){d.remove();bal(o[1],1);cb(o[0])};d.appendChild(b)});cc.appendChild(d);cc.scrollTop=cc.scrollHeight;var f=d.querySelector('button');if(f)f.focus()}
   function fala(t,cb){rEst='falando';setTimeout(function(){bal(t);rEst='parado';cb&&cb()},reduz?0:450)}
   function inicio(){cc.innerHTML='';resp={};
-    fala('Oi! Eu sou o Cadu.exe. Duas perguntas e eu te digo que tipo de canal combina com você.',function(){
+    fala('Oi! Eu sou o Bob. Duas perguntas e eu te digo que tipo de canal combina com você.',function(){
       fala('1/2 · Você quer aparecer nos vídeos?',function(){ops([['sim','Quero aparecer'],['voz','Só a minha voz'],['nada','Nem rosto nem voz']],function(a){resp.a=a;
         fala('2/2 · Quanto tempo por dia você tem?',function(){ops([['pouco','Até 1 hora'],['muito','Mais de 1 hora']],function(b){resp.b=b;resultado()})})})})})}
   function resultado(){var k=resp.a==='sim'?'rosto':resp.a==='nada'?'fantasma':resp.b==='pouco'?'narrador':'investigador',P=PERFIS[k];rEst='feliz';
@@ -252,21 +250,23 @@ import IC from "./icones.json";
   chat.addEventListener('keydown',function(e){if(e.key==='Escape'){abre(false);rb.focus()}});
   cc.addEventListener('click',function(e){if(e.target.closest('[data-ir]'))abre(false)});
   // navegação por rotas de verdade
-  var ROTAS={'/':'inicio','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/privacidade':'privacidade','/termos':'termos'};
+  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',dev:'Dev · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'Pasta DEMPA · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',dev:'Dev · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});
-    document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title=TITULOS[id]||TITULOS.inicio;
+    var abaDe=id==='membro'?'comunidade':id;document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===abaDe)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({comunidade:'circulo',dempa:'wallpapers'}[id]||'specs')}
     if(o.push&&CAMINHO[id]&&CAMINHO[id]!==location.pathname)history.pushState(null,'',CAMINHO[id]);
     if(!o.semRolar)window.scrollTo(0,0);setTimeout(borraLogo,30)}
   document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     var b=e.target.closest('[data-ir]'),r=e.target.closest('[data-rola]');
+    var q=e.target.closest('[data-quer]');
     if(b){e.preventDefault();ir(b.dataset.ir,{push:true,semRolar:!!(r&&r===b)});if(r===b)setTimeout(function(){rola(b.dataset.rola)},40);return}
-    if(r){e.preventDefault();rola(r.dataset.rola)}});
+    if(r){e.preventDefault();rola(r.dataset.rola)}
+    if(q)quer(q.dataset.quer)});
   window.addEventListener('popstate',function(){ir(idDo(location.pathname),{semRolar:true})});
   ir(idDo(location.pathname),{semRolar:true});
   if(location.hash)setTimeout(function(){rola(location.hash.slice(1))},120);
@@ -278,13 +278,103 @@ import IC from "./icones.json";
     try{return sessionStorage.getItem('cadu_v')||''}catch(e){return ''}})();
   function enviaLead(d,f){var hp=f&&f.querySelector('[name=_gotcha]');if(hp&&hp.value)return Promise.resolve(true);if(!ENDPOINT)return Promise.resolve(false);d.pagina=location.pathname;if(VIDEO)d.video=VIDEO;
     return fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
-  document.querySelectorAll('form.lista').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var bt=f.querySelector('button');bt.disabled=true;
-    enviaLead({email:f.querySelector('input[type=email]').value,interesse:f.dataset.interesse,origem:'lista'},f).then(function(ok){
-      var p=document.createElement('p');p.setAttribute('role','status');
-      if(ok){p.className='lista-ok';p.textContent='> anotado. eu te aviso primeiro_';f.replaceWith(p)}
-      else{bt.disabled=false;p.className='lista-erro';p.innerHTML='Não consegui anotar agora. Escreva para <a href="mailto:caduazeredo@gmail.com">caduazeredo@gmail.com</a>.';var v=f.querySelector('.lista-erro');if(v)v.remove();f.appendChild(p)}})})});
-  function rel(){var d=new Date();document.getElementById('rel').textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}rel();setInterval(rel,20000);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(thumb);else thumb();
+  // lista única: os interesses marcados viram etiqueta no envio
+  var CHIPS=[].slice.call(document.querySelectorAll('.chip'));
+  function quer(k){[].forEach.call(document.querySelectorAll('.chip'),function(c){c.setAttribute('aria-pressed',c.dataset.int===k?'true':'false')})}
+  CHIPS.forEach(function(c){c.addEventListener('click',function(){c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true')})});
+  document.querySelectorAll('form.lista').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var bt=f.querySelector('button[type=submit]');
+    var ints=CHIPS.filter(function(c){return c.getAttribute('aria-pressed')==='true'}).map(function(c){return c.dataset.int});
+    var v=f.querySelector('.lista-erro');if(v)v.remove();
+    function erro(t){var p=document.createElement('p');p.setAttribute('role','status');p.className='lista-erro';p.textContent=t;f.appendChild(p);return p}
+    if(!ints.length){erro('Marque pelo menos um interesse.');return}
+    bt.disabled=true;
+    enviaLead({email:f.querySelector('input[type=email]').value,interesse:ints.join(','),origem:'lista'},f).then(function(ok){
+      if(ok){var p=document.createElement('p');p.setAttribute('role','status');p.className='lista-ok';p.textContent='> anotado. eu te aviso primeiro_';
+        if(ints.indexOf('wallpapers')>-1){var a=document.createElement('a');a.className='btn pri';a.href='/dempa/wallpapers-dempa.zip';a.setAttribute('download','');a.textContent='Baixar os wallpapers (10 MB)';p.appendChild(document.createElement('br'));p.appendChild(a)}
+        f.replaceWith(p)}
+      else{bt.disabled=false;var p2=erro('Não consegui anotar agora. Escreva para ');var m=document.createElement('a');m.href='mailto:caduazeredo@gmail.com';m.textContent='caduazeredo@gmail.com';p2.appendChild(m)}})})});
+  // pasta DEMPA
+  var CAM={wp:'C:\\DEMPA\\wallpapers\\',leia:'C:\\DEMPA\\leia-me.txt',bast:'C:\\DEMPA\\.bastidores\\'};
+  var ICS=[].slice.call(document.querySelectorAll('.ic'));
+  ICS.forEach(function(b){b.addEventListener('click',function(){ICS.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    Object.keys(CAM).forEach(function(k){document.getElementById('p-'+k).hidden=(k!==b.dataset.p)});document.getElementById('pastaCam').textContent=CAM[b.dataset.p]})});
+  // comercial: só carrega quando a pessoa toca
+  var tvB=document.getElementById('tvPlay');
+  if(tvB)tvB.addEventListener('click',function(){var vt=window.matchMedia&&matchMedia('(max-width:640px)').matches,vd=document.createElement('video');
+    vd.controls=true;vd.autoplay=true;vd.playsInline=true;vd.preload='auto';vd.src='/dempa/video/comercial-'+(vt?'9x16':'16x9')+'.mp4';vd.poster='/dempa/video/capa-'+(vt?'9x16':'16x9')+'.jpg';
+    if(vt)vd.className='vert';vd.setAttribute('aria-label','Comercial das specs');tvB.replaceWith(vd);vd.focus()});
+  // canal: lê o arquivo público que o painel gera
+  function urlYT(u){return typeof u==='string'&&/^https:\/\/(www\.youtube\.com|youtu\.be)\//.test(u)}
+  function dataBR(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||'');return m?m[3]+'/'+m[2]:''}
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+  fetch('/dados/cadu.json').then(function(r){return r.ok?r.json():null}).then(function(d){if(!d||d.versao!==1)return;
+    if(d.agora){var ag=document.getElementById('canalAgora');ag.textContent='> agora: '+String(d.agora).slice(0,140);ag.hidden=false}
+    if(d.canal&&urlYT(d.canal.url))document.getElementById('canalLink').href=d.canal.url;
+    var sr={};(d.series||[]).forEach(function(s){sr[s.k]=s.nome});
+    var br=(d.em_breve||[]).slice(0,5);
+    // card de vídeo no jeito do YouTube. O link aparece se o vídeo tem estreia (a página já é pública) ou se a data já passou.
+    function cardV(v,gr){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v.data||''),h=/^(\d{2}):(\d{2})$/.exec(v.hora||''),qd=m?new Date(+m[1],+m[2]-1,+m[3],h?+h[1]:0,h?+h[2]:0):null,saiu=qd&&Date.now()>=qd.getTime();
+      var abre=urlYT(v.url)&&(saiu||v.estreia===true),c=el(abre?'a':'article','yt-c'),tit=String(v.titulo||'?').slice(0,120),qdo=m?dataBR(v.data)+(h?' às '+(+h[1])+'h'+(+h[2]?h[2]:''):''):'';
+      if(abre){c.href=v.url;c.target='_blank';c.rel='noopener';c.setAttribute('aria-label','Abrir no YouTube: '+tit)}
+      var t=el('span','yt-t');
+      if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading=gr?'eager':'lazy';im.width=960;im.height=540;t.appendChild(im)}else t.appendChild(el('span','yt-s','sem capa ainda_'));
+      t.appendChild(el('span','yt-e'+(saiu?' ok':qd?'':' es'),saiu?'No ar':qd?(v.estreia===true?'Estreia · ':'')+dataBR(v.data)+(h?' · '+(+h[1])+'h'+(+h[2]?h[2]:''):''):'Em breve'));
+      if(/^\d{1,2}:\d{2}$/.test(v.duracao||''))t.appendChild(el('span','yt-d',v.duracao));
+      c.appendChild(t);
+      var mt=el('span','yt-m'),av=el('img','yt-a');av.src='/dempa/cabeca/fechada.png';av.alt='';av.width=256;av.height=320;mt.appendChild(av);
+      var x=el('span','yt-x');x.appendChild(el('b','',tit));x.appendChild(el('span','','Cadu Azeredo'));
+      var dd=qd&&!saiu?Math.ceil((qd.getTime()-Date.now())/864e5):0,l=saiu?'Saiu em '+qdo:qd?(v.estreia===true?'Estreia em ':'Sai em ')+qdo+(dd?(dd<=1?' · falta 1 dia':' · faltam '+dd+' dias'):''):'Sai com o site';
+      if(v.ep)l+=' · '+String(v.ep).slice(0,40);x.appendChild(el('span','',l));mt.appendChild(x);c.appendChild(mt);return c}
+    if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v){cb.appendChild(cardV(v))});
+      var yd=document.getElementById('ytDest'),nv=cardV(br[0],true);nv.id='ytDest';if(yd)yd.replaceWith(nv);
+      var yb=document.getElementById('ytDestBtn');if(yb&&nv.tagName==='A'){yb.href=nv.href;yb.lastChild.textContent=nv.querySelector('.yt-e.ok')?'Assistir no YouTube':'Ativar lembrete no YouTube'}
+      var hb=document.getElementById('homeBreve');if(hb&&br.length>1){hb.textContent='';br.slice(1).forEach(function(v){hb.appendChild(cardV(v))});hb.hidden=false}}
+    var na=(d.no_ar||[]).filter(function(v){return urlYT(v.url)}).slice(0,12);if(na.length){var cn=document.getElementById('canalNoAr');cn.textContent='';na.forEach(function(v){var a=el('a','vid');a.href=v.url;a.target='_blank';a.rel='noopener';
+      if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading='lazy';a.appendChild(im)}
+      a.appendChild(el('b','',String(v.titulo||'').slice(0,120)));a.appendChild(el('span','nota',[sr[v.serie],dataBR(v.data),v.duracao].filter(Boolean).join(' · ')));cn.appendChild(a)})}
+  }).catch(function(){});
+  // céu do início: muda com a hora do relógio. Clicar no relógio troca o céu à mão.
+  var CEUS=[
+    {k:'madrugada',de:0,img:1},
+    {k:'amanhecer',de:5,c:[[233,230,214],[244,201,160],[226,150,150]],ch:[[233,230,214],[201,178,150]],as:[255,236,190],ay:.92,ax:.72,ar:20},
+    {k:'dia',de:8,c:[[120,160,214],[176,204,230],[233,230,214]],ch:[[233,230,214],[120,150,200]],as:[255,246,214],ay:.3,ax:.76,ar:13},
+    {k:'tarde',de:15,c:[[214,196,160],[233,214,176],[244,226,196]],ch:[[233,230,214],[176,140,110]],as:[255,240,200],ay:.6,ax:.78,ar:15},
+    {k:'pôr do sol',de:17,c:[[40,16,52],[150,40,90],[255,140,60]],ch:[[255,58,110],[40,10,40]],as:[255,214,150],ay:.96,ax:.5,ar:26,es:1},
+    {k:'noite',de:19,img:1}];
+  var cv=document.getElementById('ceuCv'),cx=cv&&cv.getContext('2d'),ceuI=-1,ceuMan=false,ceuT=0,ceuEst=null;
+  function ceuDaHora(h){var i=0;CEUS.forEach(function(c,n){if(h>=c.de)i=n});return i}
+  function mist(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]}
+  var BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+  function pinta(){var C=CEUS[ceuI];if(!cx||C.img)return;var W=cv.width,H=cv.height,hy=Math.round(H*.58),im=cx.createImageData(W,H),d=im.data,x,y,o,c;
+    if(!ceuEst){ceuEst=[];for(var s=0;s<70;s++)ceuEst.push([Math.random()*W|0,Math.random()*hy*.8|0])}
+    for(y=0;y<H;y++)for(x=0;x<W;x++){o=(y*W+x)*4;
+      if(y<hy){var t=y/hy*2,q=(BAYER[(y&3)*4+(x&3)]/16-.5)*.18;t=Math.max(0,Math.min(1.999,t+q));var n=t|0;t=Math.round((t-n)*6)/6;c=mist(C.c[n],C.c[n+1]||C.c[n],t);
+        var dx=x-W*C.ax,dy=y-hy*C.ay;if(dx*dx+dy*dy<C.ar*C.ar)c=C.as}
+      else{var z=26/(y-hy+1),wx=(x-W/2)*z*.11,wz=z*7+ceuT,par=((Math.floor(wx)+Math.floor(wz))&1);c=C.ch[par];var nev=Math.min(1,z/9);c=mist(c,C.c[2],nev*nev)}
+      d[o]=c[0];d[o+1]=c[1];d[o+2]=c[2];d[o+3]=255}
+    if(C.es)ceuEst.forEach(function(e){o=(e[1]*W+e[0])*4;d[o]=d[o+1]=d[o+2]=235});
+    cx.putImageData(im,0,0)}
+  function poeCeu(i){ceuI=i;var C=CEUS[i],h=document.querySelector('.hero.ceu');if(!h)return;h.dataset.ceu=C.img?'foto':'cena';h.classList.toggle('claro',C.k==='amanhecer'||C.k==='dia'||C.k==='tarde');
+    var l=document.getElementById('ceuLeg');if(l)l.textContent='céu: '+C.k;pinta()}
+  var ceuUlt=0;function ceuAnda(ts){requestAnimationFrame(ceuAnda);if(ts-ceuUlt<90||document.hidden||!cv.offsetWidth||CEUS[ceuI].img)return;ceuUlt=ts;ceuT+=.035;pinta()}
+  function rel(){var d=new Date(),r=document.getElementById('rel');r.textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);if(!ceuMan){var i=ceuDaHora(d.getHours());if(i!==ceuI)poeCeu(i)}}rel();setInterval(rel,20000);
+  document.getElementById('rel').addEventListener('click',function(){ceuMan=true;poeCeu((ceuI+1)%CEUS.length);ir('inicio',{push:true})});
+  if(cx&&!reduz)requestAnimationFrame(ceuAnda);
+  var aBob=document.getElementById('atalhoBob');if(aBob)aBob.addEventListener('click',function(){abre(true)});
+  // área do membro (prévia): abas
+  var MT=[].slice.call(document.querySelectorAll('[data-m]'));
+  MT.forEach(function(b){b.addEventListener('click',function(){MT.forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');x.classList.toggle('on',x===b)});
+    [].forEach.call(document.querySelectorAll('.m-p'),function(q){q.hidden=q.id!=='m-'+b.dataset.m})})});
+  // grupo aberto: o botão só vira link quando existir um convite de verdade
+  var GRUPO='';
+  if(/^https:\/\/(chat\.whatsapp\.com|discord\.gg)\//.test(GRUPO)){var gb=document.getElementById('grupoBtn'),ga=document.createElement('a');ga.className='btn pri';ga.href=GRUPO;ga.target='_blank';ga.rel='noopener';ga.textContent='Entrar no grupo';gb.replaceWith(ga)}
+  // números do canal: vêm da função /api/canal (Cloudflare). Sem resposta, nada aparece.
+  function nBR(n){return typeof n==='number'&&isFinite(n)?n.toLocaleString('pt-BR'):''}
+  fetch('/api/canal').then(function(r){return r.ok?r.json():null}).then(function(d){if(!d||!d.ok)return;
+    var a=nBR(d.inscritos),b=nBR(d.videos),c=nBR(d.views);if(!a&&!b)return;
+    document.getElementById('plInsc').textContent=a||'—';document.getElementById('plVid').textContent=b;document.getElementById('plViews').textContent=c;
+    var q=new Date(d.atualizado);document.getElementById('plQuando').textContent='números públicos do YouTube'+(isNaN(q)?'':', lidos em '+q.toLocaleDateString('pt-BR'));
+    document.getElementById('canalPlacar').hidden=false}).catch(function(){});
   // borrão glitch
   function borraLogo(){if(typeof borra==='function')borra()}
   var P=['#060908','#1f7a4b','#3dff7e','#0c2a1c'];
