@@ -414,3 +414,11 @@ body::before{background:#0d1512}
 .btn.comic .px{width:20px;height:20px}
 @media (max-width:640px){.dev-topo{grid-template-columns:1fr;gap:12px}.cabeca{width:128px}.st-k{min-width:0;width:100%}}
 @media (prefers-reduced-motion:reduce){.cabeca,.cabeca .c2,.carga i.pisca{animation:none}}
+
+/* aparelhos reais (recortes) nos atalhos e nos topos */
+.atalho img{height:72px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.55));transition:transform .15s steps(2)}
+.atalho:hover img,.atalho:focus-visible img{transform:translateY(-4px)}
+.ap-topo{width:120px;height:auto;animation:flutua 6s ease-in-out infinite;filter:drop-shadow(4px 4px 0 rgba(0,0,0,.55))}
+.ap-jan{width:112px;height:auto;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.5))}
+@media (max-width:640px){.atalho img{height:56px}.ap-topo{width:88px}}
+@media (prefers-reduced-motion:reduce){.ap-topo{animation:none}.atalho img{transition:none}}
