@@ -2,264 +2,581 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Favicon do kit de marca (15/10, tela 15b): o SVG, os PNGs e o ícone
-         da tela inicial. O favicon antigo (o prompt) saiu. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Cadu Azeredo · canais, specs e bastidores</title>
+    <meta name="description" content="Eu comecei. Vamos começar? Vídeos sobre IA e internet, uma rede de canais construída em público e as specs que eu uso para produzir." />
+    <link rel="canonical" href="https://www.caduazeredo.com/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
-    <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png" />
-    <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#0a0e10" />
-
-    <!-- Título e descrição: seção 7 do kit de marca. -->
-    <title>Cadu Azeredo — dev em Palmas-TO, software com IA</title>
-    <meta
-      name="description"
-      content="Sou o Cadu, dev em Palmas-TO. Faço sites, atendimento no WhatsApp e sistemas com IA, e mostro o processo. Criador do Shizune."
-    />
-
-    <!-- Open Graph: a prévia quando alguém cola o link. -->
-    <meta property="og:title" content="Cadu Azeredo — dev em Palmas-TO" />
-    <meta
-      property="og:description"
-      content="Faço software com IA e mostro o processo, erro incluso."
-    />
-    <meta
-      property="og:image"
-      content="https://caduazeredo.com/og/cadu-azeredo-og-1200x630.png"
-    />
+    <meta name="theme-color" content="#060908" />
+    <meta property="og:title" content="Cadu Azeredo · canais, specs e bastidores" />
+    <meta property="og:description" content="Eu comecei. Vamos começar? A rede de canais, as specs e os bastidores, tudo aberto." />
+    <meta property="og:image" content="https://www.caduazeredo.com/og/caduazeredo-og-1200x630.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://caduazeredo.com" />
-
-    <!-- Dados estruturados da pessoa. `sameAs` só com o GitHub: o Instagram
-         entra quando a conta existir. Bloco de dados (não executa), por isso a
-         política script-src 'self' não o bloqueia. -->
+    <meta property="og:url" content="https://www.caduazeredo.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Cadu Azeredo",
-        "url": "https://caduazeredo.com",
-        "image": "https://caduazeredo.com/avatar/cadu-azeredo-avatar-480.webp",
-        "jobTitle": "Desenvolvedor de software",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Palmas",
-          "addressRegion": "TO",
-          "addressCountry": "BR"
-        },
-        "sameAs": ["https://github.com/CaduAzeredo"]
+        "url": "https://www.caduazeredo.com",
+        "sameAs": ["https://www.youtube.com/@CaduAzeredo", "https://github.com/CaduAzeredo"]
       }
     </script>
-
-    <!-- Modo de leitura e casca de boot, antes do primeiro desenho. Arquivo
-         externo e não script inline porque a política de segurança declara
-         script-src 'self' sem unsafe-inline — e afrouxá-la para acomodar uma
-         funcionalidade de aparência seria trocar segurança por conveniência.
-         Bloqueante de propósito: depois da pintura, a página piscaria. -->
-    <script src="/mode-init.js"></script>
-    <script src="/boot.js" defer></script>
-
-    <!-- Fontes do kit de marca (15/10): DM Sans no corpo, JetBrains Mono nos
-         números e comandos, e da Newsreader só o corte itálico 400, dos
-         títulos grandes. A Plus Jakarta Sans saiu: nenhuma tela a usa. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..800&family=JetBrains+Mono:wght@400..700&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- ══ A CASCA DE BOOT ══
-         Estilo embutido, e não no pacote de CSS, por um motivo que é a razão de
-         a casca existir: ela precisa pintar no PRIMEIRO quadro, antes dos ~106 KB
-         da aplicação. Uma tela de carregamento só melhora o desempenho percebido
-         quando ela É a primeira pintura; carregada junto com a aplicação, é
-         apenas atraso encenado.
-
-         As cinco cores abaixo estão escritas à mão, e isso é uma exceção
-         declarada à regra de que cor vive só em `tokens.css`. Ela se justifica
-         aqui e em nenhum outro lugar: no instante em que esta casca é desenhada,
-         a folha de tokens ainda pode não ter chegado. Se a paleta mudar, estes
-         cinco valores mudam junto — está anotado no AGENTS.md. -->
-    <style>
-      #boot {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 34px;
-        padding: 24px;
-        background: #0a0e10;
-        color: #edf2ef;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-        opacity: 1;
-        transition: opacity 400ms ease;
-      }
-      html.boot-off #boot {
-        display: none;
-      }
-      #boot[data-saindo] {
-        opacity: 0;
-        pointer-events: none;
-      }
-      #boot .boot-skip {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        border: 1px solid #1e2a2b;
-        border-radius: 999px;
-        background: transparent;
-        color: #8a9a92;
-        font: inherit;
-        font-size: 11px;
-        padding: 8px 16px;
-        cursor: pointer;
-      }
-      #boot .boot-skip:hover {
-        color: #edf2ef;
-      }
-      #boot .boot-mid {
-        width: 100%;
-        max-width: 460px;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-      }
-      #boot .boot-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        justify-content: center;
-        font-size: 22px;
-      }
-      #boot .boot-name {
-        font-family: "Newsreader", Georgia, "Times New Roman", serif;
-        font-style: italic;
-        font-weight: 400;
-        letter-spacing: -0.01em;
-      }
-      #boot ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      #boot li {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 12.5px;
-        color: #edf2ef;
-      }
-      #boot li i {
-        width: 6px;
-        height: 6px;
-        flex: none;
-        border-radius: 50%;
-        background: #1e2a2b;
-      }
-      #boot li span {
-        flex: 1;
-      }
-      #boot li b {
-        font-weight: 400;
-        font-size: 11px;
-        color: #8a9a92;
-        opacity: 0;
-      }
-      #boot li[data-feito] {
-        color: #8a9a92;
-      }
-      #boot li[data-feito] i {
-        background: #3fa372;
-      }
-      #boot li[data-feito] b {
-        opacity: 1;
-      }
-      #boot .boot-bar {
-        height: 1px;
-        background: #1e2a2b;
-        overflow: hidden;
-      }
-      #boot .boot-bar div {
-        height: 100%;
-        width: 0;
-        background: #3fa372;
-        transition: width 300ms ease;
-      }
-      #boot .boot-meta {
-        display: flex;
-        justify-content: space-between;
-        font-size: 10px;
-        letter-spacing: 0.16em;
-        color: #8a9a92;
-      }
-      #boot .boot-foot {
-        position: absolute;
-        bottom: 24px;
-        margin: 0;
-        font-size: 10px;
-        color: #8a9a92;
-      }
-      @media (prefers-reduced-motion: reduce) {
-        #boot,
-        #boot .boot-bar div {
-          transition-duration: 0.01ms;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&family=Archivo:wght@400;600;800&display=swap" />
   </head>
   <body>
-    <div id="boot">
-      <button class="boot-skip" id="boot-skip" type="button">pular</button>
+<header class="bar"><div class="in">
+  <a class="marca" aria-label="Cadu Azeredo, ir para o início" href="/" data-ir="inicio"><svg viewBox="0 0 200 140" aria-hidden="true" data-simb="0" data-tinta="#d9d4bf" data-bg="#0d1512" data-neon="#3dff7e"></svg><span>CADU AZEREDO</span></a>
+  <nav class="abas" aria-label="Seções do site">
+    <a class="aba" href="/" data-ir="inicio"><svg class="px" data-ic="monitor" aria-hidden="true"></svg><span>Início</span></a>
+    <a class="aba" href="/canal" data-ir="canal"><svg class="px" data-ic="tv" aria-hidden="true"></svg><span>Canal</span></a>
+    <a class="aba" href="/specs" data-ir="specs"><svg class="px" data-ic="disquete" aria-hidden="true"></svg><span>Specs</span></a>
+    <a class="aba" href="/comunidade" data-ir="comunidade"><svg class="px" data-ic="rede" aria-hidden="true"></svg><span>Comunidade</span></a>
+    <a class="aba" href="/dempa" data-ir="dempa"><svg class="px" data-ic="pasta" aria-hidden="true"></svg><span>Pasta</span></a>
+    <a class="aba" href="/dev" data-ir="dev"><svg class="px" data-ic="chip" aria-hidden="true"></svg><span>Dev</span></a>
+  </nav>
+  <button class="rel" id="rel" type="button" aria-label="Trocar o céu do início">--:--</button>
+</div></header>
+<div class="faixa"><span><b>preço de lançamento</b> até a loja abrir</span><span aria-hidden="true">·</span><a href="#espera" data-rola="espera">lista de espera aberta</a></div>
 
-      <div class="boot-mid">
-        <!-- O nome em texto: o lockup antigo (prompt e barra) saiu na troca de
-             15/10, e a assinatura nova ainda não existe. -->
-        <div class="boot-brand">
-          <span class="boot-name">Cadu Azeredo</span>
-        </div>
+<main class="wrap">
 
-        <ul>
-          <li data-step="css">
-            <i></i><span>folha de estilo</span><b>aplicada</b>
-          </li>
-          <li data-step="fontes">
-            <i></i><span>carregando tipografia</span><b>2 famílias</b>
-          </li>
-          <li data-step="app">
-            <i></i><span>montando a aplicação</span><b>pronta</b>
-          </li>
-          <li data-step="cena">
-            <i></i><span>campo de partículas</span><b>5 200</b>
-          </li>
-        </ul>
+<!-- INÍCIO -->
+<div class="pg sec" id="inicio" style="gap:56px">
+  <section class="hero ceu">
+    <div class="ceu-bg" aria-hidden="true"></div><canvas class="ceu-cv" id="ceuCv" width="320" height="180" aria-hidden="true"></canvas><div class="ceu-linhas" aria-hidden="true"></div><div class="ceu-vela" aria-hidden="true"></div>
+    <div class="txt">
+      <span class="term" style="color:var(--fosforo)">C:\CADU&gt; iniciar.exe</span>
+      <h1>Cadu<br>Azeredo</h1>
+      <p class="sub">&gt; eu comecei. vamos começar?_</p>
+      <p>Faço vídeos sobre IA, internet e o que dá para construir com isso, e mantenho uma rede de canais.</p>
+      <div class="row"><button class="btn pri" type="button" data-rola="canais">Ver os canais</button><a class="btn" href="/specs" data-ir="specs">Specs à venda</a><a class="btn" href="/dempa" data-ir="dempa">Pasta DEMPA <span class="novo">novo</span></a></div>
+    </div>
+    <span class="ceu-leg term" id="ceuLeg" aria-live="polite"></span>
+  </section>
 
-        <div>
-          <div class="boot-bar"><div id="boot-fill"></div></div>
-          <div class="boot-meta" style="margin-top: 10px">
-            <span>PROGRESSO REAL — SAI QUANDO ESTIVER PRONTO</span>
-            <span id="boot-pct">0%</span>
-          </div>
+  <nav class="mesa" aria-label="Atalhos do site">
+    <a class="atalho" href="/canal" data-ir="canal"><img src="/dempa/aparelhos/tv.webp" alt="" width="231" height="280" loading="lazy"><span>canal.exe</span></a>
+    <a class="atalho" href="/specs" data-ir="specs"><img src="/dempa/aparelhos/videocassete.webp" alt="" width="280" height="117" loading="lazy"><span>specs</span></a>
+    <a class="atalho" href="/dempa" data-ir="dempa"><img src="/dempa/aparelhos/toca-fitas.webp" alt="" width="280" height="212" loading="lazy"><span>pasta dempa</span></a>
+    <a class="atalho" href="/comunidade" data-ir="comunidade"><img src="/dempa/aparelhos/telefone.webp" alt="" width="280" height="221" loading="lazy"><span>comunidade</span></a>
+    <a class="atalho" href="/dev" data-ir="dev"><img src="/dempa/aparelhos/monitor.webp" alt="" width="280" height="276" loading="lazy"><span>dev</span></a>
+    <button class="atalho" type="button" id="atalhoBob"><img src="/dempa/aparelhos/controle.webp" alt="" width="280" height="205" loading="lazy"><span>bob.exe</span></button>
+  </nav>
+
+  <section class="sec" id="canais">
+    <div class="sec-h"><h2>Canais oficiais</h2><span class="term">levam o meu nome</span></div>
+    <div class="canais" id="oficiais"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>Minha rede de canais</h2><span class="term">canais que eu crio e cuido, sem o meu nome</span></div>
+    <div class="rede">
+      <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal um aqui</b><div class="oc">canal 01 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
+      <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal dois aqui</b><div class="oc">canal 02 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
+      <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal três aqui</b><div class="oc">canal 03 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
+      <div class="item oculto"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b class="cens bloco" aria-label="nome oculto">Canal quatro aqui</b><div class="oc">canal 04 · sai junto com um vídeo</div></div><span class="tag of">em breve</span></div>
+    </div>
+    <p class="nota">A rede vai sendo revelada conforme os vídeos saem. Cada vídeo destrava um canal e os números dele.</p>
+  </section>
+
+  <section class="sec rv" id="camadas">
+    <div class="sec-h"><h2>Como é feito</h2><span class="term">6 camadas · a de baixo sustenta a de cima</span></div>
+    <div class="cam">
+      <div class="cam-palco" id="camPalco"><canvas id="camBrilho" aria-hidden="true"></canvas><canvas id="camTela" role="img" aria-label="Gráfico 3D em linhas com seis camadas empilhadas: pesquisa, roteiro, arte, vídeo, site e Círculo"></canvas></div>
+      <ol class="cam-pilha" id="camPilha"></ol>
+    </div>
+    <p class="nota">Toque numa camada para isolar. A numeração começa na base.</p>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>Próximos vídeos</h2><span class="term">no YouTube</span></div>
+    <div class="ytd">
+      <article class="yt-c" id="ytDest">
+        <span class="yt-t"><img src="/dados/capas/x00.jpg" alt="Capa do vídeo: Comece do jeito certo" width="960" height="540"><span class="yt-e">15/11 · 12h</span><span class="yt-d">8:48</span></span>
+        <span class="yt-m"><img class="yt-a" src="/dempa/cabeca/fechada.png" alt="" width="256" height="320"><span class="yt-x"><b>Como começar no YouTube do zero em 2026 (12 dias, 3 canais)</b><span>Cadu Azeredo</span><span>Sai em 15/11 às 12h · EP 01 · série Começar</span></span></span>
+      </article>
+      <div class="sec" style="gap:12px">
+        <span class="row"><span class="tag of">EP 01</span><span class="tag ps">série Começar</span></span>
+        <p>O primeiro vídeo do canal. Sai no dia 15, ao meio-dia.</p>
+        <div class="row"><a class="btn pri comic" id="ytDestBtn" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank"><svg class="px" data-ic="yt" aria-hidden="true"></svg><span>Seguir o canal no YouTube</span></a><a class="btn" href="/canal" data-ir="canal">Ver a agenda</a></div>
+      </div>
+    </div>
+    <div class="agenda" id="homeBreve" hidden></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>Specs à venda</h2><span class="term">13 specs · 7 novas</span><a class="btn" href="/specs" data-ir="specs">Ver todas</a></div>
+    <div class="loja" id="specsHome"></div>
+  </section>
+</div>
+
+<!-- SPECS -->
+<div class="pg sec" id="specs" style="gap:64px">
+  <section class="sp-hero">
+    <div class="sec" style="gap:18px">
+      <span class="term" style="color:var(--cinza)">C:\CADU\SPECS&gt; run</span>
+      <h1>Specs</h1>
+      <p class="sub" style="font-family:var(--f-term);font-size:28px;line-height:1.1;color:var(--fosforo)">&gt; o molde que eu uso nos meus canais_</p>
+      <p>Você escolhe a spec, dá o tema, e a IA monta roteiro, voz, cenas e legenda no seu computador. O vídeo sai pronto para postar, no formato que já roda na minha rede.</p>
+      <div class="etapas" aria-label="Etapas"><span>tema</span><i>›</i><span>roteiro</span><i>›</i><span>voz</span><i>›</i><span>cenas</span><i>›</i><span>legenda</span><i>›</i><span class="fim">vídeo</span></div>
+      <div class="row"><button class="btn pri respira" type="button" data-rola="espera">Avise-me quando abrir</button><button class="btn" type="button" data-rola="spDemo">Ver como funciona</button></div>
+      <span class="nota">A loja abre em breve, pela Kiwify, com 7 dias de garantia.</span>
+    </div>
+    <div class="fone"><canvas class="loopc" data-loop="short" width="270" height="480" aria-label="Exemplo animado de Short em 2D gerado pela spec"></canvas><span class="fone-l">SPEC_01 · short em 2D</span></div>
+  </section>
+
+  <section class="sec rv" id="comercial">
+    <div class="sec-h"><h2>Entenda em 1 minuto</h2><span class="term">58 s · o som só liga quando você tocar</span></div>
+    <div class="tv" id="tv"><button class="tv-capa" type="button" id="tvPlay" aria-label="Assistir ao comercial das specs: 58 segundos, com som"><picture><source media="(max-width:640px)" srcset="/dempa/video/capa-9x16.jpg"><img src="/dempa/video/capa-16x9.jpg" alt="" loading="lazy" width="1280" height="720"></picture><span class="play" aria-hidden="true"></span></button></div>
+  </section>
+
+  <section class="sec rv" id="spDemo">
+    <div class="sec-h"><h2>Como funciona</h2><span class="term">4 passos · menos de 10 minutos</span></div>
+    <div class="win"><div class="win-bar"><span>spec.exe · demonstração</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="demo">
+        <ol class="passos-d" id="passosD">
+          <li><button type="button" data-p="0"><b>01</b> Escolha a spec</button></li>
+          <li><button type="button" data-p="1"><b>02</b> Dê o tema</button></li>
+          <li><button type="button" data-p="2"><b>03</b> A IA monta</button></li>
+          <li><button type="button" data-p="3"><b>04</b> Vídeo pronto</button></li>
+        </ol>
+        <div class="tela-d" id="telaD" aria-live="polite">
+          <div class="cena" data-c="0"><div class="minis"><div class="mini" id="m0"><b>SHORT 2D</b><span>60 s · vertical</span></div><div class="mini"><b>DOSSIÊ</b><span>8 a 15 min</span></div><div class="mini"><b>CHECAGEM</b><span>antes de gravar</span></div><div class="mini"><b>NARRAÇÃO</b><span>voz + tela</span></div><div class="mini"><b>MINIATURA</b><span>3 versões</span></div><div class="mini"><b>CORTES</b><span>longo → shorts</span></div></div></div>
+          <div class="cena" data-c="1"><label class="tlabel">tema do vídeo</label><div class="tinput"><span id="digita"></span><i class="cur">_</i></div><div class="row"><span class="tag of">canal: rede 03</span><span class="tag rd">voz: pt-br grave</span><span class="tag br">60 s</span></div></div>
+          <div class="cena" data-c="2"><div class="barras-d" id="barrasD"></div><div class="log" id="logD"></div></div>
+          <div class="cena" data-c="3"><div class="pronto"><canvas class="loopc" data-loop="short" width="270" height="480" aria-label="Prévia do vídeo pronto"></canvas><div class="sec" style="gap:10px"><b class="term" style="color:var(--fosforo)">video_final.mp4</b><span class="nota">título, descrição e tags prontos</span><span class="btn pri" style="pointer-events:none">Baixar</span><span class="btn" style="pointer-events:none">Agendar no YouTube</span></div></div></div>
+          <svg class="ptr px" id="ptr" data-ic="cursor" aria-hidden="true"></svg>
         </div>
       </div>
+      <div class="row" style="padding:0 20px 20px"><button class="btn" type="button" id="demoPlay" aria-pressed="true">Pausar</button><span class="nota">Telas ilustrativas.</span></div>
+    </div>
+    <div class="player"><div class="player-in"><svg class="px" data-ic="play" style="width:64px;height:64px" aria-hidden="true"></svg><b class="term" style="font-size:26px">demo_completa.mp4 · em breve</b><span class="nota">Eu usando a spec do começo ao fim, com o avatar no canto.</span></div></div>
+  </section>
 
-      <p class="boot-foot">só na primeira visita · nunca atrasa</p>
+  <section class="sec rv">
+    <div class="sec-h"><h2>O que cada spec gera</h2><span class="term">vídeos em loop</span></div>
+    <div class="vitrine" id="vitrine">
+      <figure><canvas class="loopc" data-loop="short" width="270" height="480" aria-label="Exemplo: Short em 2D"></canvas><figcaption><b>Short em 2D</b><span>cenas em camadas, legenda que pula</span></figcaption></figure>
+      <figure><canvas class="loopc" data-loop="dossie" width="270" height="480" aria-label="Exemplo: Dossiê investigativo"></canvas><figcaption><b>Dossiê investigativo</b><span>fotos, fio vermelho, linha do tempo</span></figcaption></figure>
+      <figure><canvas class="loopc" data-loop="checa" width="270" height="480" aria-label="Exemplo: Checagem de roteiro"></canvas><figcaption><b>Checagem de roteiro</b><span>cada frase conferida antes de gravar</span></figcaption></figure>
+      <figure><canvas class="loopc" data-loop="tela" width="270" height="480" aria-label="Exemplo: Narração com tela"></canvas><figcaption><b>Narração com tela</b><span>sua voz, a tela e o avatar no canto</span></figcaption></figure>
+      <figure><canvas class="loopc" data-loop="mini" width="270" height="480" aria-label="Exemplo: Miniatura e título"></canvas><figcaption><b>Miniatura e título</b><span>3 versões com borda e glitch</span></figcaption></figure>
+      <figure><canvas class="loopc" data-loop="cortes" width="270" height="480" aria-label="Exemplo: Cortes em Shorts"></canvas><figcaption><b>Cortes em Shorts</b><span>um vídeo longo vira 5 Shorts</span></figcaption></figure>
+    </div>
+    <p class="nota">Animações ilustrativas.</p>
+  </section>
+
+  <section class="sec rv" id="spLoja">
+    <div class="sec-h"><h2>Loja</h2><span class="term">abre em breve</span></div>
+    <div class="loja" id="specsPg"></div>
+    <div class="sec-h" style="margin-top:12px"><h2>Cadeia de cinema</h2><span class="term">7 specs novas</span></div>
+    <div class="loja" id="specsCine"></div>
+    <div class="sec-h" style="margin-top:12px"><h2>Pacotes</h2><span class="term">mais barato junto</span></div>
+    <div class="pacotes" id="pacotes"></div>
+    <div class="sec-h" style="margin-top:12px"><h2>Extras</h2><span class="term">aparecem no carrinho</span></div>
+    <div class="extras" id="extras"></div>
+    <div class="gratis"><svg class="px" data-ic="download" aria-hidden="true"></svg><div style="flex:1;min-width:200px"><b>Amostra grátis</b><p class="nota">Um pedaço aberto de cada spec, para testar antes de comprar. Sai junto com a loja.</p></div><a class="btn" href="#espera" data-rola="espera">Avise-me</a></div>
+    <p class="nota">Os preços são os de lançamento. A compra vai ser pela Kiwify, e quem estiver na lista fica sabendo primeiro.</p>
+  </section>
+
+  <section class="win rv"><div class="win-bar"><span>painel_da_rede.exe · prova</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <div class="win-body"><h2>Os números vão aparecer aqui</h2><p>Este é o meu painel, com as specs rodando na rede. O que ainda não pode aparecer fica no borrão. Quando um canal monetizar, os ganhos entram aqui com print e data.</p>
+      <div class="painel">
+        <div class="sec" style="gap:8px"><h3>Vídeos por semana</h3><div class="barras" aria-hidden="true"><i style="height:20%"></i><i style="height:35%"></i><i style="height:30%"></i><i style="height:55%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:66%"></i><i style="height:92%"></i></div><span class="nota">8 semanas · <span class="cens">0000</span> views · receita <span class="cens">R$ 000</span></span></div>
+        <table class="tab"><thead><tr><th>Canal</th><th>Spec</th><th>Views</th></tr></thead><tbody>
+          <tr><td><span class="cens">canal 01</span></td><td>dossiê</td><td><span class="cens">00.000</span></td></tr>
+          <tr><td><span class="cens">canal 03</span></td><td>short 2D</td><td><span class="cens">0.000</span></td></tr>
+          <tr><td><span class="cens">canal 04</span></td><td>checagem</td><td><span class="cens">0.000</span></td></tr>
+          <tr><td><span class="cens">canal 02</span></td><td>short 2D</td><td><span class="cens">0.000</span></td></tr>
+        </tbody></table>
+      </div><p class="nota">Barras ilustrativas, até o primeiro print real.</p></div></section>
+
+  <section class="faq rv">
+    <div class="sec" style="gap:14px">
+      <h2>Antes de comprar</h2>
+      <div class="garantia"><svg class="px" data-ic="cadeado" aria-hidden="true"></svg><div><b>7 dias de garantia</b><p class="nota">Não serviu? Pede o dinheiro de volta pela Kiwify em até 7 dias, sem pergunta.</p></div></div>
+      <a class="btn" href="mailto:caduazeredo@gmail.com?subject=Specs" style="align-self:flex-start">Perguntar por e-mail</a>
+    </div>
+    <div class="acc">
+      <details><summary>Preciso saber programar?</summary><p>Não. Você segue o passo a passo e cola o tema. Se travar, tem o grupo.</p></details>
+      <details><summary>Que ferramentas de IA eu preciso?</summary><p>A spec diz quais usar para roteiro, voz e imagem, com opção grátis quando existe.</p></details>
+      <details><summary>Funciona para canal dark?</summary><p>Foi feita para isso. É o mesmo molde que roda nos canais da minha rede.</p></details>
+      <details><summary>Quantos canais posso usar?</summary><p>Quantos quiser. A spec é sua.</p></details>
+      <details><summary>Recebo as atualizações?</summary><p>Sim. Quando eu melhorar uma spec, a versão nova chega para quem comprou.</p></details>
+      <details><summary>E se eu não gostar?</summary><p>7 dias de garantia pela Kiwify, dinheiro de volta.</p></details>
+    </div>
+  </section>
+
+
+  <div class="fixa" id="fixa"><span style="line-height:1.1"><b>desde R$ 17</b><br><span style="color:var(--cinza)">abre em breve</span></span><button class="btn pri" type="button" data-rola="espera">Avise-me</button></div>
+</div>
+
+<!-- COMUNIDADE -->
+<div class="pg sec" id="comunidade" style="gap:28px">
+  <section class="sec">
+    <span class="term" style="color:var(--cinza)">C:\CADU\REDE&gt; conectar</span>
+    <h1>Comunidade</h1>
+    <p>A parte aberta é de todo mundo: grupo, mural e os posts de bastidor. Mais embaixo fica o Círculo, a parte fechada, com os meus números de verdade.</p>
+  </section>
+  <div class="duas">
+    <section class="win"><div class="win-bar"><span>entrar.exe</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><img class="ap-jan" src="/dempa/aparelhos/telefone.webp" alt="" width="280" height="221" loading="lazy"><h2>Entrar</h2><p>Grupo aberto e gratuito. Começa no WhatsApp; quando crescer, vai para o Discord.</p>
+        <div class="passos"><div class="passo"><svg class="px" data-ic="sino" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>WhatsApp</b><div class="nota">agora · avisos e conversa</div></div><span class="tag of">aberto</span></div>
+        <div class="passo prox"><svg class="px" data-ic="rede" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Discord</b><div class="nota">depois · salas por tema e por spec</div></div><span class="tag ps">próximo</span></div></div>
+        <div class="row"><span class="btn pri" id="grupoBtn" aria-disabled="true" style="opacity:.6;cursor:default">Grupo abre em breve</span><a class="btn" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Seguir no YouTube</a></div>
+        <h3 style="margin-top:8px">Regras</h3><ul class="nota" style="margin:0;padding-left:20px"><li>Mostre o que fez, não só o link.</li><li>Sem spam e sem venda dentro do grupo.</li><li>Dúvida boa é dúvida com print.</li></ul></div></section>
+    <section class="win"><div class="win-bar"><span>mural.log</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Mural</h2><div class="mural">
+        <div class="msg"><div class="term">[aviso] 15/11 · 12h</div>Estreia do primeiro vídeo do canal: "Como começar no YouTube do zero em 2026".</div>
+        <div class="msg" style="border-color:var(--ambar)"><div class="term">[spec] em breve</div>Primeira spec abre para quem estiver na lista.</div>
+      </div></div></section>
+  </div>
+  <section class="win"><div class="win-bar"><span>posts.txt · em breve</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <div class="win-body" style="padding-block:6px"><div class="filtros" style="padding:8px 0"><span class="tag of">IA</span><span class="tag" style="color:var(--sinal)">DEMPA</span><span class="tag rd">Internet</span><span class="tag br">Oficina</span></div><div class="posts" id="posts"></div></div></section>
+
+  <div class="corte" aria-hidden="true"><span>ÁREA FECHADA · SÓ ENTRA QUEM PAGA</span></div>
+
+  <section class="circ" id="circulo">
+    <div class="circ-top">
+      <div class="fossil-w"><svg class="fossil" id="fossil" viewBox="0 0 32 14" aria-hidden="true"></svg><span class="term">FÓSSIL.DAT · acesso 01</span></div>
+      <div class="sec" style="gap:12px">
+        <span class="term" style="color:var(--sinal)">C:\CADU\CIRCULO&gt; acesso negado_</span>
+        <h2 class="circ-h">Círculo</h2>
+        <p>O que não dá para mostrar em público: os números de cada canal todo dia, os vídeos que eu não posto aberto e tudo que eu estou testando antes de virar spec. Um preço só, sem níveis.</p>
+        <p class="nota">Quem entra cedo paga menos. A cada 10 pessoas o preço sobe para quem vem depois, porque tem mais canal, mais dado e mais coisa entregue lá dentro. Para quem já entrou, o preço fica travado.</p>
+      </div>
     </div>
 
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="lote">
+      <div class="lote-a"><span class="term" style="color:var(--fosforo)">LOTE 01 · abre em breve</span>
+        <div class="preco-g">R$ 497</div><span class="nota">por 12 meses · à vista ou em até 12x na Kiwify</span>
+        <span class="fund"><b>só no lote 01</b>meu WhatsApp pessoal para as 10 vagas, e desconto de lançamento para as 5 primeiras</span>
+        <div class="vagas"><div class="vbar"><i style="width:0%"></i></div><span class="term"><b id="vagasN">0</b> de 10 vagas</span></div>
+        <a class="btn pri respira" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a></div>
+      <ol class="lotes" aria-label="Próximos lotes">
+        <li class="on"><span>lote 01</span><b>R$ 497</b><i>agora</i></li>
+        <li class="dica"><span class="term">os próximos valores só aparecem quando o lote anterior fechar_</span></li>
+        <li><span>lote 02</span><b class="cens" aria-label="valor oculto">R$ 597</b><i>depois de 10</i></li>
+        <li><span>lote 03</span><b class="cens" aria-label="valor oculto">R$ 697</b><i>depois de 20</i></li>
+        <li><span>lote 04+</span><b class="cens" aria-label="valor oculto">R$ 797</b><i>???</i></li>
+      </ol>
+    </div>
+
+    <div class="dentro">
+      <div><svg class="px" data-ic="grafico" aria-hidden="true"></svg><b>Painel com os meus números</b><p>Inscritos, views e receita de cada canal da rede, atualizados todo dia. Incluindo os canais que ainda estão escondidos.</p></div>
+      <div><svg class="px" data-ic="play" aria-hidden="true"></svg><b>Vídeos só para o Círculo</b><p>Uma série de bastidores por link fechado no YouTube ou no Drive. Nada pesa no site.</p></div>
+      <div><svg class="px" data-ic="disquete" aria-hidden="true"></svg><b>Todas as specs</b><p>As 13 de hoje e as que eu estiver criando, antes de saírem na loja. Avulsas, elas passam de R$ 420.</p></div>
+      <div><svg class="px" data-ic="olho" aria-hidden="true"></svg><b>Auditoria comigo</b><p>Eu olho o seu canal e te digo o que mudar, por vídeo.</p></div>
+      <div><svg class="px" data-ic="rede" aria-hidden="true"></svg><b>Troca de canais</b><p>Um grupo só de membros para trocar ideia, nicho e resultado entre si.</p></div>
+      <div><svg class="px" data-ic="coracao" aria-hidden="true"></svg><b>Bônus</b><p>O guia do nicho, o kit visual e o banco de temas já vêm junto.</p></div>
+    </div>
+
+    <div class="win"><div class="win-bar"><span>painel_circulo.exe · prévia</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body prev-c">
+        <div class="kp"><span class="term">inscritos na rede</span><b class="cens" aria-label="número oculto">12.345</b></div>
+        <div class="kp"><span class="term">views em 28 dias</span><b class="cens" aria-label="número oculto">123.456</b></div>
+        <div class="kp"><span class="term">receita do mês</span><b class="cens" aria-label="número oculto">R$ 1.234</b></div>
+        <div class="kp"><span class="term">canal 03</span><b class="cens" aria-label="nome oculto">Nome aqui</b></div>
+        <p class="nota" style="grid-column:1/-1">Lá dentro, sem borrão.</p>
+      </div></div>
+    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a><a class="btn" href="/circulo" data-ir="membro">Ver o Círculo por dentro</a></div>
+    <p class="nota">Não é investimento: o preço sobe só para quem entra depois. Você paga pelo que recebe, e tem 7 dias de garantia.</p>
+  </section>
+</div>
+
+<!-- CANAL -->
+<div class="pg sec" id="canal" style="gap:40px">
+  <section class="sec" style="gap:14px">
+    <img class="ap-topo" src="/dempa/aparelhos/tv.webp" alt="" width="231" height="280">
+    <span class="term" style="color:var(--cinza)">C:\CADU&gt; canal.exe</span>
+    <h1>Canal</h1>
+    <p>Os vídeos do canal Cadu Azeredo: o que está agendado e o que já saiu.</p>
+    <p class="term" id="canalAgora" hidden></p>
+    <div class="placar" id="canalPlacar" hidden><div><b id="plInsc"></b><span>inscritos</span></div><div><b id="plVid"></b><span>vídeos</span></div><div><b id="plViews"></b><span>visualizações</span></div><p class="nota" id="plQuando"></p></div>
+    <div class="row"><a class="btn pri comic" id="canalLink" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank"><svg class="px" data-ic="yt" aria-hidden="true"></svg>Seguir no YouTube</a></div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2 class="com-gif"><picture class="gif g-tit"><source media="(prefers-reduced-motion:reduce)" srcset="/dempa/gif/sinal.png"><img src="/dempa/gif/sinal.gif" alt="" width="64" height="64" loading="lazy"></picture>Em breve</h2><span class="term">agendados</span></div>
+    <div class="agenda" id="canalBreve"><p class="vazio">&gt; nada agendado por enquanto_</p></div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>No ar</h2><span class="term">do mais novo para o mais antigo</span></div>
+    <div class="vids" id="canalNoAr"><p class="vazio">&gt; nenhum vídeo no ar ainda_</p></div>
+  </section>
+</div>
+
+<!-- CÍRCULO POR DENTRO (prévia da área de quem entra) -->
+<div class="pg sec" id="membro" style="gap:28px">
+  <section class="sec" style="gap:14px">
+    <span class="term" style="color:var(--sinal)">C:\CADU\CIRCULO&gt; previa_</span>
+    <h1>Círculo por dentro</h1>
+    <p>É assim que vai ser a área de quem entra. Aqui fora, nomes e números ficam no borrão; lá dentro, não. O acesso abre junto com o lote 01.</p>
+    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a><a class="btn" href="/comunidade" data-ir="comunidade">Voltar para a comunidade</a></div>
+  </section>
+  <div class="m-abas" role="tablist" aria-label="Seções da área do membro">
+    <button class="on" type="button" role="tab" aria-selected="true" aria-controls="m-inicio" data-m="inicio">Início</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-numeros" data-m="numeros">Números</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-videos" data-m="videos">Vídeos</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-downloads" data-m="downloads">Downloads</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="m-acesso" data-m="acesso">Acesso</button>
+  </div>
+
+  <div class="m-p duas" id="m-inicio" role="tabpanel">
+    <section class="win"><div class="win-bar"><span>primeiros_passos.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Primeiros passos</h2><div class="passos">
+        <div class="passo"><b class="oc">01</b><div style="flex:1"><b>Entrar no Círculo</b><div class="nota">a compra vai ser pela Kiwify</div></div></div>
+        <div class="passo"><b class="oc">02</b><div style="flex:1"><b>Baixar as specs</b><div class="nota">as 13 de hoje, sempre na versão mais nova</div></div></div>
+        <div class="passo"><b class="oc">03</b><div style="flex:1"><b>Se apresentar</b><div class="nota">diga qual é o seu canal e onde você travou</div></div></div>
+        <div class="passo"><b class="oc">04</b><div style="flex:1"><b>Pedir a sua auditoria</b><div class="nota">eu olho o seu canal com você</div></div></div>
+      </div></div></section>
+    <section class="win"><div class="win-bar"><span>novidades.log</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Novidades</h2><p class="nota">O que vai aparecer aqui, na ordem em que acontece:</p><div class="mural">
+        <div class="msg"><div class="term">[números]</div>O que mudou nos canais da rede e o que eu vou fazer com isso.</div>
+        <div class="msg" style="border-color:var(--ciano)"><div class="term">[vídeo]</div>Episódio novo da série fechada de bastidores.</div>
+        <div class="msg" style="border-color:var(--ambar)"><div class="term">[spec em teste]</div>Spec nova antes de ir para a loja, para você usar e me dizer o que quebrou.</div>
+      </div></div></section>
+  </div>
+
+  <div class="m-p sec" id="m-numeros" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>numeros_da_rede.exe</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Números da rede</h2><p>Tudo que eu não mostro em público, canal por canal.</p>
+        <div class="prev-c">
+          <div class="kp"><span class="term">inscritos na rede</span><b class="cens" aria-label="número oculto">12.345</b></div>
+          <div class="kp"><span class="term">views em 28 dias</span><b class="cens" aria-label="número oculto">123.456</b></div>
+          <div class="kp"><span class="term">receita do mês</span><b class="cens" aria-label="número oculto">R$ 1.234</b></div>
+          <div class="kp"><span class="term">vídeos no mês</span><b class="cens" aria-label="número oculto">00</b></div>
+        </div>
+        <div class="m-rol"><table class="tab"><thead><tr><th>Canal</th><th>Inscritos</th><th>Views 28d</th><th>Receita</th></tr></thead><tbody>
+          <tr><td><span class="cens">canal 01</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+          <tr><td><span class="cens">canal 02</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+          <tr><td><span class="cens">canal 03</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+          <tr><td><span class="cens">canal 04</span></td><td><span class="cens">00.000</span></td><td><span class="cens">00.000</span></td><td><span class="cens">R$ 000</span></td></tr>
+        </tbody></table></div>
+        <p class="nota">O painel com os números entra quando a área tiver login. Até lá, eles vão por dentro do grupo.</p></div></section>
+  </div>
+
+  <div class="m-p sec" id="m-videos" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>videos_do_circulo</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Vídeos do Círculo</h2><p>Uma série de bastidores que não vai para o canal aberto. Os episódios vão ficar em link fechado do YouTube, então nada pesa no site.</p>
+        <p class="vazio">&gt; o primeiro episódio entra junto com o lote 01_</p></div></section>
+  </div>
+
+  <div class="m-p sec" id="m-downloads" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>downloads</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Downloads</h2><p>Tudo que é seu, sempre na versão mais nova.</p>
+        <div class="projs">
+          <div class="proj"><svg class="px" data-ic="pasta" aria-hidden="true"></svg><div><b>specs/</b><p class="nota">as 13 specs de hoje e as próximas</p></div></div>
+          <div class="proj"><svg class="px" data-ic="chip" aria-hidden="true"></svg><div><b>em_teste/</b><p class="nota">specs que ainda não foram para a loja</p></div></div>
+          <div class="proj"><svg class="px" data-ic="coracao" aria-hidden="true"></svg><div><b>bonus/</b><p class="nota">guia do nicho, kit visual e banco de temas</p></div></div>
+        </div>
+        <p class="nota">Os arquivos vão ficar na área de membros da Kiwify, e os botões daqui levam até lá.</p></div></section>
+  </div>
+
+  <div class="m-p duas" id="m-acesso" role="tabpanel" hidden>
+    <section class="win"><div class="win-bar"><span>contato.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Falar comigo</h2><div class="passos">
+        <div class="passo"><svg class="px" data-ic="sino" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Meu WhatsApp pessoal</b><div class="nota">só no lote 01, porque são 10 pessoas</div></div><span class="tag of">lote 01</span></div>
+        <div class="passo"><svg class="px" data-ic="olho" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Auditoria</b><div class="nota">você manda o canal e eu devolvo, por vídeo, o que eu mudaria</div></div></div>
+        <div class="passo"><svg class="px" data-ic="rede" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Grupo de membros</b><div class="nota">para trocar canal, nicho e resultado entre si</div></div></div>
+      </div></div></section>
+    <section class="win"><div class="win-bar"><span>minha_conta.cfg</span><span class="btns"><i></i><i></i><i></i></span></div>
+      <div class="win-body"><h2>Minha conta</h2>
+        <table class="tab"><tbody>
+          <tr><td>lote</td><td>01 · R$ 497</td></tr>
+          <tr><td>preço</td><td>travado para quem já entrou</td></tr>
+          <tr><td>período</td><td>12 meses</td></tr>
+          <tr><td>pagamento e nota</td><td>pela Kiwify</td></tr>
+          <tr><td>garantia</td><td>7 dias</td></tr>
+        </tbody></table></div></section>
+  </div>
+</div>
+
+<!-- PASTA DEMPA -->
+<div class="pg sec" id="dempa" style="gap:40px">
+  <section class="sec" style="gap:14px">
+    <span class="term" style="color:var(--cinza)">C:\CADU&gt; cd DEMPA</span>
+    <h1>Pasta DEMPA</h1>
+    <p>A parte grátis. Os wallpapers que eu uso, a ideia por trás do visual e uma pasta que quase não aparece.</p>
+  </section>
+  <section class="win claro pasta">
+    <div class="win-bar"><span>C:\DEMPA</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <div class="win-body">
+      <span class="term" id="pastaCam" style="color:var(--cinza)">C:\DEMPA\wallpapers\</span>
+      <div class="icones" role="group" aria-label="Arquivos da pasta">
+        <button class="ic" type="button" data-p="wp" aria-pressed="true"><svg viewBox="0 0 48 40" aria-hidden="true"><path class="pf" d="M2 6h16l4 4h24v28H2z"/></svg><span>wallpapers</span></button>
+        <button class="ic" type="button" data-p="leia" aria-pressed="false"><svg viewBox="0 0 48 40" aria-hidden="true"><path class="pa" d="M10 2h20l8 8v28H10z"/><path class="pl" d="M15 16h18M15 22h18M15 28h12"/></svg><span>leia-me.txt</span></button>
+        <button class="ic oculto" type="button" data-p="bast" aria-pressed="false"><svg viewBox="0 0 48 40" aria-hidden="true"><path class="po" d="M2 6h16l4 4h24v28H2z"/></svg><span>.bastidores</span></button>
+      </div>
+      <div class="pp" id="p-wp">
+        <div class="wps">
+          <figure class="wp"><img src="/dempa/wp/mar-de-nuvens.jpg" alt="Wallpaper: lua cheia sobre um mar de nuvens" loading="lazy" width="640" height="360"><figcaption><b>mar de nuvens</b><span>16:9 · 9:16</span></figcaption></figure>
+          <figure class="wp"><img src="/dempa/wp/lua-e-picos.jpg" alt="Wallpaper: lua crescente sobre picos rosados" loading="lazy" width="640" height="360"><figcaption><b>lua e picos</b><span>16:9 · 9:16</span></figcaption></figure>
+          <figure class="wp"><img src="/dempa/wp/terminal.jpg" alt="Wallpaper: o mar de nuvens desenhado com letras de terminal" loading="lazy" width="640" height="360"><figcaption><b>terminal</b><span>16:9</span></figcaption></figure>
+          <figure class="wp"><img src="/dempa/wp/sala-de-descanso.jpg" alt="Wallpaper: janelas antigas sobre uma grade rosa, com um sol verde no meio" loading="lazy" width="640" height="360"><figcaption><b>sala de descanso</b><span>16:9 · 9:16</span></figcaption></figure>
+        </div>
+        <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="wallpapers">Baixar o pacote</a><span class="term" style="color:var(--cinza)">4 wallpapers · 7 arquivos · grátis, em troca do seu e-mail</span></div>
+      </div>
+      <div class="pp" id="p-leia" hidden>
+        <div class="leia">
+          <span class="term" style="color:var(--fosforo)">leia-me.txt</span>
+          <p>DEMPA quer dizer sinal. É o visual de tudo que eu faço: o site, os canais, as specs e os vídeos.</p>
+          <p>A ideia é simples. Tudo está ficando autoral. Cada criador vai ter o próprio estilo, o próprio site e as próprias ferramentas, e menos gente no meio. O DEMPA é o meu jeito de fazer isso em público, peça por peça.</p>
+          <p>Esta pasta é a parte grátis. Os wallpapers são os mesmos que eu uso. Quando sair coisa nova, ela aparece aqui primeiro.</p>
+        </div>
+      </div>
+      <div class="pp" id="p-bast" hidden>
+        <div class="leia">
+          <span class="row"><span class="term" style="color:var(--fosforo)">.bastidores</span><span class="tag ps">entra depois</span></span>
+          <p>Você achou a pasta oculta. Ela ainda está vazia: o primeiro vídeo de bastidores entra aqui quando for gravado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DEV -->
+<div class="pg sec" id="dev" style="gap:28px">
+  <section class="dev-topo">
+    <div class="cabeca" aria-hidden="true"><img class="c1" src="/dempa/cabeca/fechada.png" alt="" width="256" height="320"><img class="c2" src="/dempa/cabeca/piscando.png" alt="" width="256" height="320"></div>
+    <div class="sec" style="gap:14px">
+      <span class="term" style="color:var(--cinza)">C:\CADU\DEV&gt; status</span>
+      <h1>Dev</h1>
+      <p>O lado programador. Hoje o código trabalha para os canais: automação, IA e as ferramentas que eu monto para produzir.</p>
+    </div>
+  </section>
+  <div class="terminal status"><picture class="gif g-dev"><source media="(prefers-reduced-motion:reduce)" srcset="/dempa/gif/carregando.png"><img src="/dempa/gif/carregando.gif" alt="" width="128" height="128" loading="lazy"></picture>
+    <div class="st-l"><span class="c">$</span> cadu --status</div>
+    <div class="st-l"><span class="st-k">programação</span><span class="carga" role="img" aria-label="carregando"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="pisca"></i><i class="vz"></i><i class="vz"></i></span><span class="st-v">carregando_</span></div>
+    <div class="st-l"><span class="st-k">foco</span><span class="st-v"><svg class="px" data-ic="yt" aria-hidden="true"></svg>YouTube + rede de canais</span></div>
+    <div class="st-l"><span class="st-k">IA</span><span class="st-v"><svg class="px" data-ic="chip" aria-hidden="true"></svg>todas, cada uma no que faz melhor</span></div>
+    <div class="st-l"><span class="st-k">automação</span><span class="st-v"><svg class="px" data-ic="roteiro" aria-hidden="true"></svg>do roteiro ao vídeo pronto</span></div>
+    <div class="st-l"><span class="st-k">sistema</span><span class="st-v"><svg class="px" data-ic="monitor" aria-hidden="true"></svg>Linux no dia a dia · roda no Windows também</span></div>
+  </div>
+  <section class="sec">
+    <div class="sec-h"><h2>Projetos</h2><span class="term">github</span></div>
+    <div class="projs">
+      <div class="proj"><svg class="px" data-ic="monitor" aria-hidden="true"></svg><div><b>caduazeredo.com</b><p class="nota">este site · Vite + JavaScript puro</p></div></div>
+      <div class="proj"><svg class="px" data-ic="tv" aria-hidden="true"></svg><div><b>Shizune</b><p class="nota">projeto arquivado · fica no ar para quem quiser ver</p><a class="oc" href="https://github.com/CaduAzeredo/shizune" rel="noopener" target="_blank">ver no GitHub &gt;</a></div></div>
+      <div class="proj"><svg class="px" data-ic="chip" aria-hidden="true"></svg><div><b>Painel da rede</b><p class="nota">números dos canais num lugar só</p></div></div>
+      <div class="proj"><svg class="px" data-ic="pasta" aria-hidden="true"></svg><div><b>Tema DEMPA</b><p class="nota">ícones e cursor para Linux · em breve</p></div></div>
+    </div>
+  </section>
+  <section class="sec" id="bastidores">
+    <div class="sec-h"><h2>Como este site foi feito</h2><span class="term">decisoes.log</span></div>
+    <p>O que eu usei, o que eu deixei de fora e por quê. Cada decisão destrava junto com o vídeo em que eu mostro o site por dentro.</p>
+    <div class="player" style="aspect-ratio:auto;min-height:0;height:auto"><div class="player-in" style="padding:22px;position:static"><svg class="px" data-ic="play" style="width:48px;height:48px" aria-hidden="true"></svg><b class="term" style="font-size:24px">eu mostrando este site por dentro</b><span class="tag ps">em breve</span></div></div>
+    <ol class="dlog">
+      <li><span class="d">#01 hospedagem</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#02 venda</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#03 dados</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#04 conteúdo</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+      <li><span class="d">#05 canais</span><b class="cens bloco" aria-label="decisão oculta">decisão guardada</b><p class="oc">sai junto com o vídeo</p></li>
+    </ol>
+    <div class="sec-h" style="margin-top:8px"><h2>Da compra ao acesso</h2><span class="term">como vai ser</span></div>
+    <div class="fluxo" role="img" aria-label="Fluxo: compra na Kiwify, pagamento confirmado, e-mail com o acesso, arquivos liberados">
+      <div><b>01</b><span>compra na Kiwify</span></div><i>›</i><div><b>02</b><span>pagamento confirmado</span></div><i>›</i><div><b>03</b><span>e-mail com o acesso</span></div><i>›</i><div class="fim"><b>04</b><span>arquivos liberados</span></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- TERMOS -->
+<div class="pg sec" id="termos">
+  <article class="doc">
+    <span class="term" style="color:var(--cinza)">C:\CADU&gt; type termos.txt</span>
+    <h1 style="font-size:clamp(28px,4.5vw,48px)">Termos de uso</h1>
+    <p class="nota">Valem para o site, para as specs e para o Círculo. Dúvidas: <a href="mailto:caduazeredo@gmail.com">caduazeredo@gmail.com</a>.</p>
+    <h3>1. Quem vende</h3><p>Carlos Eduardo Azeredo Moura, responsável por caduazeredo.com. Os pagamentos são processados pela Kiwify.</p>
+    <h3>2. O que é uma spec</h3><p>Um arquivo digital com instruções e modelos para produzir vídeos. Você pode usar nos seus próprios canais, inclusive canais monetizados. Não pode revender, repassar ou publicar o arquivo.</p>
+    <h3>3. Garantia de 7 dias</h3><p>Se não gostar, peça o reembolso em até 7 dias depois da compra, direto pela Kiwify, sem precisar explicar.</p>
+    <h3>4. Círculo</h3><ul><li>O acesso vale por 12 meses a partir da compra.</li><li>O preço que você pagou fica travado na renovação enquanto você renovar sem interrupção.</li><li>O preço sobe por lote só para quem entra depois.</li><li>O acesso é pessoal: não compartilhe login, links fechados ou arquivos.</li><li>O contato pelo WhatsApp pessoal vale só para o lote 01.</li></ul>
+    <h3>5. Sem promessa de resultado</h3><p>Eu mostro o que faço e os meus números. O resultado do seu canal depende do seu nicho, da sua constância e do YouTube. Nada aqui é investimento ou promessa de ganho.</p>
+    <h3>6. Conduta nos grupos</h3><p>Sem spam, sem venda e sem ataque a ninguém. Quem quebrar a regra pode ser removido do grupo, sem perder o resto do acesso já pago.</p>
+    <h3>7. Mudanças</h3><p>Se estes termos mudarem, aviso por e-mail e no mural antes de valer. Atualizado em novembro de 2026.</p>
+  </article>
+</div>
+
+<!-- 404 -->
+<div class="pg sec" id="erro404">
+  <section class="e404">
+    <canvas class="av-g" id="avErro" width="32" height="32" aria-hidden="true"></canvas>
+    <b class="n404" aria-hidden="true">404</b>
+    <h1 style="font-size:clamp(22px,3.4vw,34px)">Essa página foi extinta</h1>
+    <p>Ou nunca existiu. Acontece com dinossauro e com link velho.</p>
+    <div class="row" style="justify-content:center"><a class="btn pri" href="/" data-ir="inicio">Voltar ao início</a><a class="btn" href="/specs" data-ir="specs">Ver as specs</a></div>
+  </section>
+</div>
+
+<!-- PRIVACIDADE -->
+<div class="pg sec" id="privacidade">
+  <article class="doc">
+    <span class="term" style="color:var(--cinza)">C:\CADU&gt; type privacidade.txt</span>
+    <h1 style="font-size:clamp(28px,4.5vw,48px)">Privacidade</h1>
+    <p>Este site coleta pouco, e só o que você digita por vontade própria. Aqui está o quê, para quê, por quanto tempo e como pedir que seja apagado.</p>
+    <p class="nota">Última atualização: novembro de 2026.</p>
+
+    <h3>1. Quem cuida dos seus dados</h3>
+    <p>Carlos Eduardo Azeredo Moura, pessoa física, responsável por caduazeredo.com, pelos canais Cadu Azeredo e pelo app que lê as estatísticas desses canais. Para qualquer assunto de privacidade, escreva para <a href="mailto:caduazeredo@gmail.com?subject=Privacidade">caduazeredo@gmail.com</a>.</p>
+
+    <h3>2. O que é coletado</h3>
+    <ul>
+      <li><b>E-mail</b>, quando você entra numa lista de espera ou pede o e-book no quiz. Junto vai o interesse (specs, Círculo, wallpapers ou e-book) e, no quiz, o perfil que saiu.</li>
+      <li><b>Dados de compra</b>, quando a loja abrir. Pagamento, nome e e-mail ficam com a Kiwify, que processa a compra. Eu recebo só o necessário para liberar o acesso.</li>
+      <li><b>Navegação</b>: a hospedagem mede visitas de forma agregada, sem cookie de identificação e sem perfil individual. Não há pixel de rede social nem remarketing.</li>
+      <li>O quiz roda inteiro no seu navegador. As respostas não saem dele, a não ser o perfil, se você pedir o e-book.</li>
+    </ul>
+    <p>Não há dado sensível, e o site não se destina a menores de 18 anos.</p>
+
+    <h3>3. App do Google e dados do YouTube</h3>
+    <p>O app que eu uso para montar o meu painel acessa, com a minha autorização, só a leitura das estatísticas dos <b>meus próprios canais</b> no YouTube (inscritos, visualizações e receita). Ele não pede acesso à conta de visitantes do site e não publica nada.</p>
+    <p>Esses números servem só para mostrar o desempenho da minha rede no site e na área do Círculo. Eles não são vendidos nem repassados. O uso segue a Política de Dados do Usuário dos Serviços de API do Google, incluindo os requisitos de uso limitado. A autorização pode ser retirada a qualquer momento em <a href="https://myaccount.google.com/permissions" rel="noopener" target="_blank">myaccount.google.com/permissions</a>.</p>
+
+    <h3>4. Base legal</h3>
+    <p>Consentimento (art. 7º, I da LGPD). A caixa de concordância nunca vem marcada, e sem ela o envio não acontece. Você pode retirar o consentimento a qualquer momento pelo e-mail da seção 1. Nas compras, a base é a execução do contrato (art. 7º, V).</p>
+
+    <h3>5. Com quem é compartilhado</h3>
+    <ul>
+      <li><b>Formspree</b>: recebe o e-mail das listas e do quiz. Servidores nos Estados Unidos.</li>
+      <li><b>Cloudflare</b>: hospedagem e medição agregada de visitas. Servidores fora do Brasil.</li>
+      <li><b>Kiwify</b>: pagamento e entrega das compras, quando a loja abrir.</li>
+    </ul>
+    <p>A transferência para fora do Brasil acontece só para executar o que você pediu, com amparo no seu consentimento (art. 33, VIII da LGPD). Os seus dados não são vendidos, alugados nem cedidos a ninguém.</p>
+
+    <h3>6. Por quanto tempo</h3>
+    <p>O e-mail das listas fica guardado até você sair da lista, ou até 24 meses sem nenhum contato. Dados de compra seguem o prazo exigido pela lei fiscal.</p>
+
+    <h3>7. Seus direitos</h3>
+    <p>O art. 18 da LGPD garante, a qualquer momento e sem custo: confirmação e acesso aos dados, correção, anonimização, bloqueio ou eliminação, portabilidade, informação sobre com quem foram compartilhados e revogação do consentimento. Peça pelo e-mail da seção 1, e a resposta sai em até 15 dias. Você também pode falar direto com a ANPD.</p>
+
+    <h3>8. Segurança e mudanças</h3>
+    <p>Tudo trafega por HTTPS, e as contas que guardam os dados usam verificação em duas etapas. Se houver um incidente com risco para você, aviso a você e à ANPD no prazo legal. Mudanças nesta política aparecem nesta página, com a data no topo.</p>
+    <p class="nota">Ver também os <a href="/termos" data-ir="termos">Termos de uso</a>.</p>
+  </article>
+</div>
+
+
+<section class="win claro" id="espera"><div class="win-bar"><span>lista_de_espera.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+  <div class="win-body"><picture class="gif g-esp"><source media="(prefers-reduced-motion:reduce)" srcset="/dempa/gif/disquete.png"><img src="/dempa/gif/disquete.gif" alt="" width="96" height="96" loading="lazy"></picture><h2>Avise quando abrir</h2><p>Escolha o que você quer receber. Só o aviso, sem spam.</p>
+    <form class="lista" id="listaUnica"><div class="chips" role="group" aria-label="O que você quer receber"><button class="chip" type="button" data-int="specs" aria-pressed="true">specs</button><button class="chip" type="button" data-int="circulo" aria-pressed="false">Círculo</button><button class="chip" type="button" data-int="wallpapers" aria-pressed="false">wallpapers</button></div><label for="em1" class="sr">E-mail</label><input id="em1" name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="btn pri" type="submit">Entrar na lista</button><label class="ck"><input type="checkbox" required> Aceito receber este aviso por e-mail. Posso sair quando quiser. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label></form></div></section>
+</main>
+
+<footer><div class="in">
+  <div class="row"><svg viewBox="0 0 200 140" aria-hidden="true" data-simb="1"></svg><span class="term">cadu azeredo · 2026</span></div>
+  <nav aria-label="Rodapé"><a href="/" data-ir="inicio">início</a><a href="/canal" data-ir="canal">canal</a><a href="/specs" data-ir="specs">specs</a><a href="/dempa" data-ir="dempa">pasta</a><a href="/comunidade" data-ir="comunidade">comunidade</a><a href="/dev" data-ir="dev">dev</a><a href="/privacidade" data-ir="privacidade">privacidade</a><a href="/termos" data-ir="termos">termos</a></nav>
+  <p class="credito term">visual <a href="/dev" data-ir="dev">DEMPA</a> · tema autoral de cadu azeredo, feito à mão para este site e para os canais</p>
+</div></footer>
+<div class="robo" id="robo"><span class="robo-tip" id="roboTip">&gt; qual canal combina com você? 2 perguntas_</span><button class="robo-b" id="roboB" type="button" aria-expanded="false" aria-controls="chat" aria-label="Abrir o quiz do Bob"><canvas id="roboC" width="32" height="32"></canvas></button></div>
+<section class="chat" id="chat" hidden aria-label="Quiz do Bob"><div class="win-bar"><span>bob.exe · quiz</span><button type="button" id="chatX" aria-label="Fechar">[x]</button></div><div class="chat-c" id="chatC" aria-live="polite"></div></section>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

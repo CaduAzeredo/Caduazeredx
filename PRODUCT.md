@@ -1,53 +1,54 @@
-# PRODUCT.md — Diretrizes de Produto de caduazeredo.com
+# Produto — caduazeredo.com
 
-Este documento serve como a fonte permanente da verdade para o produto digital **caduazeredo.com**, orientando decisões de funcionalidade, arquitetura e evolução do roadmap.
+"Eu comecei. Vamos começar?" O site do Cadu Azeredo mostra os canais, vende specs e abre o Círculo, tudo construído em público. A versão anterior (portfólio + Shizune) está em `docs/v4/PRODUCT.md`.
 
----
+## Páginas
 
-## 1. Visão Geral e Posicionamento
+| Rota | O que tem |
+| --- | --- |
+| `/` | céu que muda com a hora (clicar no relógio troca), atalhos, canais oficiais, minha rede de canais (borrada até cada vídeo revelar), primeiro vídeo, 3 specs |
+| `/canal` | vídeos do canal lidos de `public/dados/cadu.json` (gerado pelo painel) e números públicos do YouTube pela função `/api/canal` |
+| `/specs` | o comercial, as 13 specs (6 de formato e 7 de cinema), pacotes e extras |
+| `/dempa` | Pasta DEMPA: wallpapers grátis em troca de e-mail, leia-me e a pasta oculta `.bastidores` |
+| `/comunidade` | parte aberta (grupo, mural, posts) e o Círculo (parte paga) |
+| `/dev` | projetos e "Como este site foi feito" (aparece no EP 01) |
+| `/privacidade`, `/termos` | textos legais com o nome legal por extenso |
+| qualquer outra | página 404 ("Essa página foi extinta") |
 
-- **Nome do Projeto**: `caduazeredo.com`
-- **Autor / Builder**: Carlos Eduardo "Cadu" Azeredo Moura
-- **Posicionamento Profissional**: Desenvolvedor Front-end & Builder de Produtos Digitais (Front-end Developer & Product Builder)
-- **Proposta de Valor**: Hub autoral e técnico que apresenta projetos, estudos de caso, competências em React/TypeScript, UX/UI e Inteligência Artificial aplicada.
+## Specs (lançamento)
 
----
+| Spec | Preço |
+| --- | --- |
+| Short em 2D | R$ 47 |
+| Dossiê investigativo | R$ 67 |
+| Checagem de roteiro | R$ 27 |
+| Narração com tela | R$ 47 |
+| Miniatura e título | R$ 27 |
+| Cortes em Shorts | R$ 37 |
 
-## 2. Público-Alvo e Canais
+Pacotes: Shorts R$ 77 · Vídeo longo R$ 97 · Cadeia de cinema R$ 97 · Todas as 13 R$ 197 (recomendado). Preços de lançamento aprovados pelo Cadu em 10/11; sobem conforme precisar, sem data fixa.
+Extras: Guia do nicho R$ 19 · Kit visual R$ 17 · Banco de temas R$ 27.
 
-1. **Contratantes e Clientes**: Buscam engenharia front-end de alta qualidade, interfaces acessíveis e visão de produto.
-2. **Audiência Técnica**: Pessoas que acompanham o conteúdo no YouTube e Instagram sobre desenvolvimento, Linux, terminal e construção de SaaS.
-3. **Comunidade Futura**: Desenvolvedores e construtores de produto interessados em trocar experiências e evoluir na área.
+## Círculo (nome provisório)
 
----
+Preço único, 12 meses de acesso, até 12x na Kiwify, vendido em lotes de 10. O preço sobe a cada lote e fica travado para quem já entrou.
 
-## 3. Roadmap de Evolução por Fases
+| Lote | Preço |
+| --- | --- |
+| 01 | R$ 497 |
+| 02 | R$ 597 (borrado no site) |
+| 03 | R$ 697 (borrado) |
+| 04+ | R$ 797 (borrado) |
 
-### V1 — Portfólio, Cases e Posicionamento (Fase Atual)
-- Presença profissional autoral e limpa.
-- Hero com terminal narrativo, manifesto e stack do workspace.
-- Estudo de caso em destaque para o **DiáriaBr / DiáriaPalmas**.
-- Seções de trajetória, processo de trabalho e formulário de contato dinâmico.
+Só no lote 01: WhatsApp pessoal do Cadu para as 10 vagas e desconto de lançamento para as 5 primeiras (valor a definir).
 
-### V1.5 — Conteúdo & Autoridade
-- Publicação de artigos técnicos e tutoriais.
-- Centralização de vídeos do YouTube/Instagram.
-- Formulário de captura para Newsletter técnica.
-- **Ideia registrada em 2026-08-31, sem design fechado**: um avatar visual próprio (imagem/identidade gráfica), usado de forma consistente em todas as redes, para consolidar "Cadu Azeredo" como marca pessoal e alter ego dev — alguém da área com metodologia prática e confiança no que faz. Fica para quando esta fase (V1.5) começar de fato; é trabalho criativo que merece um perfil de modelo mais completo, não uma tarefa rápida.
+Dentro: painel com os números dos canais, vídeos só para o Círculo, todas as specs (inclusive as novas), auditoria do canal do membro, grupo de troca e os bônus.
 
-### V2 — Comunidade & Lista de Espera
-- Landing page oficial de comunidade.
-- Formulário de lista de espera para membros.
-- Calendário de lives, desafios e eventos.
+## Pilha
 
-### V3 — Recorrência & Área de Membros
-- Autenticação e área logada.
-- Conteúdos exclusivos, mentorias e marketplace de produtos digitais.
+Cloudflare Pages (grátis, permite uso comercial) · Kiwify (pagamento e entrega) · Formspree (listas de espera; Brevo depois) · sem banco de dados por enquanto.
 
----
+## Próximas versões
 
-## 4. Regras Absolutas de Produto (Impeccable Rules)
-
-- **Honestidade de Dados**: Nunca publicar projetos fictícios, métricas inventadas ou depoimentos não comprovados.
-- **Protagonismo Real**: Manter o projeto real ativo (DiáriaBr) como destaque e usar marcações discretas para ideias de laboratório (`isPlaceholder: true`).
-- **Pragmatismo**: Não adicionar funcionalidades complexas (login, banco, pagamentos) antes da fase correspondente do roadmap.
+- **v1.1**: botões de compra ligados à Kiwify, página `/obrigado`, quiz enviando o e-book pelo Brevo.
+- **v1.2**: números dos canais pela API do YouTube; login do Círculo (até lá, a área de membros é a da Kiwify).
