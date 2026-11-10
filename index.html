@@ -38,26 +38,29 @@
   <a class="marca" aria-label="Cadu Azeredo, ir para o início" href="/" data-ir="inicio"><svg viewBox="0 0 200 140" aria-hidden="true" data-simb="0" data-tinta="#060908" data-bg="#e9e6d6" data-neon="#1f7a4b"></svg><span>CADU AZEREDO</span></a>
   <nav class="abas" aria-label="Seções do site">
     <a class="aba" href="/" data-ir="inicio">Início</a>
+    <a class="aba" href="/canal" data-ir="canal">Canal</a>
     <a class="aba" href="/specs" data-ir="specs">Specs</a>
     <a class="aba" href="/comunidade" data-ir="comunidade">Comunidade</a>
+    <a class="aba" href="/dempa" data-ir="dempa">Pasta</a>
     <a class="aba" href="/dev" data-ir="dev">Dev</a>
   </nav>
   <span class="rel" id="rel">--:--</span>
 </div></header>
+<div class="faixa"><span><b>preço de lançamento</b> até a loja abrir</span><span aria-hidden="true">·</span><a href="#espera" data-rola="espera">lista de espera aberta</a></div>
 
 <main class="wrap">
 
 <!-- INÍCIO -->
 <div class="pg sec" id="inicio" style="gap:56px">
-  <section class="hero">
+  <section class="hero ceu">
+    <div class="ceu-bg" aria-hidden="true"></div><div class="ceu-vela" aria-hidden="true"></div>
     <div class="txt">
-      <span class="term" style="color:var(--cinza)">C:\CADU&gt; iniciar.exe</span>
+      <span class="term" style="color:var(--fosforo)">C:\CADU&gt; iniciar.exe</span>
       <h1>Cadu<br>Azeredo</h1>
       <p class="sub">&gt; eu comecei. vamos começar?_</p>
       <p>Faço vídeos sobre IA, internet e o que dá para construir com isso, e mantenho uma rede de canais.</p>
-      <div class="row"><button class="btn pri" type="button" data-rola="canais">Ver os canais</button><a class="btn" href="/specs" data-ir="specs">Specs à venda</a></div>
+      <div class="row"><button class="btn pri" type="button" data-rola="canais">Ver os canais</button><a class="btn" href="/specs" data-ir="specs">Specs à venda</a><a class="btn" href="/dempa" data-ir="dempa">Pasta DEMPA <span class="novo">novo</span></a></div>
     </div>
-    <div class="tela"><svg viewBox="0 0 200 140" id="heroSimb" role="img" aria-label="Símbolo CA, que alterna com 01"></svg><span class="st" id="heroSt">CA</span></div>
   </section>
 
   <section class="sec" id="canais">
@@ -108,6 +111,11 @@
       <span class="nota">A loja abre em breve, pela Kiwify, com 7 dias de garantia.</span>
     </div>
     <div class="fone"><canvas class="loopc" data-loop="short" width="270" height="480" aria-label="Exemplo animado de Short em 2D gerado pela spec"></canvas><span class="fone-l">SPEC_01 · short em 2D</span></div>
+  </section>
+
+  <section class="sec rv" id="comercial">
+    <div class="sec-h"><h2>Entenda em 1 minuto</h2><span class="term">58 s · o som só liga quando você tocar</span></div>
+    <div class="tv" id="tv"><button class="tv-capa" type="button" id="tvPlay" aria-label="Assistir ao comercial das specs: 58 segundos, com som"><picture><source media="(max-width:640px)" srcset="/dempa/video/capa-9x16.jpg"><img src="/dempa/video/capa-16x9.jpg" alt="" loading="lazy" width="1280" height="720"></picture><span class="play" aria-hidden="true"></span></button></div>
   </section>
 
   <section class="sec rv" id="spDemo">
@@ -187,9 +195,6 @@
     </div>
   </section>
 
-  <section class="win rv" id="espera"><div class="win-bar"><span>lista_de_espera.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
-    <div class="win-body"><h2>Avise quando a loja abrir</h2><p>Deixe seu e-mail e eu aviso quando as specs e os pacotes abrirem. Só o aviso.</p>
-      <form class="lista" data-interesse="specs"><label for="em1" class="sr">E-mail</label><input id="em1" name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="btn pri" type="submit">Entrar na lista</button><label class="ck"><input type="checkbox" required> Aceito receber este aviso por e-mail. Posso sair quando quiser. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label></form></div></section>
 
   <div class="fixa" id="fixa"><span style="line-height:1.1"><b>desde R$ 17</b><br><span style="color:var(--cinza)">abre em breve</span></span><button class="btn pri" type="button" data-rola="espera">Avise-me</button></div>
 </div>
@@ -235,7 +240,7 @@
         <div class="preco-g">R$ 497</div><span class="nota">por 12 meses · à vista ou em até 12x na Kiwify</span>
         <span class="fund"><b>só no lote 01</b>meu WhatsApp pessoal para as 10 vagas, e desconto de lançamento para as 5 primeiras</span>
         <div class="vagas"><div class="vbar"><i style="width:0%"></i></div><span class="term"><b id="vagasN">0</b> de 10 vagas</span></div>
-        <a class="btn pri respira" href="#espera-circulo" data-rola="espera-circulo">Quero entrar no lote 01</a></div>
+        <a class="btn pri respira" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a></div>
       <ol class="lotes" aria-label="Próximos lotes">
         <li class="on"><span>lote 01</span><b>R$ 497</b><i>agora</i></li>
         <li class="dica"><span class="term">os próximos valores só aparecem quando o lote anterior fechar_</span></li>
@@ -262,8 +267,70 @@
         <div class="kp"><span class="term">canal 03</span><b class="cens" aria-label="nome oculto">Nome aqui</b></div>
         <p class="nota" style="grid-column:1/-1">Lá dentro, sem borrão.</p>
       </div></div>
-    <section class="win" id="espera-circulo"><div class="win-bar"><span>lista_lote01.txt</span><span class="btns"><i></i><i></i><i></i></span></div><div class="win-body"><h2>Quero entrar no lote 01</h2><p>Deixe o seu e-mail. Quando o Círculo abrir, quem estiver aqui recebe o link antes de todo mundo.</p><form class="lista" data-interesse="circulo"><label for="em2" class="sr">E-mail</label><input id="em2" name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="btn pri" type="submit">Me avise</button><label class="ck"><input type="checkbox" required> Aceito receber o aviso do Círculo por e-mail. Posso sair quando quiser. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label></form></div></section>
+    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a></div>
     <p class="nota">Não é investimento: o preço sobe só para quem entra depois. Você paga pelo que recebe, e tem 7 dias de garantia.</p>
+  </section>
+</div>
+
+<!-- CANAL -->
+<div class="pg sec" id="canal" style="gap:40px">
+  <section class="sec" style="gap:14px">
+    <span class="term" style="color:var(--cinza)">C:\CADU&gt; canal.exe</span>
+    <h1>Canal</h1>
+    <p>Os vídeos do canal Cadu Azeredo. Esta página é alimentada pelo mesmo painel em que eu organizo a produção.</p>
+    <p class="term" id="canalAgora" hidden></p>
+    <div class="row"><a class="btn pri" id="canalLink" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Seguir no YouTube</a></div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Em breve</h2><span class="term">agendados</span></div>
+    <div class="agenda" id="canalBreve"><p class="vazio">&gt; nada agendado por enquanto_</p></div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>No ar</h2><span class="term">do mais novo para o mais antigo</span></div>
+    <div class="vids" id="canalNoAr"><p class="vazio">&gt; nenhum vídeo no ar ainda_</p></div>
+  </section>
+</div>
+
+<!-- PASTA DEMPA -->
+<div class="pg sec" id="dempa" style="gap:40px">
+  <section class="sec" style="gap:14px">
+    <span class="term" style="color:var(--cinza)">C:\CADU&gt; cd DEMPA</span>
+    <h1>Pasta DEMPA</h1>
+    <p>A parte grátis. Os wallpapers que eu uso, a ideia por trás do visual e uma pasta que quase não aparece.</p>
+  </section>
+  <section class="win pasta">
+    <div class="win-bar"><span>C:\DEMPA</span><span class="btns"><i></i><i></i><i></i></span></div>
+    <div class="win-body">
+      <span class="term" id="pastaCam" style="color:var(--cinza)">C:\DEMPA\wallpapers\</span>
+      <div class="icones" role="group" aria-label="Arquivos da pasta">
+        <button class="ic" type="button" data-p="wp" aria-pressed="true"><svg viewBox="0 0 48 40" aria-hidden="true"><path class="pf" d="M2 6h16l4 4h24v28H2z"/></svg><span>wallpapers</span></button>
+        <button class="ic" type="button" data-p="leia" aria-pressed="false"><svg viewBox="0 0 48 40" aria-hidden="true"><path class="pa" d="M10 2h20l8 8v28H10z"/><path class="pl" d="M15 16h18M15 22h18M15 28h12"/></svg><span>leia-me.txt</span></button>
+        <button class="ic oculto" type="button" data-p="bast" aria-pressed="false"><svg viewBox="0 0 48 40" aria-hidden="true"><path class="po" d="M2 6h16l4 4h24v28H2z"/></svg><span>.bastidores</span></button>
+      </div>
+      <div class="pp" id="p-wp">
+        <div class="wps">
+          <figure class="wp"><img src="/dempa/wp/mar-de-nuvens.jpg" alt="Wallpaper: lua cheia sobre um mar de nuvens" loading="lazy" width="640" height="360"><figcaption><b>mar de nuvens</b><span>16:9 · 9:16</span></figcaption></figure>
+          <figure class="wp"><img src="/dempa/wp/lua-e-picos.jpg" alt="Wallpaper: lua crescente sobre picos rosados" loading="lazy" width="640" height="360"><figcaption><b>lua e picos</b><span>16:9 · 9:16</span></figcaption></figure>
+          <figure class="wp"><img src="/dempa/wp/terminal.jpg" alt="Wallpaper: o mar de nuvens desenhado com letras de terminal" loading="lazy" width="640" height="360"><figcaption><b>terminal</b><span>16:9</span></figcaption></figure>
+          <figure class="wp"><img src="/dempa/wp/sala-de-descanso.jpg" alt="Wallpaper: janelas antigas sobre uma grade rosa, com um sol verde no meio" loading="lazy" width="640" height="360"><figcaption><b>sala de descanso</b><span>16:9 · 9:16</span></figcaption></figure>
+        </div>
+        <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="wallpapers">Baixar o pacote</a><span class="term" style="color:var(--cinza)">4 wallpapers · 7 arquivos · grátis, em troca do seu e-mail</span></div>
+      </div>
+      <div class="pp" id="p-leia" hidden>
+        <div class="leia">
+          <span class="term" style="color:var(--fosforo)">leia-me.txt</span>
+          <p>DEMPA quer dizer sinal. É o visual de tudo que eu faço: o site, os canais, as specs e os vídeos.</p>
+          <p>A ideia é simples. Tudo está ficando autoral. Cada criador vai ter o próprio estilo, o próprio site e as próprias ferramentas, e menos gente no meio. O DEMPA é o meu jeito de fazer isso em público, peça por peça.</p>
+          <p>Esta pasta é a parte grátis. Os wallpapers são os mesmos que eu uso. Quando sair coisa nova, ela aparece aqui primeiro.</p>
+        </div>
+      </div>
+      <div class="pp" id="p-bast" hidden>
+        <div class="leia">
+          <span class="row"><span class="term" style="color:var(--fosforo)">.bastidores</span><span class="tag ps">entra depois</span></span>
+          <p>Você achou a pasta oculta. Ela ainda está vazia: o primeiro vídeo de bastidores entra aqui quando for gravado.</p>
+        </div>
+      </div>
+    </div>
   </section>
 </div>
 
@@ -345,7 +412,7 @@
 
     <h3>2. O que é coletado</h3>
     <ul>
-      <li><b>E-mail</b>, quando você entra numa lista de espera ou pede o e-book no quiz. Junto vai o interesse (specs, Círculo ou e-book) e, no quiz, o perfil que saiu.</li>
+      <li><b>E-mail</b>, quando você entra numa lista de espera ou pede o e-book no quiz. Junto vai o interesse (specs, Círculo, wallpapers ou e-book) e, no quiz, o perfil que saiu.</li>
       <li><b>Dados de compra</b>, quando a loja abrir. Pagamento, nome e e-mail ficam com a Kiwify, que processa a compra. Eu recebo só o necessário para liberar o acesso.</li>
       <li><b>Navegação</b>: a hospedagem mede visitas de forma agregada, sem cookie de identificação e sem perfil individual. Não há pixel de rede social nem remarketing.</li>
       <li>O quiz roda inteiro no seu navegador. As respostas não saem dele, a não ser o perfil, se você pedir o e-book.</li>
@@ -379,11 +446,15 @@
   </article>
 </div>
 
+
+<section class="win" id="espera"><div class="win-bar"><span>lista_de_espera.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+  <div class="win-body"><h2>Avise quando abrir</h2><p>Escolha o que você quer receber. Só o aviso, sem spam.</p>
+    <form class="lista" id="listaUnica"><div class="chips" role="group" aria-label="O que você quer receber"><button class="chip" type="button" data-int="specs" aria-pressed="true">specs</button><button class="chip" type="button" data-int="circulo" aria-pressed="false">Círculo</button><button class="chip" type="button" data-int="wallpapers" aria-pressed="false">wallpapers</button></div><label for="em1" class="sr">E-mail</label><input id="em1" name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="btn pri" type="submit">Entrar na lista</button><label class="ck"><input type="checkbox" required> Aceito receber este aviso por e-mail. Posso sair quando quiser. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label></form></div></section>
 </main>
 
 <footer><div class="in">
   <div class="row"><svg viewBox="0 0 200 140" aria-hidden="true" data-simb="1"></svg><span class="term">cadu azeredo · 2026</span></div>
-  <nav aria-label="Rodapé"><a href="/" data-ir="inicio">início</a><a href="/specs" data-ir="specs">specs</a><a href="/comunidade" data-ir="comunidade">comunidade</a><a href="/dev" data-ir="dev">dev</a><a href="/privacidade" data-ir="privacidade">privacidade</a><a href="/termos" data-ir="termos">termos</a></nav>
+  <nav aria-label="Rodapé"><a href="/" data-ir="inicio">início</a><a href="/canal" data-ir="canal">canal</a><a href="/specs" data-ir="specs">specs</a><a href="/dempa" data-ir="dempa">pasta</a><a href="/comunidade" data-ir="comunidade">comunidade</a><a href="/dev" data-ir="dev">dev</a><a href="/privacidade" data-ir="privacidade">privacidade</a><a href="/termos" data-ir="termos">termos</a></nav>
   <p class="credito term">visual <a href="/dev" data-ir="dev">DEMPA</a> · tema autoral de cadu azeredo, feito à mão para este site e para os canais</p>
 </div></footer>
 <div class="robo" id="robo"><span class="robo-tip" id="roboTip">&gt; qual canal combina com você? 2 perguntas_</span><button class="robo-b" id="roboB" type="button" aria-expanded="false" aria-controls="chat" aria-label="Abrir o quiz do Bob"><canvas id="roboC" width="32" height="32"></canvas></button></div>

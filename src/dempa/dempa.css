@@ -288,3 +288,47 @@ footer nav a,footer nav button{background:none;border:0;color:var(--osso);font:i
 .pend{display:none}
 
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* ===== premium (10/11): céu no início, faixa, comercial, pasta, canal, lista única ===== */
+html{overflow-x:clip}
+.faixa{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:6px 16px;background:var(--crt);border-bottom:1px solid var(--fio);font-family:var(--f-term);font-size:19px;line-height:1.2;color:var(--osso);text-align:center}
+.faixa b{color:var(--fosforo);font-weight:400}.faixa a{color:var(--osso)}
+.novo{font-family:var(--f-term);font-size:16px;letter-spacing:0;text-transform:none;color:var(--crt);background:var(--fosforo);padding:0 6px;margin-left:6px}
+.tag-l{font-family:var(--f-term);font-size:17px;line-height:1.2;color:var(--crt);background:var(--fosforo);padding:0 8px;width:max-content}
+.hero.ceu{display:grid;grid-template-columns:minmax(0,1fr);align-content:end;position:relative;overflow:hidden;min-height:min(76vh,640px);margin:-36px calc(50% - 50vw) 0;padding:72px max(16px,calc(50vw - 574px)) 40px}
+.ceu-bg{position:absolute;inset:-4%;background:url(/dempa/nuvens.jpg) center 62%/cover;animation:deriva 40s ease-in-out infinite alternate}
+.ceu-vela{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,9,8,.3) 0%,rgba(6,9,8,.12) 38%,rgba(6,9,8,.9) 84%,var(--crt) 100%)}
+@keyframes deriva{to{transform:translate3d(-2%,-1.2%,0) scale(1.03)}}
+.hero.ceu .txt{position:relative;max-width:640px}
+@media (max-width:640px){.ceu-bg{background-image:url(/dempa/nuvens-v.jpg);background-position:center 40%}.hero.ceu{min-height:min(82vh,640px)}}
+.tv{background:radial-gradient(ellipse at 50% 40%,var(--placa) 0%,var(--crt) 70%);padding:clamp(12px,3vw,32px);border:1px solid var(--fio)}
+.tv-capa{display:block;position:relative;width:100%;padding:0;border:1px solid var(--trilha);background:#000;cursor:pointer;aspect-ratio:16/9;overflow:hidden}
+.tv-capa img,.tv video{width:100%;height:100%;object-fit:cover;display:block}
+.tv video{aspect-ratio:16/9;height:auto;border:1px solid var(--trilha);background:#000}.tv video.vert{aspect-ratio:9/16;max-height:80vh;width:auto;max-width:100%;margin:0 auto}
+.tv-capa .play{position:absolute;right:16px;bottom:16px;width:72px;height:72px;border-radius:50%;border:2px solid var(--osso);background:rgba(6,9,8,.7);display:grid;place-items:center}
+.tv-capa .play::before{content:"";border-left:20px solid var(--osso);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:6px}
+.tv-capa:hover .play,.tv-capa:focus-visible .play{border-color:var(--fosforo)}
+.tv-capa:focus-visible,.ic:focus-visible,.chip:focus-visible,.vid:focus-visible{outline:2px dashed var(--fosforo);outline-offset:2px}
+@media (max-width:640px){.tv-capa{aspect-ratio:9/16;max-height:80vh;width:auto;max-width:100%;margin:0 auto}}
+.icones{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+.ic{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border:2px solid transparent;cursor:pointer;background:none;color:var(--osso);font:inherit}
+.ic:hover,.ic[aria-pressed="true"]{border-color:var(--trilha);background:var(--placa)}
+.ic svg{width:48px;height:40px}.ic span{font-family:var(--f-term);font-size:20px;line-height:1.1}
+.ic .pf{fill:var(--trilha);stroke:var(--fosforo)}.ic .pa{fill:var(--osso)}.ic .pl{stroke:var(--crt);stroke-width:2;fill:none}.ic .po{fill:var(--placa);stroke:var(--cinza);stroke-dasharray:3 2}
+.ic.oculto{opacity:.35}.ic.oculto:hover,.ic.oculto:focus-visible,.ic.oculto[aria-pressed="true"]{opacity:1}
+.pp{border-top:1px dashed var(--fio);padding-top:18px;display:flex;flex-direction:column;gap:16px}
+.wps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.wp{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}.wp img{width:100%;height:auto;display:block;border:1px solid var(--fio)}
+.wp figcaption{display:flex;justify-content:space-between;gap:8px;font-family:var(--f-term);font-size:18px;color:var(--cinza)}.wp b{color:var(--osso);font-weight:400}
+.leia{max-width:62ch;display:flex;flex-direction:column;gap:12px}.leia p{margin:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;flex-basis:100%}
+.chip{font-family:var(--f-term);font-size:20px;line-height:1.3;padding:2px 12px;border:2px solid var(--fio);background:none;color:var(--cinza);cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--fosforo);color:var(--fosforo)}.chip[aria-pressed="true"]::before{content:"✓ "}
+.lista-ok .btn{margin-top:10px;display:inline-block;text-decoration:none}
+.vazio{font-family:var(--f-term);font-size:22px;color:var(--cinza);margin:0;padding:18px;border:1px dashed var(--fio)}
+.agenda{display:flex;flex-direction:column;gap:10px}
+.ag{display:flex;gap:14px;align-items:center;flex-wrap:wrap;border:2px solid var(--osso);padding:12px 16px}.ag .d{font-family:var(--f-term);font-size:22px;color:var(--fosforo);min-width:64px}.ag b{flex:1;min-width:160px}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.vid{display:flex;flex-direction:column;gap:6px;border:2px solid var(--osso);padding:12px;color:var(--osso);text-decoration:none;min-width:0}.vid:hover{border-color:var(--fosforo)}.vid img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.vids .vazio,.agenda .vazio{grid-column:1/-1}
+@media (prefers-reduced-motion:reduce){.ceu-bg{animation:none}}

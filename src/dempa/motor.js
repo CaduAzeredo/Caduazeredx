@@ -18,7 +18,7 @@ import IC from "./icones.json";
     return s+'<path d="M'+f(G.k0[0])+' '+f(G.k0[1])+'L'+f(G.k1[0])+' '+f(G.k1[1])+'" stroke="'+ne+'" stroke-width="'+f(G.kw)+'" '+(o.glow?'style="filter:drop-shadow(0 0 4px rgba(61,255,126,.8))"':'')+'/></g>'}
   document.querySelectorAll('[data-simb]').forEach(function(e){var d=e.dataset;e.innerHTML=simb(+d.simb,{tinta:d.tinta,bg:d.bg,neon:d.neon})});
   var hs=document.getElementById('heroSimb'),st=document.getElementById('heroSt'),tA=0,reduz=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function dh(t){hs.innerHTML=simb(t,{bg:'#000',glow:1});st.textContent=t<.5?'CA':'01';tA=t}
+  function dh(t){if(!hs)return;hs.innerHTML=simb(t,{bg:'#000',glow:1});st.textContent=t<.5?'CA':'01';tA=t}
   function vai(a,cb){var de=tA,i=null;function p(ts){if(!i)i=ts;var q=Math.min(1,(ts-i)/600);q=Math.round(q*12)/12;dh(de+(a-de)*q);if(q<1)requestAnimationFrame(p);else cb&&cb()}requestAnimationFrame(p)}
   dh(0);if(!reduz){(function ciclo(){setTimeout(function(){vai(1,function(){setTimeout(function(){vai(0,ciclo)},1400)})},2800)})()}
   // canais oficiais
@@ -31,8 +31,8 @@ import IC from "./icones.json";
   // cadeia de cinema: 7 specs novas (19-youtube/10-base/specs, aprovadas em 5/11). Preços = sugestão, falta o ok do Cadu.
   var SC=[['Cadeia de cinema','roteiro','4 fases e 5 portões: você aprova no papel antes de gastar com voz e render.','R$ 27','nova'],['Ficha de estilo','imagem','o visual do canal em números: cores, fontes, movimento e o que não pode. Tira a cara de IA.','R$ 37','nova'],['Storyboard e cards','pasta','uma linha por cena e um quadro parado de cada uma, para aprovar antes de animar.','R$ 37','nova'],['Checagem de ritmo','ampulheta','lê o vídeo pronto e aponta cena parada demais ou imagem rápida demais.','R$ 27','nova'],['Mídia real primeiro','olho','a ordem certa para cada cena: sua mídia, acervo livre, desenho em código e só depois IA.','R$ 17','nova'],['A fala guia a tela','texto','cada número, nome e data que você fala vira imagem na hora exata da palavra.','R$ 27','nova'],['Ferramentas de IA para vídeo','chip','capa, revisor de quadros e ficha lida por outra conversa. Estou testando antes de soltar.','','em teste']];
   var PAC=[['PACOTE_SHORTS','Pacote Shorts','para quem quer postar todo dia',['Short em 2D','Cortes em Shorts','Miniatura e título'],111,77,''],['PACOTE_TUDO','Todas as 13 specs','o kit completo: as 6 de formato e as 7 de cinema',['as 13 specs','atualizações e specs novas','painel do comprador'],424,197,'top'],['PACOTE_CINEMA','Pacote Cadeia de cinema','para o vídeo sair com cara de filme, não de IA',['as 7 specs de cinema','ficha de estilo do seu canal','checagem de ritmo'],172,97,''],['PACOTE_LONGO','Pacote Vídeo longo','para vídeos de 8 a 15 minutos',['Dossiê investigativo','Narração com tela','Checagem de roteiro'],141,97,'']];
-  var EXT=[['grafico','Guia: o seu nicho está aquecido?','como saber se o nicho ainda cresce antes de começar.','R$ 19'],['imagem','Kit visual DEMPA','intro de 3 s, bordas, glitch e as 4 cores para o seu canal.','R$ 17'],['disquete','Banco de temas','temas prontos, separados por nicho. <span class="pend">[quantidade]</span>','R$ 27']];
-  function cards(L,b){L=L||SP;b=b||0;return L.map(function(s,i){var n=i+1+b;return '<article class="spec"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(s[1])+'</svg><span class="term" style="color:var(--cinza)">SPEC_'+(n<10?'0':'')+n+(s[4]?' <span class="tag rd">'+s[4]+'</span>':'')+'</span><h3 style="font-size:16px">'+s[0]+'</h3><p class="nota" style="color:var(--osso)">'+s[2]+'</p><span class="pr">'+(s[3]?s[3]+' <span class="nota">avulso · lançamento</span>':'<span class="nota">vem no pacote de cinema</span>')+'</span><a class="btn" href="/specs#espera" data-ir="specs" data-rola="espera">Avise-me</a></article>'}).join('')}
+  var EXT=[['grafico','Guia: o seu nicho está aquecido?','como saber se o nicho ainda cresce antes de começar.','R$ 19'],['imagem','Kit visual DEMPA','intro de 3 s, bordas, glitch e as 4 cores para o seu canal.','R$ 17'],['disquete','Banco de temas','temas prontos, separados por nicho.','R$ 27']];
+  function cards(L,b){L=L||SP;b=b||0;return L.map(function(s,i){var n=i+1+b;return '<article class="spec">'+(s[3]?'<span class="tag-l">lançamento</span>':'')+'<svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(s[1])+'</svg><span class="term" style="color:var(--cinza)">SPEC_'+(n<10?'0':'')+n+(s[4]?' <span class="tag rd">'+s[4]+'</span>':'')+'</span><h3 style="font-size:16px">'+s[0]+'</h3><p class="nota" style="color:var(--osso)">'+s[2]+'</p><span class="pr">'+(s[3]?s[3]+' <span class="nota">avulso</span>':'<span class="nota">vem no pacote de cinema</span>')+'</span><a class="btn" href="/specs#espera" data-ir="specs" data-rola="espera">Avise-me</a></article>'}).join('')}
   document.getElementById('specsHome').innerHTML=cards().split('</article>').slice(0,3).join('</article>')+'</article>';document.getElementById('specsPg').innerHTML=cards();document.getElementById('specsCine').innerHTML=cards(SC,SP.length);
   document.getElementById('pacotes').innerHTML=PAC.map(function(p){return '<article class="pacote '+p[6]+'"><span class="term" style="color:var(--fosforo)">'+p[0]+'.zip'+(p[6]?' · recomendado':'')+'</span><h3 style="font-size:16px">'+p[1]+'</h3><p class="nota" style="color:var(--osso)">'+p[2]+'</p><ul>'+p[3].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><span class="preco" style="margin-top:auto"><s>R$ '+p[4]+'</s>R$ '+p[5]+'</span><span class="eco">economiza R$ '+(p[4]-p[5])+'</span><a class="btn '+(p[6]?'pri respira':'')+'" href="#espera" data-rola="espera">Avise-me</a></article>'}).join('');
   document.getElementById('extras').innerHTML=EXT.map(function(e){return '<div class="extra"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(e[0])+'</svg><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><b>'+e[1]+'</b><span class="nota">'+e[2]+'</span><span class="pr">'+e[3]+'</span></div></div>'}).join('');
@@ -254,21 +254,23 @@ import IC from "./icones.json";
   chat.addEventListener('keydown',function(e){if(e.key==='Escape'){abre(false);rb.focus()}});
   cc.addEventListener('click',function(e){if(e.target.closest('[data-ir]'))abre(false)});
   // navegação por rotas de verdade
-  var ROTAS={'/':'inicio','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/privacidade':'privacidade','/termos':'termos'};
+  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',dev:'Dev · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'Pasta DEMPA · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',dev:'Dev · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});
     document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title=TITULOS[id]||TITULOS.inicio;
+    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({comunidade:'circulo',dempa:'wallpapers'}[id]||'specs')}
     if(o.push&&CAMINHO[id]&&CAMINHO[id]!==location.pathname)history.pushState(null,'',CAMINHO[id]);
     if(!o.semRolar)window.scrollTo(0,0);setTimeout(borraLogo,30)}
   document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     var b=e.target.closest('[data-ir]'),r=e.target.closest('[data-rola]');
+    var q=e.target.closest('[data-quer]');
     if(b){e.preventDefault();ir(b.dataset.ir,{push:true,semRolar:!!(r&&r===b)});if(r===b)setTimeout(function(){rola(b.dataset.rola)},40);return}
-    if(r){e.preventDefault();rola(r.dataset.rola)}});
+    if(r){e.preventDefault();rola(r.dataset.rola)}
+    if(q)quer(q.dataset.quer)});
   window.addEventListener('popstate',function(){ir(idDo(location.pathname),{semRolar:true})});
   ir(idDo(location.pathname),{semRolar:true});
   if(location.hash)setTimeout(function(){rola(location.hash.slice(1))},120);
@@ -280,11 +282,45 @@ import IC from "./icones.json";
     try{return sessionStorage.getItem('cadu_v')||''}catch(e){return ''}})();
   function enviaLead(d,f){var hp=f&&f.querySelector('[name=_gotcha]');if(hp&&hp.value)return Promise.resolve(true);if(!ENDPOINT)return Promise.resolve(false);d.pagina=location.pathname;if(VIDEO)d.video=VIDEO;
     return fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
-  document.querySelectorAll('form.lista').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var bt=f.querySelector('button');bt.disabled=true;
-    enviaLead({email:f.querySelector('input[type=email]').value,interesse:f.dataset.interesse,origem:'lista'},f).then(function(ok){
-      var p=document.createElement('p');p.setAttribute('role','status');
-      if(ok){p.className='lista-ok';p.textContent='> anotado. eu te aviso primeiro_';f.replaceWith(p)}
-      else{bt.disabled=false;p.className='lista-erro';p.innerHTML='Não consegui anotar agora. Escreva para <a href="mailto:caduazeredo@gmail.com">caduazeredo@gmail.com</a>.';var v=f.querySelector('.lista-erro');if(v)v.remove();f.appendChild(p)}})})});
+  // lista única: os interesses marcados viram etiqueta no envio
+  var CHIPS=[].slice.call(document.querySelectorAll('.chip'));
+  function quer(k){[].forEach.call(document.querySelectorAll('.chip'),function(c){c.setAttribute('aria-pressed',c.dataset.int===k?'true':'false')})}
+  CHIPS.forEach(function(c){c.addEventListener('click',function(){c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true')})});
+  document.querySelectorAll('form.lista').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var bt=f.querySelector('button[type=submit]');
+    var ints=CHIPS.filter(function(c){return c.getAttribute('aria-pressed')==='true'}).map(function(c){return c.dataset.int});
+    var v=f.querySelector('.lista-erro');if(v)v.remove();
+    function erro(t){var p=document.createElement('p');p.setAttribute('role','status');p.className='lista-erro';p.textContent=t;f.appendChild(p);return p}
+    if(!ints.length){erro('Marque pelo menos um interesse.');return}
+    bt.disabled=true;
+    enviaLead({email:f.querySelector('input[type=email]').value,interesse:ints.join(','),origem:'lista'},f).then(function(ok){
+      if(ok){var p=document.createElement('p');p.setAttribute('role','status');p.className='lista-ok';p.textContent='> anotado. eu te aviso primeiro_';
+        if(ints.indexOf('wallpapers')>-1){var a=document.createElement('a');a.className='btn pri';a.href='/dempa/wallpapers-dempa.zip';a.setAttribute('download','');a.textContent='Baixar os wallpapers (10 MB)';p.appendChild(document.createElement('br'));p.appendChild(a)}
+        f.replaceWith(p)}
+      else{bt.disabled=false;var p2=erro('Não consegui anotar agora. Escreva para ');var m=document.createElement('a');m.href='mailto:caduazeredo@gmail.com';m.textContent='caduazeredo@gmail.com';p2.appendChild(m)}})})});
+  // pasta DEMPA
+  var CAM={wp:'C:\\DEMPA\\wallpapers\\',leia:'C:\\DEMPA\\leia-me.txt',bast:'C:\\DEMPA\\.bastidores\\'};
+  var ICS=[].slice.call(document.querySelectorAll('.ic'));
+  ICS.forEach(function(b){b.addEventListener('click',function(){ICS.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    Object.keys(CAM).forEach(function(k){document.getElementById('p-'+k).hidden=(k!==b.dataset.p)});document.getElementById('pastaCam').textContent=CAM[b.dataset.p]})});
+  // comercial: só carrega quando a pessoa toca
+  var tvB=document.getElementById('tvPlay');
+  if(tvB)tvB.addEventListener('click',function(){var vt=window.matchMedia&&matchMedia('(max-width:640px)').matches,vd=document.createElement('video');
+    vd.controls=true;vd.autoplay=true;vd.playsInline=true;vd.preload='auto';vd.src='/dempa/video/comercial-'+(vt?'9x16':'16x9')+'.mp4';vd.poster='/dempa/video/capa-'+(vt?'9x16':'16x9')+'.jpg';
+    if(vt)vd.className='vert';vd.setAttribute('aria-label','Comercial das specs');tvB.replaceWith(vd);vd.focus()});
+  // canal: lê o arquivo público que o painel gera
+  function urlYT(u){return typeof u==='string'&&/^https:\/\/(www\.youtube\.com|youtu\.be)\//.test(u)}
+  function dataBR(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||'');return m?m[3]+'/'+m[2]:''}
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+  fetch('/dados/cadu.json').then(function(r){return r.ok?r.json():null}).then(function(d){if(!d||d.versao!==1)return;
+    if(d.agora){var ag=document.getElementById('canalAgora');ag.textContent='> agora: '+String(d.agora).slice(0,140);ag.hidden=false}
+    if(d.canal&&urlYT(d.canal.url))document.getElementById('canalLink').href=d.canal.url;
+    var sr={};(d.series||[]).forEach(function(s){sr[s.k]=s.nome});
+    var br=(d.em_breve||[]).slice(0,5);if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v){var i=el('div','ag');i.appendChild(el('span','d',dataBR(v.data)||'em breve'));i.appendChild(el('b','',String(v.titulo||'?').slice(0,120)));
+      if(urlYT(v.url)){var a=el('a','btn','Ativar lembrete');a.href=v.url;a.target='_blank';a.rel='noopener';i.appendChild(a)}else i.appendChild(el('span','tag ps','agendado'));cb.appendChild(i)})}
+    var na=(d.no_ar||[]).filter(function(v){return urlYT(v.url)}).slice(0,12);if(na.length){var cn=document.getElementById('canalNoAr');cn.textContent='';na.forEach(function(v){var a=el('a','vid');a.href=v.url;a.target='_blank';a.rel='noopener';
+      if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading='lazy';a.appendChild(im)}
+      a.appendChild(el('b','',String(v.titulo||'').slice(0,120)));a.appendChild(el('span','nota',[sr[v.serie],dataBR(v.data),v.duracao].filter(Boolean).join(' · ')));cn.appendChild(a)})}
+  }).catch(function(){});
   function rel(){var d=new Date();document.getElementById('rel').textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}rel();setInterval(rel,20000);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(thumb);else thumb();
   // borrão glitch
