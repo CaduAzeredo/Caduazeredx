@@ -142,7 +142,7 @@ p{margin:0;max-width:62ch}
 @media (max-width:900px){.ok-p{grid-template-columns:1fr}.login{padding:16px}}
 /* loja */
 .loja{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.pacotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.pacotes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}
 .pacote{border:2px solid var(--osso);padding:20px;display:flex;flex-direction:column;gap:12px;background:var(--crt);min-width:0}
 .pacote.top{border-color:var(--fosforo);box-shadow:6px 6px 0 var(--fosforo);background:var(--placa)}
 .pacote ul{margin:0;padding:0;list-style:none;font-family:var(--f-term);font-size:20px;line-height:1.15}.pacote li::before{content:"+ ";color:var(--fosforo)}
