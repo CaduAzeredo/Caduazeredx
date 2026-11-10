@@ -26,7 +26,7 @@
 | Miniatura e título | R$ 27 |
 | Cortes em Shorts | R$ 37 |
 
-Pacotes: Shorts R$ 77 · Vídeo longo R$ 97 · Todas as 6 R$ 147 (recomendado).
+Pacotes: Shorts R$ 77 · Vídeo longo R$ 97 · Cadeia de cinema R$ 97 · Todas as 13 R$ 197 (recomendado). Preços de lançamento aprovados pelo Cadu em 10/11; sobem conforme precisar, sem data fixa.
 Extras: Guia do nicho R$ 19 · Kit visual R$ 17 · Banco de temas R$ 27.
 
 ## Círculo (nome provisório)
