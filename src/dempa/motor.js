@@ -324,7 +324,7 @@ import IC from "./icones.json";
       if(v.ep)l+=' · '+String(v.ep).slice(0,40);x.appendChild(el('span','',l));mt.appendChild(x);c.appendChild(mt);return c}
     if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v){cb.appendChild(cardV(v))});
       var yd=document.getElementById('ytDest'),nv=cardV(br[0],true);nv.id='ytDest';if(yd)yd.replaceWith(nv);
-      var yb=document.getElementById('ytDestBtn');if(yb&&nv.tagName==='A'){yb.href=nv.href;if(nv.querySelector('.yt-e.ok'))yb.lastChild.textContent='Assistir no YouTube'}
+      var yb=document.getElementById('ytDestBtn');if(yb&&nv.tagName==='A'){yb.href=nv.href;yb.lastChild.textContent=nv.querySelector('.yt-e.ok')?'Assistir no YouTube':'Ativar lembrete no YouTube'}
       var hb=document.getElementById('homeBreve');if(hb&&br.length>1){hb.textContent='';br.slice(1).forEach(function(v){hb.appendChild(cardV(v))});hb.hidden=false}}
     var na=(d.no_ar||[]).filter(function(v){return urlYT(v.url)}).slice(0,12);if(na.length){var cn=document.getElementById('canalNoAr');cn.textContent='';na.forEach(function(v){var a=el('a','vid');a.href=v.url;a.target='_blank';a.rel='noopener';
       if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading='lazy';a.appendChild(im)}

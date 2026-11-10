@@ -15,7 +15,6 @@
       "url": "https://youtu.be/qTQ-Yemyqds",
       "capa": "dados/capas/x00.jpg",
       "duracao": "8:48",
-      "estreia": true,
       "ep": "EP 01 · série Começar"
     },
     {
@@ -24,8 +23,7 @@
       "hora": "12:00",
       "url": "https://youtu.be/qWzF0_0GHsA",
       "capa": "dados/capas/subida.jpg",
-      "duracao": "1:17",
-      "estreia": true
+      "duracao": "1:17"
     },
     {
       "titulo": "Specs DEMPA · os métodos por trás dos vídeos",

@@ -9,3 +9,13 @@
 /sobre /dev 301
 /contato /comunidade 301
 /blog /comunidade 301
+
+# Páginas do site: todas são o mesmo index.html. O que não está nesta lista cai no 404.html, com código 404 de verdade.
+/canal /index.html 200
+/specs /index.html 200
+/dempa /index.html 200
+/comunidade /index.html 200
+/circulo /index.html 200
+/dev /index.html 200
+/privacidade /index.html 200
+/termos /index.html 200
