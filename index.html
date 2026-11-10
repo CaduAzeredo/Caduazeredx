@@ -44,7 +44,7 @@
     <a class="aba" href="/dempa" data-ir="dempa">Pasta</a>
     <a class="aba" href="/dev" data-ir="dev">Dev</a>
   </nav>
-  <span class="rel" id="rel">--:--</span>
+  <button class="rel" id="rel" type="button" aria-label="Trocar o céu do início">--:--</button>
 </div></header>
 <div class="faixa"><span><b>preço de lançamento</b> até a loja abrir</span><span aria-hidden="true">·</span><a href="#espera" data-rola="espera">lista de espera aberta</a></div>
 
@@ -53,7 +53,7 @@
 <!-- INÍCIO -->
 <div class="pg sec" id="inicio" style="gap:56px">
   <section class="hero ceu">
-    <div class="ceu-bg" aria-hidden="true"></div><div class="ceu-vela" aria-hidden="true"></div>
+    <div class="ceu-bg" aria-hidden="true"></div><canvas class="ceu-cv" id="ceuCv" width="320" height="180" aria-hidden="true"></canvas><div class="ceu-linhas" aria-hidden="true"></div><div class="ceu-vela" aria-hidden="true"></div>
     <div class="txt">
       <span class="term" style="color:var(--fosforo)">C:\CADU&gt; iniciar.exe</span>
       <h1>Cadu<br>Azeredo</h1>
@@ -61,7 +61,17 @@
       <p>Faço vídeos sobre IA, internet e o que dá para construir com isso, e mantenho uma rede de canais.</p>
       <div class="row"><button class="btn pri" type="button" data-rola="canais">Ver os canais</button><a class="btn" href="/specs" data-ir="specs">Specs à venda</a><a class="btn" href="/dempa" data-ir="dempa">Pasta DEMPA <span class="novo">novo</span></a></div>
     </div>
+    <span class="ceu-leg term" id="ceuLeg" aria-live="polite"></span>
   </section>
+
+  <nav class="mesa" aria-label="Atalhos do site">
+    <a class="atalho" href="/canal" data-ir="canal"><svg class="px" data-ic="tv" aria-hidden="true"></svg><span>canal.exe</span></a>
+    <a class="atalho" href="/specs" data-ir="specs"><svg class="px" data-ic="disquete" aria-hidden="true"></svg><span>specs</span></a>
+    <a class="atalho" href="/dempa" data-ir="dempa"><svg class="px" data-ic="pasta" aria-hidden="true"></svg><span>pasta dempa</span></a>
+    <a class="atalho" href="/comunidade" data-ir="comunidade"><svg class="px" data-ic="rede" aria-hidden="true"></svg><span>comunidade</span></a>
+    <a class="atalho" href="/dev" data-ir="dev"><svg class="px" data-ic="chip" aria-hidden="true"></svg><span>dev</span></a>
+    <button class="atalho" type="button" id="atalhoBob"><svg class="px" data-ic="monitor" aria-hidden="true"></svg><span>bob.exe</span></button>
+  </nav>
 
   <section class="sec" id="canais">
     <div class="sec-h"><h2>Canais oficiais</h2><span class="term">levam o meu nome</span></div>
@@ -211,7 +221,7 @@
       <div class="win-body"><svg class="px" data-ic="rede" style="width:56px;height:56px" aria-hidden="true"></svg><h2>Entrar</h2><p>Grupo aberto e gratuito. Começa no WhatsApp; quando crescer, vai para o Discord.</p>
         <div class="passos"><div class="passo"><svg class="px" data-ic="sino" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>WhatsApp</b><div class="nota">agora · avisos e conversa</div></div><span class="tag of">aberto</span></div>
         <div class="passo prox"><svg class="px" data-ic="rede" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Discord</b><div class="nota">depois · salas por tema e por spec</div></div><span class="tag ps">próximo</span></div></div>
-        <div class="row"><span class="btn pri" aria-disabled="true" style="opacity:.6;cursor:default">Grupo abre em breve</span><a class="btn" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Seguir no YouTube</a></div>
+        <div class="row"><span class="btn pri" id="grupoBtn" aria-disabled="true" style="opacity:.6;cursor:default">Grupo abre em breve</span><a class="btn" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Seguir no YouTube</a></div>
         <h3 style="margin-top:8px">Regras</h3><ul class="nota" style="margin:0;padding-left:20px"><li>Mostre o que fez, não só o link.</li><li>Sem spam e sem venda dentro do grupo.</li><li>Dúvida boa é dúvida com print.</li></ul></div></section>
     <section class="win"><div class="win-bar"><span>mural.log</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="win-body"><h2>Mural</h2><div class="mural">
@@ -279,6 +289,7 @@
     <h1>Canal</h1>
     <p>Os vídeos do canal Cadu Azeredo. Esta página é alimentada pelo mesmo painel em que eu organizo a produção.</p>
     <p class="term" id="canalAgora" hidden></p>
+    <div class="placar" id="canalPlacar" hidden><div><b id="plInsc"></b><span>inscritos</span></div><div><b id="plVid"></b><span>vídeos</span></div><div><b id="plViews"></b><span>visualizações</span></div><p class="nota" id="plQuando"></p></div>
     <div class="row"><a class="btn pri" id="canalLink" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Seguir no YouTube</a></div>
   </section>
   <section class="sec">
@@ -298,7 +309,7 @@
     <h1>Pasta DEMPA</h1>
     <p>A parte grátis. Os wallpapers que eu uso, a ideia por trás do visual e uma pasta que quase não aparece.</p>
   </section>
-  <section class="win pasta">
+  <section class="win claro pasta">
     <div class="win-bar"><span>C:\DEMPA</span><span class="btns"><i></i><i></i><i></i></span></div>
     <div class="win-body">
       <span class="term" id="pastaCam" style="color:var(--cinza)">C:\DEMPA\wallpapers\</span>
@@ -447,7 +458,7 @@
 </div>
 
 
-<section class="win" id="espera"><div class="win-bar"><span>lista_de_espera.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
+<section class="win claro" id="espera"><div class="win-bar"><span>lista_de_espera.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
   <div class="win-body"><h2>Avise quando abrir</h2><p>Escolha o que você quer receber. Só o aviso, sem spam.</p>
     <form class="lista" id="listaUnica"><div class="chips" role="group" aria-label="O que você quer receber"><button class="chip" type="button" data-int="specs" aria-pressed="true">specs</button><button class="chip" type="button" data-int="circulo" aria-pressed="false">Círculo</button><button class="chip" type="button" data-int="wallpapers" aria-pressed="false">wallpapers</button></div><label for="em1" class="sr">E-mail</label><input id="em1" name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="btn pri" type="submit">Entrar na lista</button><label class="ck"><input type="checkbox" required> Aceito receber este aviso por e-mail. Posso sair quando quiser. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label></form></div></section>
 </main>

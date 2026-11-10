@@ -6,8 +6,10 @@
 
 | Rota | O que tem |
 | --- | --- |
-| `/` | canais oficiais, minha rede de canais (borrada até cada vídeo revelar), primeiro vídeo, 3 specs |
-| `/specs` | as 6 specs, pacotes, extras, lista de espera |
+| `/` | céu que muda com a hora (clicar no relógio troca), atalhos, canais oficiais, minha rede de canais (borrada até cada vídeo revelar), primeiro vídeo, 3 specs |
+| `/canal` | vídeos do canal lidos de `public/dados/cadu.json` (gerado pelo painel) e números públicos do YouTube pela função `/api/canal` |
+| `/specs` | o comercial, as 13 specs (6 de formato e 7 de cinema), pacotes e extras |
+| `/dempa` | Pasta DEMPA: wallpapers grátis em troca de e-mail, leia-me e a pasta oculta `.bastidores` |
 | `/comunidade` | parte aberta (grupo, mural, posts) e o Círculo (parte paga) |
 | `/dev` | projetos e "Como este site foi feito" (aparece no EP 01) |
 | `/privacidade`, `/termos` | textos legais com o nome legal por extenso |

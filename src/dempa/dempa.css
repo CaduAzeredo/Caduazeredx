@@ -332,3 +332,43 @@ html{overflow-x:clip}
 .vid{display:flex;flex-direction:column;gap:6px;border:2px solid var(--osso);padding:12px;color:var(--osso);text-decoration:none;min-width:0}.vid:hover{border-color:var(--fosforo)}.vid img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 .vids .vazio,.agenda .vazio{grid-column:1/-1}
 @media (prefers-reduced-motion:reduce){.ceu-bg{animation:none}}
+
+/* ===== segunda passada (10/11): céu por hora, bege, área de trabalho, efeitos ===== */
+.bar .rel{background:none;border:2px solid transparent;color:inherit;cursor:pointer;padding:0 8px}.bar .rel:hover,.bar .rel:focus-visible{border-color:var(--crt);outline:0}
+.ceu-cv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;image-rendering:pixelated;display:none}
+.hero.ceu[data-ceu="cena"] .ceu-cv{display:block}.hero.ceu[data-ceu="cena"] .ceu-bg{display:none}
+.ceu-linhas{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+.hero.ceu.claro .ceu-vela{background:linear-gradient(180deg,rgba(6,9,8,0) 0%,rgba(6,9,8,.06) 40%,rgba(6,9,8,.82) 86%,var(--crt) 100%)}
+.hero.ceu.claro .txt{background:var(--osso);color:var(--crt);padding:20px 22px;border:2px solid var(--crt);box-shadow:6px 6px 0 var(--crt);max-width:560px}
+.hero.ceu.claro .txt .term{color:var(--trilha)!important}.hero.ceu.claro .sub{color:var(--trilha)}
+.hero.ceu.claro .btn{box-shadow:3px 3px 0 var(--crt)}
+.ceu-leg{position:absolute;right:max(16px,calc(50vw - 574px));top:10px;font-size:18px;color:var(--osso);background:rgba(6,9,8,.6);padding:0 8px}
+/* janelas claras: o bege da paleta como papel */
+.win.claro{background:var(--osso);color:var(--crt);border-color:var(--osso);box-shadow:6px 6px 0 var(--trilha)}
+.win.claro .win-bar{background:var(--crt);color:var(--osso)}.win.claro .win-bar .btns i{border-color:var(--osso)}
+.win.claro h2{color:var(--crt)}.win.claro .term,.win.claro .nota{color:#3b4a43!important}
+.win.claro .btn{background:var(--osso);color:var(--crt);border-color:var(--crt);box-shadow:3px 3px 0 var(--crt)}.win.claro .btn.pri,.win.claro .btn:hover{background:var(--crt);color:var(--fosforo)}
+.win.claro .lista input[type=email]{background:#f6f4ea;color:var(--crt);border-color:var(--crt)}
+.win.claro .chip{border-color:#b9b5a2;color:#3b4a43}.win.claro .chip[aria-pressed="true"]{border-color:var(--crt);background:var(--crt);color:var(--fosforo)}
+.win.claro .lista .ck{color:#3b4a43}.win.claro .lista .ck a,.win.claro a:not(.btn){color:var(--crt)}
+.win.claro .ic{color:var(--crt)}.win.claro .ic:hover,.win.claro .ic[aria-pressed="true"]{border-color:var(--crt);background:#dcd8c4}
+.win.claro .ic .pa{fill:#fff;stroke:var(--crt)}.win.claro .ic .po{fill:#cfcbb8;stroke:#6b756f}
+.win.claro .pp{border-top-color:#b9b5a2}.win.claro .wp img{border-color:var(--crt)}.win.claro .wp figcaption{color:#3b4a43}.win.claro .wp b{color:var(--crt)}
+.win.claro .lista-ok{color:var(--trilha)}.win.claro .lista-erro{color:#b3123f}
+/* área de trabalho */
+.mesa{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:-16px}
+.atalho{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px;border:2px solid transparent;background:none;color:var(--osso);font:inherit;text-decoration:none;cursor:pointer;min-width:0}
+.atalho svg{width:40px;height:40px}.atalho span{font-family:var(--f-term);font-size:20px;line-height:1.05;text-align:center}
+.atalho:hover,.atalho:focus-visible{border-color:var(--osso);background:var(--placa);outline:0}.atalho:hover span,.atalho:focus-visible span{background:var(--osso);color:var(--crt);padding:0 4px}
+.atalho:active{transform:translate(1px,1px)}
+@media (max-width:640px){.mesa{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* placar do canal */
+.placar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:640px}
+.placar div{border:2px solid var(--osso);padding:12px;display:flex;flex-direction:column;gap:2px;min-width:0}.placar b{font-family:var(--f-term);font-weight:400;font-size:34px;line-height:1;color:var(--fosforo)}.placar span{font-family:var(--f-display);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.placar .nota{grid-column:1/-1;margin:0}.placar[hidden]{display:none}
+/* efeitos: a página liga como tubo; as janelas abrem em degraus */
+@keyframes liga{0%{opacity:0;transform:scaleY(.02);filter:brightness(3)}45%{opacity:1;transform:scaleY(1.01);filter:brightness(1.5)}100%{transform:none;filter:none}}
+.pg.on{animation:liga .32s steps(7) both;transform-origin:50% 120px}
+@media (prefers-reduced-motion:reduce){.pg.on{animation:none}}
+.pp[hidden]{display:none}
+.lista .ck input{flex:none}

@@ -321,7 +321,44 @@ import IC from "./icones.json";
       if(/^dados\/capas\/[a-z0-9-]+\.jpg$/.test(v.capa||'')){var im=el('img');im.src='/'+v.capa;im.alt='';im.loading='lazy';a.appendChild(im)}
       a.appendChild(el('b','',String(v.titulo||'').slice(0,120)));a.appendChild(el('span','nota',[sr[v.serie],dataBR(v.data),v.duracao].filter(Boolean).join(' · ')));cn.appendChild(a)})}
   }).catch(function(){});
-  function rel(){var d=new Date();document.getElementById('rel').textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}rel();setInterval(rel,20000);
+  // céu do início: muda com a hora do relógio. Clicar no relógio troca o céu à mão.
+  var CEUS=[
+    {k:'madrugada',de:0,img:1},
+    {k:'amanhecer',de:5,c:[[233,230,214],[244,201,160],[226,150,150]],ch:[[233,230,214],[201,178,150]],as:[255,236,190],ay:.92,ax:.72,ar:20},
+    {k:'dia',de:8,c:[[120,160,214],[176,204,230],[233,230,214]],ch:[[233,230,214],[120,150,200]],as:[255,246,214],ay:.3,ax:.76,ar:13},
+    {k:'tarde',de:15,c:[[214,196,160],[233,214,176],[244,226,196]],ch:[[233,230,214],[176,140,110]],as:[255,240,200],ay:.6,ax:.78,ar:15},
+    {k:'pôr do sol',de:17,c:[[40,16,52],[150,40,90],[255,140,60]],ch:[[255,58,110],[40,10,40]],as:[255,214,150],ay:.96,ax:.5,ar:26,es:1},
+    {k:'noite',de:19,img:1}];
+  var cv=document.getElementById('ceuCv'),cx=cv&&cv.getContext('2d'),ceuI=-1,ceuMan=false,ceuT=0,ceuEst=null;
+  function ceuDaHora(h){var i=0;CEUS.forEach(function(c,n){if(h>=c.de)i=n});return i}
+  function mist(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t]}
+  var BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+  function pinta(){var C=CEUS[ceuI];if(!cx||C.img)return;var W=cv.width,H=cv.height,hy=Math.round(H*.58),im=cx.createImageData(W,H),d=im.data,x,y,o,c;
+    if(!ceuEst){ceuEst=[];for(var s=0;s<70;s++)ceuEst.push([Math.random()*W|0,Math.random()*hy*.8|0])}
+    for(y=0;y<H;y++)for(x=0;x<W;x++){o=(y*W+x)*4;
+      if(y<hy){var t=y/hy*2,q=(BAYER[(y&3)*4+(x&3)]/16-.5)*.18;t=Math.max(0,Math.min(1.999,t+q));var n=t|0;t=Math.round((t-n)*6)/6;c=mist(C.c[n],C.c[n+1]||C.c[n],t);
+        var dx=x-W*C.ax,dy=y-hy*C.ay;if(dx*dx+dy*dy<C.ar*C.ar)c=C.as}
+      else{var z=26/(y-hy+1),wx=(x-W/2)*z*.11,wz=z*7+ceuT,par=((Math.floor(wx)+Math.floor(wz))&1);c=C.ch[par];var nev=Math.min(1,z/9);c=mist(c,C.c[2],nev*nev)}
+      d[o]=c[0];d[o+1]=c[1];d[o+2]=c[2];d[o+3]=255}
+    if(C.es)ceuEst.forEach(function(e){o=(e[1]*W+e[0])*4;d[o]=d[o+1]=d[o+2]=235});
+    cx.putImageData(im,0,0)}
+  function poeCeu(i){ceuI=i;var C=CEUS[i],h=document.querySelector('.hero.ceu');if(!h)return;h.dataset.ceu=C.img?'foto':'cena';h.classList.toggle('claro',C.k==='amanhecer'||C.k==='dia'||C.k==='tarde');
+    var l=document.getElementById('ceuLeg');if(l)l.textContent='céu: '+C.k;pinta()}
+  var ceuUlt=0;function ceuAnda(ts){requestAnimationFrame(ceuAnda);if(ts-ceuUlt<90||document.hidden||!cv.offsetWidth||CEUS[ceuI].img)return;ceuUlt=ts;ceuT+=.035;pinta()}
+  function rel(){var d=new Date(),r=document.getElementById('rel');r.textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);if(!ceuMan){var i=ceuDaHora(d.getHours());if(i!==ceuI)poeCeu(i)}}rel();setInterval(rel,20000);
+  document.getElementById('rel').addEventListener('click',function(){ceuMan=true;poeCeu((ceuI+1)%CEUS.length);ir('inicio',{push:true})});
+  if(cx&&!reduz)requestAnimationFrame(ceuAnda);
+  var aBob=document.getElementById('atalhoBob');if(aBob)aBob.addEventListener('click',function(){abre(true)});
+  // grupo aberto: o botão só vira link quando existir um convite de verdade
+  var GRUPO='';
+  if(/^https:\/\/(chat\.whatsapp\.com|discord\.gg)\//.test(GRUPO)){var gb=document.getElementById('grupoBtn'),ga=document.createElement('a');ga.className='btn pri';ga.href=GRUPO;ga.target='_blank';ga.rel='noopener';ga.textContent='Entrar no grupo';gb.replaceWith(ga)}
+  // números do canal: vêm da função /api/canal (Cloudflare). Sem resposta, nada aparece.
+  function nBR(n){return typeof n==='number'&&isFinite(n)?n.toLocaleString('pt-BR'):''}
+  fetch('/api/canal').then(function(r){return r.ok?r.json():null}).then(function(d){if(!d||!d.ok)return;
+    var a=nBR(d.inscritos),b=nBR(d.videos),c=nBR(d.views);if(!a&&!b)return;
+    document.getElementById('plInsc').textContent=a||'—';document.getElementById('plVid').textContent=b;document.getElementById('plViews').textContent=c;
+    var q=new Date(d.atualizado);document.getElementById('plQuando').textContent='números públicos do YouTube'+(isNaN(q)?'':', lidos em '+q.toLocaleDateString('pt-BR'));
+    document.getElementById('canalPlacar').hidden=false}).catch(function(){});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(thumb);else thumb();
   // borrão glitch
   function borraLogo(){if(typeof borra==='function')borra()}

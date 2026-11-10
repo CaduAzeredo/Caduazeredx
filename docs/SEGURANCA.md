@@ -52,6 +52,12 @@ A política de privacidade afirma que "as contas que guardam os dados usam verif
 - [ ] Conferir o limite de envios por mês do plano. Uma enxurrada de robô come esse limite, e a armadilha só segura os robôs simples.
 - [ ] Ligar a notificação por e-mail de envio, para perceber enxurrada cedo.
 
+### 4a. Chave da API do YouTube (números do canal)
+
+- [ ] Criar a chave no Google Cloud, restrita à **YouTube Data API v3**.
+- [ ] Guardar no Cloudflare Pages como variável secreta `YT_API_KEY`. Ela é lida só pela função `functions/api/canal.js`, nunca vai para o navegador nem para o repositório.
+- [ ] Sem a chave, a função responde 503 e o site simplesmente não mostra o placar.
+
 ### 5. Kiwify (quando a loja abrir, v1.1)
 
 - [ ] O aviso de compra que a Kiwify manda para o site vai ter um segredo próprio, guardado só no painel do Cloudflare, nunca no repositório.
