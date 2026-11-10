@@ -34,9 +34,24 @@ import IC from "./icones.json";
   var EXT=[['grafico','Guia: o seu nicho está aquecido?','como saber se o nicho ainda cresce antes de começar.','R$ 19'],['imagem','Kit visual DEMPA','intro de 3 s, bordas, glitch e as 4 cores para o seu canal.','R$ 17'],['disquete','Banco de temas','temas prontos, separados por nicho.','R$ 27']];
   // compra: nome da spec -> link de checkout da Kiwify. Vazio = botão "Avise-me". Só entra link que o Cadu já conferiu e ligou.
   var COMPRA={'Checagem de roteiro':'https://pay.kiwify.com.br/qAr94vl','Miniatura e título':'https://pay.kiwify.com.br/dyip06H','Cortes em Shorts':'https://pay.kiwify.com.br/fv5NJCk','Cadeia de cinema':'https://pay.kiwify.com.br/tbRTkq9','Ficha de estilo':'https://pay.kiwify.com.br/e9G6sk3','Storyboard e cards':'https://pay.kiwify.com.br/kyzLnXP','Checagem de ritmo':'https://pay.kiwify.com.br/XsLDubI','Mídia real primeiro':'https://pay.kiwify.com.br/JRGtUif','A fala guia a tela':'https://pay.kiwify.com.br/RLjfb0X'};
-  function botao(nome){var u=COMPRA[nome];return typeof u==='string'&&/^https:\/\/pay\.kiwify\.com\.br\/[A-Za-z0-9]+$/.test(u)?'<a class="btn pri" href="'+u+'" rel="noopener" target="_blank">Comprar</a>':'<a class="btn" href="/specs#espera" data-ir="specs" data-rola="espera">Avise-me</a>'}
-  function cards(L,b){L=L||SP;b=b||0;return L.map(function(s,i){var n=i+1+b;return '<article class="spec">'+(s[3]?'<span class="tag-l">lançamento</span>':'')+'<svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(s[1])+'</svg><span class="term" style="color:var(--cinza)">SPEC_'+(n<10?'0':'')+n+(s[4]?' <span class="tag rd">'+s[4]+'</span>':'')+'</span><h3 style="font-size:16px">'+s[0]+'</h3><p class="nota" style="color:var(--osso)">'+s[2]+'</p><span class="pr">'+(s[3]?s[3]+' <span class="nota">avulso</span>':'<span class="nota">vem no pacote de cinema</span>')+'</span>'+botao(s[0])+'</article>'}).join('')}
-  document.getElementById('specsHome').innerHTML=cards().split('</article>').slice(0,3).join('</article>')+'</article>';document.getElementById('specsPg').innerHTML=cards();document.getElementById('specsCine').innerHTML=cards(SC,SP.length);
+  // ATIVAS: só entra aqui a spec cujo checkout foi aberto e conferido (nome, preço e formulário). As outras ficam em "entram depois" com Avise-me.
+  var ATIVAS=['Checagem de roteiro'];
+  function linkDe(nome){if(ATIVAS.indexOf(nome)<0)return '';var u=COMPRA[nome];return typeof u==='string'&&/^https:\/\/pay\.kiwify\.com\.br\/[A-Za-z0-9]+$/.test(u)?u:''}
+  function botao(nome){var u=linkDe(nome);return u?'<a class="btn pri" href="'+u+'" rel="noopener" target="_blank">Comprar</a>':'<a class="btn" href="/specs#espera" data-ir="specs" data-rola="espera">Avise-me</a>'}
+  // cada spec guarda o número dela (SPEC_01...), mesmo quando muda de aba
+  var TODAS=SP.concat(SC).map(function(s,i){return {s:s,n:i+1}});
+  function card(x){var s=x.s,n=x.n,v=linkDe(s[0]);return '<article class="spec">'+(v?'<span class="tag-l">à venda</span>':'')+'<svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(s[1])+'</svg><span class="term" style="color:var(--cinza)">SPEC_'+(n<10?'0':'')+n+(s[4]?' <span class="tag rd">'+s[4]+'</span>':'')+'</span><h3 style="font-size:16px">'+s[0]+'</h3><p class="nota" style="color:var(--osso)">'+s[2]+'</p><span class="pr">'+(s[3]?s[3]+' <span class="nota">avulso</span>':'<span class="nota">vem no pacote de cinema</span>')+'</span>'+botao(s[0])+'</article>'}
+  function cards(L){return L.map(card).join('')}
+  var AGORA=TODAS.filter(function(x){return linkDe(x.s[0])}),DEPOIS=TODAS.filter(function(x){return !linkDe(x.s[0])});
+  document.getElementById('specsHome').innerHTML=cards((AGORA.length?AGORA:TODAS).slice(0,3));
+  var hT=document.getElementById('specsHomeT');if(hT)hT.textContent=AGORA.length?AGORA.length+' à venda agora · '+DEPOIS.length+' entram depois':TODAS.length+' specs · abrem em breve';
+  document.getElementById('lojaAgora').innerHTML=cards(AGORA);document.getElementById('lojaDepois').innerHTML=cards(DEPOIS);
+  // abas da loja: à venda agora / entram depois. Sem nada à venda, some a aba e fica tudo em "entram depois".
+  (function(){var LB=[].slice.call(document.querySelectorAll('[data-loja]')),pa=document.getElementById('lojaAgora'),pd=document.getElementById('lojaDepois'),lt=document.getElementById('lojaT');
+    function poe(q){LB.forEach(function(b){var on=b.dataset.loja===q;b.classList.toggle('on',on);b.setAttribute('aria-selected',on?'true':'false')});pa.hidden=q!=='agora';pd.hidden=q!=='depois'}
+    LB.forEach(function(b){b.textContent=(b.dataset.loja==='agora'?'À venda agora · '+AGORA.length:'Entram depois · '+DEPOIS.length);b.addEventListener('click',function(){poe(b.dataset.loja)})});
+    if(lt)lt.textContent=AGORA.length?AGORA.length+' à venda agora':'abre em breve';
+    if(!AGORA.length){document.getElementById('lojaAbas').hidden=true;poe('depois')}else poe('agora')})();
   document.getElementById('pacotes').innerHTML=PAC.map(function(p){return '<article class="pacote '+p[6]+'"><span class="term" style="color:var(--fosforo)">'+p[0]+'.zip'+(p[6]?' · recomendado':'')+'</span><h3 style="font-size:16px">'+p[1]+'</h3><p class="nota" style="color:var(--osso)">'+p[2]+'</p><ul>'+p[3].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><span class="preco" style="margin-top:auto"><s>R$ '+p[4]+'</s>R$ '+p[5]+'</span><span class="eco">economiza R$ '+(p[4]-p[5])+'</span><a class="btn '+(p[6]?'pri respira':'')+'" href="#espera" data-rola="espera">Avise-me</a></article>'}).join('');
   document.getElementById('extras').innerHTML=EXT.map(function(e){return '<div class="extra"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(e[0])+'</svg><div style="display:flex;flex-direction:column;gap:4px;min-width:0"><b>'+e[1]+'</b><span class="nota">'+e[2]+'</span><span class="pr">'+e[3]+'</span></div></div>'}).join('');
   // posts
@@ -259,6 +274,7 @@ import IC from "./icones.json";
     var abaDe=id==='membro'?'comunidade':id;document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===abaDe)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
     document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({comunidade:'circulo',dempa:'wallpapers'}[id]||'specs')}
     if(o.push&&CAMINHO[id]&&CAMINHO[id]!==location.pathname)history.pushState(null,'',CAMINHO[id]);
+    if(typeof popVe==='function')popVe(id);
     if(!o.semRolar)window.scrollTo(0,0);setTimeout(borraLogo,30)}
   document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
@@ -361,6 +377,11 @@ import IC from "./icones.json";
   document.getElementById('rel').addEventListener('click',function(){ceuMan=true;poeCeu((ceuI+1)%CEUS.length);ir('inicio',{push:true})});
   if(cx&&!reduz)requestAnimationFrame(ceuAnda);
   var aBob=document.getElementById('atalhoBob');if(aBob)aBob.addEventListener('click',function(){abre(true)});
+  // aviso da home: canal + specs. Aparece uma vez por visita, só no início, e fecha no X.
+  var pop=document.getElementById('pop'),popFechado=false;try{popFechado=sessionStorage.getItem('cadu_pop')==='1'}catch(e){}
+  function popVe(id){if(pop)pop.hidden=popFechado||id!=='inicio'}
+  function popFecha(){popFechado=true;try{sessionStorage.setItem('cadu_pop','1')}catch(e){}popVe('')}
+  if(pop){document.getElementById('popX').addEventListener('click',popFecha);[].forEach.call(pop.querySelectorAll('a'),function(l){l.addEventListener('click',popFecha)});var pgOn=document.querySelector('.pg.on');popVe(pgOn?pgOn.id:'')}
   // área do membro (prévia): abas
   var MT=[].slice.call(document.querySelectorAll('[data-m]'));
   MT.forEach(function(b){b.addEventListener('click',function(){MT.forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');x.classList.toggle('on',x===b)});

@@ -46,7 +46,7 @@
   </nav>
   <button class="rel" id="rel" type="button" aria-label="Trocar o céu do início">--:--</button>
 </div></header>
-<div class="faixa"><span><b>preço de lançamento</b> até a loja abrir</span><span aria-hidden="true">·</span><a href="#espera" data-rola="espera">lista de espera aberta</a></div>
+<div class="faixa"><span><b>preço de lançamento</b> na loja</span><span aria-hidden="true">·</span><a href="/specs" data-ir="specs" data-rola="spLoja">ver o que já está à venda</a></div>
 
 <main class="wrap">
 
@@ -62,6 +62,18 @@
       <div class="row"><button class="btn pri" type="button" data-rola="canais">Ver os canais</button><a class="btn" href="/specs" data-ir="specs">Specs à venda</a><a class="btn" href="/dempa" data-ir="dempa">Pasta DEMPA <span class="novo">novo</span></a></div>
     </div>
     <span class="ceu-leg term" id="ceuLeg" aria-live="polite"></span>
+    <aside class="pop" id="pop" aria-label="Por onde começar" hidden>
+      <button class="pop-x" type="button" id="popX" aria-label="Fechar aviso">×</button>
+      <span class="term">C:\CADU&gt; por onde começar</span>
+      <b>O primeiro vídeo sai dia 15/11, ao meio-dia.</b>
+      <p class="nota">E já tem spec à venda. As outras entram ao longo da semana.</p>
+      <div class="row"><a class="btn pri" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Entrar no canal</a><a class="btn" href="/specs" data-ir="specs" data-rola="spLoja">Ver as specs</a></div>
+    </aside>
+  </section>
+
+  <section class="sec" id="homeSpecs">
+    <div class="sec-h"><h2>Specs à venda</h2><span class="term" id="specsHomeT"></span><a class="btn" href="/specs" data-ir="specs" data-rola="spLoja">Ver todas</a></div>
+    <div class="loja" id="specsHome"></div>
   </section>
 
   <nav class="mesa" aria-label="Atalhos do site">
@@ -114,10 +126,6 @@
     <div class="agenda" id="homeBreve" hidden></div>
   </section>
 
-  <section class="sec">
-    <div class="sec-h"><h2>Specs à venda</h2><span class="term">13 specs · 7 novas</span><a class="btn" href="/specs" data-ir="specs">Ver todas</a></div>
-    <div class="loja" id="specsHome"></div>
-  </section>
 </div>
 
 <!-- SPECS -->
@@ -129,8 +137,8 @@
       <p class="sub" style="font-family:var(--f-term);font-size:28px;line-height:1.1;color:var(--fosforo)">&gt; o molde que eu uso nos meus canais_</p>
       <p>Você escolhe a spec, dá o tema, e a IA monta roteiro, voz, cenas e legenda no seu computador. O vídeo sai pronto para postar, no formato que já roda na minha rede.</p>
       <div class="etapas" aria-label="Etapas"><span>tema</span><i>›</i><span>roteiro</span><i>›</i><span>voz</span><i>›</i><span>cenas</span><i>›</i><span>legenda</span><i>›</i><span class="fim">vídeo</span></div>
-      <div class="row"><button class="btn pri respira" type="button" data-rola="espera">Avise-me quando abrir</button><button class="btn" type="button" data-rola="spDemo">Ver como funciona</button></div>
-      <span class="nota">As primeiras specs já estão à venda pela Kiwify, com 7 dias de garantia. As outras abrem ao longo da semana.</span>
+      <div class="row"><button class="btn pri respira" type="button" data-rola="spLoja">Ver a loja</button><button class="btn" type="button" data-rola="spDemo">Ver como funciona</button></div>
+      <span class="nota">Já tem spec à venda pela Kiwify, com 7 dias de garantia. As outras entram ao longo da semana.</span>
     </div>
     <div class="fone"><canvas class="loopc" data-loop="short" width="270" height="480" aria-label="Exemplo animado de Short em 2D gerado pela spec"></canvas><span class="fone-l">SPEC_01 · short em 2D</span></div>
   </section>
@@ -177,16 +185,16 @@
   </section>
 
   <section class="sec rv" id="spLoja">
-    <div class="sec-h"><h2>Loja</h2><span class="term">primeiras specs à venda</span></div>
-    <div class="loja" id="specsPg"></div>
-    <div class="sec-h" style="margin-top:12px"><h2>Cadeia de cinema</h2><span class="term">7 specs novas</span></div>
-    <div class="loja" id="specsCine"></div>
+    <div class="sec-h"><h2>Loja</h2><span class="term" id="lojaT"></span></div>
+    <div class="m-abas" id="lojaAbas" role="tablist" aria-label="Specs da loja"><button type="button" role="tab" data-loja="agora" aria-controls="lojaAgora" aria-selected="true" class="on">À venda agora</button><button type="button" role="tab" data-loja="depois" aria-controls="lojaDepois" aria-selected="false">Entram depois</button></div>
+    <div class="loja" id="lojaAgora" role="tabpanel"></div>
+    <div class="loja" id="lojaDepois" role="tabpanel" hidden></div>
     <div class="sec-h" style="margin-top:12px"><h2>Pacotes</h2><span class="term">mais barato junto</span></div>
     <div class="pacotes" id="pacotes"></div>
     <div class="sec-h" style="margin-top:12px"><h2>Extras</h2><span class="term">aparecem no carrinho</span></div>
     <div class="extras" id="extras"></div>
     <div class="gratis"><svg class="px" data-ic="download" aria-hidden="true"></svg><div style="flex:1;min-width:200px"><b>Amostra grátis</b><p class="nota">Um pedaço aberto de cada spec, para testar antes de comprar. Sai junto com a loja.</p></div><a class="btn" href="#espera" data-rola="espera">Avise-me</a></div>
-    <p class="nota">Os preços são os de lançamento. A compra vai ser pela Kiwify, e quem estiver na lista fica sabendo primeiro.</p>
+    <p class="nota">Os preços são os de lançamento. A compra é pela Kiwify, e quem estiver na lista fica sabendo primeiro das que entram depois.</p>
   </section>
 
   <section class="win rv"><div class="win-bar"><span>painel_da_rede.exe · prova</span><span class="btns"><i></i><i></i><i></i></span></div>
@@ -218,7 +226,7 @@
   </section>
 
 
-  <div class="fixa" id="fixa"><span style="line-height:1.1"><b>desde R$ 17</b><br><span style="color:var(--cinza)">primeiras à venda</span></span><button class="btn pri" type="button" data-rola="espera">Avise-me</button></div>
+  <div class="fixa" id="fixa"><span style="line-height:1.1"><b>desde R$ 17</b><br><span style="color:var(--cinza)">loja aberta</span></span><button class="btn pri" type="button" data-rola="espera">Avise-me</button></div>
 </div>
 
 <!-- COMUNIDADE -->

@@ -496,3 +496,16 @@ a.yt-c:focus-visible{outline:2px dashed var(--fosforo);outline-offset:4px}
   .aba[aria-current="page"] span{position:static;width:auto;height:auto;clip-path:none;font-size:9px;letter-spacing:.02em}
 }
 @media (max-width:370px){.aba{padding:6px 4px}.aba[aria-current="page"] span{position:absolute;width:1px;height:1px;clip-path:inset(50%)}}
+
+/* aviso da home (canal + specs): fica no céu da intro, não acompanha a rolagem */
+.pop{position:absolute;right:max(16px,calc(50vw - 574px));top:52px;z-index:3;width:min(340px,calc(100% - 32px));display:flex;flex-direction:column;gap:8px;background:var(--placa);border:2px solid var(--osso);box-shadow:4px 4px 0 var(--fosforo);padding:14px 16px}
+.pop[hidden]{display:none}
+.pop .term{color:var(--fosforo);font-size:18px;padding-right:28px}
+.pop b{font-family:var(--f-display);font-size:13px;line-height:1.5;letter-spacing:.03em}
+.pop .row{gap:8px}
+.pop .btn{flex:1 1 auto;text-align:center;justify-content:center}
+.pop-x{position:absolute;top:4px;right:4px;width:32px;height:32px;background:none;border:0;color:var(--osso);font-size:22px;line-height:1;cursor:pointer}
+.pop-x:focus-visible{outline:2px dashed var(--fosforo);outline-offset:-2px}
+@media (max-width:760px){.pop{left:16px;right:16px;width:auto;top:44px;padding:10px 12px}.pop .nota{display:none}.ceu:has(.pop:not([hidden])){padding-top:300px}}
+@media (prefers-reduced-motion:no-preference){.pop{animation:popEntra .35s steps(4) both}@keyframes popEntra{from{transform:translateY(-12px);opacity:0}to{transform:none;opacity:1}}}
+.loja[hidden]{display:none}
