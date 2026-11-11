@@ -287,7 +287,8 @@ import IC from "./icones.json";
   ir(idDo(location.pathname),{semRolar:true});
   if(location.hash)setTimeout(function(){rola(location.hash.slice(1))},120);
   // listas de espera
-  var ENDPOINT=import.meta.env.VITE_LEAD_FORM_ENDPOINT||'';
+  // formulário do Formspree (o endereço é público, não é senha). A variável do Cloudflare, se existir, tem prioridade.
+  var ENDPOINT=import.meta.env.VITE_LEAD_FORM_ENDPOINT||'https://formspree.io/f/xyewgwnv';
   /* origem por vídeo: ?v=ep01 no link da descrição. Vale para a visita inteira. */
   var VIDEO=(function(){var v=null;try{v=new URLSearchParams(location.search).get('v')}catch(e){}
     if(v&&/^[a-z0-9_-]{1,40}$/i.test(v)){v=v.toLowerCase();try{sessionStorage.setItem('cadu_v',v)}catch(e){}return v}
