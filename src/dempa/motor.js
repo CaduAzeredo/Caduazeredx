@@ -35,7 +35,7 @@ import IC from "./icones.json";
   // compra: nome da spec -> link de checkout da Kiwify. Vazio = botão "Avise-me". Só entra link que o Cadu já conferiu e ligou.
   var COMPRA={'Checagem de roteiro':'https://pay.kiwify.com.br/qAr94vl','Miniatura e título':'https://pay.kiwify.com.br/dyip06H','Cortes em Shorts':'https://pay.kiwify.com.br/fv5NJCk','Cadeia de cinema':'https://pay.kiwify.com.br/tbRTkq9','Ficha de estilo':'https://pay.kiwify.com.br/e9G6sk3','Storyboard e cards':'https://pay.kiwify.com.br/kyzLnXP','Checagem de ritmo':'https://pay.kiwify.com.br/XsLDubI','Mídia real primeiro':'https://pay.kiwify.com.br/JRGtUif','A fala guia a tela':'https://pay.kiwify.com.br/RLjfb0X'};
   // ATIVAS: só entra aqui a spec cujo checkout foi aberto e conferido (nome, preço e formulário). As outras ficam em "entram depois" com Avise-me.
-  var ATIVAS=['Checagem de roteiro'];
+  var ATIVAS=['Checagem de roteiro','Miniatura e título','Cortes em Shorts','Cadeia de cinema','Ficha de estilo','Storyboard e cards','Checagem de ritmo','Mídia real primeiro','A fala guia a tela'];
   function linkDe(nome){if(ATIVAS.indexOf(nome)<0)return '';var u=COMPRA[nome];return typeof u==='string'&&/^https:\/\/pay\.kiwify\.com\.br\/[A-Za-z0-9]+$/.test(u)?u:''}
   function botao(nome){var u=linkDe(nome);return u?'<a class="btn pri" href="'+u+'" rel="noopener" target="_blank">Comprar</a>':'<a class="btn" href="/specs#espera" data-ir="specs" data-rola="espera">Avise-me</a>'}
   // cada spec guarda o número dela (SPEC_01...), mesmo quando muda de aba
