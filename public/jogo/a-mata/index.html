@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Mata · DEMPA · Cadu Azeredo</title>
+<meta name="description" content="A Mata: jogo de terror em primeira pessoa do universo DEMPA, feito à mão por Cadu Azeredo. Jogue no navegador do computador.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root { --fundo:#04080a; --fosforo:#3dff7e; --nevoa:#bfe3e6; --veu:rgba(3,10,12,.55); --tipo:'VT323','Courier New',monospace; color-scheme: dark }
+  html,body { height:100%; margin:0; background:var(--fundo); overflow:hidden }
+  canvas { position:fixed; inset:0; width:100%; height:100%; display:block; touch-action:none }
+  #hud { position:fixed; left:calc(3vw + env(safe-area-inset-left,0px)); bottom:calc(4vh + env(safe-area-inset-bottom,0px)); font:clamp(16px,2.2vw,30px)/1.15 var(--tipo);
+         color:var(--fosforo); text-shadow:0 0 6px rgba(61,255,126,.6); pointer-events:none; letter-spacing:.04em; white-space:pre }
+  .tela { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:2vh; text-align:center;
+          padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px));
+          background:var(--veu) url(capa.jpg) center/cover no-repeat; background-blend-mode:multiply; color:var(--nevoa); font:clamp(18px,2.4vw,32px)/1.25 var(--tipo); cursor:pointer; border:0 }
+  .tela:focus-visible { outline:2px solid var(--fosforo); outline-offset:-6px }
+  .tela b { color:var(--nevoa); font-weight:400; font-size:2.4em; letter-spacing:.5em; margin-right:-.5em; text-shadow:0 0 18px rgba(160,230,235,.5) }
+  .tela small { opacity:.75 }
+  #fim { background:#e9f4f5; color:#0c2226; cursor:default }
+  #fim b { color:#0c2226; text-shadow:none }
+  #fim button { font:inherit; color:#0c2226; background:none; border:1px solid #0c2226; padding:.3em 1em; cursor:pointer }
+  #modos { display:flex; flex-wrap:wrap; justify-content:center; gap:12px }
+  #modos button, #voltar { font:inherit; color:var(--nevoa); background:rgba(3,10,12,.7); border:1px solid rgba(191,227,230,.55); padding:.35em .9em; cursor:pointer; min-width:7.5em }
+  #modos button span { display:block; font-size:1.25em; letter-spacing:.2em }
+  #modos button small { display:block; font-size:.62em; opacity:.8 }
+  #modos button:hover, #modos button:focus-visible, #voltar:hover, #voltar:focus-visible { color:var(--fosforo); border-color:var(--fosforo); outline:none }
+  .esc { display:none !important }
+  canvas:focus { outline:none }
+  .sair { color:var(--nevoa); font-size:.8em; opacity:.8 } .sair:hover, .sair:focus-visible { color:var(--fosforo); opacity:1 }
+  .so-cel { display:none; color:var(--fosforo) }
+  @media (hover:none) and (pointer:coarse) { .so-cel { display:block } }
+</style>
+</head>
+<body>
+<canvas id="tela" tabindex="0" aria-label="A Mata, jogo em primeira pessoa"></canvas>
+<div id="hud"></div>
+<div id="inicio" class="tela">
+  <b>A MATA</b>
+  <div id="modos">
+    <button type="button" data-modo="facil"><span>FÁCIL</span><small>feixe alto · medo lento</small></button>
+    <button type="button" data-modo="medio"><span>MÉDIO</span><small>feixe fraco · medo no ritmo</small></button>
+    <button type="button" data-modo="dificil"><span>DIFÍCIL</span><small>sem feixe · medo rápido</small></button>
+  </div>
+  <button id="voltar" type="button" class="esc">voltar</button>
+  <small>WASD andar · mouse olhar (ou arraste) · SHIFT correr · L lanterna<br>um sinal acende por vez, e um medo vigia cada sinal<br>1ª vez: olhe para ele · 2ª vez: acerte a lanterna antes que ele chegue<br>o palhaço vem por trás · o terno quase para quando você para<br>nos últimos sinais ele te enxerga: não dê as costas<br>H esconder texto · N mudo</small>
+  <small class="so-cel">Por enquanto, A Mata é para computador, com teclado e mouse. A versão de celular vem depois.</small>
+  <a class="sair" href="/dempa">‹ voltar ao site</a>
+</div>
+<div id="fim" class="tela esc">
+  <b>VOCÊ DORMIU</b>
+  <div>e acordou na Sala 0.</div>
+  <small id="resumo"></small>
+  <button id="denovo" type="button">entrar de novo</button>
+</div>
+<script type="module" src="mata.js"></script>
+</body>
+</html>

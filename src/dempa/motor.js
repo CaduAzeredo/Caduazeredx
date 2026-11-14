@@ -265,9 +265,9 @@ import IC from "./icones.json";
   chat.addEventListener('keydown',function(e){if(e.key==='Escape'){abre(false);rb.focus()}});
   cc.addEventListener('click',function(e){if(e.target.closest('[data-ir]'))abre(false)});
   // navegação por rotas de verdade
-  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
+  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'Pasta DEMPA · Cadu Azeredo',comunidade:'Comunidade · Cadu Azeredo',dev:'Dev · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'DEMPA · jogo, wallpapers e por dentro · Cadu Azeredo',comunidade:'Comunidade · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});

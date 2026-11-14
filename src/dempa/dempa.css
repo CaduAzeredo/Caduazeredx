@@ -512,3 +512,7 @@ a.yt-c:focus-visible{outline:2px dashed var(--fosforo);outline-offset:4px}
 /* doação por Pix */
 .pix{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .pix code{font-family:var(--f-term);font-size:20px;line-height:1.2;color:var(--fosforo);border:2px solid var(--osso);padding:8px 12px;word-break:break-all;flex:1 1 260px;user-select:all}
+/* jogo na página DEMPA */
+.jogo-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;padding:20px;align-items:center}
+.jogo-in img{width:100%;height:auto;display:block;border:2px solid var(--osso)}
+@media (max-width:760px){.jogo-in{grid-template-columns:1fr;padding:16px}}
