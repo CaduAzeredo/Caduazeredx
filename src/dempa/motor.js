@@ -267,12 +267,12 @@ import IC from "./icones.json";
   // navegação por rotas de verdade
   var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'DEMPA · jogo, wallpapers e por dentro · Cadu Azeredo',comunidade:'Comunidade · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'DEMPA · jogo, wallpapers e por dentro · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});
     var abaDe=id==='membro'?'comunidade':id;document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===abaDe)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({dempa:'wallpapers'}[id]||'specs')}
+    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({comunidade:'circulo',membro:'circulo',dempa:'wallpapers'}[id]||'specs')}
     if(o.push&&CAMINHO[id]&&CAMINHO[id]!==location.pathname)history.pushState(null,'',CAMINHO[id]);
     if(typeof popVe==='function')popVe(id);
     if(!o.semRolar)window.scrollTo(0,0);setTimeout(borraLogo,30)}

@@ -519,3 +519,8 @@ a.yt-c:focus-visible{outline:2px dashed var(--fosforo);outline-offset:4px}
 /* vitrine do início */
 .vit{display:flex;flex-direction:column;gap:12px;max-width:856px;width:100%;margin:0 auto}
 .vit video{display:block;width:100%;height:auto;aspect-ratio:856/720;background:#000;border:2px solid var(--osso)}
+/* Círculo por turmas: próximas turmas ficam recolhidas */
+.turmas{display:flex;flex-direction:column;gap:10px}
+.turmas summary{cursor:pointer;font-family:var(--f-term);font-size:22px;color:var(--osso);list-style:none}
+.turmas summary::before{content:"+ ";color:var(--fosforo)}.turmas[open] summary::before{content:"- "}
+.turmas .lotes{margin-top:10px}
