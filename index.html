@@ -45,7 +45,7 @@
   </nav>
   <button class="rel" id="rel" type="button" aria-label="Trocar o céu do início">--:--</button>
 </div></header>
-<div class="faixa"><span><b>EP 01</b> · sai dia 15/11, ao meio-dia</span><span aria-hidden="true">·</span><a href="/canal" data-ir="canal">ver a agenda do canal</a></div>
+<div class="faixa"><span id="faixaT" data-ate="2026-11-15T15:00:00Z" data-depois="já está no canal"><b>EP 01</b> · sai dia 15/11, ao meio-dia</span><span aria-hidden="true">·</span><a href="/canal" data-ir="canal">ver a agenda do canal</a></div>
 
 <main class="wrap">
 
@@ -64,10 +64,16 @@
     <aside class="pop" id="pop" aria-label="Por onde começar" hidden>
       <button class="pop-x" type="button" id="popX" aria-label="Fechar aviso">×</button>
       <span class="term">C:\CADU&gt; por onde começar</span>
-      <b>O primeiro vídeo sai dia 15/11, ao meio-dia.</b>
-      <p class="nota">Enquanto isso, o DEMPA tem um jogo de terror e wallpapers grátis.</p>
+      <b class="ate" data-ate="2026-11-15T15:00:00Z" data-depois="O primeiro vídeo já está no canal.">O primeiro vídeo sai dia 15/11, ao meio-dia.</b>
+      <p class="nota">E o DEMPA tem um jogo de terror e wallpapers grátis.</p>
       <div class="row"><a class="btn pri" href="https://www.youtube.com/@CaduAzeredo?sub_confirmation=1" rel="noopener" target="_blank">Entrar no canal</a><a class="btn" href="/dempa" data-ir="dempa">Abrir o DEMPA</a></div>
     </aside>
+  </section>
+
+  <section class="sec" id="vitrineHome">
+    <div class="sec-h"><h2>O nosso melhor</h2><span class="term">vitrine · 52 s</span></div>
+    <div class="vit"><video id="vitV" src="/dempa/video/vitrine-mudo.mp4" poster="/dempa/video/vitrine-poster.jpg" muted loop playsinline preload="none" width="856" height="720" aria-label="Vitrine: as cenas que eu mais gosto dos vídeos do canal, do preto e branco à cor"></video>
+      <div class="row"><button class="btn pri" type="button" id="vitSom">Ver com som</button><span class="nota">As cenas que eu mais gosto de editar, não as que deram mais view.</span></div></div>
   </section>
 
   <nav class="mesa" aria-label="Atalhos do site">
@@ -233,7 +239,7 @@
   <section class="sec">
     <span class="term" style="color:var(--cinza)">C:\CADU\REDE&gt; conectar</span>
     <h1>Comunidade</h1>
-    <p>A parte aberta é de todo mundo: grupo, mural e os posts de bastidor.</p>
+    <p>A parte aberta é de todo mundo: grupo, mural e os posts de bastidor. Mais embaixo fica o Círculo, a parte fechada.</p>
   </section>
   <div class="duas">
     <section class="win"><div class="win-bar"><span>entrar.exe</span><span class="btns"><i></i><i></i><i></i></span></div>
@@ -251,32 +257,17 @@
   <section class="win"><div class="win-bar"><span>posts.txt · em breve</span><span class="btns"><i></i><i></i><i></i></span></div>
     <div class="win-body" style="padding-block:6px"><div class="filtros" style="padding:8px 0"><span class="tag of">IA</span><span class="tag" style="color:var(--sinal)">DEMPA</span><span class="tag rd">Internet</span><span class="tag br">Oficina</span></div><div class="posts" id="posts"></div></div></section>
 
-  <div class="corte" aria-hidden="true" hidden><span>ÁREA FECHADA · SÓ ENTRA QUEM PAGA</span></div>
+  <div class="corte" aria-hidden="true"><span>ÁREA FECHADA · CÍRCULO</span></div>
 
-  <section class="circ" id="circulo" hidden>
+  <section class="circ" id="circulo">
     <div class="circ-top">
       <div class="fossil-w"><svg class="fossil" id="fossil" viewBox="0 0 32 14" aria-hidden="true"></svg><span class="term">FÓSSIL.DAT · acesso 01</span></div>
       <div class="sec" style="gap:12px">
         <span class="term" style="color:var(--sinal)">C:\CADU\CIRCULO&gt; acesso negado_</span>
         <h2 class="circ-h">Círculo</h2>
         <p>O que não dá para mostrar em público: os números de cada canal todo dia, os vídeos que eu não posto aberto e tudo que eu estou testando antes de virar spec. Um preço só, sem níveis.</p>
-        <p class="nota">Quem entra cedo paga menos. A cada 10 pessoas o preço sobe para quem vem depois, porque tem mais canal, mais dado e mais coisa entregue lá dentro. Para quem já entrou, o preço fica travado.</p>
+        <p class="nota">Funciona por turma: cada uma tem 10 vagas e uma data para fechar. Quem entra paga o preço da sua turma, e ele fica travado.</p>
       </div>
-    </div>
-
-    <div class="lote">
-      <div class="lote-a"><span class="term" style="color:var(--fosforo)">LOTE 01 · abre em breve</span>
-        <div class="preco-g">R$ 497</div><span class="nota">por 12 meses · à vista ou em até 12x na Kiwify</span>
-        <span class="fund"><b>só no lote 01</b>meu WhatsApp pessoal para as 10 vagas, e desconto de lançamento para as 5 primeiras</span>
-        <div class="vagas"><div class="vbar"><i style="width:0%"></i></div><span class="term"><b id="vagasN">0</b> de 10 vagas</span></div>
-        <a class="btn pri respira" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a></div>
-      <ol class="lotes" aria-label="Próximos lotes">
-        <li class="on"><span>lote 01</span><b>R$ 497</b><i>agora</i></li>
-        <li class="dica"><span class="term">os próximos valores só aparecem quando o lote anterior fechar_</span></li>
-        <li><span>lote 02</span><b class="cens" aria-label="valor oculto">R$ 597</b><i>depois de 10</i></li>
-        <li><span>lote 03</span><b class="cens" aria-label="valor oculto">R$ 697</b><i>depois de 20</i></li>
-        <li><span>lote 04+</span><b class="cens" aria-label="valor oculto">R$ 797</b><i>???</i></li>
-      </ol>
     </div>
 
     <div class="dentro">
@@ -296,8 +287,23 @@
         <div class="kp"><span class="term">canal 03</span><b class="cens" aria-label="nome oculto">Nome aqui</b></div>
         <p class="nota" style="grid-column:1/-1">Lá dentro, sem borrão.</p>
       </div></div>
-    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a><a class="btn" href="/circulo" data-ir="membro">Ver o Círculo por dentro</a></div>
-    <p class="nota">Não é investimento: o preço sobe só para quem entra depois. Você paga pelo que recebe, e tem 7 dias de garantia.</p>
+    <div class="lote">
+      <div class="lote-a"><span class="term" style="color:var(--fosforo)">TURMA 01 · inscrições até 31/12</span>
+        <div class="preco-g">R$ 397</div><span class="nota">por 12 meses · à vista ou em até 12x na Kiwify</span>
+        <span class="fund"><b>só na turma 01</b>meu WhatsApp pessoal para as 10 vagas</span>
+        <div class="vagas"><div class="vbar"><i style="width:0%"></i></div><span class="term"><b id="vagasN">0</b> de 10 vagas</span></div>
+        <a class="btn pri respira" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar na turma 01</a></div>
+      <details class="turmas"><summary>Como as próximas turmas funcionam</summary>
+        <p class="nota">Quando a turma 01 fechar, a turma 02 abre com data nova e preço maior, porque lá dentro já vai ter mais canal, mais dado e mais coisa entregue. Os próximos valores só aparecem quando a turma anterior fechar.</p>
+        <ol class="lotes" aria-label="Próximas turmas">
+          <li class="on"><span>turma 01</span><b>R$ 397</b><i>até 31/12</i></li>
+          <li><span>turma 02</span><b class="cens" aria-label="valor oculto">R$ 497</b><i>depois</i></li>
+          <li><span>turma 03</span><b class="cens" aria-label="valor oculto">R$ 597</b><i>???</i></li>
+        </ol>
+      </details>
+    </div>
+    <div class="row"><a class="btn" href="/circulo" data-ir="membro">Ver o Círculo por dentro</a></div>
+    <p class="nota">Não é investimento: o preço sobe só para as próximas turmas. Você paga pelo que recebe, e tem 7 dias de garantia.</p>
   </section>
 </div>
 
@@ -327,8 +333,8 @@
   <section class="sec" style="gap:14px">
     <span class="term" style="color:var(--sinal)">C:\CADU\CIRCULO&gt; previa_</span>
     <h1>Círculo por dentro</h1>
-    <p>É assim que vai ser a área de quem entra. Aqui fora, nomes e números ficam no borrão; lá dentro, não. O acesso abre junto com o lote 01.</p>
-    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar no lote 01</a><a class="btn" href="/comunidade" data-ir="comunidade">Voltar para a comunidade</a></div>
+    <p>É assim que vai ser a área de quem entra. Aqui fora, nomes e números ficam no borrão; lá dentro, não. O acesso abre junto com a turma 01.</p>
+    <div class="row"><a class="btn pri" href="#espera" data-rola="espera" data-quer="circulo">Quero entrar na turma 01</a><a class="btn" href="/comunidade" data-ir="comunidade">Voltar para a comunidade</a></div>
   </section>
   <div class="m-abas" role="tablist" aria-label="Seções da área do membro">
     <button class="on" type="button" role="tab" aria-selected="true" aria-controls="m-inicio" data-m="inicio">Início</button>
@@ -375,7 +381,7 @@
   <div class="m-p sec" id="m-videos" role="tabpanel" hidden>
     <section class="win"><div class="win-bar"><span>videos_do_circulo</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="win-body"><h2>Vídeos do Círculo</h2><p>Uma série de bastidores que não vai para o canal aberto. Os episódios vão ficar em link fechado do YouTube, então nada pesa no site.</p>
-        <p class="vazio">&gt; o primeiro episódio entra junto com o lote 01_</p></div></section>
+        <p class="vazio">&gt; o primeiro episódio entra junto com a turma 01_</p></div></section>
   </div>
 
   <div class="m-p sec" id="m-downloads" role="tabpanel" hidden>
@@ -392,14 +398,14 @@
   <div class="m-p duas" id="m-acesso" role="tabpanel" hidden>
     <section class="win"><div class="win-bar"><span>contato.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="win-body"><h2>Falar comigo</h2><div class="passos">
-        <div class="passo"><svg class="px" data-ic="sino" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Meu WhatsApp pessoal</b><div class="nota">só no lote 01, porque são 10 pessoas</div></div><span class="tag of">lote 01</span></div>
+        <div class="passo"><svg class="px" data-ic="sino" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Meu WhatsApp pessoal</b><div class="nota">só na turma 01, porque são 10 pessoas</div></div><span class="tag of">turma 01</span></div>
         <div class="passo"><svg class="px" data-ic="olho" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Auditoria</b><div class="nota">você manda o canal e eu devolvo, por vídeo, o que eu mudaria</div></div></div>
         <div class="passo"><svg class="px" data-ic="rede" style="width:28px;height:28px" aria-hidden="true"></svg><div style="flex:1"><b>Grupo de membros</b><div class="nota">para trocar canal, nicho e resultado entre si</div></div></div>
       </div></div></section>
     <section class="win"><div class="win-bar"><span>minha_conta.cfg</span><span class="btns"><i></i><i></i><i></i></span></div>
       <div class="win-body"><h2>Minha conta</h2>
         <table class="tab"><tbody>
-          <tr><td>lote</td><td>01 · R$ 497</td></tr>
+          <tr><td>turma</td><td>01 · R$ 397</td></tr>
           <tr><td>preço</td><td>travado para quem já entrou</td></tr>
           <tr><td>período</td><td>12 meses</td></tr>
           <tr><td>pagamento e nota</td><td>pela Kiwify</td></tr>
@@ -513,7 +519,7 @@
     <h3>1. Quem vende</h3><p>Carlos Eduardo Azeredo Moura, responsável por caduazeredo.com. Os pagamentos são processados pela Kiwify.</p>
     <h3>2. O que é uma spec</h3><p>Um arquivo digital com instruções e modelos para produzir vídeos. Você pode usar nos seus próprios canais, inclusive canais monetizados. Não pode revender, repassar ou publicar o arquivo.</p>
     <h3>3. Garantia de 7 dias</h3><p>Se não gostar, peça o reembolso em até 7 dias depois da compra, direto pela Kiwify, sem precisar explicar.</p>
-    <h3>4. Círculo</h3><ul><li>O acesso vale por 12 meses a partir da compra.</li><li>O preço que você pagou fica travado na renovação enquanto você renovar sem interrupção.</li><li>O preço sobe por lote só para quem entra depois.</li><li>O acesso é pessoal: não compartilhe login, links fechados ou arquivos.</li><li>O contato pelo WhatsApp pessoal vale só para o lote 01.</li></ul>
+    <h3>4. Círculo</h3><ul><li>O acesso vale por 12 meses a partir da compra.</li><li>O preço que você pagou fica travado na renovação enquanto você renovar sem interrupção.</li><li>Cada turma tem data para fechar, e o preço sobe só para as turmas seguintes.</li><li>O acesso é pessoal: não compartilhe login, links fechados ou arquivos.</li><li>O contato pelo WhatsApp pessoal vale só para a turma 01.</li></ul>
     <h3>5. Sem promessa de resultado</h3><p>Eu mostro o que faço e os meus números. O resultado do seu canal depende do seu nicho, da sua constância e do YouTube. Nada aqui é investimento ou promessa de ganho.</p>
     <h3>6. Conduta nos grupos</h3><p>Sem spam, sem venda e sem ataque a ninguém. Quem quebrar a regra pode ser removido do grupo, sem perder o resto do acesso já pago.</p>
     <h3>7. Mudanças</h3><p>Se estes termos mudarem, aviso por e-mail e no mural antes de valer. Atualizado em novembro de 2026.</p>
@@ -581,7 +587,7 @@
 
 <section class="win claro" id="espera"><div class="win-bar"><span>lista_de_espera.txt</span><span class="btns"><i></i><i></i><i></i></span></div>
   <div class="win-body"><picture class="gif g-esp"><source media="(prefers-reduced-motion:reduce)" srcset="/dempa/gif/disquete.png"><img src="/dempa/gif/disquete.gif" alt="" width="96" height="96" loading="lazy"></picture><h2>Avise quando abrir</h2><p>Escolha o que você quer receber. Só o aviso, sem spam.</p>
-    <form class="lista" id="listaUnica"><div class="chips" role="group" aria-label="O que você quer receber"><button class="chip" type="button" data-int="specs" aria-pressed="true">specs</button><button class="chip" type="button" data-int="wallpapers" aria-pressed="false">wallpapers</button></div><label for="em1" class="sr">E-mail</label><input id="em1" name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="btn pri" type="submit">Entrar na lista</button><label class="ck"><input type="checkbox" required> Aceito receber este aviso por e-mail. Posso sair quando quiser. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label></form></div></section>
+    <form class="lista" id="listaUnica"><div class="chips" role="group" aria-label="O que você quer receber"><button class="chip" type="button" data-int="specs" aria-pressed="true">specs</button><button class="chip" type="button" data-int="circulo" aria-pressed="false">Círculo</button><button class="chip" type="button" data-int="wallpapers" aria-pressed="false">wallpapers</button></div><label for="em1" class="sr">E-mail</label><input id="em1" name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"><div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="btn pri" type="submit">Entrar na lista</button><label class="ck"><input type="checkbox" required> Aceito receber este aviso por e-mail. Posso sair quando quiser. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label></form></div></section>
 </main>
 
 <footer><div class="in">

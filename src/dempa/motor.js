@@ -267,12 +267,12 @@ import IC from "./icones.json";
   // navegação por rotas de verdade
   var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'DEMPA · jogo, wallpapers e por dentro · Cadu Azeredo',comunidade:'Comunidade · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'DEMPA · jogo, wallpapers e por dentro · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});
     var abaDe=id==='membro'?'comunidade':id;document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===abaDe)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({dempa:'wallpapers'}[id]||'specs')}
+    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({comunidade:'circulo',membro:'circulo',dempa:'wallpapers'}[id]||'specs')}
     if(o.push&&CAMINHO[id]&&CAMINHO[id]!==location.pathname)history.pushState(null,'',CAMINHO[id]);
     if(typeof popVe==='function')popVe(id);
     if(!o.semRolar)window.scrollTo(0,0);setTimeout(borraLogo,30)}
@@ -286,6 +286,13 @@ import IC from "./icones.json";
   window.addEventListener('popstate',function(){ir(idDo(location.pathname),{semRolar:true})});
   ir(idDo(location.pathname),{semRolar:true});
   if(location.hash)setTimeout(function(){rola(location.hash.slice(1))},120);
+  // vitrine do início: toca muda quando aparece na tela; o botão troca pela versão com som
+  (function(){var v=document.getElementById('vitV'),bt=document.getElementById('vitSom');if(!v||!bt)return;
+    if(reduz){v.controls=true}else if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(v.dataset.som)return;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()})},{threshold:.35}).observe(v)}
+    bt.addEventListener('click',function(){v.dataset.som='1';v.src='/dempa/video/vitrine-com-som.mp4';v.loop=false;v.muted=false;v.controls=true;var p=v.play();if(p&&p.catch)p.catch(function(){});bt.hidden=true})})();
+  // faixa do topo: depois da estreia, o aviso do EP 01 vira "já está no canal"
+  (function(){var f=document.getElementById('faixaT');if(!f||!f.dataset.ate)return;if(Date.now()>=Date.parse(f.dataset.ate)){f.textContent='';var b=document.createElement('b');b.textContent='EP 01';f.appendChild(b);f.appendChild(document.createTextNode(' · '+f.dataset.depois))}
+    [].forEach.call(document.querySelectorAll('.ate[data-ate]'),function(e){if(Date.now()>=Date.parse(e.dataset.ate))e.textContent=e.dataset.depois})})();
   // doação por Pix: copia a chave
   (function(){var bt=document.getElementById('pixCopiar'),ch=document.getElementById('pixChave');if(!bt||!ch)return;
     bt.addEventListener('click',function(){var t=ch.textContent.trim();

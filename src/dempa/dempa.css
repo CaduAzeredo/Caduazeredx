@@ -516,3 +516,11 @@ a.yt-c:focus-visible{outline:2px dashed var(--fosforo);outline-offset:4px}
 .jogo-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;padding:20px;align-items:center}
 .jogo-in img{width:100%;height:auto;display:block;border:2px solid var(--osso)}
 @media (max-width:760px){.jogo-in{grid-template-columns:1fr;padding:16px}}
+/* vitrine do início */
+.vit{display:flex;flex-direction:column;gap:12px;max-width:856px;width:100%;margin:0 auto}
+.vit video{display:block;width:100%;height:auto;aspect-ratio:856/720;background:#000;border:2px solid var(--osso)}
+/* Círculo por turmas: próximas turmas ficam recolhidas */
+.turmas{display:flex;flex-direction:column;gap:10px}
+.turmas summary{cursor:pointer;font-family:var(--f-term);font-size:22px;color:var(--osso);list-style:none}
+.turmas summary::before{content:"+ ";color:var(--fosforo)}.turmas[open] summary::before{content:"- "}
+.turmas .lotes{margin-top:10px}

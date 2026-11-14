@@ -31,16 +31,15 @@ Extras: Guia do nicho R$ 19 · Kit visual R$ 17 · Banco de temas R$ 27.
 
 ## Círculo (nome provisório)
 
-Preço único, 12 meses de acesso, até 12x na Kiwify, vendido em lotes de 10. O preço sobe a cada lote e fica travado para quem já entrou.
+Preço único, 12 meses de acesso, até 12x na Kiwify, vendido por **turmas com data** (decisão de 14/11/2026): cada turma tem 10 vagas e uma data para fechar. Depois da data, a próxima turma abre mais cara. O preço fica travado para quem já entrou.
 
-| Lote | Preço |
-| --- | --- |
-| 01 | R$ 497 |
-| 02 | R$ 597 (borrado no site) |
-| 03 | R$ 697 (borrado) |
-| 04+ | R$ 797 (borrado) |
+| Turma | Preço | Fecha |
+|---|---|---|
+| 01 | R$ 397 | 31/12/2026 |
+| 02 | R$ 497 (borrado no site) | a definir |
+| 03 | R$ 597 (borrado) | a definir |
 
-Só no lote 01: WhatsApp pessoal do Cadu para as 10 vagas e desconto de lançamento para as 5 primeiras (valor a definir).
+Só na turma 01: WhatsApp pessoal do Cadu para as 10 vagas. As próximas turmas ficam recolhidas na página ("Como as próximas turmas funcionam").
 
 Dentro: painel com os números dos canais, vídeos só para o Círculo, todas as specs (inclusive as novas), auditoria do canal do membro, grupo de troca e os bônus.
 
