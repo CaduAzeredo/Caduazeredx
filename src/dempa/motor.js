@@ -286,6 +286,10 @@ import IC from "./icones.json";
   window.addEventListener('popstate',function(){ir(idDo(location.pathname),{semRolar:true})});
   ir(idDo(location.pathname),{semRolar:true});
   if(location.hash)setTimeout(function(){rola(location.hash.slice(1))},120);
+  // vitrine do início: toca muda quando aparece na tela; o botão troca pela versão com som
+  (function(){var v=document.getElementById('vitV'),bt=document.getElementById('vitSom');if(!v||!bt)return;
+    if(reduz){v.controls=true}else if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(v.dataset.som)return;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()})},{threshold:.35}).observe(v)}
+    bt.addEventListener('click',function(){v.dataset.som='1';v.src='/dempa/video/vitrine-com-som.mp4';v.loop=false;v.muted=false;v.controls=true;var p=v.play();if(p&&p.catch)p.catch(function(){});bt.hidden=true})})();
   // doação por Pix: copia a chave
   (function(){var bt=document.getElementById('pixCopiar'),ch=document.getElementById('pixChave');if(!bt||!ch)return;
     bt.addEventListener('click',function(){var t=ch.textContent.trim();
