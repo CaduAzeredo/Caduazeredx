@@ -23,7 +23,7 @@ import IC from "./icones.json";
   dh(0);if(!reduz){(function ciclo(){setTimeout(function(){vai(1,function(){setTimeout(function(){vai(0,ciclo)},1400)})},2800)})()}
   // canais oficiais
   var OF=[['Cadu Azeredo','olho','#3DFF7E','vídeos longos em português: eu falando e a tela do computador.','no ar em breve','of'],
-          ['Cadu Dev','chip','#3DFF7E','código, ferramentas e automação com IA, mais no computador.','planejado','ps'],
+          ['Cadu Dev','chip','#3DFF7E','código, ferramentas e automação com IA, direto da tela do computador.','planejado','ps'],
           ['Cadu EN','lua','#FF3A6E','o canal em inglês.','planejado','ps']];
   document.getElementById('oficiais').innerHTML=OF.map(function(c){return '<article class="canal"><div class="ban"><svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(c[1],c[2])+'</svg><b>'+c[0].toUpperCase()+'</b></div><div class="cb"><p>'+c[3]+'</p><div class="row"><span class="tag '+c[5]+'">'+c[4]+'</span><span class="tag of">oficial</span></div></div></article>'}).join('');
   // specs
@@ -43,7 +43,7 @@ import IC from "./icones.json";
   function card(x){var s=x.s,n=x.n,v=linkDe(s[0]);return '<article class="spec">'+(v?'<span class="tag-l">à venda</span>':'')+'<svg class="px" viewBox="0 0 16 16" aria-hidden="true">'+px(s[1])+'</svg><span class="term" style="color:var(--cinza)">SPEC_'+(n<10?'0':'')+n+(s[4]?' <span class="tag rd">'+s[4]+'</span>':'')+'</span><h3 style="font-size:16px">'+s[0]+'</h3><p class="nota" style="color:var(--osso)">'+s[2]+'</p><span class="pr">'+(s[3]?s[3]+' <span class="nota">avulso</span>':'<span class="nota">vem no pacote de cinema</span>')+'</span>'+botao(s[0])+'</article>'}
   function cards(L){return L.map(card).join('')}
   var AGORA=TODAS.filter(function(x){return linkDe(x.s[0])}),DEPOIS=TODAS.filter(function(x){return !linkDe(x.s[0])});
-  document.getElementById('specsHome').innerHTML=cards((AGORA.length?AGORA:TODAS).slice(0,3));
+  var sH=document.getElementById('specsHome');if(sH)sH.innerHTML=cards((AGORA.length?AGORA:TODAS).slice(0,3));
   var hT=document.getElementById('specsHomeT');if(hT)hT.textContent=AGORA.length?AGORA.length+' à venda agora · '+DEPOIS.length+' entram depois':TODAS.length+' specs · abrem em breve';
   document.getElementById('lojaAgora').innerHTML=cards(AGORA);document.getElementById('lojaDepois').innerHTML=cards(DEPOIS);
   // abas da loja: à venda agora / entram depois. Sem nada à venda, some a aba e fica tudo em "entram depois".
@@ -267,12 +267,12 @@ import IC from "./icones.json";
   // navegação por rotas de verdade
   var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/dev':'dev','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'Pasta DEMPA · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',dev:'Dev · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · canais, specs e bastidores',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'Pasta DEMPA · Cadu Azeredo',comunidade:'Comunidade · Cadu Azeredo',dev:'Dev · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});
     var abaDe=id==='membro'?'comunidade':id;document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===abaDe)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({comunidade:'circulo',dempa:'wallpapers'}[id]||'specs')}
+    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({dempa:'wallpapers'}[id]||'specs')}
     if(o.push&&CAMINHO[id]&&CAMINHO[id]!==location.pathname)history.pushState(null,'',CAMINHO[id]);
     if(typeof popVe==='function')popVe(id);
     if(!o.semRolar)window.scrollTo(0,0);setTimeout(borraLogo,30)}
@@ -280,12 +280,18 @@ import IC from "./icones.json";
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     var b=e.target.closest('[data-ir]'),r=e.target.closest('[data-rola]');
     var q=e.target.closest('[data-quer]');
-    if(b){e.preventDefault();ir(b.dataset.ir,{push:true,semRolar:!!(r&&r===b)});if(r===b)setTimeout(function(){rola(b.dataset.rola)},40);return}
+    if(b){e.preventDefault();ir(b.dataset.ir,{push:true,semRolar:!!(r&&r===b)});if(r===b){setTimeout(function(){rola(b.dataset.rola)},40);setTimeout(function(){var el=document.getElementById(b.dataset.rola);if(el&&Math.abs(el.getBoundingClientRect().top)>60)el.scrollIntoView()},900)}return}
     if(r){e.preventDefault();rola(r.dataset.rola)}
     if(q)quer(q.dataset.quer)});
   window.addEventListener('popstate',function(){ir(idDo(location.pathname),{semRolar:true})});
   ir(idDo(location.pathname),{semRolar:true});
   if(location.hash)setTimeout(function(){rola(location.hash.slice(1))},120);
+  // doação por Pix: copia a chave
+  (function(){var bt=document.getElementById('pixCopiar'),ch=document.getElementById('pixChave');if(!bt||!ch)return;
+    bt.addEventListener('click',function(){var t=ch.textContent.trim();
+      function ok(){bt.textContent='Chave copiada!';setTimeout(function(){bt.textContent='Copiar a chave'},2500)}
+      function marca(){try{var r=document.createRange();r.selectNodeContents(ch);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);bt.textContent='Selecionada: copie com Ctrl+C'}catch(e){}}
+      try{navigator.clipboard.writeText(t).then(ok,marca)}catch(e){marca()}})})();
   // listas de espera
   // formulário do Formspree (o endereço é público, não é senha). A variável do Cloudflare, se existir, tem prioridade.
   var ENDPOINT=import.meta.env.VITE_LEAD_FORM_ENDPOINT||'https://formspree.io/f/xyewgwnv';
@@ -340,7 +346,7 @@ import IC from "./icones.json";
       c.appendChild(t);
       var mt=el('span','yt-m'),av=el('img','yt-a');av.src='/dempa/cabeca/fechada.png';av.alt='';av.width=256;av.height=320;mt.appendChild(av);
       var x=el('span','yt-x');x.appendChild(el('b','',tit));x.appendChild(el('span','','Cadu Azeredo'));
-      var dd=qd&&!saiu?Math.ceil((qd.getTime()-Date.now())/864e5):0,l=saiu?'Saiu em '+qdo:qd?(v.estreia===true?'Estreia em ':'Sai em ')+qdo+(dd?(dd<=1?' · falta 1 dia':' · faltam '+dd+' dias'):''):'Sai com o site';
+      var dia=function(t){return Math.floor((t-108e5)/864e5)},dd=qd&&!saiu?dia(qd.getTime())-dia(Date.now()):-1,l=saiu?'Saiu em '+qdo:qd?(v.estreia===true?'Estreia em ':'Sai em ')+qdo+(dd===0?' · é hoje':dd===1?' · é amanhã':dd>1?' · faltam '+dd+' dias':''):'Sai com o site';
       if(v.ep)l+=' · '+String(v.ep).slice(0,40);x.appendChild(el('span','',l));mt.appendChild(x);c.appendChild(mt);return c}
     if(br.length){var cb=document.getElementById('canalBreve');cb.textContent='';br.forEach(function(v){cb.appendChild(cardV(v))});
       var yd=document.getElementById('ytDest'),nv=cardV(br[0],true);nv.id='ytDest';if(yd)yd.replaceWith(nv);
