@@ -295,12 +295,12 @@ html{overflow-x:clip}
 .faixa b{color:var(--fosforo);font-weight:400}.faixa a{color:var(--osso)}
 .novo{font-family:var(--f-term);font-size:16px;letter-spacing:0;text-transform:none;color:var(--crt);background:var(--fosforo);padding:0 6px;margin-left:6px}
 .tag-l{font-family:var(--f-term);font-size:17px;line-height:1.2;color:var(--crt);background:var(--fosforo);padding:0 8px;width:max-content}
-.hero.ceu{display:grid;grid-template-columns:minmax(0,1fr);align-content:end;position:relative;overflow:hidden;min-height:min(76vh,640px);margin:-36px calc(50% - 50vw) 0;padding:72px max(16px,calc(50vw - 574px)) 40px}
+.hero.ceu{display:grid;grid-template-columns:minmax(0,1fr);align-content:end;position:relative;overflow:hidden;min-height:min(62vh,560px);margin:-36px calc(50% - 50vw) 0;padding:72px max(16px,calc(50vw - 574px)) 40px}
 .ceu-bg{position:absolute;inset:-4%;background:url(/dempa/nuvens.jpg) center 62%/cover;animation:deriva 40s ease-in-out infinite alternate}
 .ceu-vela{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,9,8,.3) 0%,rgba(6,9,8,.12) 38%,rgba(6,9,8,.9) 84%,var(--crt) 100%)}
 @keyframes deriva{to{transform:translate3d(-2%,-1.2%,0) scale(1.03)}}
 .hero.ceu .txt{position:relative;max-width:640px}
-@media (max-width:640px){.ceu-bg{background-image:url(/dempa/nuvens-v.jpg);background-position:center 40%}.hero.ceu{min-height:min(82vh,640px)}}
+@media (max-width:640px){.ceu-bg{background-image:url(/dempa/nuvens-v.jpg);background-position:center 40%}.hero.ceu{min-height:min(70vh,560px)}}
 .tv{background:radial-gradient(ellipse at 50% 40%,var(--placa) 0%,var(--crt) 70%);padding:clamp(12px,3vw,32px);border:1px solid var(--fio)}
 .tv-capa{display:block;position:relative;width:100%;padding:0;border:1px solid var(--trilha);background:#000;cursor:pointer;aspect-ratio:16/9;overflow:hidden}
 .tv-capa img,.tv video{width:100%;height:100%;object-fit:cover;display:block}
@@ -509,3 +509,10 @@ a.yt-c:focus-visible{outline:2px dashed var(--fosforo);outline-offset:4px}
 @media (max-width:760px){.pop{left:16px;right:16px;width:auto;top:44px;padding:10px 12px}.pop .nota{display:none}.ceu:has(.pop:not([hidden])){padding-top:300px}}
 @media (prefers-reduced-motion:no-preference){.pop{animation:popEntra .35s steps(4) both}@keyframes popEntra{from{transform:translateY(-12px);opacity:0}to{transform:none;opacity:1}}}
 .loja[hidden]{display:none}
+/* doação por Pix */
+.pix{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.pix code{font-family:var(--f-term);font-size:20px;line-height:1.2;color:var(--fosforo);border:2px solid var(--osso);padding:8px 12px;word-break:break-all;flex:1 1 260px;user-select:all}
+/* jogo na página DEMPA */
+.jogo-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;padding:20px;align-items:center}
+.jogo-in img{width:100%;height:auto;display:block;border:2px solid var(--osso)}
+@media (max-width:760px){.jogo-in{grid-template-columns:1fr;padding:16px}}
