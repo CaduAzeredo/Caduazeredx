@@ -290,6 +290,9 @@ import IC from "./icones.json";
   (function(){var v=document.getElementById('vitV'),bt=document.getElementById('vitSom');if(!v||!bt)return;
     if(reduz){v.controls=true}else if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(v.dataset.som)return;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()})},{threshold:.35}).observe(v)}
     bt.addEventListener('click',function(){v.dataset.som='1';v.src='/dempa/video/vitrine-com-som.mp4';v.loop=false;v.muted=false;v.controls=true;var p=v.play();if(p&&p.catch)p.catch(function(){});bt.hidden=true})})();
+  // faixa do topo: depois da estreia, o aviso do EP 01 vira "já está no canal"
+  (function(){var f=document.getElementById('faixaT');if(!f||!f.dataset.ate)return;if(Date.now()>=Date.parse(f.dataset.ate)){f.textContent='';var b=document.createElement('b');b.textContent='EP 01';f.appendChild(b);f.appendChild(document.createTextNode(' · '+f.dataset.depois))}
+    [].forEach.call(document.querySelectorAll('.ate[data-ate]'),function(e){if(Date.now()>=Date.parse(e.dataset.ate))e.textContent=e.dataset.depois})})();
   // doação por Pix: copia a chave
   (function(){var bt=document.getElementById('pixCopiar'),ch=document.getElementById('pixChave');if(!bt||!ch)return;
     bt.addEventListener('click',function(){var t=ch.textContent.trim();
