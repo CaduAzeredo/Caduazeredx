@@ -15,7 +15,7 @@ for (const f of [
   "dist/_headers",
   "dist/_redirects",
   "dist/favicon.svg",
-  "dist/og/caduazeredo-og-1200x630.png",
+  "dist/og/caduazeredo-og-v2.png",
   "dist/.well-known/security.txt",
 ]) {
   if (!existsSync(f)) erros.push(`falta ${f}`);
