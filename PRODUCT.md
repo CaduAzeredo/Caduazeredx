@@ -11,6 +11,7 @@
 | `/specs` | o comercial, as 13 specs (6 de formato e 7 de cinema), pacotes e extras |
 | `/dempa` | Pasta DEMPA: wallpapers grátis em troca de e-mail, leia-me e a pasta oculta `.bastidores` |
 | `/comunidade` | parte aberta (grupo, mural, posts) e o Círculo (parte paga) |
+| `/portfolio` | edição e produção de vídeo para contratar: recap de 48 s, carrossel com 29 cortes da vitrine da rede (som original de cada canal) filtrado por estilo, os 4 estilos, como funciona e pedido de orçamento (Formspree, interesse `edicao`). Vídeos em `public/dempa/portfolio/` |
 | `/dev` | projetos e "Como este site foi feito" (aparece no EP 01) |
 | `/privacidade`, `/termos` | textos legais com o nome legal por extenso |
 | qualquer outra | página 404 ("Essa página foi extinta") |

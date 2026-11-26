@@ -266,15 +266,16 @@ import IC from "./icones.json";
   chat.addEventListener('keydown',function(e){if(e.key==='Escape'){abre(false);rb.focus()}});
   cc.addEventListener('click',function(e){if(e.target.closest('[data-ir]'))abre(false)});
   // navegação por rotas de verdade
-  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
+  var ROTAS={'/':'inicio','/canal':'canal','/dempa':'dempa','/specs':'specs','/comunidade':'comunidade','/portfolio':'portfolio','/circulo':'membro','/privacidade':'privacidade','/termos':'termos'};
   var CAMINHO={};Object.keys(ROTAS).forEach(function(k){CAMINHO[ROTAS[k]]=k});
-  var TITULOS={inicio:'Cadu Azeredo · vídeos sobre IA, internet e YouTube',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'DEMPA · jogo, wallpapers e por dentro · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
+  var TITULOS={inicio:'Cadu Azeredo · vídeos sobre IA, internet e YouTube',specs:'Specs · Cadu Azeredo',canal:'Canal · Cadu Azeredo',dempa:'DEMPA · jogo, wallpapers e por dentro · Cadu Azeredo',comunidade:'Comunidade e Círculo · Cadu Azeredo',portfolio:'Portfólio · edição e produção de vídeo · Cadu Azeredo',membro:'Círculo por dentro · Cadu Azeredo',privacidade:'Privacidade · Cadu Azeredo',termos:'Termos de uso · Cadu Azeredo',erro404:'Página não encontrada · Cadu Azeredo'};
   function idDo(p){p=p.replace(/\/+$/,'')||'/';return ROTAS[p]||'erro404'}
   function rola(alvo){var el=document.getElementById(alvo);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth'})}
   function ir(id,o){o=o||{};document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===id)});
     var abaDe=id==='membro'?'comunidade':id;document.querySelectorAll('.aba').forEach(function(a){if(a.dataset.ir===abaDe)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos');quer({comunidade:'circulo',membro:'circulo',dempa:'wallpapers'}[id]||'specs')}
+    document.title=TITULOS[id]||TITULOS.inicio;var le=document.getElementById('espera');if(le){le.hidden=(id==='erro404'||id==='privacidade'||id==='termos'||id==='portfolio');quer({comunidade:'circulo',membro:'circulo',dempa:'wallpapers'}[id]||'specs')}
     if(o.push&&CAMINHO[id]&&CAMINHO[id]!==location.pathname)history.pushState(null,'',CAMINHO[id]);
+    if(id!=='portfolio')document.querySelectorAll('#portfolio video').forEach(function(v){v.pause()});
     if(!o.semRolar)window.scrollTo(0,0);setTimeout(borraLogo,30)}
   document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
@@ -301,6 +302,59 @@ import IC from "./icones.json";
       function ok(){bt.textContent='Chave copiada!';setTimeout(function(){bt.textContent='Copiar a chave'},2500)}
       function marca(){try{var r=document.createRange();r.selectNodeContents(ch);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);bt.textContent='Selecionada: copie com Ctrl+C'}catch(e){}}
       try{navigator.clipboard.writeText(t).then(ok,marca)}catch(e){marca()}})})();
+  // portfólio: carrossel com os cortes da vitrine (som original de cada canal) e o recap
+  (function(){var tr=document.getElementById('pfTrilho');if(!tr)return;
+    var PF=[
+      ['tbi-03-rapel-roncadeira','turismo','Rapel na Roncadeira','TBI Ecoturismo',''],
+      ['tbi-01-por-do-sol-vale','turismo','Pôr do sol no Vale do Vai Quem Quer','TBI Ecoturismo',''],
+      ['tbi-02-cachoeira-araras','turismo','Cachoeira das Araras','TBI Ecoturismo',''],
+      ['futebol-01-ronaldinho-preso','esporte','Ronaldinho preso no Paraguai','Historiador Futebol','30,3 mil'],
+      ['vida-animal-01-gato-pepino','curiosidade','O gato tem medo de pepino?','Historiador Vida Animal','10,6 mil'],
+      ['cadu-01-dempa-porta','dempa','A porta na água','Cadu Azeredo · DEMPA',''],
+      ['futebol-02-palmeiras-triplice','esporte','Palmeiras vivo em 3 torneios','Historiador Futebol','18,5 mil'],
+      ['vida-animal-02-gato-preto','curiosidade','Gato preto dá azar?','Historiador Vida Animal','8,1 mil'],
+      ['historiador-01-jato-caixa-preta','curiosidade','A caixa-preta do jato','O Historiador BR','6 mil'],
+      ['historiador-02-corinthians-campeao','esporte','Caiu e virou campeão do mundo','O Historiador BR','6 mil'],
+      ['cadu-03-sinal-criacao','dempa','Sinal 4: criação','Cadu Azeredo · DEMPA',''],
+      ['vida-animal-03-amassa-paozinho','curiosidade','Por que o gato amassa pãozinho?','Historiador Vida Animal','5,7 mil'],
+      ['vida-animal-04-piscada-lenta','curiosidade','A piscada lenta do gato','Historiador Vida Animal','4,9 mil'],
+      ['historiador-03-coxinha','curiosidade','A coxinha e o príncipe','O Historiador BR','3,8 mil'],
+      ['vida-animal-05-sucuri','curiosidade','Meses sem comer','Historiador Vida Animal','3,7 mil'],
+      ['futebol-03-japao-freguesia','esporte','Japão 3 x 2 Brasil','Historiador Futebol','3,5 mil'],
+      ['vida-animal-06-owen-mzee','curiosidade','Uma tartaruga como mãe','Historiador Vida Animal','3,4 mil'],
+      ['cadu-02-dempa-exit','dempa','A porta EXIT','Cadu Azeredo · DEMPA',''],
+      ['futebol-04-ceni-131-gols','esporte','O goleiro que fez 131 gols','Historiador Futebol','2,5 mil'],
+      ['historiador-04-submarino-titan','curiosidade','O submarino Titan','O Historiador BR','2,5 mil'],
+      ['espaco-01-voyager','curiosidade','A Voyager e o pálido ponto azul','Historiador Espaço','2,3 mil'],
+      ['espaco-02-vacuo','curiosidade','Um astronauta no vácuo','Historiador Espaço','1,3 mil'],
+      ['espaco-03-carro-no-espaco','curiosidade','Um carro no espaço','Historiador Espaço','1,2 mil'],
+      ['futebol-00-pele-guerra','esporte','Pelé parou uma guerra?','Historiador Futebol',''],
+      ['molde-01-ricardinho-guincho','curiosidade','Ricardinho e o guincho','Historiador Vida Animal',''],
+      ['molde-02-mel-hospital','curiosidade','Mel na porta do hospital','Historiador Vida Animal',''],
+      ['molde-03-arara-no-fio','curiosidade','A arara presa no fio','Historiador Vida Animal',''],
+      ['molde-04-mapa-assombros','curiosidade','Mapa dos Assombros','Historiador Vida Animal',''],
+      ['cadu-04-resultado-12-dias','dempa','O que 12 dias de canal deram','Cadu Azeredo · #COMEÇAR','']];
+    var NOME={turismo:'turismo',curiosidade:'curiosidade',esporte:'esporte',dempa:'cinema DEMPA'};
+    tr.innerHTML=PF.map(function(c){return '<figure class="pf-card" data-est="'+c[1]+'"><button class="pf-v" type="button" aria-pressed="false" aria-label="Ouvir com som: '+c[2]+'"><video src="/dempa/portfolio/'+c[0]+'.mp4" poster="/dempa/portfolio/'+c[0]+'.jpg" muted loop playsinline preload="none" width="540" height="960"></video><span class="pf-som" aria-hidden="true">♪ som</span></button><figcaption><span class="tag of">'+NOME[c[1]]+'</span><b>'+c[2]+'</b><span>'+c[3]+(c[4]?' · '+c[4]+' views':'')+'</span></figcaption></figure>'}).join('');
+    var cards=[].slice.call(tr.querySelectorAll('.pf-card')),conta=document.getElementById('pfConta');
+    function toca(v){if(reduz)return;var p=v.play();if(p&&p.catch)p.catch(function(){})}
+    var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting&&!e.target.closest('[hidden]'))toca(v);else v.pause()})},{root:tr,threshold:.6}):null;
+    cards.forEach(function(c){var v=c.querySelector('video'),b=c.querySelector('.pf-v');if(io)io.observe(v);
+      b.addEventListener('click',function(){var liga=v.muted;cards.forEach(function(o){var ov=o.querySelector('video');ov.muted=true;o.querySelector('.pf-v').setAttribute('aria-pressed','false')});
+        var rv=document.getElementById('pfRecap');if(rv&&liga){rv.muted=true}
+        if(liga){v.muted=false;v.currentTime=0;b.setAttribute('aria-pressed','true');var p=v.play();if(p&&p.catch)p.catch(function(){})}})});
+    // filtro por estilo
+    var FB=[].slice.call(document.querySelectorAll('[data-pf]'));
+    FB.forEach(function(b){b.addEventListener('click',function(){var q=b.dataset.pf,n=0;FB.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+      cards.forEach(function(c){var mostra=q==='todos'||c.dataset.est===q;c.hidden=!mostra;if(mostra)n++;else{var v=c.querySelector('video');v.pause();v.muted=true}});
+      if(conta)conta.textContent=n+(n===1?' corte':' cortes');tr.scrollLeft=0})});
+    if(conta)conta.textContent=cards.length+' cortes';
+    document.querySelectorAll('[data-pfseta]').forEach(function(b){b.addEventListener('click',function(){tr.scrollBy({left:(+b.dataset.pfseta)*tr.clientWidth*.8,behavior:reduz?'auto':'smooth'})})});
+    tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();tr.scrollBy({left:(e.key==='ArrowRight'?1:-1)*tr.clientWidth*.8,behavior:reduz?'auto':'smooth'})}});
+    // recap: toca mudo quando aparece; o botão liga o som
+    var rv=document.getElementById('pfRecap'),rb=document.getElementById('pfRecapSom');
+    if(rv){if(reduz)rv.controls=true;else if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)toca(rv);else rv.pause()})},{threshold:.4}).observe(rv);
+      if(rb)rb.addEventListener('click',function(){cards.forEach(function(o){o.querySelector('video').muted=true;o.querySelector('.pf-v').setAttribute('aria-pressed','false')});rv.muted=false;rv.currentTime=0;rv.controls=true;var p=rv.play();if(p&&p.catch)p.catch(function(){});rb.hidden=true})}})();
   // listas de espera
   // formulário do Formspree (o endereço é público, não é senha). A variável do Cloudflare, se existir, tem prioridade.
   var ENDPOINT=import.meta.env.VITE_LEAD_FORM_ENDPOINT||'https://formspree.io/f/xyewgwnv';
@@ -311,17 +365,19 @@ import IC from "./icones.json";
   function enviaLead(d,f){var hp=f&&f.querySelector('[name=_gotcha]');if(hp&&hp.value)return Promise.resolve(true);if(!ENDPOINT)return Promise.resolve(false);d.pagina=location.pathname;if(VIDEO)d.video=VIDEO;
     return fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)}).then(function(r){return r.ok}).catch(function(){return false})}
   // lista única: os interesses marcados viram etiqueta no envio
-  var CHIPS=[].slice.call(document.querySelectorAll('.chip'));
-  function quer(k){[].forEach.call(document.querySelectorAll('.chip'),function(c){c.setAttribute('aria-pressed',c.dataset.int===k?'true':'false')})}
+  var CHIPS=[].slice.call(document.querySelectorAll('.chip[data-int]'));
+  function quer(k){[].forEach.call(document.querySelectorAll('.chip[data-int]'),function(c){c.setAttribute('aria-pressed',c.dataset.int===k?'true':'false')})}
   CHIPS.forEach(function(c){c.addEventListener('click',function(){c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true')})});
   document.querySelectorAll('form.lista').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var bt=f.querySelector('button[type=submit]');
-    var ints=CHIPS.filter(function(c){return c.getAttribute('aria-pressed')==='true'}).map(function(c){return c.dataset.int});
+    var fixo=f.dataset.interesse,ints=fixo?[fixo]:CHIPS.filter(function(c){return c.getAttribute('aria-pressed')==='true'}).map(function(c){return c.dataset.int});
     var v=f.querySelector('.lista-erro');if(v)v.remove();
     function erro(t){var p=document.createElement('p');p.setAttribute('role','status');p.className='lista-erro';p.textContent=t;f.appendChild(p);return p}
     if(!ints.length){erro('Marque pelo menos um interesse.');return}
     bt.disabled=true;
-    enviaLead({email:f.querySelector('input[type=email]').value,interesse:ints.join(','),origem:'lista'},f).then(function(ok){
-      if(ok){var p=document.createElement('p');p.setAttribute('role','status');p.className='lista-ok';p.textContent='> anotado. eu te aviso primeiro_';
+    var dados={email:f.querySelector('input[type=email]').value,interesse:ints.join(','),origem:fixo?'portfolio':'lista'};
+    if(fixo)['nome','cidade','mensagem'].forEach(function(k){var c=f.querySelector('[name='+k+']');if(c)dados[k]=c.value.trim()});
+    enviaLead(dados,f).then(function(ok){
+      if(ok){var p=document.createElement('p');p.setAttribute('role','status');p.className='lista-ok';p.textContent=fixo?'> pedido recebido. eu respondo no seu e-mail_':'> anotado. eu te aviso primeiro_';
         if(ints.indexOf('wallpapers')>-1){var a=document.createElement('a');a.className='btn pri';a.href='/dempa/wallpapers-dempa.zip';a.setAttribute('download','');a.textContent='Baixar os wallpapers (10 MB)';p.appendChild(document.createElement('br'));p.appendChild(a)}
         f.replaceWith(p)}
       else{bt.disabled=false;var p2=erro('Não consegui anotar agora. Escreva para ');var m=document.createElement('a');m.href='mailto:caduazeredo@gmail.com';m.textContent='caduazeredo@gmail.com';p2.appendChild(m)}})})});

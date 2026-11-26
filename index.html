@@ -42,6 +42,7 @@
     <a class="aba" href="/specs" data-ir="specs"><svg class="px" data-ic="disquete" aria-hidden="true"></svg><span>Specs</span></a>
     <a class="aba" href="/comunidade" data-ir="comunidade"><svg class="px" data-ic="rede" aria-hidden="true"></svg><span>Comunidade</span></a>
     <a class="aba" href="/dempa" data-ir="dempa"><svg class="px" data-ic="pasta" aria-hidden="true"></svg><span>DEMPA</span></a>
+    <a class="aba" href="/portfolio" data-ir="portfolio"><svg class="px" data-ic="play" aria-hidden="true"></svg><span>Portfólio</span></a>
   </nav>
   <button class="rel" id="rel" type="button" aria-label="Trocar o céu do início">--:--</button>
 </div></header>
@@ -89,7 +90,7 @@
   <section class="sec" id="vitrineHome">
     <div class="sec-h"><h2>O nosso melhor</h2><span class="term">vitrine · 52 s</span></div>
     <div class="vit pequena"><video id="vitV" src="/dempa/video/vitrine-mudo.mp4" poster="/dempa/video/vitrine-poster.jpg" muted loop playsinline preload="none" width="856" height="720" aria-label="Vitrine: as cenas que eu mais gosto dos vídeos do canal, do preto e branco à cor"></video>
-      <div class="row"><button class="btn pri" type="button" id="vitSom">Ver com som</button><span class="nota">As cenas que eu mais gosto de editar, não as que deram mais view.</span></div></div>
+      <div class="row"><button class="btn pri" type="button" id="vitSom">Ver com som</button><a class="btn" href="/portfolio" data-ir="portfolio">Quero um vídeo assim</a><span class="nota">As cenas que eu mais gosto de editar, não as que deram mais view.</span></div></div>
   </section>
 
   <nav class="mesa" aria-label="Atalhos do site">
@@ -331,6 +332,76 @@
   </section>
 </div>
 
+<!-- PORTFÓLIO (edição e produção de vídeo para quem quer contratar) -->
+<div class="pg sec" id="portfolio" style="gap:48px">
+  <section class="pf-hero">
+    <div class="sec" style="gap:16px">
+      <span class="term" style="color:var(--fosforo)">C:\CADU&gt; portfolio.exe</span>
+      <h1>Portfólio</h1>
+      <p class="pf-sub">&gt; edição e produção de vídeo_</p>
+      <p>Eu edito e produzo vídeo todos os dias para a minha rede de canais. Agora também faço para você: Reels e Shorts para o seu negócio, vídeo de turismo e de evento, cortes de vídeo longo e a abertura do seu canal. Atendo em Palmas (TO) e a distância.</p>
+      <div class="placar"><div><b>137</b><span>vídeos feitos</span></div><div><b>200 mil+</b><span>visualizações</span></div><div><b>5</b><span>canais</span></div><p class="nota">Contagem de 25/11/2026. As visualizações são dos canais Historiador Vida Animal, Futebol e Espaço no YouTube.</p></div>
+      <div class="row"><a class="btn pri" href="#orcamento" data-rola="orcamento">Pedir orçamento</a><a class="btn" href="#estilos" data-rola="estilos">Ver os estilos</a></div>
+    </div>
+    <figure class="pf-recap">
+      <div class="pf-cel"><video id="pfRecap" src="/dempa/portfolio/recap.mp4" poster="/dempa/portfolio/recap.jpg" muted loop playsinline preload="none" width="720" height="1280" aria-label="Recap: o que eu fiz de 27/10 a 21/11, em 48 segundos"></video></div>
+      <figcaption><button class="btn" type="button" id="pfRecapSom">Ver com som</button><span class="nota">48 s com o que eu fiz de 27/10 a 21/11.</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="sec" id="estilos">
+    <div class="sec-h"><h2>O que já está no ar</h2><span class="term" id="pfConta">29 cortes</span></div>
+    <p>Trechos de vídeos que eu editei e que já saíram nos canais. Toque em um para ouvir com o som original.</p>
+    <div class="chips pf-filtro" role="group" aria-label="Filtrar por estilo"><button class="chip" type="button" data-pf="todos" aria-pressed="true">todos</button><button class="chip" type="button" data-pf="turismo" aria-pressed="false">turismo e natureza</button><button class="chip" type="button" data-pf="curiosidade" aria-pressed="false">curiosidade</button><button class="chip" type="button" data-pf="esporte" aria-pressed="false">esporte</button><button class="chip" type="button" data-pf="dempa" aria-pressed="false">cinema DEMPA</button></div>
+    <div class="pf-car">
+      <button class="pf-seta" type="button" data-pfseta="-1" aria-label="Voltar o carrossel">‹</button>
+      <div class="pf-trilho" id="pfTrilho" tabindex="0" aria-label="Carrossel de vídeos do portfólio"></div>
+      <button class="pf-seta" type="button" data-pfseta="1" aria-label="Avançar o carrossel">›</button>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>Os estilos</h2><span class="term">um para cada tipo de negócio</span></div>
+    <div class="pf-estilos">
+      <article class="pf-est"><svg class="px" data-ic="lua" aria-hidden="true"></svg><h3>Turismo e natureza</h3><p>Pôr do sol, cachoeira e rapel com cor tratada, ritmo calmo e mapa do lugar.</p><p class="nota">Para pousada, agência, guia de trilha e evento ao ar livre.</p></article>
+      <article class="pf-est"><svg class="px" data-ic="info" aria-hidden="true"></svg><h3>Curiosidade com gancho</h3><p>A pergunta nos primeiros segundos, foto real, mapa, 3D e legenda grande.</p><p class="nota">Para explicar um produto, contar a história da empresa ou tirar dúvida de cliente.</p></article>
+      <article class="pf-est"><svg class="px" data-ic="grafico" aria-hidden="true"></svg><h3>Esporte e números</h3><p>Placar, número grande na tela, foto de arquivo e corte no tempo da fala.</p><p class="nota">Para time, escolinha, academia e campeonato.</p></article>
+      <article class="pf-est"><svg class="px" data-ic="tv" aria-hidden="true"></svg><h3>Cinema DEMPA</h3><p>3D, chiado de fita, tela de tubo e clima de anos 90. O estilo do meu canal.</p><p class="nota">Para abertura de canal, vinheta, lançamento e clipe.</p></article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>Como funciona</h2><span class="term">você aprova antes de eu montar</span></div>
+    <div class="fluxo" role="img" aria-label="Como funciona: conversa e material, quadro das cenas para aprovar, edição, ajuste e entrega">
+      <div><b>01</b><span>você conta o que precisa e manda o material</span></div><i>›</i><div><b>02</b><span>eu mostro as cenas e o tempo de cada uma</span></div><i>›</i><div><b>03</b><span>edição com legenda, música e cor</span></div><i>›</i><div class="fim"><b>04</b><span>ajuste e entrega</span></div>
+    </div>
+    <ul class="pf-entrega">
+      <li>Vídeo vertical (Reels, Shorts, TikTok) e, se precisar, a versão deitada para YouTube e telão.</li>
+      <li>Legenda grande, que dá para ler sem som.</li>
+      <li>Música livre de direitos, para o vídeo não cair por direito autoral.</li>
+      <li>Capa e título, quando o vídeo vai para o YouTube.</li>
+      <li>O material pode ser do celular: vídeo, foto, logo e a ideia.</li>
+    </ul>
+  </section>
+
+  <section class="sec" id="orcamento">
+    <div class="win claro"><div class="win-bar"><span>orcamento.txt</span><span class="btns"><i></i><i></i><i></i></span></div><div class="win-body">
+      <h2>Pedir orçamento</h2>
+      <p>Conte o que você precisa. O preço depende do tamanho e da quantidade de vídeos, e eu respondo com o valor por e-mail.</p>
+      <form class="lista" id="pfForm" data-interesse="edicao">
+        <label class="pf-campo"><span>Nome</span><input name="nome" type="text" required maxlength="80" autocomplete="name"></label>
+        <label class="pf-campo"><span>E-mail</span><input name="email" type="email" required maxlength="254" placeholder="seu@email.com" autocomplete="email"></label>
+        <label class="pf-campo"><span>Cidade</span><input name="cidade" type="text" maxlength="60" placeholder="Palmas (TO)" autocomplete="address-level2"></label>
+        <label class="pf-campo pf-largo"><span>O que você precisa</span><textarea name="mensagem" required maxlength="1500" rows="4" placeholder="Ex.: 4 Reels por mês para a minha pousada, com o material que eu gravo no celular."></textarea></label>
+        <div class="hp" aria-hidden="true"><label>Não preencha<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+        <button class="btn pri" type="submit">Enviar pedido</button>
+        <label class="ck"><input type="checkbox" required> Aceito que o meu nome, e-mail e mensagem sejam usados só para responder este pedido. <a href="/privacidade" data-ir="privacidade">Privacidade</a></label>
+      </form>
+      <p class="nota">Prefere escrever direto? <a href="mailto:caduazeredo@gmail.com?subject=Or%C3%A7amento%20de%20v%C3%ADdeo">caduazeredo@gmail.com</a></p>
+    </div></div>
+  </section>
+</div>
+
 <!-- CÍRCULO POR DENTRO (prévia da área de quem entra) -->
 <div class="pg sec" id="membro" style="gap:28px">
   <section class="sec" style="gap:14px">
@@ -550,6 +621,7 @@
     <h3>2. O que é coletado</h3>
     <ul>
       <li><b>E-mail</b>, quando você entra numa lista de espera ou pede o e-book no quiz. Junto vai o interesse (specs, Círculo, wallpapers ou e-book) e, no quiz, o perfil que saiu.</li>
+      <li><b>Pedido de orçamento</b> (aba Portfólio): nome, e-mail, cidade e a mensagem que você escreve. Servem só para eu responder o pedido.</li>
       <li><b>Dados de compra</b>. Pagamento, nome e e-mail ficam com a Kiwify, que processa a compra. Eu recebo só o necessário para liberar o acesso.</li>
       <li><b>Navegação</b>: a hospedagem mede visitas de forma agregada, sem cookie de identificação e sem perfil individual. Não há pixel de rede social nem remarketing.</li>
       <li>O quiz roda inteiro no seu navegador. As respostas não saem dele, a não ser o perfil, se você pedir o e-book.</li>
@@ -566,7 +638,7 @@
 
     <h3>5. Com quem é compartilhado</h3>
     <ul>
-      <li><b>Formspree</b>: recebe o e-mail das listas e do quiz. Servidores nos Estados Unidos.</li>
+      <li><b>Formspree</b>: recebe o e-mail das listas e do quiz e os pedidos de orçamento. Servidores nos Estados Unidos.</li>
       <li><b>Cloudflare</b>: hospedagem e medição agregada de visitas. Servidores fora do Brasil.</li>
       <li><b>Kiwify</b>: pagamento e entrega das compras.</li>
     </ul>
@@ -592,7 +664,7 @@
 
 <footer><div class="in">
   <div class="row"><svg viewBox="0 0 200 140" aria-hidden="true" data-simb="1"></svg><span class="term">cadu azeredo · 2026</span></div>
-  <nav aria-label="Rodapé"><a href="/" data-ir="inicio">início</a><a href="/canal" data-ir="canal">canal</a><a href="/specs" data-ir="specs">specs</a><a href="/dempa" data-ir="dempa">dempa</a><a href="/comunidade" data-ir="comunidade">comunidade</a><a href="/#apoiar" data-ir="inicio" data-rola="apoiar">apoiar</a><a href="/privacidade" data-ir="privacidade">privacidade</a><a href="/termos" data-ir="termos">termos</a></nav>
+  <nav aria-label="Rodapé"><a href="/" data-ir="inicio">início</a><a href="/canal" data-ir="canal">canal</a><a href="/specs" data-ir="specs">specs</a><a href="/dempa" data-ir="dempa">dempa</a><a href="/comunidade" data-ir="comunidade">comunidade</a><a href="/portfolio" data-ir="portfolio">portfólio</a><a href="/#apoiar" data-ir="inicio" data-rola="apoiar">apoiar</a><a href="/privacidade" data-ir="privacidade">privacidade</a><a href="/termos" data-ir="termos">termos</a></nav>
   <p class="credito term">visual <a href="/dempa" data-ir="dempa">DEMPA</a> · tema autoral de cadu azeredo, feito à mão para este site e para os canais</p>
 </div></footer>
 <div class="robo" id="robo"><span class="robo-tip" id="roboTip">&gt; qual canal combina com você? 2 perguntas_</span><button class="robo-b" id="roboB" type="button" aria-expanded="false" aria-controls="chat" aria-label="Abrir o quiz do Bob"><canvas id="roboC" width="32" height="32"></canvas></button></div>
